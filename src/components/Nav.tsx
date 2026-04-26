@@ -1,10 +1,7 @@
 import { useScrollNav } from '../hooks/useScrollNav'
+import { ThemeToggle } from './ThemeToggle'
 import styles from './Nav.module.css'
-import { ThemeToggle } from './ThemeToggle'  // add this import
 
-// Inside the return, add <ThemeToggle /> before the CTA:
-<ThemeToggle />
-<a href="#cta" className={styles.cta}>Start a Project</a>
 export function Nav() {
   useScrollNav('#nav', styles.scrolled)
 
@@ -18,6 +15,7 @@ export function Nav() {
         <li><a href="#pricing">Engage</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
+      <ThemeToggle />
       <a href="#cta" className={styles.cta}>Start a Project</a>
     </nav>
   )
