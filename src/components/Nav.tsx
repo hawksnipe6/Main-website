@@ -1,6 +1,10 @@
 import { useScrollNav } from '../hooks/useScrollNav'
 import styles from './Nav.module.css'
+import { ThemeToggle } from './ThemeToggle'  // add this import
 
+// Inside the return, add <ThemeToggle /> before the CTA:
+<ThemeToggle />
+<a href="#cta" className={styles.cta}>Start a Project</a>
 export function Nav() {
   useScrollNav('#nav', styles.scrolled)
 
