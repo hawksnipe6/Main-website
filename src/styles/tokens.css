@@ -1,0 +1,53 @@
+:root {
+  /* Palette — default is LIGHT */
+  --noc-black:   #F5F4F0;
+  --noc-white:   #0D0D0D;
+  --noc-grey-1:  #E8E7E3;
+  --noc-grey-2:  #D0CFCB;
+  --noc-grey-3:  #AAAAAA;
+  --noc-grey-4:  #888888;
+  --noc-grey-5:  #555555;
+  --noc-grey-6:  #2A2A2A;
+
+  /* Nav blur bg — light */
+  --noc-nav-bg: rgba(245, 244, 240, 0.92);
+
+  /* Typography */
+  --noc-font: 'Host Grotesk', sans-serif;
+
+  /* Spacing (base-8) */
+  --space-1:  8px;
+  --space-2:  16px;
+  --space-3:  24px;
+  --space-4:  32px;
+  --space-5:  40px;
+  --space-6:  48px;
+  --space-8:  64px;
+  --space-10: 80px;
+  --space-12: 96px;
+  --space-15: 120px;
+
+  /* Layout */
+  --gutter: 60px;
+  --max-width: 1440px;
+}
+
+[data-theme='dark'] {
+  --noc-black:   #0D0D0D;
+  --noc-white:   #F5F4F0;
+  --noc-grey-1:  #1A1A1A;
+  --noc-grey-2:  #2A2A2A;
+  --noc-grey-3:  #444444;
+  --noc-grey-4:  #666666;
+  --noc-grey-5:  #999999;
+  --noc-grey-6:  #CCCCCC;
+
+  /* Nav blur bg — dark */
+  --noc-nav-bg: rgba(13, 13, 13, 0.92);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --gutter: 24px;
+  }
+}
