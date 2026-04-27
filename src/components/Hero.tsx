@@ -1,8 +1,12 @@
 import styles from './Hero.module.css'
+import { HeroBg } from './HeroBg'
 
 export function Hero() {
   return (
     <section id="hero" className={styles.hero}>
+      {/* Scroll-scrubbed video background */}
+      <HeroBg />
+
       <div className={styles.gridLine} aria-hidden="true" />
 
       <div className={styles.left}>

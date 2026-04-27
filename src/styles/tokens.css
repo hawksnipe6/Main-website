@@ -9,6 +9,9 @@
   --noc-grey-5:  #555555;
   --noc-grey-6:  #2A2A2A;
 
+  /* Raw RGB for rgba() usage */
+  --noc-black-raw: 245, 244, 240;
+
   /* Nav blur bg — light */
   --noc-nav-bg: rgba(245, 244, 240, 0.92);
 
@@ -47,6 +50,9 @@
   --noc-grey-4:  #666666;
   --noc-grey-5:  #999999;
   --noc-grey-6:  #CCCCCC;
+
+  /* Raw RGB for rgba() usage */
+  --noc-black-raw: 13, 13, 13;
 
   /* Nav blur bg — dark */
   --noc-nav-bg: rgba(13, 13, 13, 0.92);
