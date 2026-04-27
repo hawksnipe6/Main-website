@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://nocturnal.studio/sitemap.xml
+Sitemap: https://www.getnctrnl.com/sitemap.xml
