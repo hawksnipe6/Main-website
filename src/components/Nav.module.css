@@ -219,3 +219,10 @@
     display: flex;
   }
 }
+
+/* Hide nav CTA on mobile — it lives in the drawer instead */
+@media (max-width: 1024px) {
+  .ctaDesktop {
+    display: none;
+  }
+}

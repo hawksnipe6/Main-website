@@ -55,7 +55,7 @@ export function Nav() {
 
         {/* Right */}
         <div className={styles.right}>
-          <a href="#cta" className={styles.cta} onClick={close}>Start a Project</a>
+          <a href="#cta" className={`${styles.cta} ${styles.ctaDesktop}`} onClick={close}>Start a Project</a>
           {/* Hamburger — mobile only */}
           <button
             className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ''}`}
