@@ -1,9 +1,10 @@
+'use client';
 import styles from './CTAAndFooter.module.css';
 
 const NAV = ['Work', 'About', 'Process', 'Pricing', 'FAQ'];
 const SOCIALS = [
-  { glyph: '𝕏',  href: '#', label: 'Twitter'  },
-  { glyph: 'Be', href: 'https://www.behance.net/abeermahad064c', label: 'Behance'  },
+  { glyph: '𝕏',  href: '#',                                         label: 'Twitter'  },
+  { glyph: 'Be', href: 'https://www.behance.net/abeermahad064c',    label: 'Behance'  },
   { glyph: 'in', href: 'https://www.linkedin.com/in/abeermahadane44', label: 'LinkedIn' },
 ];
 
@@ -29,43 +30,34 @@ export function CTABanner({ onPress }: { onPress: () => void }) {
   );
 }
 
-export function Footer() {
+export function Footer({ onCTA }: { onCTA?: () => void }) {
   return (
     <footer className={styles.footer}>
       <div className="container">
         <div className={styles.top}>
-          {/* Brand */}
           <div className={styles.brand}>
             <span className={styles.wordmark}>Nocturnal</span>
             <p className={styles.tagline}>Phygital design studio.<br />Mumbai · Global.</p>
             <div className={styles.socials}>
               {SOCIALS.map(s => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.socialBtn}
-                  aria-label={s.label}
-                >
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                  className={styles.socialBtn} aria-label={s.label}>
                   {s.glyph}
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Nav */}
           <div>
             <p className={styles.colLabel}>Navigation</p>
             {NAV.map(l => <p key={l} className={styles.navLink}>{l}</p>)}
           </div>
 
-          {/* Contact */}
           <div>
             <p className={styles.colLabel}>Contact</p>
             <a href="https://www.behance.net/abeermahad064c" target="_blank" rel="noopener noreferrer" className={styles.navLink}>Behance ↗</a>
             <a href="https://www.linkedin.com/in/abeermahadane44" target="_blank" rel="noopener noreferrer" className={styles.navLink}>LinkedIn ↗</a>
-            <p className={styles.navLink} style={{ cursor: 'pointer' }}>Book a Call ↗</p>
+            <button className={styles.navLinkBtn} onClick={onCTA}>Book a Call ↗</button>
           </div>
         </div>
 

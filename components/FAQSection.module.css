@@ -12,9 +12,9 @@
   color: var(--white);
 }
 
-.list { border-top: 1px solid var(--black-border); }
+.list { border-top: 1px solid var(--border); }
 
-.item { border-bottom: 1px solid var(--black-border); }
+.item { border-bottom: 1px solid var(--border); }
 
 .row {
   width: 100%;

@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: #0a0a0a;
+  background: var(--bg-sunken);
 }
 
 .bg {
@@ -13,14 +13,19 @@
   background-image: url('https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?q=80&w=1920&auto=format&fit=crop');
   background-size: cover;
   background-position: center;
-  opacity: 0.42;
+  opacity: 0.3;
+  transition: opacity var(--t-mid);
 }
+
+[data-theme="light"] .bg { opacity: 0.12; }
 
 .vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 30%, rgba(11,11,11,0.6) 100%);
+  background: radial-gradient(ellipse at center, transparent 30%, var(--bg-sunken) 100%);
+  opacity: 0.7;
   pointer-events: none;
+  transition: opacity var(--t-mid);
 }
 
 .orb {
@@ -30,8 +35,8 @@
   width: 320px;
   height: 320px;
   border-radius: 50%;
-  background: rgba(245,244,240,0.035);
-  border: 1px solid rgba(245,244,240,0.06);
+  background: rgba(245,244,240,0.03);
+  border: 1px solid rgba(245,244,240,0.05);
   animation: pulse-orb 4.5s ease-in-out infinite;
   pointer-events: none;
 }
@@ -44,17 +49,15 @@
   align-items: center;
   text-align: center;
   padding: 88px 0 96px;
-  gap: 0;
 }
 
 .eyebrow {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--grey2);
+  color: var(--text-meta);
   font-size: 11px;
   font-weight: 400;
-  letter-spacing: 0.6px;
   margin-bottom: 20px;
   animation: fade-up 0.7s var(--ease) both;
 }
@@ -62,22 +65,22 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--grey2);
+  background: var(--text-meta);
   flex-shrink: 0;
 }
 
 .title {
   font-size: clamp(36px, 5.5vw, 62px);
-  font-weight: 700;
-  line-height: 1.12;
-  color: var(--white);
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text-primary);
   max-width: 900px;
   margin-bottom: 18px;
   animation: fade-up 0.8s 0.1s var(--ease) both;
 }
 
 .subtitle {
-  color: var(--grey1);
+  color: var(--text-body);
   font-size: clamp(14px, 1.5vw, 17px);
   line-height: 1.6;
   max-width: 440px;
@@ -98,13 +101,13 @@
 .ghostCta {
   background: none;
   border: none;
-  color: var(--grey1);
+  color: var(--text-body);
   font-family: var(--font-body);
   font-size: 14px;
   cursor: pointer;
   transition: color var(--t-fast);
 }
-.ghostCta:hover { color: var(--white); }
+.ghostCta:hover { color: var(--text-primary); }
 
 .pills {
   display: flex;
@@ -116,14 +119,13 @@
 .pill {
   padding: 7px 14px;
   border-radius: var(--r-pill);
-  border: 1px solid var(--black-border);
-  background: rgba(22,22,22,0.85);
-  color: var(--grey1);
+  border: 1px solid var(--border);
+  background: var(--bg-raised);
+  color: var(--text-body);
   font-size: 11px;
   font-weight: 400;
 }
 
-/* Scroll hint */
 .scrollHint {
   position: absolute;
   bottom: 28px;
@@ -139,7 +141,7 @@
   width: 22px;
   height: 34px;
   border-radius: 11px;
-  border: 1.5px solid var(--grey2);
+  border: 1.5px solid var(--text-meta);
   display: flex;
   justify-content: center;
   padding-top: 6px;
@@ -149,14 +151,10 @@
   width: 3px;
   height: 6px;
   border-radius: 1.5px;
-  background: var(--grey2);
+  background: var(--text-meta);
   animation: bob 1.4s ease-in-out infinite;
 }
-.scrollLabel {
-  color: var(--grey2);
-  font-size: 10px;
-  letter-spacing: 0.5px;
-}
+.scrollLabel { color: var(--text-meta); font-size: 10px; }
 
 /* Stats bar */
 .statsBar {
@@ -164,9 +162,8 @@
   justify-content: space-around;
   flex-wrap: wrap;
   padding: 24px var(--px);
-  border-bottom: 1px solid var(--black-border);
-  background: var(--black-card);
-  gap: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
 }
 .statItem {
   display: flex;
@@ -178,20 +175,17 @@
 .statValue {
   font-size: 22px;
   font-weight: 700;
-  color: var(--white);
+  color: var(--text-primary);
   margin-bottom: 2px;
 }
-.statLabel {
-  font-size: 11px;
-  color: var(--grey2);
-}
+.statLabel { font-size: 11px; color: var(--text-meta); }
 .statDivider {
   position: absolute;
   right: 0;
   top: 10%;
   height: 80%;
   width: 1px;
-  background: var(--black-border);
+  background: var(--border);
 }
 
 @media (max-width: 768px) {

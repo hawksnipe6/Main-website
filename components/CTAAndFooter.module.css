@@ -3,8 +3,8 @@
   position: relative;
   border-radius: var(--r-lg);
   overflow: hidden;
-  border: 1px solid var(--black-border);
-  background: var(--black-card);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
   min-height: 280px;
 }
 .ctaBg {
@@ -57,7 +57,7 @@
   flex-wrap: wrap;
   gap: 40px;
   padding-bottom: 36px;
-  border-bottom: 1px solid var(--black-border);
+  border-bottom: 1px solid var(--border);
   margin-bottom: 24px;
 }
 
@@ -69,7 +69,7 @@
 .socialBtn {
   width: 30px; height: 30px;
   border-radius: 50%;
-  border: 1px solid var(--black-border);
+  border: 1px solid var(--border);
   background: var(--grey5);
   display: flex; align-items: center; justify-content: center;
   color: var(--grey2);
@@ -108,3 +108,18 @@
 @media (max-width: 768px) {
   .ctaInner { padding: 28px; }
 }
+
+.navLinkBtn {
+  display: block;
+  background: none;
+  border: none;
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: 13px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  transition: color var(--t-fast);
+}
+.navLinkBtn:hover { color: var(--text-primary); }

@@ -16,8 +16,8 @@
 /* Feature cards */
 .featureGrid { align-items: stretch; }
 .featureCard {
-  background: var(--black-card);
-  border: 1px solid var(--black-border);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: var(--r-lg);
   overflow: hidden;
   display: flex;
@@ -26,7 +26,7 @@
 .featureMedia {
   height: 180px;
   background: var(--black);
-  border-bottom: 1px solid var(--black-border);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,8 +61,8 @@
   align-items: start;
 }
 .stepCard {
-  background: var(--black-card);
-  border: 1px solid var(--black-border);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: var(--r-lg);
   padding: 24px;
   display: flex;
@@ -72,7 +72,7 @@
 .stepBadge {
   width: 40px; height: 40px;
   border-radius: 50%;
-  border: 1px solid var(--black-border);
+  border: 1px solid var(--border);
   background: var(--grey5);
   display: flex; align-items: center; justify-content: center;
   color: var(--grey1);
@@ -92,8 +92,8 @@
 
 /* Benefits */
 .benefitCard {
-  background: var(--black-card);
-  border: 1px solid var(--black-border);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: var(--r-lg);
   padding: 22px;
   display: flex;
@@ -103,7 +103,7 @@
 .benefitIcon {
   width: 44px; height: 44px;
   border-radius: 50%;
-  border: 1px solid var(--black-border);
+  border: 1px solid var(--border);
   background: var(--grey5);
   display: flex; align-items: center; justify-content: center;
   font-size: 18px;
