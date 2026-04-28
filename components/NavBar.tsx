@@ -1,14 +1,12 @@
 'use client';
 import { useState } from 'react';
 import { NAV_LINKS, type NavKey } from '@/lib/content';
-import { useTheme } from '@/lib/theme';
 import styles from './NavBar.module.css';
 
-type Props = { onNavigate: (key: NavKey) => void; onCTA: () => void };
+type Props = { onNavigate: (key: NavKey) => void };
 
-export default function NavBar({ onNavigate, onCTA }: Props) {
+export default function NavBar({ onNavigate }: Props) {
   const [open, setOpen] = useState(false);
-  const { theme, toggle } = useTheme();
 
   const go = (key: NavKey) => { setOpen(false); onNavigate(key); };
 
@@ -22,26 +20,19 @@ export default function NavBar({ onNavigate, onCTA }: Props) {
           {NAV_LINKS.map(l => (
             <button key={l} className={styles.link} onClick={() => onNavigate(l)}>{l}</button>
           ))}
-          <button className="theme-toggle" onClick={toggle}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
-            {theme === 'dark' ? '○' : '●'}
+          <button className="btn btn-primary btn-sm" onClick={() => onNavigate('Pricing')}>
+            Book a Call
           </button>
-          <button className="btn btn-primary btn-sm" onClick={onCTA}>Book a Call</button>
         </div>
 
-        {/* Mobile right */}
-        <div className={styles.mobileRight}>
-          <button className="theme-toggle" onClick={toggle}
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
-            {theme === 'dark' ? '○' : '●'}
-          </button>
-          <button className={styles.hamburger} onClick={() => setOpen(v => !v)} aria-label="Menu">
-            <span className={styles.hamLine} style={{ width: 22 }} />
-            <span className={styles.hamLine} style={{ width: 16 }} />
-          </button>
-        </div>
+        {/* Mobile toggle */}
+        <button className={styles.hamburger} onClick={() => setOpen(v => !v)} aria-label="Menu">
+          <span className={styles.hamLine} style={{ width: 22 }} />
+          <span className={styles.hamLine} style={{ width: 16 }} />
+        </button>
       </nav>
 
+      {/* Mobile overlay */}
       {open && (
         <div className={styles.overlay}>
           <div className={styles.overlayTop}>
@@ -55,7 +46,7 @@ export default function NavBar({ onNavigate, onCTA }: Props) {
               </button>
             ))}
           </div>
-          <button className="btn btn-primary" onClick={() => { setOpen(false); onCTA(); }}>Book a Call</button>
+          <button className="btn btn-primary" onClick={() => go('Pricing')}>Book a Call</button>
           <p className={styles.overlayFooter}>Mumbai · Global</p>
         </div>
       )}

@@ -13,14 +13,14 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--border);
-  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--black-border);
+  border-left: 1px solid var(--black-border);
 }
 
 .cell {
   position: relative;
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--black-border);
+  border-bottom: 1px solid var(--black-border);
   padding: 24px;
   background: var(--black);
   display: flex;

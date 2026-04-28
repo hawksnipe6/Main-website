@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { plans, type Plan } from '@/lib/content';
 import styles from './PricingSection.module.css';
 
-function PricingCard({ plan, billing, onCTA }: { plan: Plan; billing: 'monthly' | 'yearly'; onCTA: () => void }) {
+function PricingCard({ plan, billing }: { plan: Plan; billing: 'monthly' | 'yearly' }) {
   const price  = billing === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice;
   const period = plan.period;
 
@@ -13,22 +13,26 @@ function PricingCard({ plan, billing, onCTA }: { plan: Plan; billing: 'monthly' 
         <span className={styles.planName}>{plan.name}</span>
         {plan.popular && <span className={styles.popularBadge}>Popular</span>}
       </div>
+
       <div className={styles.priceRow}>
         <span className={styles.price}>{price}</span>
         {period && <span className={styles.period}>{period}</span>}
       </div>
+
       <p className={styles.desc}>{plan.desc}</p>
+
       <button
         className={`btn ${plan.popular ? 'btn-primary' : 'btn-secondary'} ${styles.cta}`}
-        onClick={onCTA}
       >
         {plan.cta}
       </button>
+
       <div className={styles.dividerRow}>
         <div className={styles.dividerLine} />
         <span className={styles.dividerLabel}>Includes</span>
         <div className={styles.dividerLine} />
       </div>
+
       <ul className={styles.features}>
         {plan.features.map(f => (
           <li key={f} className={styles.feature}>
@@ -41,9 +45,8 @@ function PricingCard({ plan, billing, onCTA }: { plan: Plan; billing: 'monthly' 
   );
 }
 
-export default function PricingSection({ onCTA }: { onCTA?: () => void }) {
+export default function PricingSection() {
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
-  const handleCTA = onCTA ?? (() => {});
 
   return (
     <section className="section" id="pricing">
@@ -52,18 +55,29 @@ export default function PricingSection({ onCTA }: { onCTA?: () => void }) {
           <span className="label">Pricing</span>
           <h2 className={styles.title}>Choose the plan that<br />matches your ambition.</h2>
         </div>
+
+        {/* Billing toggle */}
         <div className={styles.toggle}>
-          <span className={`${styles.toggleLabel} ${billing === 'monthly' ? styles.toggleLabelActive : ''}`}>Monthly</span>
-          <button className={styles.track} onClick={() => setBilling(b => b === 'monthly' ? 'yearly' : 'monthly')} aria-label="Toggle billing">
+          <span className={`${styles.toggleLabel} ${billing === 'monthly' ? styles.toggleLabelActive : ''}`}>
+            Monthly
+          </span>
+          <button
+            className={styles.track}
+            onClick={() => setBilling(b => b === 'monthly' ? 'yearly' : 'monthly')}
+            aria-label="Toggle billing period"
+          >
             <span className={`${styles.thumb} ${billing === 'yearly' ? styles.thumbRight : ''}`} />
           </button>
-          <span className={`${styles.toggleLabel} ${billing === 'yearly' ? styles.toggleLabelActive : ''}`}>Yearly</span>
+          <span className={`${styles.toggleLabel} ${billing === 'yearly' ? styles.toggleLabelActive : ''}`}>
+            Yearly
+          </span>
           <span className={styles.saveBadge}>Save 20%</span>
         </div>
+
         <div className={`grid-3 ${styles.grid}`}>
           {plans.map((plan, i) => (
             <div key={plan.name} className="reveal" style={{ transitionDelay: `${i * 90}ms` }}>
-              <PricingCard plan={plan} billing={billing} onCTA={handleCTA} />
+              <PricingCard plan={plan} billing={billing} />
             </div>
           ))}
         </div>
