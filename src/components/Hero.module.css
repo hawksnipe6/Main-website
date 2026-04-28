@@ -3,9 +3,6 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  /* break out of body site-padding */
-  margin-left: calc(-1 * var(--site-padding));
-  margin-right: calc(-1 * var(--site-padding));
   overflow: hidden;
   border-bottom: 1px solid var(--noc-grey-2);
 }

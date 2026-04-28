@@ -16,8 +16,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   letter-spacing: 0;
-  padding-left: var(--site-padding);
-  padding-right: var(--site-padding);
 }
 
 a {
@@ -38,7 +36,7 @@ button {
 }
 
 section {
-  padding: var(--section-padding-v, 140px) var(--gutter);
+  padding: var(--section-padding-v, 140px) calc(var(--gutter) + var(--site-padding));
   border-bottom: 1px solid var(--noc-grey-2);
   max-width: var(--max-width);
   margin-left: auto;
