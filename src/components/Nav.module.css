@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  padding: 0 var(--gutter);
+  padding: 0 calc(var(--gutter) + var(--site-padding));
   height: 72px;
   border-bottom: 1px solid transparent;
   transition: border-color 0.3s, background 0.3s;
@@ -21,9 +21,9 @@
 /* ── LEFT ─────────────────────────────────── */
 .left {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
 }
 
 .logo {
@@ -115,7 +115,7 @@
 .progressBar {
   height: 100%;
   width: 0%;
-  background: var(--noc-white);
+  background: var(--noc-accent);
   transition: width 0.05s linear;
   border-radius: 0 2px 2px 0;
 }

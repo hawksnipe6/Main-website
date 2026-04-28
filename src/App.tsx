@@ -12,8 +12,10 @@ import { Faq } from './components/Faq'
 import { Cta } from './components/Cta'
 import { Footer } from './components/Footer'
 import { CustomCursor } from './components/CustomCursor'
+import { useSmoothScroll } from './hooks/useSmoothScroll'
 
 export default function App() {
+  useSmoothScroll()
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

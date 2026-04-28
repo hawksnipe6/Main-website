@@ -9,6 +9,10 @@
   --noc-grey-5:  #555555;
   --noc-grey-6:  #2A2A2A;
 
+  /* Secondary — 10% accent (Nocturnal orange) */
+  --noc-accent:        #E8612A;
+  --noc-accent-subtle: rgba(232, 97, 42, 0.12);
+
   /* Nav blur bg — light */
   --noc-nav-bg: rgba(245, 244, 240, 0.92);
 
@@ -33,9 +37,10 @@
 
   /* Layout */
   --gutter: 60px;
+  --site-padding: 40px;
   --max-width: 1440px;
-  --page-padding-top: 100px;    /* space below fixed nav */
-  --section-padding-v: 140px;   /* vertical section breathing room */
+  --page-padding-top: 100px;
+  --section-padding-v: 140px;
 }
 
 [data-theme='dark'] {
@@ -48,10 +53,11 @@
   --noc-grey-5:  #999999;
   --noc-grey-6:  #CCCCCC;
 
-  /* Nav blur bg — dark */
+  --noc-accent:        #E8612A;
+  --noc-accent-subtle: rgba(232, 97, 42, 0.12);
+
   --noc-nav-bg: rgba(13, 13, 13, 0.92);
 
-  /* Cursor — visible on dark bg */
   --noc-cursor:        #F5F4F0;
   --noc-cursor-border: #F5F4F0;
 }
@@ -59,11 +65,7 @@
 @media (max-width: 768px) {
   :root {
     --gutter: 24px;
-  }
-}
-
-@media (max-width: 768px) {
-  :root {
+    --site-padding: 20px;
     --section-padding-v: 80px;
   }
 }

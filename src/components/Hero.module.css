@@ -51,21 +51,21 @@
   display: block;
   width: 24px;
   height: 1px;
-  background: var(--noc-grey-4);
+  background: var(--noc-accent);
 }
 
 .headline {
   font-size: clamp(52px, 6vw, 88px);
-  font-weight: 800;
+  font-weight: 500;
   line-height: 1.0;
   color: var(--noc-white);
   margin-bottom: var(--space-6);
 }
 
 .headline em {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--noc-grey-5);
+  font-style: normal;
+  font-weight: 500;
+  color: var(--noc-white);
 }
 
 .sub {
@@ -86,8 +86,8 @@
 .btnPrimary {
   font-size: 13px;
   font-weight: 600;
-  color: var(--noc-black);
-  background: var(--noc-white);
+  color: #F5F4F0;
+  background: var(--noc-accent);
   padding: 14px 32px;
   border-radius: 999px;
   display: inline-block;

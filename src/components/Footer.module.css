@@ -16,22 +16,22 @@
 /* Col 1 — left aligned (default) */
 .colBrand {}
 
-/* Col 2 — centre aligned */
+/* Col 2 — left aligned */
 .colCentre {
-  text-align: center;
+  text-align: left;
 }
 
 .colCentre .colLinks {
-  align-items: center;
+  align-items: flex-start;
 }
 
-/* Col 3 — right aligned */
+/* Col 3 — left aligned */
 .colRight {
-  text-align: right;
+  text-align: left;
 }
 
 .colRight .colLinks {
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .logo {

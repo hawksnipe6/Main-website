@@ -16,6 +16,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   letter-spacing: 0;
+  padding-left: var(--site-padding);
+  padding-right: var(--site-padding);
 }
 
 a {
@@ -64,7 +66,7 @@ section {
   content: '';
   width: 24px;
   height: 1px;
-  background: var(--noc-grey-4);
+  background: var(--noc-accent);
   flex-shrink: 0;
 }
 
