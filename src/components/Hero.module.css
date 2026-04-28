@@ -1,33 +1,89 @@
+/* ── SECTION SHELL ─────────────────────────── */
 .hero {
+  position: relative;
+  min-height: 100vh;
+  /* break out of body's site-padding so bg is truly full-bleed */
+  margin-left: calc(-1 * var(--site-padding));
+  margin-right: calc(-1 * var(--site-padding));
+  overflow: hidden;
+  border-bottom: 1px solid var(--noc-grey-2);
+}
+
+/* ── BACKGROUND STAGE (image + draggable N) ── */
+.bgStage {
+  position: absolute;
+  inset: 0;
+  background-image: url('/hero-bg.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+/* Dark-mode image treatment */
+[data-theme='dark'] .bgStage {
+  filter: brightness(0.45) saturate(0.6);
+}
+
+/* Light-mode: subtle overlay to keep text readable */
+.bgStage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(245, 244, 240, 0.78) 0%,
+    rgba(245, 244, 240, 0.55) 50%,
+    rgba(245, 244, 240, 0.30) 100%
+  );
+  pointer-events: none;
+}
+
+[data-theme='dark'] .bgStage::after {
+  background: linear-gradient(
+    to right,
+    rgba(13, 13, 13, 0.82) 0%,
+    rgba(13, 13, 13, 0.55) 50%,
+    rgba(13, 13, 13, 0.25) 100%
+  );
+}
+
+/* ── DRAGGABLE N ICON ──────────────────────── */
+.nIcon {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  z-index: 2;
+  width: 96px;
+  height: 96px;
+  transition: filter 0.2s;
+}
+
+.nIcon:active {
+  cursor: grabbing;
+}
+
+.nIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+[data-theme='dark'] .nIcon {
+  filter: invert(1);
+}
+
+/* ── CONTENT LAYER ─────────────────────────── */
+.content {
+  position: relative;
+  z-index: 3;
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: end;
-  padding: 0 var(--gutter) 100px;
-  position: relative;
-  border-bottom: 1px solid var(--noc-grey-2);
-}
-
-.gridLine {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.gridLine::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0; bottom: 0;
-  width: 1px;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    var(--noc-grey-2) 20%,
-    var(--noc-grey-2) 80%,
-    transparent
-  );
-  opacity: 0.4;
+  padding: 0 calc(var(--gutter) + var(--site-padding)) 100px;
 }
 
 .left {
@@ -38,12 +94,16 @@
 .eyebrow {
   font-size: 11px;
   font-weight: 500;
-  color: var(--noc-grey-4);
+  color: var(--noc-grey-5);
   text-transform: uppercase;
   margin-bottom: var(--space-5);
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+[data-theme='dark'] .eyebrow {
+  color: var(--noc-grey-4);
 }
 
 .eyebrow::before {
@@ -52,6 +112,7 @@
   width: 24px;
   height: 1px;
   background: var(--noc-accent);
+  flex-shrink: 0;
 }
 
 .headline {
@@ -60,12 +121,6 @@
   line-height: 1.0;
   color: var(--noc-white);
   margin-bottom: var(--space-6);
-}
-
-.headline em {
-  font-style: normal;
-  font-weight: 500;
-  color: var(--noc-white);
 }
 
 .sub {
@@ -109,6 +164,7 @@
 .btnGhost::after { content: '→'; }
 .btnGhost:hover { color: var(--noc-white); }
 
+/* ── STATS PANEL ──────────────────────────── */
 .right {
   padding-top: 200px;
   display: flex;
@@ -118,16 +174,31 @@
 .statRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-top: 1px solid var(--noc-grey-2);
+  border-top: 1px solid rgba(0,0,0,0.12);
+  background: rgba(245, 244, 240, 0.55);
+  backdrop-filter: blur(8px);
+}
+
+[data-theme='dark'] .statRow {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: rgba(13, 13, 13, 0.55);
 }
 
 .statRow:last-child {
-  border-bottom: 1px solid var(--noc-grey-2);
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+
+[data-theme='dark'] .statRow:last-child {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .stat {
   padding: 28px 32px;
-  border-right: 1px solid var(--noc-grey-2);
+  border-right: 1px solid rgba(0,0,0,0.12);
+}
+
+[data-theme='dark'] .stat {
+  border-right: 1px solid rgba(255,255,255,0.08);
 }
 
 .stat:last-child {
@@ -145,11 +216,12 @@
 .statLabel {
   font-size: 12px;
   font-weight: 400;
-  color: var(--noc-grey-4);
+  color: var(--noc-grey-5);
 }
 
+/* ── RESPONSIVE ───────────────────────────── */
 @media (max-width: 1024px) {
-  .hero {
+  .content {
     grid-template-columns: 1fr;
     padding-top: 160px;
     padding-bottom: 80px;
@@ -164,6 +236,4 @@
   .right {
     padding-top: var(--space-8);
   }
-
-  .gridLine { display: none; }
 }
