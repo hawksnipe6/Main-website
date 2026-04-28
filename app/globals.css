@@ -2,13 +2,13 @@
 
 /* ═══════════════════════════════════════════════
    NOCTURNAL — Design System
-   Monochromatic. Hierarchy through scale + weight.
-   Zero accent colour. Zero tracking.
+   Monochromatic + 10% secondary colour (warm sand)
+   used strategically on stats, highlights, accents.
    Dark default · Light via [data-theme="light"]
 ═══════════════════════════════════════════════ */
 
-/* ── Dark mode (default) ─────────────────────── */
 :root {
+  /* Surfaces */
   --bg:           #0D0D0D;
   --bg-card:      #111111;
   --bg-sunken:    #0A0A0A;
@@ -16,18 +16,25 @@
   --border:       #1E1E1E;
   --border-mid:   #2A2A2A;
 
+  /* Text */
   --text-primary: #F5F4F0;
   --text-body:    #CCCCCC;
   --text-meta:    #666666;
   --text-muted:   #3A3A3A;
 
-  --btn-bg:       #F5F4F0;
-  --btn-text:     #0D0D0D;
-  --btn-sec-bg:   transparent;
-  --btn-sec-text: #F5F4F0;
+  /* Secondary — 10% warm sand, used sparingly */
+  --secondary:        #C8A96E;
+  --secondary-dim:    rgba(200, 169, 110, 0.12);
+  --secondary-border: rgba(200, 169, 110, 0.22);
+
+  /* Buttons */
+  --btn-bg:         #F5F4F0;
+  --btn-text:       #0D0D0D;
+  --btn-sec-bg:     transparent;
+  --btn-sec-text:   #F5F4F0;
   --btn-sec-border: #1E1E1E;
 
-  /* Aliases kept for legacy component refs */
+  /* Legacy aliases */
   --black:        var(--bg);
   --black-card:   var(--bg-card);
   --black-border: var(--border);
@@ -41,7 +48,8 @@
   --font-display: 'Host Grotesk', sans-serif;
   --font-body:    'Host Grotesk', sans-serif;
 
-  --px:      clamp(20px, 4vw, 48px);
+  /* Layout — increased px for Change 6 padding */
+  --px:      clamp(28px, 5vw, 72px);
   --max:     1120px;
   --section: 96px;
 
@@ -70,13 +78,16 @@
   --text-meta:    #666666;
   --text-muted:   #AAAAAA;
 
-  --btn-bg:       #0D0D0D;
-  --btn-text:     #F5F4F0;
-  --btn-sec-bg:   transparent;
-  --btn-sec-text: #0D0D0D;
+  --secondary:        #9A6F30;
+  --secondary-dim:    rgba(154, 111, 48, 0.08);
+  --secondary-border: rgba(154, 111, 48, 0.18);
+
+  --btn-bg:         #0D0D0D;
+  --btn-text:       #F5F4F0;
+  --btn-sec-bg:     transparent;
+  --btn-sec-text:   #0D0D0D;
   --btn-sec-border: #DDDDD8;
 
-  /* Legacy aliases */
   --black:        var(--bg);
   --black-card:   var(--bg-card);
   --black-border: var(--border);
@@ -99,7 +110,9 @@
     color var(--t-mid) var(--ease);
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   background: var(--bg);
@@ -111,7 +124,6 @@ body {
   overflow-x: hidden;
 }
 
-/* No transition on transforms/opacity — keep animations snappy */
 .reveal, .reveal * {
   transition:
     opacity var(--t-slow) var(--ease),
@@ -124,7 +136,7 @@ body {
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 2px; }
-::selection { background: var(--border-mid); color: var(--text-primary); }
+::selection { background: var(--secondary-dim); color: var(--text-primary); }
 :focus-visible { outline: 1px solid var(--text-meta); outline-offset: 3px; }
 
 /* ── Layout ─────────────────────────────────── */
@@ -162,7 +174,7 @@ body {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--text-meta);
+  background: var(--secondary);
   flex-shrink: 0;
 }
 
@@ -203,10 +215,7 @@ body {
 }
 .btn:active { transform: scale(0.97); }
 
-.btn-primary {
-  background: var(--btn-bg);
-  color: var(--btn-text);
-}
+.btn-primary { background: var(--btn-bg); color: var(--btn-text); }
 .btn-primary:hover { opacity: 0.88; }
 
 .btn-secondary {
@@ -248,29 +257,37 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* ── Theme toggle icon ───────────────────────── */
+/* ── Theme toggle ────────────────────────────── */
 .theme-toggle {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 24px;
   border-radius: var(--r-pill);
   border: 1px solid var(--border);
   background: var(--bg-raised);
-  color: var(--text-meta);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  font-size: 15px;
+  position: relative;
   flex-shrink: 0;
-  transition:
-    border-color var(--t-fast),
-    color var(--t-fast),
-    background var(--t-fast);
+  transition: border-color var(--t-fast), background var(--t-fast);
 }
-.theme-toggle:hover {
-  border-color: var(--border-mid);
-  color: var(--text-primary);
+.theme-toggle:hover { border-color: var(--border-mid); }
+
+/* Sliding circle inside toggle */
+.theme-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  transition: left var(--t-mid) var(--ease), background var(--t-mid);
 }
+
+/* Dark mode: circle on RIGHT */
+.theme-toggle::after { left: calc(100% - 19px); }
+
+/* Light mode: circle on LEFT */
+[data-theme="light"] .theme-toggle::after { left: 3px; }
 
 @media (max-width: 768px) {
   .grid-3, .grid-2 { grid-template-columns: 1fr; }

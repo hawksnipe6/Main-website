@@ -3,8 +3,8 @@ import styles from './CTAAndFooter.module.css';
 
 const NAV = ['Work', 'About', 'Process', 'Pricing', 'FAQ'];
 const SOCIALS = [
-  { glyph: '𝕏',  href: '#',                                         label: 'Twitter'  },
-  { glyph: 'Be', href: 'https://www.behance.net/abeermahad064c',    label: 'Behance'  },
+  { glyph: '𝕏',  href: '#',                                           label: 'Twitter'  },
+  { glyph: 'Be', href: 'https://www.behance.net/abeermahad064c',      label: 'Behance'  },
   { glyph: 'in', href: 'https://www.linkedin.com/in/abeermahadane44', label: 'LinkedIn' },
 ];
 
@@ -35,6 +35,8 @@ export function Footer({ onCTA }: { onCTA?: () => void }) {
     <footer className={styles.footer}>
       <div className="container">
         <div className={styles.top}>
+
+          {/* Brand column */}
           <div className={styles.brand}>
             <span className={styles.wordmark}>Nocturnal</span>
             <p className={styles.tagline}>Phygital design studio.<br />Mumbai · Global.</p>
@@ -48,17 +50,21 @@ export function Footer({ onCTA }: { onCTA?: () => void }) {
             </div>
           </div>
 
-          <div>
-            <p className={styles.colLabel}>Navigation</p>
+          {/* Navigation column */}
+          <div className={styles.col}>
+            <p className={styles.colLabel}>Studio</p>
             {NAV.map(l => <p key={l} className={styles.navLink}>{l}</p>)}
           </div>
 
-          <div>
-            <p className={styles.colLabel}>Contact</p>
-            <a href="https://www.behance.net/abeermahad064c" target="_blank" rel="noopener noreferrer" className={styles.navLink}>Behance ↗</a>
-            <a href="https://www.linkedin.com/in/abeermahadane44" target="_blank" rel="noopener noreferrer" className={styles.navLink}>LinkedIn ↗</a>
-            <button className={styles.navLinkBtn} onClick={onCTA}>Book a Call ↗</button>
+          {/* Contact column */}
+          <div className={styles.col}>
+            <p className={styles.colLabel}>Engage</p>
+            <a href="https://www.behance.net/abeermahad064c" target="_blank" rel="noopener noreferrer" className={styles.navLink}>Pricing</a>
+            <a href="#" className={styles.navLink}>FAQ</a>
+            <a href="#" className={styles.navLink}>Start a Project</a>
+            <button className={styles.navLinkBtn} onClick={onCTA}>hello@nocturnal.studio</button>
           </div>
+
         </div>
 
         <div className={styles.bottom}>

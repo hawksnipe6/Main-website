@@ -8,11 +8,8 @@ export default function HeroSection({ onCTA }: Props) {
   return (
     <>
       <section className={styles.hero}>
-        {/* Background image */}
         <div className={styles.bg} />
         <div className={styles.vignette} />
-
-        {/* Ambient orb */}
         <div className={styles.orb} aria-hidden />
 
         <div className="container">
@@ -22,7 +19,13 @@ export default function HeroSection({ onCTA }: Props) {
               Phygital Design Studio · Mumbai
             </div>
 
-            <h1 className={styles.title}>{hero.title}</h1>
+            {/* Change 2 — three lines, no italic, no bold variation */}
+            <h1 className={styles.title}>
+              <span className={styles.titleLine}>Every brief</span>
+              <span className={styles.titleLine}>is a problem</span>
+              <span className={styles.titleLine}>to frame.</span>
+            </h1>
+
             <p className={styles.subtitle}>{hero.subtitle}</p>
 
             <div className={styles.ctaRow}>
@@ -42,7 +45,6 @@ export default function HeroSection({ onCTA }: Props) {
           </div>
         </div>
 
-        {/* Scroll hint */}
         <div className={styles.scrollHint} aria-hidden>
           <div className={styles.mouse}>
             <div className={styles.mouseDot} />
@@ -51,7 +53,7 @@ export default function HeroSection({ onCTA }: Props) {
         </div>
       </section>
 
-      {/* Stats bar */}
+      {/* Stats bar — secondary colour on values */}
       <div className={styles.statsBar}>
         {stats.map((s, i) => (
           <div key={s.label} className={styles.statItem}>

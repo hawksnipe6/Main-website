@@ -5,16 +5,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px var(--px);
+  padding: 14px var(--px);
   background: var(--bg);
   border-bottom: 1px solid var(--border);
   backdrop-filter: blur(12px);
+}
+
+/* Wordmark + toggle grouped together on the left */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .logo {
   font-size: 15px;
   font-weight: 800;
   color: var(--text-primary);
+  line-height: 1;
 }
 
 .desktop {
@@ -55,7 +63,6 @@
   background: var(--text-primary);
   border-radius: 1px;
   display: block;
-  transition: background var(--t-fast);
 }
 
 /* Mobile overlay */
@@ -66,13 +73,13 @@
   background: var(--bg);
   display: flex;
   flex-direction: column;
-  padding: 0 24px 32px;
+  padding: 0 var(--px) 32px;
 }
 .overlayTop {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 0;
+  padding: 16px 0;
   border-bottom: 1px solid var(--border);
   margin-bottom: 8px;
 }
