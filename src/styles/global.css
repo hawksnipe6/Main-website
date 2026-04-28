@@ -4,6 +4,12 @@
   padding: 0;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -42,6 +48,16 @@ section {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
+}
+
+
+/* Hero full-bleed override — must not be constrained by section max-width */
+section#hero {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding: 0 !important;
 }
 
 /* Full-bleed wrapper for sections that need edge-to-edge bg */
