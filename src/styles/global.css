@@ -64,7 +64,7 @@ section {
   content: '';
   width: 24px;
   height: 1px;
-  background: var(--noc-grey-4);
+  background: var(--noc-accent);
   flex-shrink: 0;
 }
 
@@ -83,12 +83,10 @@ section {
   max-width: 560px;
 }
 
-/* Reveal animation */
+/* Reveal — disabled, elements always visible */
 .reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+  transform: none;
 }
 
 .reveal.visible {
@@ -96,9 +94,9 @@ section {
   transform: none;
 }
 
-.reveal-d1 { transition-delay: 0.1s; }
-.reveal-d2 { transition-delay: 0.2s; }
-.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d1 { }
+.reveal-d2 { }
+.reveal-d3 { }
 
 /* Hide default cursor — desktop only */
 @media (hover: hover) and (pointer: fine) {

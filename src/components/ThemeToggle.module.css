@@ -23,9 +23,16 @@
   background: var(--noc-white);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
   display: block;
+  /* dark mode: knob sits at right */
+  transform: translateX(20px);
+}
+
+.dark .knob {
+  transform: translateX(20px);
+  background: var(--noc-black);
 }
 
 .light .knob {
-  transform: translateX(20px);
-  background: var(--noc-black);
+  transform: translateX(0px);
+  background: var(--noc-white);
 }

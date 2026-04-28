@@ -54,7 +54,7 @@
   display: block;
   width: 24px;
   height: 1px;
-  background: var(--noc-grey-4);
+  background: var(--noc-accent);
 }
 
 .headline {
