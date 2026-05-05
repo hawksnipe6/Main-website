@@ -48,34 +48,6 @@ const TIERS: PricingTierProps[] = [
       'Full brand guidelines',
     ],
   },
-],
-  },
-  {
-    name: 'Full System',
-    price: 'On enquiry',
-    note: 'Identity · Product · Motion',
-    features: [
-      'Everything in Foundation',
-      'Extended visual language',
-      'Product or UI design system',
-      'Motion and interaction logic',
-      '3D / physical collateral',
-      'Full brand guidelines',
-    ],
-    featured: true,
-  },
-  {
-    name: 'Retainer',
-    price: 'On enquiry',
-    note: 'Ongoing · Design Partner',
-    features: [
-      'Dedicated studio capacity',
-      'Monthly deliverable scope',
-      'Priority turnaround',
-      'Strategic review sessions',
-      'All disciplines available',
-    ],
-  },
 ]
 
 function Tier({ name, price, note, features, featured, onBooking }: PricingTierProps & { onBooking: () => void }) {
