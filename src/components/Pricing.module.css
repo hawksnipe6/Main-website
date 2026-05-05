@@ -1,42 +1,20 @@
-/* ── HEADER ──────────────────────────────── */
 .header {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
-  margin-bottom: 72px;
-  align-items: start;
+  margin-bottom: 80px;
+  align-items: end;
 }
 
-.headerRight {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding-top: 48px;
-}
-
-.budgetNote {
-  font-size: 13px;
-  color: var(--noc-grey-4);
-  line-height: 1.6;
-  padding-top: 16px;
-  border-top: 1px solid var(--noc-grey-2);
-}
-
-/* ── GRID ────────────────────────────────── */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border: 1px solid var(--noc-grey-2);
 }
 
-/* ── TIER CARD ───────────────────────────── */
 .tier {
-  padding: 40px 36px 36px;
+  padding: 48px 40px;
   border-right: 1px solid var(--noc-grey-2);
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  transition: background 0.2s;
 }
 
 .tier:last-child {
@@ -45,83 +23,54 @@
 
 .featured {
   background: var(--noc-white);
-  position: relative;
 }
 
-/* ── TIER TOP (phase + name) ─────────────── */
-.tierTop {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.phase {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--noc-accent);
-  letter-spacing: 0.08em;
-  font-variant-numeric: tabular-nums;
-}
-
-.tierName {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--noc-grey-4);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.featured .tierName {
-  color: var(--noc-grey-5);
-}
-
-/* ── BEST FOR ────────────────────────────── */
-.bestFor {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--noc-white);
-  line-height: 1.45;
-  margin-bottom: 24px;
-  min-height: 44px;
-}
-
-.featured .bestFor {
+.featured .tierName,
+.featured .tierPrice,
+.featured .tierNote,
+.featured .feature {
   color: var(--noc-black);
-}
-
-/* ── DIVIDER ─────────────────────────────── */
-.divider {
-  height: 1px;
-  background: var(--noc-grey-2);
-  margin-bottom: 20px;
 }
 
 .featured .divider {
   background: var(--noc-grey-3);
 }
 
-/* ── SCOPE TAG ───────────────────────────── */
-.scope {
+.tierName {
   display: block;
   font-size: 11px;
+  font-weight: 600;
   color: var(--noc-grey-4);
-  letter-spacing: 0.04em;
-  margin-bottom: 24px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
 }
 
-.featured .scope {
+.tierPrice {
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--noc-white);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.tierNote {
+  display: block;
+  font-size: 12px;
   color: var(--noc-grey-5);
+  margin-bottom: 40px;
 }
 
-/* ── FEATURES ────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--noc-grey-2);
+  margin-bottom: 32px;
+}
+
 .features {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  flex: 1;
-  margin-bottom: 32px;
+  gap: 14px;
 }
 
 .feature {
@@ -133,62 +82,25 @@
   line-height: 1.5;
 }
 
-.featured .feature {
-  color: var(--noc-grey-5);
-}
-
 .feature::before {
   content: '—';
-  color: var(--noc-grey-3);
+  color: var(--noc-grey-4);
   flex-shrink: 0;
   margin-top: 1px;
 }
 
-.featured .feature::before {
+.note {
+  margin-top: 40px;
+  font-size: 13px;
   color: var(--noc-grey-4);
+  line-height: 1.6;
+  max-width: 680px;
 }
 
-/* ── CTA ─────────────────────────────────── */
-.cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 11px 24px;
-  border-radius: 999px;
-  border: 1px solid var(--noc-grey-3);
-  color: var(--noc-grey-5);
-  transition: border-color 0.2s, color 0.2s;
-  align-self: flex-start;
-}
-
-.cta:hover {
-  border-color: var(--noc-white);
-  color: var(--noc-white);
-}
-
-.ctaFeatured {
-  background: var(--noc-accent);
-  border-color: var(--noc-accent);
-  color: #F5F4F0;
-}
-
-.ctaFeatured:hover {
-  opacity: 0.88;
-  border-color: var(--noc-accent);
-  color: #F5F4F0;
-}
-
-/* ── RESPONSIVE ──────────────────────────── */
 @media (max-width: 1024px) {
   .header {
     grid-template-columns: 1fr;
     gap: 40px;
-  }
-
-  .headerRight {
-    padding-top: 0;
   }
 
   .grid {
@@ -198,13 +110,5 @@
   .tier {
     border-right: none;
     border-bottom: 1px solid var(--noc-grey-2);
-  }
-
-  .tier:last-child {
-    border-bottom: none;
-  }
-
-  .bestFor {
-    min-height: unset;
   }
 }

@@ -5,6 +5,7 @@ import { Marquee } from './components/Marquee'
 import { About } from './components/About'
 import { Services } from './components/Services'
 import { Disciplines } from './components/Disciplines'
+import { Process } from './components/Process'
 import { Clients } from './components/Clients'
 import { Pricing } from './components/Pricing'
 import { Faq } from './components/Faq'
@@ -42,6 +43,7 @@ export default function App() {
         <About />
         <Services />
         <Disciplines />
+        <Process />
         <Clients />
         <Pricing />
         <Faq />
