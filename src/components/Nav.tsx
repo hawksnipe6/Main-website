@@ -11,7 +11,7 @@ const NAV_LINKS = [
   { label: 'FAQ',       href: '#faq' },
 ]
 
-export function Nav() {
+export function Nav({ onBooking }: { onBooking: () => void }) {
   useScrollNav('#nav', styles.scrolled)
   const progressRef = useRef<HTMLDivElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -55,7 +55,7 @@ export function Nav() {
 
         {/* Right */}
         <div className={styles.right}>
-          <a href="#cta" className={`${styles.cta} ${styles.ctaDesktop}`} onClick={close}>Start a Project</a>
+          <button className={`${styles.cta} ${styles.ctaDesktop}`} onClick={() => { close(); onBooking(); }}>Start a Project</button>
           {/* Hamburger — mobile only */}
           <button
             className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ''}`}
@@ -91,9 +91,9 @@ export function Nav() {
             </li>
           ))}
         </ul>
-        <a href="#cta" className={styles.drawerCta} onClick={close}>
+        <button className={styles.drawerCta} onClick={() => { close(); onBooking(); }}>
           Start a Project
-        </a>
+        </button>
       </div>
     </>
   )

@@ -112,3 +112,32 @@
     border-bottom: 1px solid var(--noc-grey-2);
   }
 }
+
+/* ── Tier CTA button ─────────────────── */
+.tierCta {
+  margin-top: auto;
+  padding-top: 24px;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-white);
+  background: none;
+  border: 1px solid var(--noc-grey-3);
+  border-radius: 999px;
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  margin-top: 32px;
+}
+.tierCta:hover {
+  border-color: var(--noc-white);
+}
+.tierCtaFeatured {
+  background: var(--noc-accent);
+  border-color: var(--noc-accent);
+  color: #F5F4F0;
+}
+.tierCtaFeatured:hover {
+  opacity: 0.88;
+  border-color: var(--noc-accent);
+}

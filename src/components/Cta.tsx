@@ -1,6 +1,6 @@
 import styles from './Cta.module.css'
 
-export function Cta() {
+export function Cta({ onBooking }: { onBooking: () => void }) {
   return (
     <section id="cta" className={styles.cta}>
       <div>
@@ -12,9 +12,9 @@ export function Cta() {
           Send us a brief. We will ask the right questions and tell you whether we are
           the right fit. No pitch decks. No pressure. The first conversation costs nothing.
         </p>
-        <a href="mailto:hello@nocturnal.studio" className={styles.btn}>
-          Start a Conversation
-        </a>
+        <button className={styles.btn} onClick={onBooking}>
+          Book a Call
+        </button>
       </div>
     </section>
   )

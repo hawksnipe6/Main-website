@@ -226,3 +226,11 @@
     display: none;
   }
 }
+
+/* Allow button elements to inherit CTA styles */
+button.cta,
+button.drawerCta {
+  font-family: var(--noc-font);
+  cursor: pointer;
+  border: none;
+}

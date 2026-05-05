@@ -1,6 +1,6 @@
 import styles from './Hero.module.css'
 
-export function Hero() {
+export function Hero({ onBooking }: { onBooking: () => void }) {
   return (
     <section id="hero" className={styles.hero}>
       <div className={styles.bg} aria-hidden="true" />
@@ -16,7 +16,7 @@ export function Hero() {
             and solution-design system. We design the rules, then build the instances.
           </p>
           <div className={`${styles.actions} reveal reveal-d3`}>
-            <a href="#cta" className={styles.btnPrimary}>Start a Project</a>
+            <button className={styles.btnPrimary} onClick={onBooking}>Start a Project</button>
             <a href="#about" className={styles.btnGhost}>How we work</a>
           </div>
         </div>
