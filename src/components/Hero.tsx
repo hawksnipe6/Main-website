@@ -9,7 +9,7 @@ export function Hero({ onBooking }: { onBooking: () => void }) {
         <div className={styles.left}>
           <div className={`${styles.eyebrow} reveal`}>Design Intelligence Studio</div>
           <h1 className={`${styles.headline} reveal reveal-d1`}>
-            Reframing problems<br/>to refined<br/>opportunities.
+            Every brief<br />is a problem<br />to frame.
           </h1>
           <p className={`${styles.sub} reveal reveal-d2`}>
             Not a freelance page. Not a trend-chasing visual studio. A problem-framing

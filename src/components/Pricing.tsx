@@ -11,7 +11,7 @@ interface PricingTierProps {
 const TIERS: PricingTierProps[] = [
   {
     name: 'Explore',
-    price: 'On enquiry',
+    price: 'Scoped to the brief',
     note: 'Audit · Discovery · Direction',
     features: [
       'Brand audit and gap analysis',
@@ -23,7 +23,7 @@ const TIERS: PricingTierProps[] = [
   },
   {
     name: 'Refine',
-    price: 'On enquiry',
+    price: 'Scoped to the gap',
     note: 'Identity · Product · Motion',
     features: [
       'Audit of existing system',
@@ -37,7 +37,7 @@ const TIERS: PricingTierProps[] = [
   },
   {
     name: 'Build',
-    price: 'On enquiry',
+    price: 'Scoped to the system',
     note: 'Strategy · System · Execution',
     features: [
       'Full brand strategy and positioning',
