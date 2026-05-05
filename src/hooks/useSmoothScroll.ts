@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 
 /**
- * Full-section snap scroll.
- * Each wheel tick (or arrow key) moves to the next / previous section.
+ * Lightweight lerp smooth scroll.
+ * Replaces section-snap — all sections scroll freely and fully.
  * Touch devices use native scroll.
  */
 export function useSmoothScroll() {
@@ -10,62 +10,43 @@ export function useSmoothScroll() {
     const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches
     if (isTouchDevice) return
 
-    const SECTION_IDS = [
-      '#hero', '#about', '#services', '#disciplines',
-      '#how', '#clients', '#pricing', '#faq', '#cta',
-    ]
+    let target = window.scrollY
+    let current = window.scrollY
+    let rafId = 0
+    let ticking = false
 
-    let isScrolling = false
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 
-    const getSections = () =>
-      SECTION_IDS.map(id => document.querySelector(id)).filter(Boolean) as Element[]
+    const clamp = (v: number) =>
+      Math.max(0, Math.min(v, document.documentElement.scrollHeight - window.innerHeight))
 
-    const getCurrentIndex = (sections: Element[]) => {
-      const mid = window.innerHeight / 2
-      let closest = 0
-      let minDist = Infinity
-      sections.forEach((s, i) => {
-        const rect = s.getBoundingClientRect()
-        const center = rect.top + rect.height / 2
-        const dist = Math.abs(center - mid)
-        if (dist < minDist) { minDist = dist; closest = i }
-      })
-      return closest
-    }
+    const tick = () => {
+      current = lerp(current, target, 0.1)
+      window.scrollTo(0, current)
 
-    const scrollToSection = (el: Element) => {
-      isScrolling = true
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      setTimeout(() => { isScrolling = false }, 900)
+      if (Math.abs(target - current) > 0.5) {
+        rafId = requestAnimationFrame(tick)
+      } else {
+        window.scrollTo(0, target)
+        current = target
+        ticking = false
+      }
     }
 
     const onWheel = (e: WheelEvent) => {
       e.preventDefault()
-      if (isScrolling) return
-      const sections = getSections()
-      const current = getCurrentIndex(sections)
-      const dir = e.deltaY > 0 ? 1 : -1
-      const next = Math.max(0, Math.min(sections.length - 1, current + dir))
-      if (next !== current) scrollToSection(sections[next])
-    }
-
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (!['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp'].includes(e.key)) return
-      e.preventDefault()
-      if (isScrolling) return
-      const sections = getSections()
-      const current = getCurrentIndex(sections)
-      const dir = ['ArrowDown', 'PageDown'].includes(e.key) ? 1 : -1
-      const next = Math.max(0, Math.min(sections.length - 1, current + dir))
-      if (next !== current) scrollToSection(sections[next])
+      target = clamp(target + e.deltaY)
+      if (!ticking) {
+        ticking = true
+        rafId = requestAnimationFrame(tick)
+      }
     }
 
     window.addEventListener('wheel', onWheel, { passive: false })
-    window.addEventListener('keydown', onKeyDown)
 
     return () => {
       window.removeEventListener('wheel', onWheel)
-      window.removeEventListener('keydown', onKeyDown)
+      cancelAnimationFrame(rafId)
     }
   }, [])
 }
