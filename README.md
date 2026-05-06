@@ -1,125 +1,71 @@
-# Nocturnal — Web (Next.js)
+# Nocturnal — Design Intelligence Studio
 
-Phygital design studio landing page. Built with **Next.js 14 App Router**, deployable to **Vercel free tier** in under 2 minutes.
+Website for Nocturnal, a phygital creative agency specialising in product/industrial design, 3D/CAD, branding, and identity work.
 
-Designed and developed by [Abeer Mahadane](https://www.behance.net/abeermahad064c).
+## Stack
 
----
+- React 18 + TypeScript
+- Vite
+- CSS Modules + CSS custom properties
+- Host Grotesk (Google Fonts)
 
-## Deploy to Vercel (free)
-
-### Option A — Vercel CLI (fastest)
-
-```bash
-npm install -g vercel
-cd nocturnal-web
-npm install
-vercel
-```
-
-Follow the prompts. Done.
-
-### Option B — GitHub → Vercel UI
-
-1. Push this folder to a GitHub repo
-2. Go to [vercel.com/new](https://vercel.com/new)
-3. Import the repo
-4. Framework: **Next.js** (auto-detected)
-5. Click **Deploy**
-
-No environment variables needed.
-
----
-
-## Local Development
+## Getting started
 
 ```bash
 npm install
 npm run dev
-# → http://localhost:3000
 ```
 
----
+Open [http://localhost:5173](http://localhost:5173)
 
-## Stack
+## Build
 
-| Layer | Tech |
-|---|---|
-| Framework | Next.js 14 (App Router) |
-| Language | TypeScript (strict) |
-| Styling | CSS Modules + global CSS variables |
-| Font | DM Mono via Google Fonts |
-| Animation | CSS keyframes + IntersectionObserver |
-| Images | Unsplash (remote, configured in next.config.js) |
-| Deployment | Vercel (free tier) |
-
----
-
-## Project Structure
-
-```
-nocturnal-web/
-├── app/
-│   ├── layout.tsx          # Root layout + SEO metadata
-│   ├── page.tsx            # Main page — assembles all sections
-│   └── globals.css         # Design tokens, resets, animations
-│
-├── components/
-│   ├── NavBar.tsx / .module.css
-│   ├── HeroSection.tsx / .module.css
-│   ├── PortfolioSection.tsx / .module.css
-│   ├── MidSections.tsx / .module.css   (Intro + Process + Benefits)
-│   ├── TestimonialsSection.tsx / .module.css
-│   ├── PricingSection.tsx / .module.css
-│   ├── FAQSection.tsx / .module.css
-│   └── CTAAndFooter.tsx / .module.css
-│
-├── lib/
-│   ├── content.ts          # All copy — edit here, no component changes needed
-│   └── useReveal.ts        # Scroll reveal hook
-│
-├── next.config.js
-├── vercel.json
-└── tsconfig.json
+```bash
+npm run build
+npm run preview
 ```
 
----
+## Structure
 
-## Design System
-
-All tokens live in `app/globals.css` as CSS custom properties:
-
-```css
---black:        #0B0B0B   /* base surface */
---white:        #F5F4F0   /* warm off-white — never pure #FFF */
---grey1:        #A8A8A0   /* secondary body */
---grey2:        #6A6A64   /* meta / captions */
---black-border: #1E1E1E   /* all borders */
+```
+src/
+├── components/       One component + CSS module per section
+│   ├── Nav.tsx
+│   ├── Hero.tsx
+│   ├── Marquee.tsx
+│   ├── About.tsx
+│   ├── Services.tsx
+│   ├── Disciplines.tsx
+│   ├── Process.tsx
+│   ├── Clients.tsx
+│   ├── Pricing.tsx
+│   ├── Faq.tsx
+│   ├── Cta.tsx
+│   └── Footer.tsx
+├── hooks/
+│   ├── useReveal.ts       Intersection observer for scroll reveals
+│   └── useScrollNav.ts    Nav scroll state
+├── styles/
+│   ├── tokens.css         CSS custom properties — all design tokens
+│   └── global.css         Reset + base styles
+├── App.tsx                Assembles all sections
+└── main.tsx               Entry point
 ```
 
-Fully monochromatic. No accent colour. Hierarchy through scale, weight, and space.
+## Design system
 
----
+All tokens are in `src/styles/tokens.css` as CSS custom properties.
 
-## Editing Copy
+**Palette** — fully monochromatic, no accent colour:
 
-All text lives in `lib/content.ts`. Update that file to change any section — hero, stats, portfolio, process, testimonials, pricing, FAQ. No component code needs touching.
+| Token | Value | Role |
+|---|---|---|
+| `--noc-black` | `#0D0D0D` | Page background |
+| `--noc-white` | `#F5F4F0` | Primary text, CTA surfaces |
+| `--noc-grey-1` | `#1A1A1A` | Hover surfaces |
+| `--noc-grey-2` | `#2A2A2A` | Borders, dividers |
+| `--noc-grey-4` | `#666666` | Labels, meta |
+| `--noc-grey-5` | `#999999` | Body copy on dark |
+| `--noc-grey-6` | `#CCCCCC` | Secondary body |
 
----
-
-## SEO
-
-Metadata configured in `app/layout.tsx`:
-- Title, description, keywords
-- Open Graph tags
-- Twitter card
-- Robots: index + follow
-
----
-
-## Performance Notes
-
-- All animations are CSS-only or use `IntersectionObserver` — no JS animation libraries
-- No client-side data fetching
-- Images served via Unsplash CDN with Next.js image optimisation config
-- Google Fonts loaded via `@import` in globals.css (swap to `next/font` for zero CLS if needed)
+**Typography:** Host Grotesk — 800 weight headlines, 400 body, 300 italic accent. Zero letter-spacing throughout.
