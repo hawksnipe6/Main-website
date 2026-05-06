@@ -9,11 +9,10 @@ export function Hero({ onBooking }: { onBooking: () => void }) {
         <div className={styles.left}>
           <div className={`${styles.eyebrow} reveal`}>Design Intelligence Studio</div>
           <h1 className={`${styles.headline} reveal reveal-d1`}>
-            Every brief<br />is a problem<br />to frame.
+            A Step<br />into<br />Design Intelligence
           </h1>
           <p className={`${styles.sub} reveal reveal-d2`}>
-            Not a freelance page. Not a trend-chasing visual studio. A problem-framing
-            and solution-design system. We design the rules, then build the instances.
+            We help organizations design and implement systems that are not only beautiful but also intelligent, efficient, and sustainable.
           </p>
           <div className={`${styles.actions} reveal reveal-d3`}>
             <button className={styles.btnPrimary} onClick={onBooking}>Start a Project</button>
