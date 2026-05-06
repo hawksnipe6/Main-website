@@ -1,0 +1,26 @@
+{
+  "expo": {
+    "name": "Nocturnal",
+    "slug": "nocturnal-teaser",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#F5F4F0"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "studio.nocturnal.teaser"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F5F4F0"
+      },
+      "package": "studio.nocturnal.teaser"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}
