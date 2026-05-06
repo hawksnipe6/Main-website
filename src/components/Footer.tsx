@@ -18,7 +18,7 @@ const NAV_COLS = [
       { label: 'Pricing', href: '#pricing' },
       { label: 'FAQ', href: '#faq' },
       { label: 'Start a Project', href: '#cta' },
-      { label: 'hello@nocturnal.studio', href: 'mailto:hello@nocturnal.studio' },
+      { label: 'getncrtnl@gmail.com', href: 'mailto:hello@nocturnal.studio' },
     ],
   },
 ]
