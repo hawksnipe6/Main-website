@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Nocturnal — Design Intelligence Studio. Coming soon." />
+  <title>Nocturnal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: 'Host Grotesk', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #0a0a0a;
+    }
+
+    /* ── FULL BLEED IMAGE ───────────────────── */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background: url('bg.png') center center / cover no-repeat;
+      /* The image is already blurred — no filter needed */
+    }
+
+    /* Very subtle dark veil so white text pops */
+    .veil {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.18);
+    }
+
+    /* ── CONTENT ────────────────────────────── */
+    .stage {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    /* N logo top centre */
+    .logo {
+      position: absolute;
+      top: clamp(24px, 4vh, 48px);
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.3s forwards;
+    }
+
+    .logo img {
+      height: clamp(28px, 3.5vw, 44px);
+      width: auto;
+      filter: invert(1);
+    }
+
+    /* Headline block — exactly as in the uploaded image */
+    .headline-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(4px, 0.8vh, 10px);
+    }
+
+    .line {
+      font-size: clamp(32px, 5.5vw, 80px);
+      font-weight: 500;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(16px);
+      line-height: 1.1;
+    }
+
+    .line-1 { animation: slideUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards; }
+    .line-2 { animation: slideUp 0.9s cubic-bezier(0.16,1,0.3,1) 0.65s forwards; }
+
+    /* ── KEYFRAMES ─────────────────────────── */
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg"></div>
+  <div class="veil"></div>
+
+  <div class="stage">
+    <div class="logo">
+      <img src="https://getnctrnl.com/N.svg" alt="Nocturnal" onerror="this.style.display='none'" />
+    </div>
+
+    <div class="headline-block">
+      <span class="line line-1">Design Intelligence</span>
+      <span class="line line-2">Coming Soon</span>
+    </div>
+  </div>
+
+</body>
+</html>
