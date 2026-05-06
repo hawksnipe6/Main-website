@@ -9,7 +9,7 @@ export function Hero({ onBooking }: { onBooking: () => void }) {
         <div className={styles.left}>
           <div className={`${styles.eyebrow} reveal`}>Design Intelligence Studio</div>
           <h1 className={`${styles.headline} reveal reveal-d1`}>
-            A Step<br />into<br />Design Intelligence
+            A Step into <br />Design Intelligence
           </h1>
           <p className={`${styles.sub} reveal reveal-d2`}>
             We help organizations design and implement systems that are not only beautiful but also intelligent, efficient, and sustainable.
