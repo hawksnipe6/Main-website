@@ -16,21 +16,28 @@
       overflow: hidden;
       font-family: 'Host Grotesk', sans-serif;
       -webkit-font-smoothing: antialiased;
-      background: #0a0a0a;
+      background: #e8e6e0;
     }
 
-    /* ── VIDEO ─────────────────────────────── */
+    /* ── VIDEO — true full bleed ────────────── */
     .bg-video {
       position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       object-fit: cover;
       object-position: center;
       z-index: 0;
     }
 
-    /* ── CONTENT LAYER ─────────────────────── */
+    /* Light glass veil */
+    .veil {
+      position: fixed;
+      inset: 0;
+      background: rgba(240, 238, 232, 0.15);
+      z-index: 1;
+    }
+
+    /* ── STAGE ──────────────────────────────── */
     .stage {
       position: fixed;
       inset: 0;
@@ -38,73 +45,76 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding-top: clamp(32px, 7vh, 72px);
-      gap: clamp(16px, 2.5vh, 28px);
+      /* top text + gap + CTA sit in upper third */
+      padding-top: clamp(40px, 8vh, 80px);
+      gap: clamp(14px, 2vh, 22px);
     }
 
-    /* ── TOP TEXT ──────────────────────────── */
+    /* ── TOP TEXT ───────────────────────────── */
     .top-text {
-      font-size: clamp(12px, 1.4vw, 16px);
+      font-size: clamp(13px, 1.5vw, 17px);
       font-weight: 400;
-      color: rgba(255,255,255,0.82);
-      letter-spacing: 0.02em;
+      color: rgba(20, 18, 14, 0.75);
+      letter-spacing: 0.01em;
       text-align: center;
       opacity: 0;
       animation: fadeUp 0.8s ease 0.3s forwards;
     }
 
-    /* ── CTA BUTTON ────────────────────────── */
+    /* ── CTA — glassmorphism light ──────────── */
     .cta-btn {
       font-family: 'Host Grotesk', sans-serif;
-      font-size: clamp(11px, 1.2vw, 14px);
+      font-size: clamp(11px, 1.1vw, 13px);
       font-weight: 500;
-      color: rgba(255,255,255,0.75);
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(20, 18, 14, 0.78);
+      /* frosted glass on light bg */
+      background: rgba(255, 255, 255, 0.52);
+      border: 1px solid rgba(255, 255, 255, 0.72);
       border-radius: 999px;
-      padding: clamp(9px, 1.2vh, 13px) clamp(22px, 2.5vw, 36px);
+      padding: clamp(9px, 1.2vh, 13px) clamp(24px, 2.8vw, 38px);
       cursor: pointer;
-      letter-spacing: 0.03em;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(12px) saturate(1.4);
+      -webkit-backdrop-filter: blur(12px) saturate(1.4);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: background 0.2s, box-shadow 0.2s, color 0.2s;
       opacity: 0;
       animation: fadeUp 0.8s ease 0.5s forwards;
       white-space: nowrap;
     }
     .cta-btn:hover {
-      background: rgba(255,255,255,0.14);
-      border-color: rgba(255,255,255,0.35);
-      color: #ffffff;
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 4px 28px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,1);
+      color: rgba(20, 18, 14, 1);
     }
 
-    /* ── MODAL BACKDROP ────────────────────── */
+    /* ── MODAL BACKDROP ─────────────────────── */
     .modal-backdrop {
       display: none;
       position: fixed;
       inset: 0;
       z-index: 10;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(200, 196, 188, 0.45);
+      backdrop-filter: blur(16px) saturate(1.6);
+      -webkit-backdrop-filter: blur(16px) saturate(1.6);
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
-    .modal-backdrop.open {
-      display: flex;
-    }
+    .modal-backdrop.open { display: flex; }
 
-    /* ── MODAL ─────────────────────────────── */
+    /* ── MODAL — light glass ────────────────── */
     .modal {
-      background: rgba(15,15,15,0.92);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
       padding: clamp(32px, 5vw, 52px) clamp(28px, 4vw, 48px);
       width: 100%;
       max-width: 420px;
       position: relative;
+      backdrop-filter: blur(24px) saturate(1.8);
+      -webkit-backdrop-filter: blur(24px) saturate(1.8);
+      box-shadow: 0 8px 48px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,1);
       animation: scaleIn 0.3s cubic-bezier(0.16,1,0.3,1);
     }
 
@@ -113,20 +123,19 @@
       top: 16px; right: 20px;
       background: none;
       border: none;
-      color: rgba(255,255,255,0.4);
-      font-size: 18px;
+      color: rgba(20,18,14,0.35);
+      font-size: 16px;
       cursor: pointer;
       font-family: inherit;
-      line-height: 1;
       transition: color 0.2s;
     }
-    .modal-close:hover { color: rgba(255,255,255,0.9); }
+    .modal-close:hover { color: rgba(20,18,14,0.8); }
 
     .modal-label {
-      font-size: 11px;
-      font-weight: 500;
+      font-size: 10px;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       color: #E8612A;
       margin-bottom: 14px;
       display: flex;
@@ -136,15 +145,14 @@
     .modal-label::before {
       content: '';
       display: block;
-      width: 18px;
-      height: 1px;
+      width: 18px; height: 1px;
       background: #E8612A;
     }
 
     .modal-title {
       font-size: clamp(20px, 2.5vw, 26px);
       font-weight: 700;
-      color: #F5F4F0;
+      color: #14120E;
       line-height: 1.15;
       margin-bottom: 8px;
       letter-spacing: -0.02em;
@@ -152,73 +160,49 @@
 
     .modal-sub {
       font-size: 13px;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.6;
+      color: rgba(20,18,14,0.5);
+      line-height: 1.65;
       margin-bottom: 28px;
     }
 
-    /* Fields */
-    .field {
-      margin-bottom: 14px;
-    }
+    .field { margin-bottom: 12px; }
 
     .field input {
       width: 100%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 6px;
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(20,18,14,0.12);
+      border-radius: 8px;
       padding: 13px 16px;
       font-family: 'Host Grotesk', sans-serif;
       font-size: 14px;
-      color: #F5F4F0;
+      color: #14120E;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s;
+      backdrop-filter: blur(8px);
     }
-    .field input::placeholder { color: rgba(255,255,255,0.28); }
-    .field input:focus { border-color: rgba(255,255,255,0.28); }
+    .field input::placeholder { color: rgba(20,18,14,0.3); }
+    .field input:focus {
+      border-color: rgba(20,18,14,0.28);
+      background: rgba(255,255,255,0.85);
+    }
 
     .submit-btn {
       width: 100%;
       margin-top: 6px;
-      background: #E8612A;
+      background: #14120E;
       color: #F5F4F0;
       font-family: 'Host Grotesk', sans-serif;
       font-size: 14px;
       font-weight: 600;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       padding: 14px;
       cursor: pointer;
       transition: opacity 0.2s;
-      letter-spacing: 0.01em;
     }
-    .submit-btn:hover { opacity: 0.88; }
-    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .submit-btn:hover { opacity: 0.82; }
+    .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-    /* Success state */
-    .success {
-      display: none;
-      text-align: center;
-      padding: 16px 0 8px;
-    }
-    .success-icon {
-      font-size: 32px;
-      margin-bottom: 14px;
-    }
-    .success-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: #F5F4F0;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
-    }
-    .success-sub {
-      font-size: 13px;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.6;
-    }
-
-    /* Error */
     .error-msg {
       font-size: 12px;
       color: #E8612A;
@@ -227,129 +211,107 @@
       text-align: center;
     }
 
-    /* ── KEYFRAMES ─────────────────────────── */
+    /* Success */
+    .success {
+      display: none;
+      text-align: center;
+      padding: 8px 0;
+    }
+    .success-icon { font-size: 28px; margin-bottom: 14px; }
+    .success-title {
+      font-size: 20px; font-weight: 700;
+      color: #14120E; margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .success-sub {
+      font-size: 13px;
+      color: rgba(20,18,14,0.5);
+      line-height: 1.65;
+    }
+
+    /* ── KEYFRAMES ──────────────────────────── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     @keyframes scaleIn {
       from { opacity: 0; transform: scale(0.96) translateY(12px); }
       to   { opacity: 1; transform: scale(1) translateY(0); }
-    }
-
-    /* ── MOBILE ────────────────────────────── */
-    @media (max-width: 480px) {
-      .modal { border-radius: 10px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Looping background video -->
-  <video
-    class="bg-video"
-    src="bg.mp4"
-    autoplay
-    loop
-    muted
-    playsinline
-    preload="auto"
-  ></video>
+  <video class="bg-video" src="bg.mp4" autoplay loop muted playsinline preload="auto"></video>
+  <div class="veil"></div>
 
-  <!-- Content -->
   <div class="stage">
     <span class="top-text">Design Intelligence coming soon</span>
-
     <button class="cta-btn" id="openModal">Join the Waitlist</button>
   </div>
 
-  <!-- Waitlist Modal -->
+  <!-- Modal -->
   <div class="modal-backdrop" id="modalBackdrop">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-
+    <div class="modal">
       <button class="modal-close" id="closeModal" aria-label="Close">✕</button>
 
-      <!-- Form view -->
       <div id="formView">
         <p class="modal-label">Waitlist</p>
-        <h2 class="modal-title" id="modalTitle">Be first to know.</h2>
+        <h2 class="modal-title">Be first to know.</h2>
         <p class="modal-sub">Nocturnal is almost ready. Leave your details and we'll reach out when the doors open.</p>
 
         <form id="waitlistForm">
           <div class="field">
-            <input
-              type="text"
-              name="name"
-              placeholder="Your name"
-              required
-              autocomplete="given-name"
-            />
+            <input type="text" name="name" placeholder="Your name" required autocomplete="given-name" />
           </div>
           <div class="field">
-            <input
-              type="email"
-              name="email"
-              placeholder="Your email"
-              required
-              autocomplete="email"
-            />
+            <input type="email" name="email" placeholder="Your email" required autocomplete="email" />
           </div>
-          <button type="submit" class="submit-btn" id="submitBtn">
-            Join the Waitlist
-          </button>
+          <button type="submit" class="submit-btn" id="submitBtn">Join the Waitlist</button>
           <p class="error-msg" id="errorMsg">Something went wrong. Please try again.</p>
         </form>
       </div>
 
-      <!-- Success view -->
       <div class="success" id="successView">
         <div class="success-icon">✦</div>
         <p class="success-title">You're on the list.</p>
-        <p class="success-sub">We'll be in touch when Nocturnal launches. Keep an eye on your inbox.</p>
+        <p class="success-sub">We'll be in touch when Nocturnal launches.<br/>Keep an eye on your inbox.</p>
       </div>
-
     </div>
   </div>
 
   <script>
-    const openBtn      = document.getElementById('openModal');
-    const closeBtn     = document.getElementById('closeModal');
-    const backdrop     = document.getElementById('modalBackdrop');
-    const form         = document.getElementById('waitlistForm');
-    const submitBtn    = document.getElementById('submitBtn');
-    const formView     = document.getElementById('formView');
-    const successView  = document.getElementById('successView');
-    const errorMsg     = document.getElementById('errorMsg');
+    const openBtn     = document.getElementById('openModal');
+    const closeBtn    = document.getElementById('closeModal');
+    const backdrop    = document.getElementById('modalBackdrop');
+    const form        = document.getElementById('waitlistForm');
+    const submitBtn   = document.getElementById('submitBtn');
+    const formView    = document.getElementById('formView');
+    const successView = document.getElementById('successView');
+    const errorMsg    = document.getElementById('errorMsg');
 
-    const open  = () => backdrop.classList.add('open');
-    const close = () => backdrop.classList.remove('open');
+    openBtn.addEventListener('click', () => backdrop.classList.add('open'));
+    closeBtn.addEventListener('click', () => backdrop.classList.remove('open'));
+    backdrop.addEventListener('click', e => { if (e.target === backdrop) backdrop.classList.remove('open'); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') backdrop.classList.remove('open'); });
 
-    openBtn.addEventListener('click', open);
-    closeBtn.addEventListener('click', close);
-    backdrop.addEventListener('click', e => { if (e.target === backdrop) close(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
-
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending…';
       errorMsg.style.display = 'none';
 
-      const data = new FormData(form);
-
       try {
         const res = await fetch('https://formspree.io/f/mlgzpznq', {
           method: 'POST',
-          body: data,
+          body: new FormData(form),
           headers: { 'Accept': 'application/json' },
         });
-
         if (res.ok) {
           formView.style.display = 'none';
           successView.style.display = 'block';
         } else {
-          throw new Error('bad response');
+          throw new Error();
         }
       } catch {
         submitBtn.disabled = false;
