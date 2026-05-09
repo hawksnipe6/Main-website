@@ -189,12 +189,15 @@
 </head>
 <body>
 
+  <!-- Responsive video — browser picks based on viewport -->
   <video id="bgvid" autoplay loop muted playsinline preload="auto"></video>
 
+  <!-- CTA only — no text -->
   <div class="ui">
     <button class="cta" id="openModal">Join the Waitlist</button>
   </div>
 
+  <!-- Modal -->
   <div class="backdrop" id="backdrop">
     <div class="modal">
       <button class="close-btn" id="closeModal">✕</button>
@@ -220,9 +223,11 @@
   </div>
 
   <script>
+    // Pick correct video based on screen width
     const vid = document.getElementById('bgvid');
     vid.src = window.innerWidth <= 768 ? 'bg-mobile.mp4' : 'bg-desktop.mp4';
 
+    // Swap on resize (orientation change on mobile)
     window.addEventListener('resize', () => {
       const next = window.innerWidth <= 768 ? 'bg-mobile.mp4' : 'bg-desktop.mp4';
       if (vid.src !== window.location.origin + '/' + next) {
@@ -231,12 +236,12 @@
       }
     });
 
-    const backdrop    = document.getElementById('backdrop');
-    const formView    = document.getElementById('formView');
+    const backdrop   = document.getElementById('backdrop');
+    const formView   = document.getElementById('formView');
     const successView = document.getElementById('successView');
-    const form        = document.getElementById('waitlistForm');
-    const submitBtn   = document.getElementById('submitBtn');
-    const errorMsg    = document.getElementById('errorMsg');
+    const form       = document.getElementById('waitlistForm');
+    const submitBtn  = document.getElementById('submitBtn');
+    const errorMsg   = document.getElementById('errorMsg');
 
     document.getElementById('openModal').onclick  = () => backdrop.classList.add('open');
     document.getElementById('closeModal').onclick = () => backdrop.classList.remove('open');
