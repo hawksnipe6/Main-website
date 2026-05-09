@@ -11,144 +11,140 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html, body {
-      width: 100vw;
-      height: 100vh;
+      width: 100%; height: 100%;
       overflow: hidden;
       background: #fdfcfc;
       font-family: 'Host Grotesk', sans-serif;
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ── VIDEO ─────────────────────────────── */
     video {
       position: fixed;
       top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+      width: 100%; height: 100%;
+      object-fit: cover;
       object-position: center;
       z-index: 0;
     }
 
+    /* ── CTA ───────────────────────────────── */
     .ui {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      inset: 0;
       z-index: 1;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      padding-top: clamp(36px, 7vh, 64px);
-      gap: clamp(12px, 1.8vh, 20px);
-    }
-
-    .label {
-      font-size: clamp(12px, 1.3vw, 15px);
-      font-weight: 400;
-      color: rgba(20,18,14,0.7);
-      letter-spacing: 0.01em;
-      opacity: 0;
-      animation: up 0.7s ease 0.2s forwards;
+      justify-content: center;
     }
 
     .cta {
       font-family: 'Host Grotesk', sans-serif;
-      font-size: clamp(11px, 1vw, 13px);
+      font-size: clamp(12px, 1.2vw, 14px);
       font-weight: 500;
-      color: rgba(20,18,14,0.75);
-      background: rgba(255,255,255,0.55);
-      border: 1px solid rgba(255,255,255,0.8);
+      color: rgba(20, 18, 14, 0.78);
+      background: rgba(255, 255, 255, 0.52);
+      border: 1px solid rgba(255, 255, 255, 0.82);
       border-radius: 999px;
-      padding: 10px 28px;
+      padding: clamp(10px, 1.4vh, 14px) clamp(26px, 3vw, 40px);
       cursor: pointer;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-      transition: background .2s, color .2s;
+      backdrop-filter: blur(12px) saturate(1.4);
+      -webkit-backdrop-filter: blur(12px) saturate(1.4);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.9);
+      transition: background .2s, color .2s, box-shadow .2s;
       opacity: 0;
-      animation: up 0.7s ease 0.4s forwards;
+      animation: fadeUp 0.7s ease 0.4s forwards;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
     }
     .cta:hover {
-      background: rgba(255,255,255,0.85);
-      color: rgba(20,18,14,1);
+      background: rgba(255, 255, 255, 0.78);
+      color: rgba(20, 18, 14, 1);
+      box-shadow: 0 4px 28px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,1);
     }
 
-    /* ── MODAL ─────────────────────── */
+    /* ── MODAL BACKDROP ────────────────────── */
     .backdrop {
       display: none;
       position: fixed;
       inset: 0;
       z-index: 10;
-      background: rgba(200,196,188,0.4);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(200, 196, 188, 0.38);
+      backdrop-filter: blur(16px) saturate(1.6);
+      -webkit-backdrop-filter: blur(16px) saturate(1.6);
       align-items: center;
       justify-content: center;
       padding: 20px;
     }
     .backdrop.open { display: flex; }
 
+    /* ── MODAL ─────────────────────────────── */
     .modal {
-      background: rgba(255,255,255,0.75);
-      border: 1px solid rgba(255,255,255,0.9);
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.92);
       border-radius: 14px;
-      padding: clamp(28px,5vw,48px) clamp(24px,4vw,44px);
+      padding: clamp(28px, 5vw, 48px) clamp(24px, 4vw, 44px);
       width: 100%;
       max-width: 400px;
       position: relative;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      box-shadow: 0 8px 48px rgba(0,0,0,0.09);
-      animation: pop .28s cubic-bezier(.16,1,.3,1);
+      backdrop-filter: blur(28px) saturate(1.8);
+      -webkit-backdrop-filter: blur(28px) saturate(1.8);
+      box-shadow: 0 8px 48px rgba(0, 0, 0, 0.09);
+      animation: pop 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .x {
+    .close-btn {
       position: absolute;
       top: 14px; right: 18px;
       background: none; border: none;
       font-size: 15px;
-      color: rgba(20,18,14,0.35);
+      color: rgba(20, 18, 14, 0.35);
       cursor: pointer;
       font-family: inherit;
       transition: color .2s;
     }
-    .x:hover { color: rgba(20,18,14,0.8); }
+    .close-btn:hover { color: rgba(20, 18, 14, 0.8); }
 
-    .tag {
+    .modal-tag {
       font-size: 10px; font-weight: 600;
       text-transform: uppercase; letter-spacing: .12em;
       color: #E8612A; margin-bottom: 12px;
       display: flex; align-items: center; gap: 8px;
     }
-    .tag::before {
+    .modal-tag::before {
       content: ''; display: block;
       width: 16px; height: 1px; background: #E8612A;
     }
 
-    h2 {
-      font-size: clamp(18px,2.4vw,24px);
+    .modal h2 {
+      font-size: clamp(18px, 2.4vw, 24px);
       font-weight: 700; color: #14120E;
-      letter-spacing: -.02em; margin-bottom: 6px;
+      letter-spacing: -.02em; line-height: 1.15;
+      margin-bottom: 6px;
     }
 
-    .sub {
-      font-size: 13px; color: rgba(20,18,14,.48);
-      line-height: 1.6; margin-bottom: 24px;
+    .modal-sub {
+      font-size: 13px; color: rgba(20, 18, 14, .46);
+      line-height: 1.65; margin-bottom: 24px;
     }
 
-    input {
+    .modal input {
       display: block; width: 100%;
-      background: rgba(255,255,255,.65);
-      border: 1px solid rgba(20,18,14,.12);
+      background: rgba(255, 255, 255, .65);
+      border: 1px solid rgba(20, 18, 14, .12);
       border-radius: 7px;
       padding: 12px 14px; margin-bottom: 10px;
       font-family: 'Host Grotesk', sans-serif;
       font-size: 14px; color: #14120E; outline: none;
-      transition: border-color .2s;
+      transition: border-color .2s, background .2s;
     }
-    input::placeholder { color: rgba(20,18,14,.28); }
-    input:focus { border-color: rgba(20,18,14,.28); }
+    .modal input::placeholder { color: rgba(20, 18, 14, .28); }
+    .modal input:focus {
+      border-color: rgba(20, 18, 14, .28);
+      background: rgba(255, 255, 255, .88);
+    }
 
-    .submit {
+    .submit-btn {
       width: 100%; margin-top: 4px;
       background: #14120E; color: #F5F4F0;
       font-family: 'Host Grotesk', sans-serif;
@@ -157,99 +153,122 @@
       padding: 13px; cursor: pointer;
       transition: opacity .2s;
     }
-    .submit:hover { opacity: .8; }
-    .submit:disabled { opacity: .4; cursor: not-allowed; }
+    .submit-btn:hover { opacity: .8; }
+    .submit-btn:disabled { opacity: .4; cursor: not-allowed; }
 
-    .err {
+    .error-msg {
       font-size: 12px; color: #E8612A;
       text-align: center; margin-top: 8px; display: none;
     }
 
-    .done {
+    /* ── SUCCESS ───────────────────────────── */
+    .success {
       display: none; text-align: center; padding: 8px 0;
     }
-    .done .icon { font-size: 26px; margin-bottom: 12px; }
-    .done h3 {
-      font-size: 19px; font-weight: 700;
-      color: #14120E; letter-spacing: -.02em; margin-bottom: 6px;
+    .success .icon { font-size: 26px; margin-bottom: 12px; }
+    .success h3 {
+      font-size: 19px; font-weight: 700; color: #14120E;
+      letter-spacing: -.02em; margin-bottom: 6px;
     }
-    .done p { font-size: 13px; color: rgba(20,18,14,.48); line-height: 1.6; }
+    .success p {
+      font-size: 13px; color: rgba(20, 18, 14, .46);
+      line-height: 1.65;
+    }
 
-    @keyframes up {
-      from { opacity:0; transform:translateY(10px); }
-      to   { opacity:1; transform:translateY(0); }
+    /* ── KEYFRAMES ─────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
     @keyframes pop {
-      from { opacity:0; transform:scale(.96) translateY(10px); }
-      to   { opacity:1; transform:scale(1) translateY(0); }
+      from { opacity: 0; transform: scale(.96) translateY(10px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
   </style>
 </head>
 <body>
 
-<video src="bg.mp4" autoplay loop muted playsinline preload="auto"></video>
+  <!-- Responsive video — browser picks based on viewport -->
+  <video id="bgvid" autoplay loop muted playsinline preload="auto"></video>
 
-<div class="ui">
-  <button class="cta" id="open">Join the Waitlist</button>
-</div>
+  <!-- CTA only — no text -->
+  <div class="ui">
+    <button class="cta" id="openModal">Join the Waitlist</button>
+  </div>
 
-<div class="backdrop" id="bd">
-  <div class="modal">
-    <button class="x" id="cls">✕</button>
+  <!-- Modal -->
+  <div class="backdrop" id="backdrop">
+    <div class="modal">
+      <button class="close-btn" id="closeModal">✕</button>
 
-    <div id="fv">
-      <p class="tag">Waitlist</p>
-      <h2>Be first to know.</h2>
-      <p class="sub">Nocturnal is almost ready. Leave your details and we'll reach out when the doors open.</p>
-      <form id="frm">
-        <input type="text"  name="name"  placeholder="Your name"  required autocomplete="given-name" />
-        <input type="email" name="email" placeholder="Your email" required autocomplete="email" />
-        <button type="submit" class="submit" id="btn">Join the Waitlist</button>
-        <p class="err" id="err">Something went wrong. Try again.</p>
-      </form>
-    </div>
+      <div id="formView">
+        <p class="modal-tag">Waitlist</p>
+        <h2>Be first to know.</h2>
+        <p class="modal-sub">Nocturnal is almost ready. Leave your details and we'll reach out when the doors open.</p>
+        <form id="waitlistForm">
+          <input type="text"  name="name"  placeholder="Your name"  required autocomplete="given-name" />
+          <input type="email" name="email" placeholder="Your email" required autocomplete="email" />
+          <button type="submit" class="submit-btn" id="submitBtn">Join the Waitlist</button>
+          <p class="error-msg" id="errorMsg">Something went wrong. Try again.</p>
+        </form>
+      </div>
 
-    <div class="done" id="dv">
-      <div class="icon">✦</div>
-      <h3>You're on the list.</h3>
-      <p>We'll be in touch when Nocturnal launches.<br>Keep an eye on your inbox.</p>
+      <div class="success" id="successView">
+        <div class="icon">✦</div>
+        <h3>You're on the list.</h3>
+        <p>We'll be in touch when Nocturnal launches.<br>Keep an eye on your inbox.</p>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  const bd  = document.getElementById('bd');
-  const fv  = document.getElementById('fv');
-  const dv  = document.getElementById('dv');
-  const frm = document.getElementById('frm');
-  const btn = document.getElementById('btn');
-  const err = document.getElementById('err');
+  <script>
+    // Pick correct video based on screen width
+    const vid = document.getElementById('bgvid');
+    vid.src = window.innerWidth <= 768 ? 'bg-mobile.mp4' : 'bg-desktop.mp4';
 
-  document.getElementById('open').onclick = () => bd.classList.add('open');
-  document.getElementById('cls').onclick  = () => bd.classList.remove('open');
-  bd.onclick = e => { if (e.target === bd) bd.classList.remove('open'); };
-  document.onkeydown = e => { if (e.key === 'Escape') bd.classList.remove('open'); };
+    // Swap on resize (orientation change on mobile)
+    window.addEventListener('resize', () => {
+      const next = window.innerWidth <= 768 ? 'bg-mobile.mp4' : 'bg-desktop.mp4';
+      if (vid.src !== window.location.origin + '/' + next) {
+        vid.src = next;
+        vid.play();
+      }
+    });
 
-  frm.onsubmit = async e => {
-    e.preventDefault();
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-    err.style.display = 'none';
-    try {
-      const r = await fetch('https://formspree.io/f/mlgzpznq', {
-        method: 'POST',
-        body: new FormData(frm),
-        headers: { Accept: 'application/json' }
-      });
-      if (r.ok) { fv.style.display = 'none'; dv.style.display = 'block'; }
-      else throw 0;
-    } catch {
-      btn.disabled = false;
-      btn.textContent = 'Join the Waitlist';
-      err.style.display = 'block';
-    }
-  };
-</script>
+    const backdrop   = document.getElementById('backdrop');
+    const formView   = document.getElementById('formView');
+    const successView = document.getElementById('successView');
+    const form       = document.getElementById('waitlistForm');
+    const submitBtn  = document.getElementById('submitBtn');
+    const errorMsg   = document.getElementById('errorMsg');
+
+    document.getElementById('openModal').onclick  = () => backdrop.classList.add('open');
+    document.getElementById('closeModal').onclick = () => backdrop.classList.remove('open');
+    backdrop.onclick = e => { if (e.target === backdrop) backdrop.classList.remove('open'); };
+    document.onkeydown = e => { if (e.key === 'Escape') backdrop.classList.remove('open'); };
+
+    form.onsubmit = async e => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      errorMsg.style.display = 'none';
+      try {
+        const r = await fetch('https://formspree.io/f/mlgzpznq', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        });
+        if (r.ok) {
+          formView.style.display = 'none';
+          successView.style.display = 'block';
+        } else throw 0;
+      } catch {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Join the Waitlist';
+        errorMsg.style.display = 'block';
+      }
+    };
+  </script>
 
 </body>
 </html>
