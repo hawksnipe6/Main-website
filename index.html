@@ -22,8 +22,13 @@
     /* ── VIDEO — true full bleed ────────────── */
     .bg-video {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      /* Always covers the viewport regardless of aspect ratio */
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
       object-fit: cover;
       object-position: center;
       z-index: 0;
