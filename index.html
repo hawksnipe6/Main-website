@@ -191,7 +191,7 @@
 <body oncontextmenu="return false">
 
   <!-- Responsive video — browser picks based on viewport -->
-  <video id="bgvid" autoplay loop muted playsinline preload="auto" oncontextmenu="return false"></video>
+  <video id="bgvid" autoplay loop muted playsinline preload="auto" oncontextmenu="return false" poster="poster.jpg"></video>
 
   <!-- CTA only — no text -->
   <div class="ui">
@@ -270,6 +270,14 @@
         errorMsg.style.display = 'block';
       }
     };
+
+    // Force play on any interaction — fixes Instagram/Facebook in-app browsers
+    const tryPlay = () => { vid.play().catch(() => {}); };
+    document.addEventListener('touchstart', tryPlay, { once: true });
+    document.addEventListener('click', tryPlay, { once: true });
+
+    // Also try immediately after load
+    vid.addEventListener('loadeddata', () => { vid.play().catch(() => {}); });
   </script>
 
 </body>
