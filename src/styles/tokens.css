@@ -20,6 +20,12 @@
   --noc-cursor:        #0D0D0D;
   --noc-cursor-border: #0D0D0D;
 
+  /* Glass */
+  --noc-glass-bg:     rgba(0, 0, 0, 0.04);
+  --noc-glass-bg-mid: rgba(0, 0, 0, 0.06);
+  --noc-glass-border: rgba(0, 0, 0, 0.09);
+  --noc-glass-blur:   22px;
+
   /* Typography */
   --noc-font: 'Host Grotesk', sans-serif;
 
@@ -55,6 +61,10 @@
 
   --noc-accent:        #E8612A;
   --noc-accent-subtle: rgba(232, 97, 42, 0.12);
+
+  --noc-glass-bg:     rgba(255, 255, 255, 0.05);
+  --noc-glass-bg-mid: rgba(255, 255, 255, 0.08);
+  --noc-glass-border: rgba(255, 255, 255, 0.10);
 
   --noc-nav-bg: rgba(13, 13, 13, 0.92);
 
