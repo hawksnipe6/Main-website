@@ -19,12 +19,14 @@ export function LogoStrip() {
       <div className={styles.track}>
         {doubled.map((logo, i) => (
           <div key={i} className={styles.logoWrap}>
-            <img
-              src={logo.src}
-              alt={logo.alt}
-              className={styles.logo}
-              draggable={false}
-            />
+            <div className={styles.logoCircle}>
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                className={styles.logo}
+                draggable={false}
+              />
+            </div>
           </div>
         ))}
       </div>
