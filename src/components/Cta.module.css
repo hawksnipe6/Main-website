@@ -8,7 +8,6 @@
   overflow: hidden;
 }
 
-/* Soft glow orb behind the calendar */
 .cta::before {
   content: '';
   position: absolute;
@@ -23,17 +22,15 @@
   z-index: 0;
 }
 
+/* ── Left ──────────────────────────────── */
 .left {
   display: flex;
   flex-direction: column;
-  gap: 0;
   position: relative;
   z-index: 1;
 }
 
-.title {
-  margin-bottom: 20px !important;
-}
+.title  { margin-bottom: 20px !important; }
 
 .body {
   font-size: 15px;
@@ -56,7 +53,6 @@
   font-size: 12px;
   font-weight: 500;
   color: var(--noc-grey-4);
-  letter-spacing: 0.02em;
 }
 
 .metaDot {
@@ -89,6 +85,7 @@
     0 -1px 0 0 var(--noc-glass-border) inset;
 }
 
+/* ── Calendar header ───────────────────── */
 .calHeader {
   display: flex;
   align-items: baseline;
@@ -105,10 +102,10 @@
 
 .calYear {
   font-size: 14px;
-  font-weight: 400;
   color: var(--noc-grey-4);
 }
 
+/* ── Calendar grid ─────────────────────── */
 .calGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -132,43 +129,20 @@
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  font-weight: 400;
   color: var(--noc-grey-4);
   border-radius: 8px;
   cursor: default;
   transition: background 0.15s, color 0.15s;
 }
 
-.cellPast {
-  opacity: 0.25;
-}
+.cellPast     { opacity: 0.25; }
+.cellToday    { color: var(--noc-grey-3); font-weight: 600; }
+.cellAvail    { color: var(--noc-white); font-weight: 500; cursor: pointer; }
+.cellAvail:hover { background: var(--noc-glass-bg-mid); }
+.cellSelected { background: var(--noc-white) !important; color: var(--noc-black) !important; font-weight: 700; }
 
-.cellToday {
-  color: var(--noc-grey-3);
-  font-weight: 600;
-}
-
-.cellAvail {
-  color: var(--noc-white);
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.cellAvail:hover {
-  background: var(--noc-glass-bg-mid);
-}
-
-.cellSelected {
-  background: var(--noc-white) !important;
-  color: var(--noc-black) !important;
-  font-weight: 700;
-}
-
-/* ── Slots — glass buttons ─────────────── */
-.slots {
-  border-top: 1px solid var(--noc-glass-border);
-  padding-top: 20px;
-}
+/* ── Time slots ────────────────────────── */
+.slots { border-top: 1px solid var(--noc-glass-border); padding-top: 20px; }
 
 .slotsLabel {
   font-size: 11px;
@@ -196,17 +170,14 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
   font-family: var(--noc-font);
   text-align: center;
+  transition: background 0.15s, border-color 0.15s;
 }
 
-.slot:hover {
-  background: var(--noc-glass-bg-mid);
-  border-color: var(--noc-glass-border);
-}
+.slot:hover { background: var(--noc-glass-bg-mid); border-color: var(--noc-glass-border); }
 
-/* ── Footer row ────────────────────────── */
+/* ── Footer hint row ───────────────────── */
 .calFooter {
   border-top: 1px solid var(--noc-glass-border);
   padding-top: 20px;
@@ -216,10 +187,7 @@
   gap: 16px;
 }
 
-.calHint {
-  font-size: 12px;
-  color: var(--noc-grey-4);
-}
+.calHint { font-size: 12px; color: var(--noc-grey-4); }
 
 .btn {
   font-size: 13px;
@@ -232,12 +200,147 @@
   cursor: pointer;
   font-family: var(--noc-font);
   white-space: nowrap;
-  transition: opacity 0.2s;
   flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+.btn:hover { opacity: 0.82; }
+
+/* ── Shared flow states (pending / confirmed) ── */
+.flowState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px 12px 8px;
+  min-height: 330px;
+  gap: 10px;
 }
 
-.btn:hover {
-  opacity: 0.82;
+.flowTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--noc-white);
+  letter-spacing: -0.01em;
+  margin-top: 4px;
+}
+
+.flowBody {
+  font-size: 13px;
+  color: var(--noc-grey-4);
+  line-height: 1.65;
+  max-width: 280px;
+}
+
+.slotBadge {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--noc-accent);
+  background: var(--noc-accent-subtle);
+  border-radius: 999px;
+  padding: 6px 18px;
+  margin: 6px 0;
+}
+
+.flowLink {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--noc-grey-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--noc-font);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: 6px;
+  transition: color 0.2s;
+}
+.flowLink:hover { color: var(--noc-white); }
+
+/* ── Returning state ───────────────────── */
+.questionMark {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--noc-grey-4);
+  border: 1.5px solid var(--noc-glass-border);
+  border-radius: 50%;
+  margin-bottom: 4px;
+}
+
+.returningActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 260px;
+  margin-top: 4px;
+}
+
+.btnConfirm {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-black);
+  background: var(--noc-white);
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--noc-font);
+  transition: opacity 0.2s;
+}
+.btnConfirm:hover { opacity: 0.82; }
+
+.btnReopen {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--noc-white);
+  background: var(--noc-glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 12px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--noc-glass-border);
+  cursor: pointer;
+  font-family: var(--noc-font);
+  transition: background 0.2s;
+}
+.btnReopen:hover { background: var(--noc-glass-bg-mid); }
+
+/* ── Pending — spinner ─────────────────── */
+.spinnerWrap {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--noc-glass-border);
+  border-top-color: var(--noc-accent);
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Confirmed — checkmark ─────────────── */
+.checkWrap {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--noc-accent);
+  margin-bottom: 4px;
 }
 
 /* ── Responsive ────────────────────────── */
@@ -250,19 +353,15 @@
   .cta::before {
     right: auto;
     left: 50%;
-    top: 60%;
+    top: 65%;
     transform: translate(-50%, -50%);
     width: 300px;
     height: 300px;
   }
 
-  .calWrap {
-    justify-content: flex-start;
-  }
+  .calWrap { justify-content: flex-start; }
 }
 
 @media (max-width: 480px) {
-  .calCard {
-    padding: 24px 20px 20px;
-  }
+  .calCard { padding: 24px 18px 20px; }
 }

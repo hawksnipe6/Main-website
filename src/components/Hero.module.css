@@ -123,16 +123,21 @@
   font-family: var(--noc-font);
   font-size: 13px;
   font-weight: 600;
-  color: #F5F4F0;
-  background: var(--noc-accent);
+  color: var(--noc-accent);
+  background: rgba(232, 97, 42, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 14px 32px;
   border-radius: 999px;
-  border: none;
+  border: 1px solid rgba(232, 97, 42, 0.28);
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: background 0.2s, border-color 0.2s;
   white-space: nowrap;
 }
-.btnPrimary:hover { opacity: 0.88; }
+.btnPrimary:hover {
+  background: rgba(232, 97, 42, 0.20);
+  border-color: rgba(232, 97, 42, 0.46);
+}
 
 .btnGhost {
   font-size: 13px;

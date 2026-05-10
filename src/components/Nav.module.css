@@ -61,16 +61,18 @@
 .cta {
   font-size: 13px;
   font-weight: 600;
-  color: var(--noc-black);
-  background: var(--noc-white);
+  color: var(--noc-white);
+  background: var(--noc-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   padding: 10px 24px;
   border-radius: 999px;
-  transition: opacity 0.2s;
-  border: 1px solid var(--noc-grey-3);
+  border: 1px solid var(--noc-glass-border);
   white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s;
 }
 
-.cta:hover { opacity: 0.85; }
+.cta:hover { background: var(--noc-glass-bg-mid); }
 
 /* ── HAMBURGER ────────────────────────────── */
 .hamburger {
