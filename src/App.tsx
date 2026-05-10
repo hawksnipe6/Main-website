@@ -40,7 +40,7 @@ export default function App() {
         <Services />
         <Pricing onBooking={() => setModalOpen(true)} />
         <Faq />
-        <Cta onBooking={() => setModalOpen(true)} />
+        <Cta />
       </main>
       <Footer />
       {modalOpen && <BookingModal onClose={() => setModalOpen(false)} />}

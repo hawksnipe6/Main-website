@@ -10,41 +10,41 @@ interface PricingTierProps {
 
 const TIERS: PricingTierProps[] = [
   {
-    name: 'Explore',
-    price: 'Scoped to the brief',
-    note: 'Audit · Discovery · Direction',
+    name: 'Clarity',
+    price: 'Diagnose before you prescribe',
+    note: 'Audit · Research · Direction',
     features: [
-      'Brand audit and gap analysis',
-      'Positioning and strategy workshop',
-      'Core identity direction',
-      'One defined deliverable',
-      'Clear brief for next steps',
+      'Revenue-leak brand audit',
+      'Competitive trust analysis',
+      'Positioning and market clarity',
+      'One prioritised deliverable',
+      'Clear investment roadmap',
     ],
   },
   {
-    name: 'Refine',
-    price: 'Scoped to the gap',
-    note: 'Identity · Product · Motion',
+    name: 'Conversion',
+    price: 'Fix what is losing you deals',
+    note: 'Brand · Product · Trust',
     features: [
-      'Audit of existing system',
-      'Targeted design intervention',
-      'Extended visual language',
-      'Product or UI design updates',
-      'Motion and interaction logic',
+      'Audit of existing brand system',
+      'Identity that earns market trust',
+      'Product UI designed to cut drop-off',
+      'Motion logic that signals quality',
       'Updated brand guidelines',
+      'Design decisions tied to outcomes',
     ],
     featured: true,
   },
   {
-    name: 'Build',
-    price: 'Scoped to the system',
-    note: 'Strategy · System · Execution',
+    name: 'Dominance',
+    price: 'Build for category leadership',
+    note: 'Strategy · System · Market',
     features: [
       'Full brand strategy and positioning',
       'Complete identity system',
       'Product and UI design system',
-      '3D / physical collateral',
-      'Motion language',
+      'Physical and 3D collateral',
+      'Motion language across surfaces',
       'Full brand guidelines',
     ],
   },
@@ -77,14 +77,15 @@ export function Pricing({ onBooking }: { onBooking: () => void }) {
     <section id="pricing">
       <div className={styles.header}>
         <div>
-          <div className="section-label reveal">Engage</div>
+          <div className="section-label reveal">Results</div>
           <h2 className="section-title reveal reveal-d1">
-            Scoped to the work.<br />Never to a menu.
+            Design that pays.<br />Systems that close.
           </h2>
         </div>
         <p className="section-body reveal reveal-d2">
-          Every project is priced on scope. These tiers are starting orientations, not packages.
-          Send a brief and we will tell you what the work actually costs.
+          Companies with strong design systems outperform weaker-branded competitors by 2:1.
+          Nocturnal builds the brand, product, and motion systems that create that gap.
+          Three tiers. One standard of execution.
         </p>
       </div>
       <div className={`${styles.grid} reveal`}>
@@ -93,8 +94,9 @@ export function Pricing({ onBooking }: { onBooking: () => void }) {
         ))}
       </div>
       <p className={`${styles.note} reveal`}>
-        If you have a declared budget, we will scope the work to it — without compromising the
-        standard of what we deliver. Scope changes, quality does not.
+        Poor design is a revenue problem. Businesses do not lose deals on price alone.
+        Weak brand and fragmented product experience kill deals before pricing enters the conversation.
+        Nocturnal removes that friction.
       </p>
     </section>
   )

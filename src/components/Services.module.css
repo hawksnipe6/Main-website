@@ -1,6 +1,4 @@
-.services {
-  background: var(--noc-grey-1);
-}
+.services {}
 
 .header {
   display: grid;
