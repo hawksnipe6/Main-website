@@ -37,10 +37,7 @@ export default function App() {
       <main>
         <Hero onBooking={() => setModalOpen(true)} />
         <Marquee />
-        <About />
         <Services />
-        <Disciplines />
-        <Clients />
         <Pricing onBooking={() => setModalOpen(true)} />
         <Faq />
         <Cta onBooking={() => setModalOpen(true)} />
