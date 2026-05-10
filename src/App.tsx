@@ -3,6 +3,8 @@ import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { Marquee } from './components/Marquee'
 import { Services } from './components/Services'
+import { LogoStrip } from './components/LogoStrip'
+import { Testimonials } from './components/Testimonials'
 import { Pricing } from './components/Pricing'
 import { Faq } from './components/Faq'
 import { Cta } from './components/Cta'
@@ -38,6 +40,8 @@ export default function App() {
         <Hero onBooking={() => setModalOpen(true)} />
         <Marquee />
         <Services />
+        <LogoStrip />
+        <Testimonials />
         <Pricing onBooking={() => setModalOpen(true)} />
         <Faq />
         <Cta />
