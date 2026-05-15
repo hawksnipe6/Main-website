@@ -7,7 +7,7 @@ const LOGOS = [
   { src: '/logos/aerpace.png', alt: 'Aerpace' },
   { src: '/logos/wehear.png', alt: 'WEHEAR' },
   { src: '/logos/khamir.png', alt: 'Khamir' },
-  { src: '/logos/penlounge.png', alt: 'The Pen Lounge' },
+  { src: '/logos/penlounge-clean.png', alt: 'The Pen Lounge', large: true },
 ]
 
 export function LogoStrip() {
@@ -21,14 +21,22 @@ export function LogoStrip() {
           </h2>
         </div>
         <p className="section-body reveal reveal-d2">
-          Selected collaborations across product, brand, interface, and industrial design.
+          Selected collaborators across product, brand, interface, and industrial design.
         </p>
       </div>
 
-      <div className={`${styles.logoGrid} reveal reveal-d2`} aria-label="Brands we have worked with">
-        {LOGOS.map((logo) => (
-          <div key={logo.alt} className={styles.logoCell}>
-            <img src={logo.src} alt={logo.alt} className={styles.logo} draggable={false} />
+      <div className={styles.logoGrid} aria-label="Brands we have worked with">
+        {LOGOS.map((logo, i) => (
+          <div
+            key={logo.alt}
+            className={`${styles.logoCell} ${logo.large ? styles.logoCellLarge : ''} reveal reveal-d${Math.min(i + 1, 3) as 1 | 2 | 3}`}
+          >
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              className={`${styles.logo} ${logo.large ? styles.logoLarge : ''}`}
+              draggable={false}
+            />
           </div>
         ))}
       </div>

@@ -1,77 +1,86 @@
 .section {
-  background: #fff;
+  background: var(--noc-black);
+  border-bottom: none !important;
+  padding-top: 96px;
+  padding-bottom: 96px;
 }
 
 .header {
-  margin-bottom: 64px;
+  margin-bottom: 40px;
 }
 
 .carousel {
   display: grid;
-  grid-template-columns: 48px 1fr 48px;
-  gap: 28px;
+  grid-template-columns: 44px 1fr 44px;
+  gap: 20px;
   align-items: center;
 }
 
 .row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 18px;
 }
 
 .card {
-  min-height: 260px;
-  background: #fff;
+  min-height: 176px;
+  background: var(--noc-black);
   border: 1px solid var(--noc-grey-2);
-  border-radius: 8px;
-  padding: 44px 40px 36px;
+  border-radius: 6px;
+  padding: 30px 30px 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.card:hover {
+  border-color: var(--noc-grey-3);
+  transform: translateY(-2px);
 }
 
 .quoteIcon {
-  font-size: 56px;
+  font-size: 42px;
   font-weight: 700;
   line-height: 0.7;
   color: var(--noc-grey-3);
 }
 
 .quote {
-  font-size: clamp(18px, 1.7vw, 24px);
+  font-size: clamp(16px, 1.35vw, 20px);
   font-weight: 500;
   line-height: 1.45;
   letter-spacing: -0.01em;
   color: var(--noc-white);
-  margin: 28px 0 40px;
-}
-
-.line {
-  width: 44px;
-  height: 1px;
-  background: var(--noc-grey-2);
+  margin-top: 22px;
 }
 
 .arrow {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--noc-grey-2);
   border-radius: 999px;
   color: var(--noc-white);
-  background: #fff;
-  font-size: 18px;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  background: var(--noc-black);
+  font-size: 17px;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .arrow:hover {
   color: var(--noc-accent);
   border-color: var(--noc-accent);
+  transform: translateY(-1px);
 }
 
 @media (max-width: 1024px) {
+  .section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
   .carousel {
-    grid-template-columns: 44px 1fr 44px;
-    gap: 16px;
+    grid-template-columns: 40px 1fr 40px;
+    gap: 14px;
   }
 
   .row {

@@ -2,11 +2,11 @@ import { useMemo, useState } from 'react'
 import styles from './Testimonials.module.css'
 
 const TESTIMONIALS = [
-  'A true extension of the team. Thoughtful, fast, and reliable.',
-  'They cut through complexity and delivered exactly what was needed.',
-  'Strategic partners who care deeply about craft and outcomes.',
-  'Clear process. Sharp thinking. Strong execution from first call to handoff.',
-  'Every decision felt intentional. Nothing was added for decoration.',
+  'Clear thinking. Fast execution. No wasted motion.',
+  'They simplified the brief and made the outcome sharper.',
+  'Strong craft, tight process, and clean handoff.',
+  'Every decision felt intentional from first call to final file.',
+  'The work felt precise, useful, and built to scale.',
 ]
 
 export function Testimonials() {
@@ -25,7 +25,7 @@ export function Testimonials() {
       <div className={styles.header}>
         <div className="section-label reveal">Testimonials</div>
         <h2 className="section-title reveal reveal-d1">
-          Voices from<br />our partners.
+          What the work<br />feels like.
         </h2>
       </div>
 
@@ -39,7 +39,6 @@ export function Testimonials() {
             <article key={`${quote}-${i}`} className={styles.card}>
               <span className={styles.quoteIcon} aria-hidden="true">“</span>
               <p className={styles.quote}>{quote}</p>
-              <span className={styles.line} />
             </article>
           ))}
         </div>

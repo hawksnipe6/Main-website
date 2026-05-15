@@ -3,7 +3,7 @@
   grid-template-columns: 0.75fr 1.25fr;
   gap: 72px;
   align-items: center;
-  background: #fff;
+  background: var(--noc-black);
 }
 
 .left {
@@ -53,7 +53,7 @@
 .calCard {
   width: 100%;
   max-width: 720px;
-  background: #fff;
+  background: var(--noc-black);
   border: 1px solid var(--noc-grey-2);
   border-radius: 10px;
   padding: 34px;
@@ -166,7 +166,7 @@
   padding: 11px 14px;
   border: 1px solid var(--noc-grey-2);
   border-radius: 8px;
-  background: #fff;
+  background: var(--noc-black);
   color: var(--noc-white);
   font-size: 13px;
   font-weight: 600;

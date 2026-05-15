@@ -1,12 +1,10 @@
-# Nocturnal website updates
+# Nocturnal updates
 
-## Changed sections
-
-- `LogoStrip`: rebuilt the brands section into a cleaner editorial logo grid.
-- `Testimonials`: removed all entity references and rebuilt the section as a single-row carousel with left and right arrows.
-- `Pricing`: replaced the pricing card language with concise service scope cards for Industrial Design, 2D/3D Design, and UI/UX Design.
-- `Cta`: refined the calendar into a rectangular white UI with grey unavailable dates and restrained orange available dates.
-
-## Build check
-
-`npm run build` completed successfully.
+- Replaced pure white section backgrounds with the Nocturnal warm base `#F5F4F0` through `var(--noc-black)`.
+- Removed the bounding box treatment from the brands section and rebuilt it as a concise editorial logo layout.
+- Replaced The Pen Lounge logo with the new uploaded asset and removed the black background from the PNG.
+- Added reveal/hover appearance behaviour to the updated brands, service cards, testimonials, FAQ, and calendar treatments.
+- Made testimonials compact, anonymous, horizontally navigable, and removed internal line decoration.
+- Simplified the service-card copy for faster scanning.
+- Expanded the FAQ accordion rows across the available horizontal width.
+- Kept the calendar rectangular with grey unavailable dates and restrained orange available dates.

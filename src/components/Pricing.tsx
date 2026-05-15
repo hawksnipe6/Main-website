@@ -11,58 +11,20 @@ const CARDS: ScopeCard[] = [
   {
     num: '01',
     title: 'Industrial Design',
-    get: [
-      'Existing product audit',
-      'Opportunity mapping',
-      'Concept ideation',
-      'Form exploration sketches',
-      'Low-fidelity prototypes',
-      'Vendor connect',
-    ],
-    dont: [
-      'End-to-end engineering',
-      'Tooling & DFM',
-      'Manufacturing setup',
-      'Compliance / certification',
-      'Mass production support',
-    ],
+    get: ['Product audit', 'Opportunity map', 'Concept ideation', 'Form sketches', 'Low-fi prototypes', 'Vendor connect'],
+    dont: ['Engineering', 'DFM / tooling', 'Manufacturing', 'Certification', 'Production management'],
   },
   {
     num: '02',
     title: '2D/3D Design',
-    get: [
-      'Ideation',
-      'Sketches',
-      'Digital mockups',
-      '3D visualisations',
-      'Motion design',
-      'Ready-to-use output',
-    ],
-    dont: [
-      'Printing facilities',
-      'Physical mockups',
-      'Fabrication / installation',
-      'Long-format video production',
-      'On-ground shoot coordination',
-    ],
+    get: ['Ideation', 'Sketches', 'Digital mockups', '3D renders', 'Motion output', 'Ready-to-use files'],
+    dont: ['Printing', 'Physical mockups', 'Fabrication', 'Long-form video', 'Shoot production'],
   },
   {
     num: '03',
     title: 'UI/UX Design',
-    get: [
-      'UX ideation',
-      'User flows',
-      'Lo-fi & hi-fi mockups',
-      'Design system components',
-      'Dev-ready handoff',
-    ],
-    dont: [
-      'App / website development',
-      'Backend setup',
-      'Deployment',
-      'QA testing',
-      'Analytics integration',
-    ],
+    get: ['UX direction', 'User flows', 'Lo-fi / hi-fi screens', 'UI components', 'Dev handoff'],
+    dont: ['Development', 'Backend', 'Deployment', 'QA testing', 'Analytics setup'],
   },
 ]
 
@@ -86,16 +48,16 @@ function Card({ num, title, get, dont }: ScopeCard) {
 
       <div className={styles.divider} />
 
-      <div className={styles.block}>
-        <h4 className={styles.blockTitle}>What you get</h4>
-        <List items={get} type="get" />
-      </div>
+      <div className={styles.scopeGrid}>
+        <div className={styles.block}>
+          <h4 className={styles.blockTitle}>What you get</h4>
+          <List items={get} type="get" />
+        </div>
 
-      <div className={styles.divider} />
-
-      <div className={styles.block}>
-        <h4 className={styles.blockTitle}>What you don’t get</h4>
-        <List items={dont} type="dont" />
+        <div className={styles.block}>
+          <h4 className={styles.blockTitle}>What you don’t get</h4>
+          <List items={dont} type="dont" />
+        </div>
       </div>
     </article>
   )
@@ -112,12 +74,16 @@ export function Pricing() {
           </h2>
         </div>
         <p className="section-body reveal reveal-d2">
-          Focused, high-impact design services to move your product forward without unnecessary overhead.
+          Three focused scopes. Clear inputs, clean outputs, and no hidden production promises.
         </p>
       </div>
 
-      <div className={`${styles.grid} reveal reveal-d2`}>
-        {CARDS.map((card) => <Card key={card.title} {...card} />)}
+      <div className={styles.grid}>
+        {CARDS.map((card, i) => (
+          <div key={card.title} className={`reveal reveal-d${Math.min(i + 1, 3) as 1 | 2 | 3}`}>
+            <Card {...card} />
+          </div>
+        ))}
       </div>
     </section>
   )
