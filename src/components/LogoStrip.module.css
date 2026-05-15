@@ -1,5 +1,6 @@
 .brands {
   background: var(--noc-black);
+  border-bottom: none !important;
 }
 
 .header {
@@ -7,96 +8,96 @@
   grid-template-columns: 1.05fr 0.95fr;
   gap: 80px;
   align-items: end;
-  margin-bottom: 64px;
+  margin-bottom: 72px;
 }
 
-.logoFrame {
-  width: min(100%, 1040px);
-  margin: 0 auto;
-}
-
-.logoGrid {
+.logoRow {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   align-items: center;
-  gap: clamp(28px, 4vw, 56px);
+  gap: clamp(24px, 3.2vw, 56px);
+  width: 100%;
 }
 
 .logoCell {
-  min-height: 96px;
+  height: 78px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .logo {
+  display: block;
   width: auto;
-  max-width: 112px;
-  max-height: 54px;
+  max-width: 118px;
+  max-height: 50px;
   object-fit: contain;
-  opacity: 0.68;
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  filter: grayscale(1);
+  opacity: 0.7;
+  mix-blend-mode: multiply;
+  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
   user-select: none;
 }
 
-.logoLarge {
-  max-width: 94px;
-  max-height: 94px;
+.logoMark {
+  max-width: 62px;
+  max-height: 62px;
+}
+
+.logoBadge {
+  max-width: 82px;
+  max-height: 82px;
 }
 
 .logoCell:hover .logo {
   opacity: 1;
+  filter: grayscale(0);
   transform: translateY(-2px);
 }
 
-.next {
-  margin-top: 36px;
+.nextText {
+  margin-top: 54px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-align: center;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1;
-  color: var(--noc-grey-5);
-  letter-spacing: 0.01em;
-}
-
-.next::before {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 1px;
-  margin: 0 auto 18px;
-  background: var(--noc-accent);
+  color: var(--noc-grey-4);
 }
 
 @media (max-width: 1024px) {
   .header {
     grid-template-columns: 1fr;
     gap: 32px;
+    margin-bottom: 56px;
   }
 
-  .logoGrid {
+  .logoRow {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 36px;
   }
 }
 
 @media (max-width: 640px) {
-  .logoGrid {
+  .logoRow {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px 28px;
   }
 
   .logoCell {
-    min-height: 72px;
+    height: 66px;
   }
 
   .logo {
-    max-width: 96px;
-    max-height: 44px;
+    max-width: 104px;
+    max-height: 38px;
   }
 
-  .logoLarge {
-    max-width: 78px;
-    max-height: 78px;
+  .logoMark {
+    max-width: 52px;
+    max-height: 52px;
+  }
+
+  .logoBadge {
+    max-width: 68px;
+    max-height: 68px;
   }
 }

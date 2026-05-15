@@ -1,4 +1,6 @@
-.services {}
+.services {
+  border-bottom: none !important;
+}
 
 .header {
   display: grid;

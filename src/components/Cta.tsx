@@ -130,31 +130,25 @@ export function Cta() {
                   <div key={d} className={styles.dayLabel}>{d}</div>
                 ))}
                 {cells.map((day, i) => {
-                  if (day === null) {
-                    return <div key={i} className={styles.cellEmpty} aria-hidden="true" />
-                  }
-
                   const isToday = day === today
-                  const isAvail = available.has(day)
-                  const isSel   = day === selected
-                  const isPast  = day <= today
-
+                  const isAvail = day !== null && available.has(day)
+                  const isSel   = day !== null && day === selected
+                  const isPast  = day !== null && day <= today
                   return (
-                    <button
+                    <div
                       key={i}
-                      type="button"
                       className={[
                         styles.cell,
-                        isPast && !isToday ? styles.cellPast     : '',
-                        isToday            ? styles.cellToday    : '',
-                        isAvail            ? styles.cellAvail    : '',
-                        isSel              ? styles.cellSelected : '',
+                        day === null        ? styles.cellEmpty  : '',
+                        isPast && !isToday ? styles.cellPast    : '',
+                        isToday            ? styles.cellToday   : '',
+                        isAvail            ? styles.cellAvail   : '',
+                        isSel              ? styles.cellSelected: '',
                       ].join(' ')}
                       onClick={() => isAvail && setSelected(isSel ? null : day)}
-                      disabled={!isAvail}
                     >
-                      {day}
-                    </button>
+                      {day ?? ''}
+                    </div>
                   )
                 })}
               </div>
