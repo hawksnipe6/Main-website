@@ -74,7 +74,7 @@ export function Pricing() {
           </h2>
         </div>
         <p className="section-body reveal reveal-d2">
-          Three focused scopes. Clear inputs, clean outputs, and no hidden production promises.
+          Three clear scopes. Know what is included, what is not, and where the handoff ends.
         </p>
       </div>
 

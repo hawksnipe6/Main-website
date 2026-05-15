@@ -1,12 +1,12 @@
 import styles from './LogoStrip.module.css'
 
 const LOGOS = [
-  { src: '/logos/armor.png', alt: 'Armor' },
-  { src: '/logos/pixelpaw.png', alt: 'Pixelpaw Labs' },
-  { src: '/logos/dmos.png', alt: "D'MOS" },
-  { src: '/logos/aerpace.png', alt: 'Aerpace' },
-  { src: '/logos/wehear.png', alt: 'WEHEAR' },
-  { src: '/logos/khamir.png', alt: 'Khamir' },
+  { src: '/logos/armor-clean.png', alt: 'Armor' },
+  { src: '/logos/pixelpaw-clean.png', alt: 'Pixelpaw Labs' },
+  { src: '/logos/dmos-clean.png', alt: "D'MOS" },
+  { src: '/logos/aerpace-clean.png', alt: 'Aerpace' },
+  { src: '/logos/wehear-clean.png', alt: 'WEHEAR' },
+  { src: '/logos/khamir-clean.png', alt: 'Khamir' },
   { src: '/logos/penlounge-clean.png', alt: 'The Pen Lounge', large: true },
 ]
 
@@ -25,20 +25,20 @@ export function LogoStrip() {
         </p>
       </div>
 
-      <div className={styles.logoGrid} aria-label="Brands we have worked with">
-        {LOGOS.map((logo, i) => (
-          <div
-            key={logo.alt}
-            className={`${styles.logoCell} ${logo.large ? styles.logoCellLarge : ''} reveal reveal-d${Math.min(i + 1, 3) as 1 | 2 | 3}`}
-          >
-            <img
-              src={logo.src}
-              alt={logo.alt}
-              className={`${styles.logo} ${logo.large ? styles.logoLarge : ''}`}
-              draggable={false}
-            />
-          </div>
-        ))}
+      <div className={`${styles.logoFrame} reveal reveal-d2`} aria-label="Brands we have worked with">
+        <div className={styles.logoGrid}>
+          {LOGOS.map((logo) => (
+            <div key={logo.alt} className={styles.logoCell}>
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                className={`${styles.logo} ${logo.large ? styles.logoLarge : ''}`}
+                draggable={false}
+              />
+            </div>
+          ))}
+        </div>
+        <p className={styles.next}>you can be next</p>
       </div>
     </section>
   )

@@ -44,7 +44,7 @@ button {
 /* ── GLOBAL SECTION ────────────────────────── */
 section {
   padding: var(--section-padding-v) calc(var(--gutter) + var(--site-padding));
-  border-bottom: 1px solid var(--noc-grey-2);
+  border-bottom: none;
   max-width: var(--max-width);
   margin-left: auto;
   margin-right: auto;

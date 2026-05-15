@@ -10,51 +10,62 @@
   margin-bottom: 64px;
 }
 
+.logoFrame {
+  width: min(100%, 1040px);
+  margin: 0 auto;
+}
+
 .logoGrid {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr 1fr 0.9fr;
-  gap: clamp(34px, 5vw, 82px) clamp(44px, 6vw, 96px);
+  grid-template-columns: repeat(7, minmax(0, 1fr));
   align-items: center;
+  gap: clamp(28px, 4vw, 56px);
 }
 
 .logoCell {
-  min-height: 86px;
+  min-height: 96px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.logoCell:nth-child(4n),
-.logoCell:nth-child(7) {
-  justify-content: flex-end;
-}
-
-.logoCellLarge {
-  grid-column: span 2;
-  min-height: 112px;
+  justify-content: center;
 }
 
 .logo {
   width: auto;
-  max-width: 148px;
-  max-height: 58px;
+  max-width: 112px;
+  max-height: 54px;
   object-fit: contain;
-  filter: grayscale(1);
-  opacity: 0.72;
-  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+  opacity: 0.68;
+  transition: opacity 0.25s ease, transform 0.25s ease;
   user-select: none;
 }
 
 .logoLarge {
-  max-width: 118px;
-  max-height: 118px;
+  max-width: 94px;
+  max-height: 94px;
 }
 
 .logoCell:hover .logo {
   opacity: 1;
-  filter: grayscale(0);
   transform: translateY(-2px);
+}
+
+.next {
+  margin-top: 36px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--noc-grey-5);
+  letter-spacing: 0.01em;
+}
+
+.next::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  margin: 0 auto 18px;
+  background: var(--noc-accent);
 }
 
 @media (max-width: 1024px) {
@@ -64,25 +75,15 @@
   }
 
   .logoGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 48px;
-  }
-
-  .logoCell,
-  .logoCell:nth-child(4n),
-  .logoCell:nth-child(7) {
-    justify-content: center;
-  }
-
-  .logoCellLarge {
-    grid-column: auto;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 36px;
   }
 }
 
 @media (max-width: 640px) {
   .logoGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 36px 32px;
+    gap: 32px 28px;
   }
 
   .logoCell {
@@ -90,12 +91,12 @@
   }
 
   .logo {
-    max-width: 112px;
-    max-height: 48px;
+    max-width: 96px;
+    max-height: 44px;
   }
 
   .logoLarge {
-    max-width: 92px;
-    max-height: 92px;
+    max-width: 78px;
+    max-height: 78px;
   }
 }

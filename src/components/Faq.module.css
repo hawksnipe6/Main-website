@@ -1,17 +1,19 @@
 .section {
   background: var(--noc-black);
+  max-width: 100% !important;
 }
 
 .header {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
-  margin-bottom: 64px;
+  margin-bottom: 52px;
   align-items: end;
 }
 
 .list {
   width: 100%;
+  max-width: none;
   border-top: 1px solid var(--noc-grey-2);
 }
 
@@ -60,7 +62,7 @@
   color: var(--noc-grey-5);
   line-height: 1.7;
   max-height: 0;
-  max-width: 720px;
+  max-width: 860px;
   overflow: hidden;
   transition: max-height 0.35s ease, padding-bottom 0.25s ease;
 }

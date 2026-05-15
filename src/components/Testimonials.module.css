@@ -1,12 +1,12 @@
 .section {
   background: var(--noc-black);
   border-bottom: none !important;
-  padding-top: 96px;
-  padding-bottom: 96px;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .header {
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 .carousel {
@@ -23,11 +23,11 @@
 }
 
 .card {
-  min-height: 176px;
+  min-height: 138px;
   background: var(--noc-black);
   border: 1px solid var(--noc-grey-2);
   border-radius: 6px;
-  padding: 30px 30px 28px;
+  padding: 24px 26px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -40,7 +40,7 @@
 }
 
 .quoteIcon {
-  font-size: 42px;
+  font-size: 34px;
   font-weight: 700;
   line-height: 0.7;
   color: var(--noc-grey-3);
@@ -52,7 +52,7 @@
   line-height: 1.45;
   letter-spacing: -0.01em;
   color: var(--noc-white);
-  margin-top: 22px;
+  margin-top: 16px;
 }
 
 .arrow {
