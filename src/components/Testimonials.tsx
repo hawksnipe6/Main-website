@@ -37,7 +37,6 @@ export function Testimonials() {
         <div className={styles.row}>
           {visible.map((quote, i) => (
             <article key={`${quote}-${i}`} className={styles.card}>
-              <span className={styles.quoteIcon} aria-hidden="true">“</span>
               <p className={styles.quote}>{quote}</p>
             </article>
           ))}

@@ -7,7 +7,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
-  margin-bottom: 64px;
+  margin-bottom: 56px;
   align-items: end;
 }
 
@@ -22,16 +22,16 @@
 
 .question {
   width: 100%;
-  font-size: clamp(16px, 1.4vw, 20px);
+  font-size: clamp(16px, 1.35vw, 20px);
   font-weight: 600;
   color: var(--noc-white);
-  padding: 30px 0;
+  padding: 28px 0;
   display: grid;
   grid-template-columns: 1fr 32px;
   align-items: center;
   gap: 48px;
   text-align: left;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
   background: none;
   border: none;
 }
@@ -45,7 +45,7 @@
   font-weight: 300;
   color: var(--noc-grey-4);
   justify-self: end;
-  transition: transform 0.3s, color 0.2s;
+  transition: transform 0.28s ease, color 0.2s ease;
 }
 
 .question:hover .icon {
@@ -57,18 +57,29 @@
 }
 
 .answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  overflow: hidden;
+  transition: grid-template-rows 0.36s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.24s ease;
+}
+
+.answerInner {
+  min-height: 0;
+  max-width: 960px;
   font-size: 14px;
   color: var(--noc-grey-5);
   line-height: 1.7;
-  max-height: 0;
-  max-width: 960px;
-  overflow: hidden;
-  transition: max-height 0.35s ease, padding-bottom 0.25s ease;
+  padding-right: 64px;
 }
 
 .open .answer {
-  max-height: 220px;
-  padding-bottom: 30px;
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.open .answerInner {
+  padding-bottom: 28px;
 }
 
 @media (max-width: 1024px) {
@@ -79,5 +90,9 @@
 
   .question {
     gap: 24px;
+  }
+
+  .answerInner {
+    padding-right: 0;
   }
 }

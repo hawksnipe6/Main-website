@@ -8,13 +8,13 @@
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   align-items: end;
-  margin-bottom: 58px;
+  margin-bottom: 50px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
+  gap: 22px;
 }
 
 .card {
@@ -22,7 +22,7 @@
   background: var(--noc-black);
   border: 1px solid var(--noc-grey-2);
   border-radius: 6px;
-  padding: 30px;
+  padding: 28px;
   transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
 }
 
@@ -50,12 +50,12 @@
 .divider {
   height: 1px;
   background: var(--noc-grey-2);
-  margin: 24px 0;
+  margin: 22px 0;
 }
 
 .scopeGrid {
   display: grid;
-  gap: 24px;
+  gap: 22px;
 }
 
 .blockTitle {
@@ -69,14 +69,14 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 8px;
 }
 
 .getItem,
 .dontItem {
   display: grid;
-  grid-template-columns: 16px 1fr;
-  gap: 9px;
+  grid-template-columns: 14px 1fr;
+  gap: 8px;
   font-size: 12.5px;
   line-height: 1.4;
   color: var(--noc-white);
@@ -100,5 +100,9 @@
 
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 26px;
   }
 }

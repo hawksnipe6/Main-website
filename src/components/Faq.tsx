@@ -33,16 +33,14 @@ function FaqItem({ question, answer }: FaqItemProps) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className={`${styles.item} ${open ? styles.open : ''} reveal`}>
-      <button
-        className={styles.question}
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-      >
+    <div className={`${styles.item} ${open ? styles.open : ''}`}>
+      <button className={styles.question} onClick={() => setOpen(!open)} aria-expanded={open}>
         <span>{question}</span>
         <span className={styles.icon} aria-hidden="true">+</span>
       </button>
-      <div className={styles.answer}>{answer}</div>
+      <div className={styles.answer} aria-hidden={!open}>
+        <div className={styles.answerInner}>{answer}</div>
+      </div>
     </div>
   )
 }
@@ -61,7 +59,7 @@ export function Faq() {
           The useful answers before we discuss scope, timeline, or fit.
         </p>
       </div>
-      <div className={styles.list}>
+      <div className={`${styles.list} reveal reveal-d2`}>
         {FAQS.map((faq) => (
           <FaqItem key={faq.question} {...faq} />
         ))}

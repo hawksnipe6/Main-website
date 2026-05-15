@@ -1,7 +1,7 @@
 .cta {
   border-bottom: none !important;
   display: grid;
-  grid-template-columns: 0.75fr 1.25fr;
+  grid-template-columns: 0.82fr 1.18fr;
   gap: 72px;
   align-items: center;
   background: var(--noc-black);
@@ -53,22 +53,22 @@
 
 .calCard {
   width: 100%;
-  max-width: 720px;
+  max-width: 560px;
   background: var(--noc-black);
   border: 1px solid var(--noc-grey-2);
-  border-radius: 10px;
-  padding: 34px;
+  border-radius: 8px;
+  padding: 28px;
 }
 
 .calHeader {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  margin-bottom: 26px;
+  margin-bottom: 22px;
 }
 
 .calMonth {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--noc-white);
   letter-spacing: -0.01em;
@@ -82,43 +82,41 @@
 .calGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  gap: 0;
   border-top: 1px solid var(--noc-grey-2);
-  border-left: 1px solid var(--noc-grey-2);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .dayLabel {
-  height: 38px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--noc-grey-4);
-  border-right: 1px solid var(--noc-grey-2);
   border-bottom: 1px solid var(--noc-grey-2);
 }
 
 .cell {
-  height: 48px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
   color: var(--noc-grey-3);
-  border-right: 1px solid var(--noc-grey-2);
-  border-bottom: 1px solid var(--noc-grey-2);
-  transition: color 0.15s ease, background 0.15s ease;
+  border-bottom: 1px solid rgba(208, 207, 203, 0.5);
+  transition: color 0.15s ease, opacity 0.15s ease;
 }
 
 .cellPast {
   color: var(--noc-grey-3);
-  opacity: 0.45;
+  opacity: 0.42;
 }
 
 .cellToday {
-  color: var(--noc-grey-5);
+  color: var(--noc-grey-6);
   font-weight: 600;
 }
 
@@ -128,26 +126,27 @@
   cursor: pointer;
 }
 
+.cellAvail:hover {
+  color: var(--noc-white);
+}
+
 .cellEmpty {
   color: transparent;
   pointer-events: none;
-  background: transparent;
-}
-
-.cellAvail:hover {
-  color: var(--noc-white);
+  background: transparent !important;
+  border-bottom-color: transparent;
 }
 
 .cellSelected {
   color: var(--noc-accent) !important;
   font-weight: 700;
   background: transparent !important;
-  box-shadow: none;
+  box-shadow: inset 0 -1px 0 var(--noc-accent);
 }
 
 .slots,
 .calFooter {
-  padding-top: 20px;
+  padding-top: 18px;
 }
 
 .slotsLabel {
@@ -156,26 +155,26 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--noc-grey-4);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .slotsGrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 10px;
+  gap: 8px;
 }
 
 .slot,
 .btn,
 .btnConfirm,
 .btnReopen {
-  min-height: 42px;
-  padding: 11px 14px;
+  min-height: 38px;
+  padding: 10px 12px;
   border: 1px solid var(--noc-grey-2);
-  border-radius: 8px;
-  background: var(--noc-black);
+  border-radius: 6px;
+  background: transparent;
   color: var(--noc-white);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   font-family: var(--noc-font);
   text-align: center;
@@ -203,7 +202,7 @@
 }
 
 .flowState {
-  min-height: 328px;
+  min-height: 278px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -248,8 +247,8 @@
 .spinnerWrap,
 .questionMark,
 .checkWrap {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -258,37 +257,28 @@
   border-radius: 999px;
 }
 
-.questionMark {
-  color: var(--noc-grey-4);
-  font-size: 26px;
-  font-weight: 700;
-}
-
 .spinner {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+  width: 26px;
+  height: 26px;
   border: 1.5px solid var(--noc-grey-2);
   border-top-color: var(--noc-accent);
+  border-radius: 50%;
   animation: spin 0.9s linear infinite;
 }
 
 .returningActions {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-  width: min(100%, 300px);
-  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(100%, 260px);
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 1100px) {
   .cta {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 44px;
   }
 
   .calWrap {
@@ -298,15 +288,19 @@
 
 @media (max-width: 640px) {
   .calCard {
-    padding: 24px 18px;
+    padding: 20px;
   }
 
   .slotsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .calFooter {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
   }
 }
