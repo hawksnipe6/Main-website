@@ -1,9 +1,8 @@
 import styles from './Footer.module.css'
 
-const NAV_COLS = [
+const FOOTER_COLS = [
   {
     title: 'Studio',
-    colClass: styles.colCentre,
     links: [
       { label: 'About', href: '#about' },
       { label: 'Services', href: '#services' },
@@ -13,12 +12,16 @@ const NAV_COLS = [
   },
   {
     title: 'Engage',
-    colClass: styles.colRight,
     links: [
       { label: 'Pricing', href: '#pricing' },
       { label: 'FAQ', href: '#faq' },
       { label: 'Start a Project', href: '#cta' },
-      { label: 'getncrtnl@gmail.com', href: 'mailto:hello@nocturnal.studio' },
+    ],
+  },
+  {
+    title: 'Contact',
+    links: [
+      { label: 'getncrtnl@gmail.com', href: 'mailto:getncrtnl@gmail.com' },
     ],
   },
 ]
@@ -34,8 +37,9 @@ export function Footer() {
             Execution is evidence of thinking.
           </p>
         </div>
-        {NAV_COLS.map((col) => (
-          <div key={col.title} className={col.colClass}>
+
+        {FOOTER_COLS.map((col) => (
+          <nav key={col.title} className={styles.col} aria-label={col.title}>
             <div className={styles.colTitle}>{col.title}</div>
             <ul className={styles.colLinks}>
               {col.links.map((link) => (
@@ -44,9 +48,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
         ))}
       </div>
+
       <div className={styles.bottom}>
         <span>© {new Date().getFullYear()} Nocturnal. All rights reserved.</span>
         <span>Design intelligence studio</span>

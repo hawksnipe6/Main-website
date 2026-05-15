@@ -1,41 +1,27 @@
 .footer {
-  padding: 80px var(--gutter) 48px;
+  padding: 76px calc(var(--gutter) + var(--site-padding)) 44px;
   background: var(--noc-black);
   border-top: 1px solid var(--noc-grey-2);
 }
 
 .top {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 80px;
-  margin-bottom: 80px;
-  padding-bottom: 80px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: clamp(28px, 4vw, 72px);
+  width: 100%;
+  margin-bottom: 72px;
+  padding-bottom: 64px;
   border-bottom: 1px solid var(--noc-grey-2);
 }
 
-/* Col 1 — left aligned (default) */
-.colBrand {}
-
-/* Col 2 — left aligned */
-.colCentre {
-  text-align: left;
-}
-
-.colCentre .colLinks {
-  align-items: flex-start;
-}
-
-/* Col 3 — left aligned */
-.colRight {
-  text-align: left;
-}
-
-.colRight .colLinks {
-  align-items: flex-start;
+.colBrand,
+.col {
+  min-width: 0;
 }
 
 .logo {
   display: block;
+  width: fit-content;
   font-size: 15px;
   font-weight: 700;
   color: var(--noc-white);
@@ -43,16 +29,18 @@
 }
 
 .tagline {
+  max-width: 360px;
   font-size: 13px;
   color: var(--noc-grey-4);
   line-height: 1.65;
 }
 
 .colTitle {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--noc-grey-4);
   text-transform: uppercase;
+  letter-spacing: 0.06em;
   margin-bottom: 24px;
 }
 
@@ -66,36 +54,49 @@
 .colLinks a {
   font-size: 13px;
   color: var(--noc-grey-5);
-  transition: color 0.2s;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .colLinks a:hover {
   color: var(--noc-white);
+  transform: translateX(2px);
 }
 
 .bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 24px;
   font-size: 12px;
   color: var(--noc-grey-4);
 }
 
 @media (max-width: 1024px) {
+  .footer {
+    padding-top: 64px;
+  }
+
+  .top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 48px;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 56px calc(var(--gutter) + var(--site-padding)) 36px;
+  }
+
   .top {
     grid-template-columns: 1fr;
-    gap: 40px;
-    margin-bottom: 40px;
-    padding-bottom: 40px;
+    row-gap: 36px;
   }
 
-  .colCentre,
-  .colRight {
-    text-align: left;
-  }
-
-  .colCentre .colLinks,
-  .colRight .colLinks {
+  .bottom {
     align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
   }
 }
