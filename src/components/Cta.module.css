@@ -1,55 +1,38 @@
-/* ── Section ───────────────────────────── */
 .cta {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 72px;
   align-items: center;
-  position: relative;
-  overflow: hidden;
+  background: #fff;
 }
 
-.cta::before {
-  content: '';
-  position: absolute;
-  right: 5%;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 480px;
-  height: 480px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--noc-accent-subtle) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── Left ──────────────────────────────── */
 .left {
   display: flex;
   flex-direction: column;
-  position: relative;
-  z-index: 1;
 }
 
-.title  { margin-bottom: 20px !important; }
+.title {
+  margin-bottom: 20px !important;
+}
 
 .body {
   font-size: 15px;
   color: var(--noc-grey-5);
   line-height: 1.7;
-  max-width: 400px;
+  max-width: 420px;
   margin-bottom: 28px;
 }
 
 .meta {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 18px;
 }
 
 .metaItem {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   font-size: 12px;
   font-weight: 500;
   color: var(--noc-grey-4);
@@ -60,41 +43,31 @@
   height: 5px;
   border-radius: 50%;
   background: var(--noc-accent);
-  flex-shrink: 0;
 }
 
-/* ── Calendar card — glass ─────────────── */
 .calWrap {
   display: flex;
   justify-content: flex-end;
-  position: relative;
-  z-index: 1;
 }
 
 .calCard {
   width: 100%;
-  max-width: 440px;
-  background: var(--noc-glass-bg);
-  backdrop-filter: blur(var(--noc-glass-blur));
-  -webkit-backdrop-filter: blur(var(--noc-glass-blur));
-  border: 1px solid var(--noc-glass-border);
-  border-radius: 20px;
-  padding: 32px 28px 28px;
-  box-shadow:
-    0 1px 0 0 var(--noc-glass-border) inset,
-    0 -1px 0 0 var(--noc-glass-border) inset;
+  max-width: 720px;
+  background: #fff;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 10px;
+  padding: 34px;
 }
 
-/* ── Calendar header ───────────────────── */
 .calHeader {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  margin-bottom: 28px;
+  margin-bottom: 26px;
 }
 
 .calMonth {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--noc-white);
   letter-spacing: -0.01em;
@@ -105,48 +78,74 @@
   color: var(--noc-grey-4);
 }
 
-/* ── Calendar grid ─────────────────────── */
 .calGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 3px;
+  border-top: 1px solid var(--noc-grey-2);
+  border-left: 1px solid var(--noc-grey-2);
   margin-bottom: 24px;
 }
 
 .dayLabel {
-  font-size: 9px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.08em;
   color: var(--noc-grey-4);
-  text-align: center;
-  padding-bottom: 10px;
-  text-transform: uppercase;
+  border-right: 1px solid var(--noc-grey-2);
+  border-bottom: 1px solid var(--noc-grey-2);
 }
 
 .cell {
-  aspect-ratio: 1;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  color: var(--noc-grey-4);
-  border-radius: 8px;
-  cursor: default;
-  transition: background 0.15s, color 0.15s;
+  color: var(--noc-grey-3);
+  border-right: 1px solid var(--noc-grey-2);
+  border-bottom: 1px solid var(--noc-grey-2);
+  transition: color 0.15s ease, background 0.15s ease;
 }
 
-.cellPast     { opacity: 0.25; }
-.cellToday    { color: var(--noc-grey-3); font-weight: 600; }
-.cellAvail    { color: var(--noc-white); font-weight: 500; cursor: pointer; }
-.cellAvail:hover { background: var(--noc-glass-bg-mid); }
-.cellSelected { background: var(--noc-white) !important; color: var(--noc-black) !important; font-weight: 700; }
+.cellPast {
+  color: var(--noc-grey-3);
+  opacity: 0.45;
+}
 
-/* ── Time slots ────────────────────────── */
-.slots { border-top: 1px solid var(--noc-glass-border); padding-top: 20px; }
+.cellToday {
+  color: var(--noc-grey-5);
+  font-weight: 600;
+}
+
+.cellAvail {
+  color: var(--noc-accent);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cellAvail:hover {
+  background: var(--noc-accent-subtle);
+}
+
+.cellSelected {
+  color: var(--noc-accent) !important;
+  background: var(--noc-accent-subtle) !important;
+  box-shadow: inset 0 0 0 1px var(--noc-accent);
+}
+
+.slots,
+.calFooter {
+  border-top: 1px solid var(--noc-grey-2);
+  padding-top: 20px;
+}
 
 .slotsLabel {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--noc-grey-4);
@@ -155,184 +154,92 @@
 
 .slotsGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
 }
 
-.slot {
-  padding: 11px 12px;
-  border: 1px solid var(--noc-glass-border);
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: 500;
+.slot,
+.btn,
+.btnConfirm,
+.btnReopen {
+  min-height: 42px;
+  padding: 11px 14px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 8px;
+  background: #fff;
   color: var(--noc-white);
-  background: var(--noc-glass-bg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
   font-family: var(--noc-font);
   text-align: center;
-  transition: background 0.15s, border-color 0.15s;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
 }
 
-.slot:hover { background: var(--noc-glass-bg-mid); border-color: var(--noc-glass-border); }
+.slot:hover,
+.btn:hover,
+.btnConfirm:hover,
+.btnReopen:hover {
+  color: var(--noc-accent);
+  border-color: var(--noc-accent);
+}
 
-/* ── Footer hint row ───────────────────── */
 .calFooter {
-  border-top: 1px solid var(--noc-glass-border);
-  padding-top: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
 }
 
-.calHint { font-size: 12px; color: var(--noc-grey-4); }
-
-.btn {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--noc-black);
-  background: var(--noc-white);
-  padding: 11px 24px;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  font-family: var(--noc-font);
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: opacity 0.2s;
+.calHint {
+  font-size: 12px;
+  color: var(--noc-grey-4);
 }
-.btn:hover { opacity: 0.82; }
 
-/* ── Shared flow states (pending / confirmed) ── */
 .flowState {
+  min-height: 328px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 16px 12px 8px;
-  min-height: 330px;
-  gap: 10px;
+  gap: 12px;
 }
 
 .flowTitle {
   font-size: 18px;
   font-weight: 700;
   color: var(--noc-white);
-  letter-spacing: -0.01em;
-  margin-top: 4px;
 }
 
 .flowBody {
   font-size: 13px;
-  color: var(--noc-grey-4);
+  color: var(--noc-grey-5);
   line-height: 1.65;
-  max-width: 280px;
+  max-width: 300px;
 }
 
 .slotBadge {
   font-size: 12px;
   font-weight: 600;
   color: var(--noc-accent);
-  background: var(--noc-accent-subtle);
+  border: 1px solid var(--noc-accent);
   border-radius: 999px;
-  padding: 6px 18px;
-  margin: 6px 0;
+  padding: 6px 16px;
 }
 
 .flowLink {
   font-size: 12px;
-  font-weight: 500;
   color: var(--noc-grey-4);
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: var(--noc-font);
   text-decoration: underline;
   text-underline-offset: 3px;
-  margin-top: 6px;
-  transition: color 0.2s;
-}
-.flowLink:hover { color: var(--noc-white); }
-
-/* ── Returning state ───────────────────── */
-.questionMark {
-  width: 52px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--noc-grey-4);
-  border: 1.5px solid var(--noc-glass-border);
-  border-radius: 50%;
-  margin-bottom: 4px;
 }
 
-.returningActions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-  max-width: 260px;
-  margin-top: 4px;
-}
-
-.btnConfirm {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--noc-black);
-  background: var(--noc-white);
-  padding: 12px 20px;
-  border-radius: 999px;
-  border: none;
-  cursor: pointer;
-  font-family: var(--noc-font);
-  transition: opacity 0.2s;
-}
-.btnConfirm:hover { opacity: 0.82; }
-
-.btnReopen {
-  font-size: 13px;
-  font-weight: 500;
+.flowLink:hover {
   color: var(--noc-white);
-  background: var(--noc-glass-bg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 12px 20px;
-  border-radius: 999px;
-  border: 1px solid var(--noc-glass-border);
-  cursor: pointer;
-  font-family: var(--noc-font);
-  transition: background 0.2s;
-}
-.btnReopen:hover { background: var(--noc-glass-bg-mid); }
-
-/* ── Pending — spinner ─────────────────── */
-.spinnerWrap {
-  width: 52px;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 4px;
 }
 
-.spinner {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1.5px solid var(--noc-glass-border);
-  border-top-color: var(--noc-accent);
-  animation: spin 0.9s linear infinite;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ── Confirmed — checkmark ─────────────── */
+.spinnerWrap,
+.questionMark,
 .checkWrap {
   width: 52px;
   height: 52px;
@@ -340,28 +247,59 @@
   align-items: center;
   justify-content: center;
   color: var(--noc-accent);
-  margin-bottom: 4px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 999px;
 }
 
-/* ── Responsive ────────────────────────── */
-@media (max-width: 1024px) {
+.questionMark {
+  color: var(--noc-grey-4);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--noc-grey-2);
+  border-top-color: var(--noc-accent);
+  animation: spin 0.9s linear infinite;
+}
+
+.returningActions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  width: min(100%, 300px);
+  margin-top: 4px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1100px) {
   .cta {
     grid-template-columns: 1fr;
     gap: 48px;
   }
 
-  .cta::before {
-    right: auto;
-    left: 50%;
-    top: 65%;
-    transform: translate(-50%, -50%);
-    width: 300px;
-    height: 300px;
+  .calWrap {
+    justify-content: flex-start;
   }
-
-  .calWrap { justify-content: flex-start; }
 }
 
-@media (max-width: 480px) {
-  .calCard { padding: 24px 18px 20px; }
+@media (max-width: 640px) {
+  .calCard {
+    padding: 24px 18px;
+  }
+
+  .slotsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .calFooter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

@@ -1,70 +1,79 @@
-.wrapper {
-  border-bottom: 1px solid var(--noc-grey-2);
-  padding: 48px var(--section-x) 52px;
+.brands {
+  background: #fff;
 }
 
-.label {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--noc-grey-4);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.grid {
+.header {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  align-items: center;
-  gap: clamp(24px, 4vw, 64px);
-  width: min(100%, 1120px);
-  margin: 0 auto;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 72px;
 }
 
-.logoWrap {
+.logoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--noc-grey-2);
+  border: 1px solid var(--noc-grey-2);
+}
+
+.logoCell {
+  min-height: 160px;
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 56px;
+  padding: 44px;
+}
+
+.logoCell:nth-child(5),
+.logoCell:nth-child(6),
+.logoCell:nth-child(7) {
+  min-height: 180px;
+}
+
+.logoCell:nth-child(5) {
+  grid-column: span 2;
 }
 
 .logo {
-  display: block;
   width: auto;
-  max-width: 104px;
-  max-height: 40px;
+  max-width: 150px;
+  max-height: 68px;
   object-fit: contain;
-  opacity: 0.72;
   filter: grayscale(1);
-  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
-  user-select: none;
+  opacity: 0.78;
+  transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s ease;
 }
 
-.logo:hover {
+.logoCell:hover .logo {
   opacity: 1;
   filter: grayscale(0);
   transform: translateY(-2px);
 }
 
 @media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+  .header {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .logoGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .logoCell:nth-child(5) {
+    grid-column: span 1;
   }
 }
 
 @media (max-width: 640px) {
-  .wrapper {
-    padding-top: 40px;
-    padding-bottom: 44px;
+  .logoGrid {
+    grid-template-columns: 1fr;
   }
 
-  .label {
-    margin-bottom: 32px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px 40px;
+  .logoCell {
+    min-height: 132px;
   }
 }

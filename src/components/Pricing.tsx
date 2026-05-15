@@ -1,103 +1,124 @@
 import styles from './Pricing.module.css'
 
-interface PricingTierProps {
-  name: string
-  price: string
-  note: string
-  features: string[]
-  featured?: boolean
+type ScopeCard = {
+  num: string
+  title: string
+  get: string[]
+  dont: string[]
 }
 
-const TIERS: PricingTierProps[] = [
+const CARDS: ScopeCard[] = [
   {
-    name: 'Clarity',
-    price: 'Diagnose before you prescribe',
-    note: 'Audit · Research · Direction',
-    features: [
-      'Revenue-leak brand audit',
-      'Competitive trust analysis',
-      'Positioning and market clarity',
-      'One prioritised deliverable',
-      'Clear investment roadmap',
+    num: '01',
+    title: 'Industrial Design',
+    get: [
+      'Existing product audit',
+      'Opportunity mapping',
+      'Concept ideation',
+      'Form exploration sketches',
+      'Low-fidelity prototypes',
+      'Vendor connect',
+    ],
+    dont: [
+      'End-to-end engineering',
+      'Tooling & DFM',
+      'Manufacturing setup',
+      'Compliance / certification',
+      'Mass production support',
     ],
   },
   {
-    name: 'Conversion',
-    price: 'Fix what is losing you deals',
-    note: 'Brand · Product · Trust',
-    features: [
-      'Audit of existing brand system',
-      'Identity that earns market trust',
-      'Product UI designed to cut drop-off',
-      'Motion logic that signals quality',
-      'Updated brand guidelines',
-      'Design decisions tied to outcomes',
+    num: '02',
+    title: '2D/3D Design',
+    get: [
+      'Ideation',
+      'Sketches',
+      'Digital mockups',
+      '3D visualisations',
+      'Motion design',
+      'Ready-to-use output',
     ],
-    featured: true,
+    dont: [
+      'Printing facilities',
+      'Physical mockups',
+      'Fabrication / installation',
+      'Long-format video production',
+      'On-ground shoot coordination',
+    ],
   },
   {
-    name: 'Dominance',
-    price: 'Build for category leadership',
-    note: 'Strategy · System · Market',
-    features: [
-      'Full brand strategy and positioning',
-      'Complete identity system',
-      'Product and UI design system',
-      'Physical and 3D collateral',
-      'Motion language across surfaces',
-      'Full brand guidelines',
+    num: '03',
+    title: 'UI/UX Design',
+    get: [
+      'UX ideation',
+      'User flows',
+      'Lo-fi & hi-fi mockups',
+      'Design system components',
+      'Dev-ready handoff',
+    ],
+    dont: [
+      'App / website development',
+      'Backend setup',
+      'Deployment',
+      'QA testing',
+      'Analytics integration',
     ],
   },
 ]
 
-function Tier({ name, price, note, features, featured, onBooking }: PricingTierProps & { onBooking: () => void }) {
+function List({ items, type }: { items: string[]; type: 'get' | 'dont' }) {
   return (
-    <div className={`${styles.tier} ${featured ? styles.featured : ''}`}>
-      <span className={styles.tierName}>{name}</span>
-      <div className={styles.tierPrice}>{price}</div>
-      <span className={styles.tierNote}>{note}</span>
-      <div className={styles.divider} />
-      <ul className={styles.features}>
-        {features.map((f) => (
-          <li key={f} className={styles.feature}>{f}</li>
-        ))}
-      </ul>
-      <button
-        className={`${styles.tierCta} ${featured ? styles.tierCtaFeatured : ''}`}
-        onClick={onBooking}
-      >
-        Send a brief
-      </button>
-    </div>
+    <ul className={styles.list}>
+      {items.map((item) => (
+        <li key={item} className={type === 'get' ? styles.getItem : styles.dontItem}>
+          {item}
+        </li>
+      ))}
+    </ul>
   )
 }
 
-export function Pricing({ onBooking }: { onBooking: () => void }) {
+function Card({ num, title, get, dont }: ScopeCard) {
   return (
-    <section id="pricing">
+    <article className={styles.card}>
+      <span className={styles.num}>{num} /</span>
+      <h3 className={styles.cardTitle}>{title}</h3>
+
+      <div className={styles.divider} />
+
+      <div className={styles.block}>
+        <h4 className={styles.blockTitle}>What you get</h4>
+        <List items={get} type="get" />
+      </div>
+
+      <div className={styles.divider} />
+
+      <div className={styles.block}>
+        <h4 className={styles.blockTitle}>What you don’t get</h4>
+        <List items={dont} type="dont" />
+      </div>
+    </article>
+  )
+}
+
+export function Pricing() {
+  return (
+    <section id="pricing" className={styles.section}>
       <div className={styles.header}>
         <div>
-          <div className="section-label reveal">Results</div>
+          <div className="section-label reveal">Services</div>
           <h2 className="section-title reveal reveal-d1">
-            Design that pays.<br />Systems that close.
+            How we help<br />you build better.
           </h2>
         </div>
         <p className="section-body reveal reveal-d2">
-          Companies with strong design systems outperform weaker-branded competitors by 2:1.
-          Nocturnal builds the brand, product, and motion systems that create that gap.
-          Three tiers. One standard of execution.
+          Focused, high-impact design services to move your product forward without unnecessary overhead.
         </p>
       </div>
-      <div className={`${styles.grid} reveal`}>
-        {TIERS.map((tier) => (
-          <Tier key={tier.name} {...tier} onBooking={onBooking} />
-        ))}
+
+      <div className={`${styles.grid} reveal reveal-d2`}>
+        {CARDS.map((card) => <Card key={card.title} {...card} />)}
       </div>
-      <p className={`${styles.note} reveal`}>
-        Poor design is a revenue problem. Businesses do not lose deals on price alone.
-        Weak brand and fragmented product experience kill deals before pricing enters the conversation.
-        Nocturnal removes that friction.
-      </p>
     </section>
   )
 }

@@ -42,7 +42,7 @@ export default function App() {
         <Services />
         <LogoStrip />
         <Testimonials />
-        <Pricing onBooking={() => setModalOpen(true)} />
+        <Pricing />
         <Faq />
         <Cta />
       </main>

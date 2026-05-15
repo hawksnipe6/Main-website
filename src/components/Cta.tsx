@@ -104,7 +104,7 @@ export function Cta() {
         </h2>
         <p className={`${styles.body} reveal reveal-d2`}>
           Thirty minutes. No pitch decks. We identify the revenue friction in your
-          brand and product, and tell you exactly what can be fixed — before any commitment.
+          brand and product, and tell you exactly what can be fixed before any commitment.
         </p>
         <div className={`${styles.meta} reveal reveal-d2`}>
           <span className={styles.metaItem}><span className={styles.metaDot} />30 min</span>
@@ -155,7 +155,7 @@ export function Cta() {
               {selected ? (
                 <div className={styles.slots}>
                   <div className={styles.slotsLabel}>
-                    {MONTHS[month]} {selected} — pick a time
+                    {MONTHS[month]} {selected} · pick a time
                   </div>
                   <div className={styles.slotsGrid}>
                     {SLOTS.map((s) => (

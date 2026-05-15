@@ -1,78 +1,52 @@
+import { useMemo, useState } from 'react'
 import styles from './Testimonials.module.css'
 
 const TESTIMONIALS = [
-  {
-    quote: 'Punctual, hardworking, quick to learn, and an excellent communicator who consistently added value to every task.',
-    name:  '',
-    role:  '',
-    brand: 'Khamir',
-    logo:  '/logos/khamir.png',
-  },
-  {
-    quote: 'Abeer excelled across industrial design tasks, showing initiativeness, receptiveness to feedback, and reliable execution that we highly recommend.',
-    name:  'Sharath Naik',
-    role:  'Founder / Lead Design Engineer',
-    brand: 'Pixelpaw Labs',
-    logo:  '/logos/pixelpaw.png',
-  },
-  {
-    quote: 'Abeer constantly demonstrated high motivation, sincerity and commendable performance throughout his tenure.',
-    name:  'Kshitij Srivastava',
-    role:  'AVP Design',
-    brand: 'Aerpace',
-    logo:  '/logos/aerpace.png',
-  },
-  {
-    quote: 'Outstanding research, ideation sketches and 3D visualizations on the project showcased professionalism and enthusiasm.',
-    name:  'Devansu Khorasiya',
-    role:  'Design Manager',
-    brand: 'WEHEAR',
-    logo:  '/logos/wehear.png',
-  },
+  'A true extension of the team. Thoughtful, fast, and reliable.',
+  'They cut through complexity and delivered exactly what was needed.',
+  'Strategic partners who care deeply about craft and outcomes.',
+  'Clear process. Sharp thinking. Strong execution from first call to handoff.',
+  'Every decision felt intentional. Nothing was added for decoration.',
 ]
 
 export function Testimonials() {
+  const [start, setStart] = useState(0)
+  const visible = useMemo(
+    () => Array.from({ length: 3 }, (_, i) => TESTIMONIALS[(start + i) % TESTIMONIALS.length]),
+    [start]
+  )
+
+  const move = (step: number) => {
+    setStart((current) => (current + step + TESTIMONIALS.length) % TESTIMONIALS.length)
+  }
+
   return (
     <section id="testimonials" className={styles.section}>
       <div className={styles.header}>
-        <div className="section-label reveal">What clients say</div>
+        <div className="section-label reveal">Testimonials</div>
         <h2 className="section-title reveal reveal-d1">
-          Execution they<br />remember.
+          Voices from<br />our partners.
         </h2>
       </div>
 
-      <div className={styles.grid}>
-        {TESTIMONIALS.map((t, i) => (
-          <div
-            key={i}
-            className={`${styles.card} reveal`}
-            style={{ transitionDelay: `${i * 0.07}s` }}
-          >
-            {/* Opening quote mark */}
-            <div className={styles.quoteIcon} aria-hidden="true">"</div>
+      <div className={`${styles.carousel} reveal reveal-d2`} aria-label="Testimonials carousel">
+        <button className={styles.arrow} onClick={() => move(-1)} aria-label="Previous testimonial">
+          ←
+        </button>
 
-            {/* Quote body */}
-            <p className={styles.quote}>{t.quote}</p>
+        <div className={styles.row}>
+          {visible.map((quote, i) => (
+            <article key={`${quote}-${i}`} className={styles.card}>
+              <span className={styles.quoteIcon} aria-hidden="true">“</span>
+              <p className={styles.quote}>{quote}</p>
+              <span className={styles.line} />
+            </article>
+          ))}
+        </div>
 
-            {/* Author row */}
-            <div className={styles.author}>
-              <div className={styles.logoCircle}>
-                <img
-                  src={t.logo}
-                  alt={t.brand}
-                  className={styles.brandLogo}
-                />
-              </div>
-              <div className={styles.authorInfo}>
-                {t.name && <div className={styles.name}>{t.name}</div>}
-                {t.role && <div className={styles.role}>{t.role}</div>}
-                <div className={t.name ? styles.brandSmall : styles.name}>
-                  {t.brand}
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+        <button className={styles.arrow} onClick={() => move(1)} aria-label="Next testimonial">
+          →
+        </button>
       </div>
     </section>
   )
