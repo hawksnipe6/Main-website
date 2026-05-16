@@ -43,7 +43,7 @@ function List({ items, type }: { items: string[]; type: 'get' | 'dont' }) {
 function Card({ num, title, get, dont }: ScopeCard) {
   return (
     <article className={styles.card}>
-      <span className={styles.num}>{num} /</span>
+      <span className={styles.num}>{num}</span>
       <h3 className={styles.cardTitle}>{title}</h3>
 
       <div className={styles.divider} />

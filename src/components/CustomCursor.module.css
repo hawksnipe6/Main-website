@@ -1,26 +1,3 @@
-.cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  /* Solid fill — visible in both themes */
-  background: var(--noc-cursor);
-  border: 1.5px solid var(--noc-cursor-border);
-  pointer-events: none;
-  z-index: 9999;
-  /* No mix-blend-mode — keeps it visible on light bg */
-  transition: width 0.2s cubic-bezier(0.16,1,0.3,1),
-              height 0.2s cubic-bezier(0.16,1,0.3,1),
-              background 0.2s,
-              opacity 0.2s;
-  will-change: transform;
-}
-
-.hover {
-  width: 34px;
-  height: 34px;
-  background: transparent;
-  border: 1.5px solid var(--noc-cursor-border);
-}
+.cursor { position: fixed; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--noc-cursor); pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); mix-blend-mode: difference; transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease; }
+.cursorFollower { position: fixed; top: 0; left: 0; width: 34px; height: 34px; border: 1px solid rgba(245,244,240,0.32); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); mix-blend-mode: difference; transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease; }
+@media (hover: none), (pointer: coarse) { .cursor, .cursorFollower { display: none; } }
