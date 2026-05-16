@@ -1,7 +1,0 @@
-node_modules/
-android/
-ios/
-.idea/
-.vscode/
-dist/
-npm-debug.log*
