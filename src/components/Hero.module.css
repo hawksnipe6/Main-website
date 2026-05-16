@@ -119,6 +119,11 @@
 }
 
 @media (max-width: 600px) {
+  .bg {
+    background-image: url('/hero-bg-mobile.png');
+    background-position: center center;
+  }
+
   .content {
     padding-top: 72px;
   }
