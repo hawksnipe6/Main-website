@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { Marquee } from './components/Marquee'
-import { About } from './components/About'
 import { Services } from './components/Services'
-import { Disciplines } from './components/Disciplines'
-import { Clients } from './components/Clients'
+import { LogoStrip } from './components/LogoStrip'
+import { Testimonials } from './components/Testimonials'
 import { Pricing } from './components/Pricing'
 import { Faq } from './components/Faq'
 import { Cta } from './components/Cta'
@@ -40,13 +39,12 @@ export default function App() {
       <main>
         <Hero onBooking={() => setModalOpen(true)} />
         <Marquee />
-        <About />
         <Services />
-        <Disciplines />
-        <Clients />
-        <Pricing onBooking={() => setModalOpen(true)} />
+        <LogoStrip />
+        <Testimonials />
+        <Pricing />
         <Faq />
-        <Cta onBooking={() => setModalOpen(true)} />
+        <Cta />
       </main>
       <Footer />
       {modalOpen && <BookingModal onClose={() => setModalOpen(false)} />}

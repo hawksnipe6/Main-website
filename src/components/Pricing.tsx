@@ -1,101 +1,90 @@
 import styles from './Pricing.module.css'
 
-interface PricingTierProps {
-  name: string
-  price: string
-  note: string
-  features: string[]
-  featured?: boolean
+type ScopeCard = {
+  num: string
+  title: string
+  get: string[]
+  dont: string[]
 }
 
-const TIERS: PricingTierProps[] = [
+const CARDS: ScopeCard[] = [
   {
-    name: 'Explore',
-    price: 'Scoped to the brief',
-    note: 'Audit · Discovery · Direction',
-    features: [
-      'Brand audit and gap analysis',
-      'Positioning and strategy workshop',
-      'Core identity direction',
-      'One defined deliverable',
-      'Clear brief for next steps',
-    ],
+    num: '01',
+    title: 'Industrial Design',
+    get: ['Product audit', 'Opportunity map', 'Concept ideation', 'Form sketches', 'Low-fi prototypes', 'Vendor connect'],
+    dont: ['Engineering', 'DFM / tooling', 'Manufacturing', 'Certification', 'Production management'],
   },
   {
-    name: 'Refine',
-    price: 'Scoped to the gap',
-    note: 'Identity · Product · Motion',
-    features: [
-      'Audit of existing system',
-      'Targeted design intervention',
-      'Extended visual language',
-      'Product or UI design updates',
-      'Motion and interaction logic',
-      'Updated brand guidelines',
-    ],
-    featured: true,
+    num: '02',
+    title: '2D/3D Design',
+    get: ['Ideation', 'Sketches', 'Digital mockups', '3D renders', 'Motion output', 'Ready-to-use files'],
+    dont: ['Printing', 'Physical mockups', 'Fabrication', 'Long-form video', 'Shoot production'],
   },
   {
-    name: 'Build',
-    price: 'Scoped to the system',
-    note: 'Strategy · System · Execution',
-    features: [
-      'Full brand strategy and positioning',
-      'Complete identity system',
-      'Product and UI design system',
-      '3D / physical collateral',
-      'Motion language',
-      'Full brand guidelines',
-    ],
+    num: '03',
+    title: 'UI/UX Design',
+    get: ['UX direction', 'User flows', 'Lo-fi / hi-fi screens', 'UI components', 'Dev handoff'],
+    dont: ['Development', 'Backend', 'Deployment', 'QA testing', 'Analytics setup'],
   },
 ]
 
-function Tier({ name, price, note, features, featured, onBooking }: PricingTierProps & { onBooking: () => void }) {
+function List({ items, type }: { items: string[]; type: 'get' | 'dont' }) {
   return (
-    <div className={`${styles.tier} ${featured ? styles.featured : ''}`}>
-      <span className={styles.tierName}>{name}</span>
-      <div className={styles.tierPrice}>{price}</div>
-      <span className={styles.tierNote}>{note}</span>
-      <div className={styles.divider} />
-      <ul className={styles.features}>
-        {features.map((f) => (
-          <li key={f} className={styles.feature}>{f}</li>
-        ))}
-      </ul>
-      <button
-        className={`${styles.tierCta} ${featured ? styles.tierCtaFeatured : ''}`}
-        onClick={onBooking}
-      >
-        Send a brief
-      </button>
-    </div>
+    <ul className={styles.list}>
+      {items.map((item) => (
+        <li key={item} className={type === 'get' ? styles.getItem : styles.dontItem}>
+          {item}
+        </li>
+      ))}
+    </ul>
   )
 }
 
-export function Pricing({ onBooking }: { onBooking: () => void }) {
+function Card({ num, title, get, dont }: ScopeCard) {
   return (
-    <section id="pricing">
+    <article className={styles.card}>
+      <span className={styles.num}>{num}</span>
+      <h3 className={styles.cardTitle}>{title}</h3>
+
+      <div className={styles.divider} />
+
+      <div className={styles.scopeGrid}>
+        <div className={styles.block}>
+          <h4 className={styles.blockTitle}>What you get</h4>
+          <List items={get} type="get" />
+        </div>
+
+        <div className={styles.block}>
+          <h4 className={styles.blockTitle}>What you don’t get</h4>
+          <List items={dont} type="dont" />
+        </div>
+      </div>
+    </article>
+  )
+}
+
+export function Pricing() {
+  return (
+    <section id="pricing" className={styles.section}>
       <div className={styles.header}>
         <div>
-          <div className="section-label reveal">Engage</div>
+          <div className="section-label reveal">Services</div>
           <h2 className="section-title reveal reveal-d1">
-            Scoped to the work.<br />Never to a menu.
+            How we help<br />you build better.
           </h2>
         </div>
         <p className="section-body reveal reveal-d2">
-          Every project is priced on scope. These tiers are starting orientations, not packages.
-          Send a brief and we will tell you what the work actually costs.
+          Three focused scopes. Clear inputs, clean outputs, and no hidden production promises.
         </p>
       </div>
-      <div className={`${styles.grid} reveal`}>
-        {TIERS.map((tier) => (
-          <Tier key={tier.name} {...tier} onBooking={onBooking} />
+
+      <div className={styles.grid}>
+        {CARDS.map((card, i) => (
+          <div key={card.title} className={`reveal reveal-d${Math.min(i + 1, 3) as 1 | 2 | 3}`}>
+            <Card {...card} />
+          </div>
         ))}
       </div>
-      <p className={`${styles.note} reveal`}>
-        If you have a declared budget, we will scope the work to it — without compromising the
-        standard of what we deliver. Scope changes, quality does not.
-      </p>
     </section>
   )
 }

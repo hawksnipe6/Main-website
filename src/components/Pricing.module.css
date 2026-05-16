@@ -1,143 +1,27 @@
-.header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  margin-bottom: 80px;
-  align-items: end;
+.section { background: transparent; border-bottom: none !important; }
+.header { display: grid; grid-template-columns: 1fr 0.78fr; gap: 80px; align-items: end; margin-bottom: 44px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; align-items: stretch; }
+.card {
+  height: 100%;
+  background: rgba(251,250,246,0.58);
+  border: 1px solid var(--noc-line);
+  border-radius: var(--noc-radius);
+  padding: 30px;
+  transition: border-color 0.24s ease, transform 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.72) inset;
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border: 1px solid var(--noc-grey-2);
-}
-
-.tier {
-  padding: 48px 40px;
-  border-right: 1px solid var(--noc-grey-2);
-}
-
-.tier:last-child {
-  border-right: none;
-}
-
-.featured {
-  background: var(--noc-white);
-}
-
-.featured .tierName,
-.featured .tierPrice,
-.featured .tierNote,
-.featured .feature {
-  color: var(--noc-black);
-}
-
-.featured .divider {
-  background: var(--noc-grey-3);
-}
-
-.tierName {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--noc-grey-4);
-  text-transform: uppercase;
-  margin-bottom: 32px;
-}
-
-.tierPrice {
-  font-size: 40px;
-  font-weight: 800;
-  color: var(--noc-white);
-  line-height: 1;
-  margin-bottom: 8px;
-}
-
-.tierNote {
-  display: block;
-  font-size: 12px;
-  color: var(--noc-grey-5);
-  margin-bottom: 40px;
-}
-
-.divider {
-  height: 1px;
-  background: var(--noc-grey-2);
-  margin-bottom: 32px;
-}
-
-.features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.feature {
-  font-size: 13px;
-  color: var(--noc-grey-6);
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  line-height: 1.5;
-}
-
-.feature::before {
-  content: '—';
-  color: var(--noc-grey-4);
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.note {
-  margin-top: 40px;
-  font-size: 13px;
-  color: var(--noc-grey-4);
-  line-height: 1.6;
-  max-width: 680px;
-}
-
-@media (max-width: 1024px) {
-  .header {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .tier {
-    border-right: none;
-    border-bottom: 1px solid var(--noc-grey-2);
-  }
-}
-
-/* ── Tier CTA button ─────────────────── */
-.tierCta {
-  margin-top: auto;
-  padding-top: 24px;
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--noc-white);
-  background: none;
-  border: 1px solid var(--noc-grey-3);
-  border-radius: 999px;
-  padding: 12px 28px;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
-  margin-top: 32px;
-}
-.tierCta:hover {
-  border-color: var(--noc-white);
-}
-.tierCtaFeatured {
-  background: var(--noc-accent);
-  border-color: var(--noc-accent);
-  color: #F5F4F0;
-}
-.tierCtaFeatured:hover {
-  opacity: 0.88;
-  border-color: var(--noc-accent);
-}
+.grid > div:nth-child(2) .card { background: rgba(238,234,225,0.58); transform: translateY(18px); }
+.grid > div:nth-child(3) .card { border-radius: 28px 28px 18px 28px; }
+.card:hover { border-color: rgba(17,17,15,0.22); transform: translateY(-4px); background: var(--noc-surface); box-shadow: var(--noc-shadow-soft); }
+.grid > div:nth-child(2) .card:hover { transform: translateY(12px); }
+.num { display: block; font-size: 11px; font-weight: 760; color: var(--noc-accent); margin-bottom: 18px; }
+.cardTitle { font-size: 24px; font-weight: 740; line-height: 1.06; letter-spacing: -0.025em; color: var(--noc-white); }
+.divider { height: 1px; background: var(--noc-line); margin: 24px 0; }
+.scopeGrid { display: grid; gap: 22px; }
+.blockTitle { font-size: 12px; font-weight: 720; color: var(--noc-grey-5); margin-bottom: 12px; }
+.list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.getItem, .dontItem { display: grid; grid-template-columns: 14px 1fr; gap: 9px; font-size: 13px; line-height: 1.38; color: var(--noc-white); }
+.getItem::before, .dontItem::before { font-size: 12.5px; line-height: 1.38; color: var(--noc-grey-6); }
+.getItem::before { content: '✓'; }
+.dontItem::before { content: '×'; color: var(--noc-grey-4); }
+@media (max-width: 1100px) { .header { grid-template-columns: 1fr; gap: 32px; } .grid { grid-template-columns: 1fr; } .grid > div:nth-child(2) .card { transform: none; } .grid > div:nth-child(2) .card:hover { transform: translateY(-4px); } .card { padding: 26px; } }

@@ -4,11 +4,9 @@ import { ThemeToggle } from './ThemeToggle'
 import styles from './Nav.module.css'
 
 const NAV_LINKS = [
-  { label: 'Studio',    href: '#about' },
-  { label: 'Services',  href: '#services' },
-  { label: 'Process',   href: '#how' },
-  { label: 'Engage',    href: '#pricing' },
-  { label: 'FAQ',       href: '#faq' },
+  { label: 'Services', href: '#services' },
+  { label: 'Engage',   href: '#pricing' },
+  { label: 'FAQ',      href: '#faq' },
 ]
 
 export function Nav({ onBooking }: { onBooking: () => void }) {

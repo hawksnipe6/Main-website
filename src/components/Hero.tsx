@@ -16,7 +16,7 @@ export function Hero({ onBooking }: { onBooking: () => void }) {
           </p>
           <div className={`${styles.actions} reveal reveal-d3`}>
             <button className={styles.btnPrimary} onClick={onBooking}>Start a Project</button>
-            <a href="#about" className={styles.btnGhost}>How we work</a>
+            <a href="#services" className={styles.btnGhost}>How we work</a>
           </div>
         </div>
 
