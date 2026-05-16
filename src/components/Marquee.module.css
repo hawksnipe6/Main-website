@@ -1,6 +1,35 @@
-.wrapper { overflow: hidden; border: none; background: rgba(245,244,240,0.035); border-top: 1px solid var(--noc-line); border-bottom: 1px solid var(--noc-line); }
-.track { display: flex; width: max-content; animation: scroll 36s linear infinite; padding: 18px 0; }
-.track:hover { animation-play-state: paused; }
-.item { flex-shrink: 0; padding: 0 34px; color: var(--noc-soft); font-size: 11px; font-weight: 760; letter-spacing: 0.14em; text-transform: uppercase; white-space: nowrap; }
-.item::after { content: ' ·'; color: rgba(245,244,240,0.24); margin-left: 34px; }
-@keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.wrapper {
+  overflow: hidden;
+  border-bottom: 1px solid var(--noc-grey-2);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+  padding: var(--space-5) 0;
+}
+
+.track:hover {
+  animation-play-state: paused;
+}
+
+.item {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--noc-grey-4);
+  padding: 0 40px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.item::after {
+  content: ' ·';
+  color: var(--noc-grey-3);
+  margin-left: 40px;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}

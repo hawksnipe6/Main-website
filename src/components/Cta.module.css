@@ -1,41 +1,312 @@
-.cta { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 42px; align-items: stretch; padding-top: 80px; padding-bottom: 118px; }
-.left { min-height: 520px; display: flex; flex-direction: column; justify-content: center; padding: clamp(28px, 5vw, 54px); border: 1px solid var(--noc-line); border-radius: 36px; background: radial-gradient(circle at 80% 12%, rgba(232,97,42,0.14), transparent 38%), linear-gradient(180deg, rgba(245,244,240,0.085), rgba(245,244,240,0.035)); }
-.title { margin-bottom: 20px !important; }
-.body { max-width: 480px; color: var(--noc-muted); font-size: 15px; line-height: 1.7; margin-bottom: 28px; }
-.meta { display: flex; flex-wrap: wrap; gap: 10px; }
-.metaItem { min-height: 34px; display: inline-flex; align-items: center; gap: 8px; padding: 0 13px; border: 1px solid var(--noc-line); border-radius: 999px; color: var(--noc-muted); font-size: 12px; font-weight: 700; background: rgba(245,244,240,0.04); }
-.metaDot { width: 5px; height: 5px; border-radius: 999px; background: var(--noc-white); opacity: 0.66; }
-.calWrap { display: flex; }
-.calCard { width: 100%; min-height: 520px; padding: 26px; border: 1px solid var(--noc-line); border-radius: 36px; background: linear-gradient(180deg, rgba(245,244,240,0.075), rgba(245,244,240,0.032)); box-shadow: var(--noc-shadow-soft); }
-.calHeader { display: flex; align-items: baseline; gap: 8px; margin-bottom: 18px; }
-.calMonth { color: var(--noc-white); font-size: 20px; font-weight: 660; letter-spacing: -0.02em; }
-.calYear { color: var(--noc-soft); font-size: 14px; }
-.calGrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0; border: 1px solid var(--noc-line); border-radius: 24px; overflow: hidden; background: rgba(245,244,240,0.025); }
-.dayLabel { min-height: 36px; display: grid; place-items: center; color: var(--noc-soft); font-size: 9px; font-weight: 760; letter-spacing: 0.10em; border-bottom: 1px solid var(--noc-line); }
-.cell { min-height: 48px; display: grid; place-items: center; color: rgba(245,244,240,0.38); font-size: 12px; border-bottom: 1px solid rgba(245,244,240,0.07); border-right: 1px solid rgba(245,244,240,0.07); transition: color 0.16s ease, background 0.16s ease; }
-.cell:nth-child(7n) { border-right: none; }
-.cellPast { color: rgba(245,244,240,0.22); }
-.cellToday { color: var(--noc-white); font-weight: 740; }
-.cellAvail { color: var(--noc-white); font-weight: 700; cursor: pointer; }
-.cellAvail:hover { background: rgba(245,244,240,0.08); }
-.cellEmpty { color: transparent; pointer-events: none; }
-.cellSelected { background: rgba(245,244,240,0.11); color: var(--noc-white) !important; }
-.slots, .calFooter { padding-top: 18px; }
-.slotsLabel { margin-bottom: 12px; color: var(--noc-muted); font-size: 11px; font-weight: 760; text-transform: uppercase; letter-spacing: 0.10em; }
-.slotsGrid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-.slot, .btn, .btnConfirm, .btnReopen { min-height: 42px; padding: 0 14px; border: 1px solid var(--noc-line); border-radius: 999px; background: rgba(245,244,240,0.052); color: var(--noc-white); font-size: 12.5px; font-weight: 720; transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease; }
-.slot:hover, .btn:hover, .btnConfirm:hover, .btnReopen:hover { transform: translateY(-2px); border-color: rgba(245,244,240,0.28); background: rgba(245,244,240,0.095); }
-.calFooter { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.calHint { color: var(--noc-soft); font-size: 12px; }
-.flowState { min-height: 440px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; text-align: center; }
-.flowTitle { color: var(--noc-white); font-size: 18px; font-weight: 660; }
-.flowBody { max-width: 310px; color: var(--noc-muted); font-size: 13px; line-height: 1.64; }
-.slotBadge { padding: 7px 16px; border: 1px solid var(--noc-line); border-radius: 999px; color: var(--noc-white); font-size: 12px; font-weight: 720; }
-.flowLink { color: var(--noc-muted); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
-.flowLink:hover { color: var(--noc-white); }
-.spinnerWrap, .questionMark, .checkWrap { width: 48px; height: 48px; display: grid; place-items: center; border: 1px solid var(--noc-line); border-radius: 999px; color: var(--noc-white); }
-.spinner { width: 28px; height: 28px; border: 1.5px solid var(--noc-line); border-top-color: var(--noc-white); border-radius: 999px; animation: spin 0.9s linear infinite; }
-.returningActions { width: min(260px, 100%); display: grid; gap: 8px; }
-@keyframes spin { to { transform: rotate(360deg); } }
-@media (max-width: 1050px) { .cta { grid-template-columns: 1fr; } .left, .calCard { min-height: auto; } }
-@media (max-width: 640px) { .slotsGrid { grid-template-columns: 1fr 1fr; } .calFooter { align-items: stretch; flex-direction: column; } .btn { width: 100%; } .cell { min-height: 42px; } }
+.cta {
+  border-bottom: none !important;
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: 72px;
+  align-items: center;
+  background: var(--noc-black);
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 20px !important;
+}
+
+.body {
+  font-size: 15px;
+  color: var(--noc-grey-5);
+  line-height: 1.7;
+  max-width: 420px;
+  margin-bottom: 28px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--noc-grey-4);
+}
+
+.metaDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--noc-accent);
+}
+
+.calWrap {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.calCard {
+  width: 100%;
+  max-width: 720px;
+  background: var(--noc-black);
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 10px;
+  padding: 34px;
+}
+
+.calHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.calMonth {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--noc-white);
+  letter-spacing: -0.01em;
+}
+
+.calYear {
+  font-size: 14px;
+  color: var(--noc-grey-4);
+}
+
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 1px solid var(--noc-grey-2);
+  border-left: 1px solid var(--noc-grey-2);
+  margin-bottom: 24px;
+}
+
+.dayLabel {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--noc-grey-4);
+  border-right: 1px solid var(--noc-grey-2);
+  border-bottom: 1px solid var(--noc-grey-2);
+}
+
+.cell {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--noc-grey-3);
+  border-right: 1px solid var(--noc-grey-2);
+  border-bottom: 1px solid var(--noc-grey-2);
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.cellPast {
+  color: var(--noc-grey-3);
+  opacity: 0.45;
+}
+
+.cellToday {
+  color: var(--noc-grey-5);
+  font-weight: 600;
+}
+
+.cellAvail {
+  color: var(--noc-accent);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cellEmpty {
+  color: transparent;
+  pointer-events: none;
+  background: transparent;
+}
+
+.cellAvail:hover {
+  color: var(--noc-white);
+}
+
+.cellSelected {
+  color: var(--noc-accent) !important;
+  font-weight: 700;
+  background: transparent !important;
+  box-shadow: none;
+}
+
+.slots,
+.calFooter {
+  padding-top: 20px;
+}
+
+.slotsLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+  margin-bottom: 14px;
+}
+
+.slotsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.slot,
+.btn,
+.btnConfirm,
+.btnReopen {
+  min-height: 42px;
+  padding: 11px 14px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 8px;
+  background: var(--noc-black);
+  color: var(--noc-white);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--noc-font);
+  text-align: center;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.slot:hover,
+.btn:hover,
+.btnConfirm:hover,
+.btnReopen:hover {
+  color: var(--noc-accent);
+  border-color: var(--noc-accent);
+}
+
+.calFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.calHint {
+  font-size: 12px;
+  color: var(--noc-grey-4);
+}
+
+.flowState {
+  min-height: 328px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 12px;
+}
+
+.flowTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--noc-white);
+}
+
+.flowBody {
+  font-size: 13px;
+  color: var(--noc-grey-5);
+  line-height: 1.65;
+  max-width: 300px;
+}
+
+.slotBadge {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--noc-accent);
+  border: 1px solid var(--noc-accent);
+  border-radius: 999px;
+  padding: 6px 16px;
+}
+
+.flowLink {
+  font-size: 12px;
+  color: var(--noc-grey-4);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.flowLink:hover {
+  color: var(--noc-white);
+}
+
+.spinnerWrap,
+.questionMark,
+.checkWrap {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--noc-accent);
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 999px;
+}
+
+.questionMark {
+  color: var(--noc-grey-4);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--noc-grey-2);
+  border-top-color: var(--noc-accent);
+  animation: spin 0.9s linear infinite;
+}
+
+.returningActions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  width: min(100%, 300px);
+  margin-top: 4px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1100px) {
+  .cta {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .calWrap {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .calCard {
+    padding: 24px 18px;
+  }
+
+  .slotsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .calFooter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

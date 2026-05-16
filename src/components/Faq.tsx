@@ -29,43 +29,42 @@ const FAQS: FaqItemProps[] = [
   },
 ]
 
-export function Faq() {
-  const [open, setOpen] = useState<number | null>(null)
+function FaqItem({ question, answer }: FaqItemProps) {
+  const [open, setOpen] = useState(false)
 
   return (
-    <section id="faq" className={styles.faq}>
+    <div className={`${styles.item} ${open ? styles.open : ''} reveal`}>
+      <button
+        className={styles.question}
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+      >
+        <span>{question}</span>
+        <span className={styles.icon} aria-hidden="true">+</span>
+      </button>
+      <div className={styles.answer}>{answer}</div>
+    </div>
+  )
+}
+
+export function Faq() {
+  return (
+    <section id="faq" className={styles.section}>
       <div className={styles.header}>
         <div>
           <div className="section-label reveal">FAQ</div>
-          <h2 className="section-title reveal reveal-d1">Questions before
-            we begin.</h2>
+          <h2 className="section-title reveal reveal-d1">
+            Questions we hear<br />before the first call.
+          </h2>
         </div>
         <p className="section-body reveal reveal-d2">
-          Clear answers before the first call. No vague process. No hidden assumptions.
+          The useful answers before we discuss scope, timeline, or fit.
         </p>
       </div>
-
       <div className={styles.list}>
-        {FAQS.map((item, i) => {
-          const isOpen = open === i
-          return (
-            <div key={item.question} className={`${styles.item} ${isOpen ? styles.itemOpen : ''} reveal`}>
-              <button
-                className={styles.question}
-                onClick={() => setOpen(isOpen ? null : i)}
-                aria-expanded={isOpen}
-              >
-                <span className={styles.questionText}>{item.question}</span>
-                <span className={styles.icon}>+</span>
-              </button>
-              <div className={styles.answer}>
-                <div className={styles.answerClip}>
-                  <p className={styles.answerInner}>{item.answer}</p>
-                </div>
-              </div>
-            </div>
-          )
-        })}
+        {FAQS.map((faq) => (
+          <FaqItem key={faq.question} {...faq} />
+        ))}
       </div>
     </section>
   )
