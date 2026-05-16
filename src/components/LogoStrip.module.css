@@ -1,15 +1,103 @@
-.brands { background: transparent; border-bottom: none !important; padding-top: 112px; padding-bottom: 112px; }
-.header { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 80px; align-items: end; margin-bottom: 54px; }
-.logoRow { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); align-items: center; gap: clamp(18px, 2vw, 36px); width: 100%; padding: 24px 0; }
-.logoCell { display: flex; align-items: center; justify-content: center; min-width: 0; height: 88px; border: 1px solid transparent; border-radius: 20px; transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease; }
-.logoCell:hover { transform: translateY(-2px); background: var(--noc-glass-bg); border-color: var(--noc-line); }
-.logo { display: block; width: 100%; height: 100%; object-fit: contain; filter: grayscale(1); opacity: 0.78; transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease; user-select: none; mix-blend-mode: multiply; }
-.rect .logo { max-width: 118px; max-height: 58px; }
-.square .logo { max-width: 66px; max-height: 66px; }
-.circle .logo { max-width: 78px; max-height: 78px; border-radius: 50%; }
-.wide .logo { max-width: 126px; max-height: 66px; }
-.logoCell:hover .logo { opacity: 1; filter: grayscale(0); }
-.nextText { margin-top: 30px; font-size: 11px; font-weight: 650; letter-spacing: 0.18em; text-align: center; color: var(--noc-grey-4); }
-@media (max-width: 1180px) { .logoRow { overflow-x: auto; grid-template-columns: repeat(8, 112px); padding-bottom: 10px; scrollbar-width: none; } .logoRow::-webkit-scrollbar { display: none; } }
-@media (max-width: 1024px) { .header { grid-template-columns: 1fr; gap: 32px; margin-bottom: 44px; } }
-@media (max-width: 640px) { .brands { padding-top: 80px; padding-bottom: 80px; } .logoRow { grid-template-columns: repeat(8, 96px); gap: 20px; } .logoCell { height: 72px; } .rect .logo { max-width: 96px; max-height: 54px; } .square .logo { max-width: 56px; max-height: 56px; } .circle .logo { max-width: 66px; max-height: 66px; } .wide .logo { max-width: 104px; max-height: 56px; } }
+.brands {
+  background: var(--noc-black);
+  border-bottom: none !important;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 80px;
+  align-items: end;
+  margin-bottom: 72px;
+}
+
+.logoRow {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(24px, 3.2vw, 56px);
+  width: 100%;
+}
+
+.logoCell {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  display: block;
+  width: auto;
+  max-width: 118px;
+  max-height: 50px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.7;
+  mix-blend-mode: multiply;
+  transition: opacity 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+  user-select: none;
+}
+
+.logoMark {
+  max-width: 62px;
+  max-height: 62px;
+}
+
+.logoBadge {
+  max-width: 82px;
+  max-height: 82px;
+}
+
+.logoCell:hover .logo {
+  opacity: 1;
+  filter: grayscale(0);
+  transform: translateY(-2px);
+}
+
+.nextText {
+  margin-top: 54px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-align: center;
+  color: var(--noc-grey-4);
+}
+
+@media (max-width: 1024px) {
+  .header {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 56px;
+  }
+
+  .logoRow {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 36px;
+  }
+}
+
+@media (max-width: 640px) {
+  .logoRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .logoCell {
+    height: 66px;
+  }
+
+  .logo {
+    max-width: 104px;
+    max-height: 38px;
+  }
+
+  .logoMark {
+    max-width: 52px;
+    max-height: 52px;
+  }
+
+  .logoBadge {
+    max-width: 68px;
+    max-height: 68px;
+  }
+}
