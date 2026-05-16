@@ -1,43 +1,42 @@
 :root {
-  /* Light HMI palette — readable first */
-  --noc-bg:        #F5F4F0;
-  --noc-black:     #F5F4F0;
-  --noc-white:     #11110F;
-  --noc-text:      #11110F;
-  --noc-muted:     #5E5B55;
-  --noc-soft:      #817D74;
-  --noc-line:      rgba(17, 17, 15, 0.13);
+  /* Palette — default is LIGHT */
+  --noc-black:   #F5F4F0;
+  --noc-white:   #0D0D0D;
+  --noc-grey-1:  #E8E7E3;
+  --noc-grey-2:  #D0CFCB;
+  --noc-grey-3:  #AAAAAA;
+  --noc-grey-4:  #888888;
+  --noc-grey-5:  #555555;
+  --noc-grey-6:  #2A2A2A;
 
-  --noc-grey-1:    #ECE9E1;
-  --noc-grey-2:    #D8D3C9;
-  --noc-grey-3:    #B7B1A6;
-  --noc-grey-4:    #746F66;
-  --noc-grey-5:    #4F4B45;
-  --noc-grey-6:    #24231F;
+  --noc-bg:       #F5F4F0;
+  --noc-surface:  #FBFAF6;
+  --noc-surface-2:#EFEDE7;
+  --noc-line:     rgba(13, 13, 13, 0.10);
+  --noc-shadow:   0 24px 80px rgba(13, 13, 13, 0.055);
+  --noc-radius:   24px;
 
-  --noc-surface:   #FBFAF6;
-  --noc-surface-2: #EEEAE1;
-  --noc-surface-3: #E5E0D6;
-  --noc-inset:     rgba(255, 255, 255, 0.58);
-  --noc-shadow:    0 18px 55px rgba(29, 27, 23, 0.075);
-  --noc-shadow-soft: 0 10px 30px rgba(29, 27, 23, 0.045);
-  --noc-radius:    22px;
+  /* Secondary — 10% accent (Nocturnal orange) */
+  --noc-accent:        #E8612A;
+  --noc-accent-subtle: rgba(232, 97, 42, 0.12);
 
-  --noc-accent:        #C8522A;
-  --noc-accent-strong: #A53D1F;
-  --noc-accent-subtle: rgba(200, 82, 42, 0.105);
+  /* Nav blur bg — light */
+  --noc-nav-bg: rgba(245, 244, 240, 0.74);
 
-  --noc-nav-bg: rgba(251, 250, 246, 0.78);
-  --noc-cursor: #11110F;
-  --noc-cursor-border: #11110F;
+  /* Cursor — visible on light bg */
+  --noc-cursor:        #0D0D0D;
+  --noc-cursor-border: #0D0D0D;
 
-  --noc-glass-bg:     rgba(255, 255, 255, 0.36);
-  --noc-glass-bg-mid: rgba(255, 255, 255, 0.62);
-  --noc-glass-border: rgba(17, 17, 15, 0.12);
+  /* Glass */
+  --noc-glass-bg:     rgba(255, 255, 255, 0.42);
+  --noc-glass-bg-mid: rgba(255, 255, 255, 0.64);
+  --noc-glass-border: rgba(13, 13, 13, 0.10);
   --noc-glass-blur:   22px;
 
+  /* Typography */
   --noc-font: 'Host Grotesk', sans-serif;
 
+  /* Spacing (base-8) */
   --space-1:  8px;
   --space-2:  16px;
   --space-3:  24px;
@@ -49,48 +48,48 @@
   --space-12: 96px;
   --space-15: 120px;
 
-  --gutter: clamp(22px, 4vw, 60px);
-  --site-padding: clamp(18px, 2.8vw, 40px);
+  /* Layout */
+  --gutter: 60px;
+  --site-padding: 40px;
   --max-width: 1440px;
   --page-padding-top: 100px;
-  --section-padding-v: clamp(88px, 9vw, 138px);
+  --section-padding-v: 140px;
 }
 
 [data-theme='dark'] {
-  --noc-bg:        #0D0D0D;
-  --noc-black:     #0D0D0D;
-  --noc-white:     #F5F4F0;
-  --noc-text:      #F5F4F0;
-  --noc-muted:     #AAA49A;
-  --noc-soft:      #77716A;
-  --noc-line:      rgba(245, 244, 240, 0.12);
-
-  --noc-grey-1:  #181818;
-  --noc-grey-2:  #292929;
+  --noc-black:   #0D0D0D;
+  --noc-white:   #F5F4F0;
+  --noc-grey-1:  #1A1A1A;
+  --noc-grey-2:  #2A2A2A;
   --noc-grey-3:  #444444;
-  --noc-grey-4:  #767676;
-  --noc-grey-5:  #B2AEA6;
-  --noc-grey-6:  #DCD7CE;
+  --noc-grey-4:  #666666;
+  --noc-grey-5:  #999999;
+  --noc-grey-6:  #CCCCCC;
 
-  --noc-surface:  #151515;
-  --noc-surface-2:#1D1D1D;
-  --noc-surface-3:#252525;
-  --noc-inset:    rgba(255, 255, 255, 0.04);
-  --noc-shadow:   0 24px 80px rgba(0, 0, 0, 0.28);
-  --noc-shadow-soft: 0 12px 35px rgba(0, 0, 0, 0.22);
+  --noc-bg:       #0D0D0D;
+  --noc-surface:  #161616;
+  --noc-surface-2:#202020;
+  --noc-line:     rgba(245, 244, 240, 0.10);
+  --noc-shadow:   0 24px 80px rgba(0, 0, 0, 0.24);
+  --noc-radius:   24px;
 
   --noc-accent:        #E8612A;
-  --noc-accent-strong: #FF7442;
-  --noc-accent-subtle: rgba(232, 97, 42, 0.13);
+  --noc-accent-subtle: rgba(232, 97, 42, 0.12);
 
   --noc-glass-bg:     rgba(255, 255, 255, 0.05);
   --noc-glass-bg-mid: rgba(255, 255, 255, 0.08);
-  --noc-glass-border: rgba(255, 255, 255, 0.12);
-  --noc-nav-bg: rgba(13, 13, 13, 0.84);
-  --noc-cursor: #F5F4F0;
+  --noc-glass-border: rgba(255, 255, 255, 0.10);
+
+  --noc-nav-bg: rgba(13, 13, 13, 0.92);
+
+  --noc-cursor:        #F5F4F0;
   --noc-cursor-border: #F5F4F0;
 }
 
 @media (max-width: 768px) {
-  :root { --section-padding-v: 82px; }
+  :root {
+    --gutter: 24px;
+    --site-padding: 20px;
+    --section-padding-v: 80px;
+  }
 }
