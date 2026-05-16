@@ -1,108 +1,16 @@
-.section {
-  background: var(--noc-black);
-  border-bottom: none !important;
-}
-
-.header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: end;
-  margin-bottom: 50px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-}
-
-.card {
-  height: 100%;
-  background: var(--noc-black);
-  border: 1px solid var(--noc-grey-2);
-  border-radius: 6px;
-  padding: 28px;
-  transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
-}
-
-.card:hover {
-  border-color: var(--noc-grey-3);
-  transform: translateY(-2px);
-}
-
-.num {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--noc-accent);
-  margin-bottom: 16px;
-}
-
-.cardTitle {
-  font-size: 22px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.01em;
-  color: var(--noc-white);
-}
-
-.divider {
-  height: 1px;
-  background: var(--noc-grey-2);
-  margin: 22px 0;
-}
-
-.scopeGrid {
-  display: grid;
-  gap: 22px;
-}
-
-.blockTitle {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--noc-grey-5);
-  margin-bottom: 12px;
-}
-
-.list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.getItem,
-.dontItem {
-  display: grid;
-  grid-template-columns: 14px 1fr;
-  gap: 8px;
-  font-size: 12.5px;
-  line-height: 1.4;
-  color: var(--noc-white);
-}
-
-.getItem::before,
-.dontItem::before {
-  font-size: 12.5px;
-  line-height: 1.4;
-  color: var(--noc-white);
-}
-
+.section { background: transparent; border-bottom: none !important; }
+.header { display: grid; grid-template-columns: 1fr 0.82fr; gap: 80px; align-items: end; margin-bottom: 46px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.card { height: 100%; background: var(--noc-surface); border: 1px solid var(--noc-line); border-radius: var(--noc-radius); padding: 30px; transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease; box-shadow: 0 1px 0 rgba(255,255,255,0.7) inset; }
+.card:hover { border-color: rgba(13,13,13,0.18); transform: translateY(-3px); background: var(--noc-glass-bg-mid); }
+.num { display: block; font-size: 11px; font-weight: 650; color: var(--noc-accent); margin-bottom: 18px; }
+.cardTitle { font-size: 24px; font-weight: 700; line-height: 1.06; letter-spacing: -0.025em; color: var(--noc-white); }
+.divider { height: 1px; background: var(--noc-line); margin: 24px 0; }
+.scopeGrid { display: grid; gap: 24px; }
+.blockTitle { font-size: 12px; font-weight: 650; color: var(--noc-grey-5); margin-bottom: 12px; }
+.list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.getItem, .dontItem { display: grid; grid-template-columns: 14px 1fr; gap: 9px; font-size: 12.5px; line-height: 1.38; color: var(--noc-white); }
+.getItem::before, .dontItem::before { font-size: 12.5px; line-height: 1.38; color: var(--noc-grey-6); }
 .getItem::before { content: '✓'; }
-.dontItem::before { content: '×'; }
-
-@media (max-width: 1100px) {
-  .header {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .card {
-    padding: 26px;
-  }
-}
+.dontItem::before { content: '×'; color: var(--noc-grey-4); }
+@media (max-width: 1100px) { .header { grid-template-columns: 1fr; gap: 32px; } .grid { grid-template-columns: 1fr; } .card { padding: 26px; } }

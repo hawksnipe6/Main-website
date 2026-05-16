@@ -9,21 +9,28 @@
   --noc-grey-5:  #555555;
   --noc-grey-6:  #2A2A2A;
 
+  --noc-bg:       #F5F4F0;
+  --noc-surface:  #FBFAF6;
+  --noc-surface-2:#EFEDE7;
+  --noc-line:     rgba(13, 13, 13, 0.10);
+  --noc-shadow:   0 24px 80px rgba(13, 13, 13, 0.055);
+  --noc-radius:   24px;
+
   /* Secondary — 10% accent (Nocturnal orange) */
   --noc-accent:        #E8612A;
   --noc-accent-subtle: rgba(232, 97, 42, 0.12);
 
   /* Nav blur bg — light */
-  --noc-nav-bg: rgba(245, 244, 240, 0.92);
+  --noc-nav-bg: rgba(245, 244, 240, 0.74);
 
   /* Cursor — visible on light bg */
   --noc-cursor:        #0D0D0D;
   --noc-cursor-border: #0D0D0D;
 
   /* Glass */
-  --noc-glass-bg:     rgba(0, 0, 0, 0.04);
-  --noc-glass-bg-mid: rgba(0, 0, 0, 0.06);
-  --noc-glass-border: rgba(0, 0, 0, 0.09);
+  --noc-glass-bg:     rgba(255, 255, 255, 0.42);
+  --noc-glass-bg-mid: rgba(255, 255, 255, 0.64);
+  --noc-glass-border: rgba(13, 13, 13, 0.10);
   --noc-glass-blur:   22px;
 
   /* Typography */
@@ -58,6 +65,13 @@
   --noc-grey-4:  #666666;
   --noc-grey-5:  #999999;
   --noc-grey-6:  #CCCCCC;
+
+  --noc-bg:       #0D0D0D;
+  --noc-surface:  #161616;
+  --noc-surface-2:#202020;
+  --noc-line:     rgba(245, 244, 240, 0.10);
+  --noc-shadow:   0 24px 80px rgba(0, 0, 0, 0.24);
+  --noc-radius:   24px;
 
   --noc-accent:        #E8612A;
   --noc-accent-subtle: rgba(232, 97, 42, 0.12);
