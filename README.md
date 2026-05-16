@@ -1,71 +1,44 @@
-# Nocturnal — Design Intelligence Studio
+# Cal Note
 
-Website for Nocturnal, a phygital creative agency specialising in product/industrial design, 3D/CAD, branding, and identity work.
+Minimal mobile-first calorie tracker built like a notebook.
 
-## Stack
+## What it does
 
-- React 18 + TypeScript
-- Vite
-- CSS Modules + CSS custom properties
-- Host Grotesk (Google Fonts)
+- Lets you type food notes naturally, one item per line.
+- Parses plain English, Hindi, and Hinglish food entries.
+- Understands split notes like `2 roti and dal`, `ek kela`, `1/2 cup dahi`, and manual entries like `200 kcal`.
+- Auto-calculates daily calories on the right.
+- Stores entries by date in local storage.
+- Shows daily, weekly, monthly, and yearly calorie totals.
+- Shows streak, best day, trend, and recent-day history.
 
-## Getting started
+## Run it
 
-```bash
-npm install
-npm run dev
+Run `npm run dev`.
+
+Open `http://localhost:4173` in a browser.
+
+For the best phone-like experience, add it to your home screen as a PWA.
+
+## Android
+
+- Install Android Studio.
+- Run `npm run cap:sync`
+- If needed once, run `npx cap add android`
+- Run `npm run cap:android`
+
+## Example inputs
+
+```text
+2 eggs
+1 cup chai
+2 roti
+1 bowl dal
+ek kela
+half cup dahi
 ```
 
-Open [http://localhost:5173](http://localhost:5173)
+## Notes
 
-## Build
-
-```bash
-npm run build
-npm run preview
-```
-
-## Structure
-
-```
-src/
-├── components/       One component + CSS module per section
-│   ├── Nav.tsx
-│   ├── Hero.tsx
-│   ├── Marquee.tsx
-│   ├── About.tsx
-│   ├── Services.tsx
-│   ├── Disciplines.tsx
-│   ├── Process.tsx
-│   ├── Clients.tsx
-│   ├── Pricing.tsx
-│   ├── Faq.tsx
-│   ├── Cta.tsx
-│   └── Footer.tsx
-├── hooks/
-│   ├── useReveal.ts       Intersection observer for scroll reveals
-│   └── useScrollNav.ts    Nav scroll state
-├── styles/
-│   ├── tokens.css         CSS custom properties — all design tokens
-│   └── global.css         Reset + base styles
-├── App.tsx                Assembles all sections
-└── main.tsx               Entry point
-```
-
-## Design system
-
-All tokens are in `src/styles/tokens.css` as CSS custom properties.
-
-**Palette** — fully monochromatic, no accent colour:
-
-| Token | Value | Role |
-|---|---|---|
-| `--noc-black` | `#0D0D0D` | Page background |
-| `--noc-white` | `#F5F4F0` | Primary text, CTA surfaces |
-| `--noc-grey-1` | `#1A1A1A` | Hover surfaces |
-| `--noc-grey-2` | `#2A2A2A` | Borders, dividers |
-| `--noc-grey-4` | `#666666` | Labels, meta |
-| `--noc-grey-5` | `#999999` | Body copy on dark |
-| `--noc-grey-6` | `#CCCCCC` | Secondary body |
-
-**Typography:** Host Grotesk — 800 weight headlines, 400 body, 300 italic accent. Zero letter-spacing throughout.
+- Calories are approximate and based on a small built-in food catalog.
+- Unknown foods are shown but not counted until the catalog is extended.

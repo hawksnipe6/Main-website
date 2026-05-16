@@ -1,22 +1,29 @@
 {
-  "name": "nocturnal-site",
+  "name": "cal-note",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.1",
-  "type": "module",
+  "description": "Minimal mobile-first calorie notebook with multilingual food parsing.",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "node scripts/dev-server.js",
+    "serve": "node scripts/dev-server.js",
+    "check": "node --check web/app.js",
+    "cap:sync": "npx cap sync",
+    "cap:android": "npx cap open android",
+    "cap:ios": "npx cap open ios"
+  },
+  "keywords": [
+    "calorie-tracker",
+    "capacitor",
+    "mobile",
+    "pwa"
+  ],
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@capacitor/cli": "7.6.1"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
-  "devDependencies": {
-    "@types/react": "^18.3.1",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.1",
-    "typescript": "^5.5.3",
-    "vite": "^5.4.1"
+    "@capacitor/android": "7.6.1",
+    "@capacitor/core": "7.6.1"
   }
 }

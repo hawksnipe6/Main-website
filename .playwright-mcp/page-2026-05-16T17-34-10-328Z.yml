@@ -1,0 +1,250 @@
+- generic [ref=e2]:
+  - status [ref=e3]:
+    - generic [ref=e4]:
+      - img "Nocturnal" [ref=e5]
+      - generic [ref=e7]: "-1%"
+  - navigation [ref=e8]:
+    - generic [ref=e9]:
+      - link "Nocturnal home" [ref=e10]:
+        - /url: "#hero"
+        - text: Nocturnal
+      - button "Toggle theme" [ref=e11]
+    - list [ref=e13]:
+      - listitem [ref=e14]:
+        - link "Brands" [ref=e15]:
+          - /url: "#brands"
+      - listitem [ref=e16]:
+        - link "Services" [ref=e17]:
+          - /url: "#services"
+      - listitem [ref=e18]:
+        - link "Engage" [ref=e19]:
+          - /url: "#cta"
+      - listitem [ref=e20]:
+        - link "FAQ" [ref=e21]:
+          - /url: "#faq"
+    - button "Start a Project" [ref=e23]
+  - generic [ref=e25]:
+    - list [ref=e26]:
+      - listitem [ref=e27]:
+        - link "Brands" [ref=e28]:
+          - /url: "#brands"
+      - listitem [ref=e29]:
+        - link "Services" [ref=e30]:
+          - /url: "#services"
+      - listitem [ref=e31]:
+        - link "Engage" [ref=e32]:
+          - /url: "#cta"
+      - listitem [ref=e33]:
+        - link "FAQ" [ref=e34]:
+          - /url: "#faq"
+    - button "Start a Project" [ref=e35]
+  - main [ref=e36]:
+    - generic [ref=e40]:
+      - heading "A Step into Design Intelligence" [level=1] [ref=e41]:
+        - text: A Step into
+        - text: Design Intelligence
+      - paragraph [ref=e42]: We help organizations design and implement systems that are not only beautiful but also intelligent, efficient, and sustainable.
+      - button "Start a Project" [ref=e44]
+    - generic [ref=e46]:
+      - generic [ref=e47]: High-quality design is not decoration ·
+      - generic [ref=e48]: It is decision-making made visible ·
+      - generic [ref=e49]: We design systems, not screens ·
+      - generic [ref=e50]: Execution is evidence of thinking ·
+      - generic [ref=e51]: Subtract until subtraction would break it ·
+      - generic [ref=e52]: Does this feel authored or generated ·
+      - generic [ref=e53]: Complexity disappears — clarity remains ·
+      - generic [ref=e54]: The brief is never the brief ·
+      - generic [ref=e55]: High-quality design is not decoration ·
+      - generic [ref=e56]: It is decision-making made visible ·
+      - generic [ref=e57]: We design systems, not screens ·
+      - generic [ref=e58]: Execution is evidence of thinking ·
+      - generic [ref=e59]: Subtract until subtraction would break it ·
+      - generic [ref=e60]: Does this feel authored or generated ·
+      - generic [ref=e61]: Complexity disappears — clarity remains ·
+      - generic [ref=e62]: The brief is never the brief ·
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - generic [ref=e66]: Nocturnal
+          - heading "Brands we have worked with." [level=2] [ref=e67]:
+            - text: Brands we have
+            - text: worked with.
+        - paragraph [ref=e68]: Selected collaborators across product, brand, interface, and industrial design.
+      - generic "Brands we have worked with" [ref=e69]:
+        - img "Armor" [ref=e71]
+        - img "Pixelpaw Labs" [ref=e73]
+        - img "D'MOS" [ref=e75]
+        - img "Aerpace" [ref=e77]
+        - img "WEHEAR" [ref=e79]
+        - img "Khamir" [ref=e81]
+        - img "The Pen Lounge" [ref=e83]
+        - img "Mejari Habitat" [ref=e85]
+      - generic [ref=e86]: YOU CAN BE NEXT
+    - generic [ref=e87]:
+      - generic [ref=e88]:
+        - generic [ref=e89]:
+          - generic [ref=e90]: Services
+          - heading "Different disciplines. One coherent system." [level=2] [ref=e91]:
+            - text: Different disciplines.
+            - text: One coherent system.
+        - paragraph [ref=e92]: Four focused capabilities. Each one can stand alone, but the strongest outcomes happen when they work together.
+      - generic [ref=e93]:
+        - button "01 Industrial Design Physical product thinking from form direction to prototype-ready output. View scope" [ref=e94]:
+          - generic [ref=e95]: "01"
+          - generic [ref=e96]: Industrial Design
+          - generic [ref=e97]: Physical product thinking from form direction to prototype-ready output.
+          - generic [ref=e98]: View scope
+        - button "02 Brand Design Identity systems that define how a brand looks, speaks, and behaves. View scope" [ref=e99]:
+          - generic [ref=e100]: "02"
+          - generic [ref=e101]: Brand Design
+          - generic [ref=e102]: Identity systems that define how a brand looks, speaks, and behaves.
+          - generic [ref=e103]: View scope
+        - button "03 UI UX System Interface systems that make product decisions clear, usable, and scalable. View scope" [ref=e104]:
+          - generic [ref=e105]: "03"
+          - generic [ref=e106]: UI UX System
+          - generic [ref=e107]: Interface systems that make product decisions clear, usable, and scalable.
+          - generic [ref=e108]: View scope
+        - button "04 Motion and Interaction Motion assets and interaction details that make communication feel authored. View scope" [ref=e109]:
+          - generic [ref=e110]: "04"
+          - generic [ref=e111]: Motion and Interaction
+          - generic [ref=e112]: Motion assets and interaction details that make communication feel authored.
+          - generic [ref=e113]: View scope
+    - generic [ref=e114]:
+      - generic [ref=e115]:
+        - generic [ref=e116]: Testimonials
+        - heading "What the work feels like." [level=2] [ref=e117]:
+          - text: What the work
+          - text: feels like.
+      - generic "Testimonials carousel" [ref=e118]:
+        - generic [ref=e119]:
+          - article [ref=e120]:
+            - paragraph [ref=e121]: Clear thinking. Fast execution. No wasted motion.
+          - article [ref=e122]:
+            - paragraph [ref=e123]: They simplified the brief and made the outcome sharper.
+          - article [ref=e124]:
+            - paragraph [ref=e125]: Strong craft, tight process, and clean handoff.
+        - generic [ref=e126]:
+          - button "Previous testimonial" [ref=e127]: ←
+          - button "Next testimonial" [ref=e128]: →
+    - generic [ref=e129]:
+      - generic [ref=e130]:
+        - generic [ref=e131]:
+          - generic [ref=e132]: FAQ
+          - heading "Questions we hear before the first call." [level=2] [ref=e133]:
+            - text: Questions we hear
+            - text: before the first call.
+        - paragraph [ref=e134]: The useful answers before we discuss scope, timeline, or fit.
+      - generic [ref=e135]:
+        - generic [ref=e136]:
+          - button "What makes Nocturnal different from other design studios?" [ref=e137]:
+            - generic [ref=e138]: What makes Nocturnal different from other design studios?
+            - generic [ref=e139]: +
+          - generic [ref=e140]: We question the brief before we execute it. The work is delivered as one connected system, not disconnected design files.
+        - generic [ref=e141]:
+          - button "How long does a typical project take?" [ref=e142]:
+            - generic [ref=e143]: How long does a typical project take?
+            - generic [ref=e144]: +
+          - generic [ref=e145]: Audits usually take two to three weeks. Full brand, product, or interface systems usually take six to ten weeks after scope is locked.
+        - generic [ref=e146]:
+          - button "Do you work with international clients?" [ref=e147]:
+            - generic [ref=e148]: Do you work with international clients?
+            - generic [ref=e149]: +
+          - generic [ref=e150]: Yes. We work async-first with structured check-ins, written decisions, and clear handoff points across time zones.
+        - generic [ref=e151]:
+          - button "Can you work within a fixed budget?" [ref=e152]:
+            - generic [ref=e153]: Can you work within a fixed budget?
+            - generic [ref=e154]: +
+          - generic [ref=e155]: Yes, if the budget is declared upfront. We reduce scope, not quality. A smaller sharp system beats a large weak one.
+        - generic [ref=e156]:
+          - button "How do I start?" [ref=e157]:
+            - generic [ref=e158]: How do I start?
+            - generic [ref=e159]: +
+          - generic [ref=e160]: Send a rough brief. We respond with questions first, then scope the work only if the problem is a clear fit.
+    - generic [ref=e161]:
+      - generic [ref=e162]:
+        - generic [ref=e163]: Work with us
+        - heading "Book a strategy call." [level=2] [ref=e164]
+        - paragraph [ref=e165]: Thirty minutes. No pitch decks. We identify the revenue friction in your brand and product, and tell you exactly what can be fixed before any commitment.
+        - generic [ref=e166]:
+          - generic [ref=e167]: 30 min
+          - generic [ref=e169]: Google Meet
+          - generic [ref=e171]: Free
+      - generic [ref=e174]:
+        - generic [ref=e175]:
+          - generic [ref=e176]: May
+          - generic [ref=e177]: "2026"
+        - generic [ref=e178]:
+          - generic [ref=e179]: SUN
+          - generic [ref=e180]: MON
+          - generic [ref=e181]: TUE
+          - generic [ref=e182]: WED
+          - generic [ref=e183]: THU
+          - generic [ref=e184]: FRI
+          - generic [ref=e185]: SAT
+          - generic [ref=e186]: "1"
+          - generic [ref=e187]: "2"
+          - generic [ref=e188]: "3"
+          - generic [ref=e189]: "4"
+          - generic [ref=e190]: "5"
+          - generic [ref=e191]: "6"
+          - generic [ref=e192]: "7"
+          - generic [ref=e193]: "8"
+          - generic [ref=e194]: "9"
+          - generic [ref=e195]: "10"
+          - generic [ref=e196]: "11"
+          - generic [ref=e197]: "12"
+          - generic [ref=e198]: "13"
+          - generic [ref=e199]: "14"
+          - generic [ref=e200]: "15"
+          - generic [ref=e201]: "16"
+          - generic [ref=e202]: "17"
+          - generic [ref=e203]: "18"
+          - generic [ref=e204]: "19"
+          - generic [ref=e205]: "20"
+          - generic [ref=e206]: "21"
+          - generic [ref=e207]: "22"
+          - generic [ref=e208]: "23"
+          - generic [ref=e209]: "24"
+          - generic [ref=e210]: "25"
+          - generic [ref=e211]: "26"
+          - generic [ref=e212]: "27"
+          - generic [ref=e213]: "28"
+          - generic [ref=e214]: "29"
+          - generic [ref=e215]: "30"
+          - generic [ref=e216]: "31"
+        - generic [ref=e217]:
+          - generic [ref=e218]: Select a day to see availability
+          - button "Open booking" [ref=e219]
+  - contentinfo [ref=e220]:
+    - generic [ref=e221]:
+      - generic [ref=e222]:
+        - link "Nocturnal" [ref=e223]:
+          - /url: "#hero"
+        - paragraph [ref=e224]: Design intelligence studio. We design systems, not screens. Execution is evidence of thinking.
+      - navigation "Studio" [ref=e225]:
+        - generic [ref=e226]: Studio
+        - list [ref=e227]:
+          - listitem [ref=e228]:
+            - link "Brands" [ref=e229]:
+              - /url: "#brands"
+          - listitem [ref=e230]:
+            - link "Services" [ref=e231]:
+              - /url: "#services"
+          - listitem [ref=e232]:
+            - link "Testimonials" [ref=e233]:
+              - /url: "#testimonials"
+      - navigation "Engage" [ref=e234]:
+        - generic [ref=e235]: Engage
+        - list [ref=e236]:
+          - listitem [ref=e237]:
+            - link "FAQ" [ref=e238]:
+              - /url: "#faq"
+          - listitem [ref=e239]:
+            - link "Start a Project" [ref=e240]:
+              - /url: "#cta"
+          - listitem [ref=e241]:
+            - link "getncrtnl@gmail.com" [ref=e242]:
+              - /url: mailto:getncrtnl@gmail.com
+    - generic [ref=e243]:
+      - generic [ref=e244]: © 2026 Nocturnal. All rights reserved.
+      - generic [ref=e245]: Design intelligence studio

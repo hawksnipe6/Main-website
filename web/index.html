@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Cal Note">
+  <title>Cal Note</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Daily calorie notebook</p>
+        <h1>Cal Note</h1>
+      </div>
+      <label class="date-pill">
+        <span>Date</span>
+        <input id="datePicker" type="date">
+      </label>
+    </header>
+
+    <section class="tabs" aria-label="Summary range">
+      <button class="tab active" data-range="day">Today</button>
+      <button class="tab" data-range="week">Week</button>
+      <button class="tab" data-range="month">Month</button>
+      <button class="tab" data-range="year">Year</button>
+    </section>
+
+    <section class="overview-grid">
+      <article class="overview-card">
+        <span class="overview-label">Streak</span>
+        <strong id="streakValue">0 days</strong>
+        <p class="muted">Consecutive days with entries</p>
+      </article>
+      <article class="overview-card">
+        <span class="overview-label">Best day</span>
+        <strong id="bestDayValue">0 kcal</strong>
+        <p class="muted">Highest intake in current range</p>
+      </article>
+      <article class="overview-card">
+        <span class="overview-label">Trend</span>
+        <strong id="trendValue">Steady</strong>
+        <p class="muted">Compared with the previous period</p>
+      </article>
+    </section>
+
+    <section class="composer-card">
+      <div class="card-header">
+        <div>
+          <h2>Write what you ate</h2>
+          <p>Plain English, Hindi, or Hinglish. One item per line.</p>
+        </div>
+        <button id="sampleBtn" class="ghost-btn" type="button">Try sample</button>
+      </div>
+
+      <div class="two-column">
+        <label class="editor-pane">
+          <span class="pane-title">Food notes</span>
+          <textarea
+            id="foodInput"
+            placeholder="2 eggs&#10;1 cup chai&#10;2 roti and dal&#10;ek kela&#10;aadha cup dahi"
+            spellcheck="false"
+          ></textarea>
+        </label>
+
+        <section class="summary-pane" aria-live="polite">
+          <div class="summary-total">
+            <span>Total</span>
+            <strong id="dailyTotal">0 kcal</strong>
+          </div>
+
+          <div id="parsedList" class="parsed-list"></div>
+
+          <div class="period-card">
+            <div class="period-header">
+              <span id="periodLabel">Today</span>
+              <strong id="periodTotal">0 kcal</strong>
+            </div>
+            <p id="periodMeta" class="muted">No entries yet</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="quick-help">
+      <h3>Examples</h3>
+      <div class="chips">
+        <button class="chip" type="button">2 ande</button>
+        <button class="chip" type="button">1 bowl dal</button>
+        <button class="chip" type="button">ek plate poha</button>
+        <button class="chip" type="button">half cup dahi</button>
+        <button class="chip" type="button">2 roti sabzi</button>
+      </div>
+    </section>
+
+    <section class="history-card">
+      <div class="card-header">
+        <div>
+          <h3>Recent days</h3>
+          <p>Quick glance at your last 7 active days.</p>
+        </div>
+      </div>
+      <div id="historyBars" class="history-bars"></div>
+      <div id="historyList" class="history-list"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

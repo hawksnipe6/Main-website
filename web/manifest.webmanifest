@@ -1,0 +1,18 @@
+{
+  "name": "Cal Note",
+  "short_name": "Cal Note",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f5ef",
+  "theme_color": "#f7f5ef",
+  "description": "A minimal daily calorie notebook with weekly, monthly, and yearly summaries.",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
