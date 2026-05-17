@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import styles from './LogoStrip.module.css'
 
 type Logo = {
@@ -18,6 +19,32 @@ const LOGOS: Logo[] = [
 ]
 
 export function LogoStrip() {
+  const logoRowRef = useRef<HTMLDivElement>(null)
+
+  const move = (direction: 1 | -1) => {
+    const row = logoRowRef.current
+    if (!row) return
+
+    const isMobile = window.matchMedia('(max-width: 640px)').matches
+    const maxScroll = row.scrollWidth - row.clientWidth
+    const current = row.scrollLeft
+    const step = isMobile ? row.clientWidth : Math.max(240, row.clientWidth * 0.42)
+    let next = current + direction * step
+
+    if (direction === 1 && current >= maxScroll - 2) {
+      next = 0
+    }
+
+    if (direction === -1 && current <= 2) {
+      next = maxScroll
+    }
+
+    row.scrollTo({
+      left: Math.min(maxScroll, Math.max(0, next)),
+      behavior: 'smooth',
+    })
+  }
+
   return (
     <section id="brands" className={styles.brands}>
       <div className={styles.header}>
@@ -32,12 +59,21 @@ export function LogoStrip() {
         </p>
       </div>
 
-      <div className={`${styles.logoRow} reveal reveal-d2`} aria-label="Brands we have worked with">
+      <div ref={logoRowRef} className={`${styles.logoRow} reveal reveal-d2`} aria-label="Brands we have worked with">
         {LOGOS.map((logo) => (
           <div key={logo.alt} className={`${styles.logoCell} ${styles[logo.shape ?? 'rect']}`}>
             <img src={logo.src} alt={logo.alt} className={styles.logo} draggable={false} />
           </div>
         ))}
+      </div>
+
+      <div className={`${styles.controls} reveal reveal-d3`}>
+        <button className={styles.arrow} onClick={() => move(-1)} aria-label="Previous brand logos" type="button">
+          ←
+        </button>
+        <button className={styles.arrow} onClick={() => move(1)} aria-label="Next brand logos" type="button">
+          →
+        </button>
       </div>
 
       <div className={`${styles.nextText} reveal reveal-d3`}>YOU CAN BE NEXT</div>

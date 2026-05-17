@@ -13,10 +13,18 @@
 
 .logoRow {
   display: grid;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-columns: repeat(8, minmax(128px, 1fr));
   align-items: center;
   gap: clamp(20px, 3vw, 54px);
   width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+
+.logoRow::-webkit-scrollbar {
+  display: none;
 }
 
 .logoCell {
@@ -25,6 +33,7 @@
   justify-content: center;
   min-width: 0;
   height: 84px;
+  scroll-snap-align: center;
 }
 
 .logo {
@@ -49,8 +58,36 @@
   transform: translateY(-2px);
 }
 
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.arrow {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 999px;
+  color: var(--noc-white);
+  background: var(--noc-black);
+  font-size: 16px;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.arrow:hover {
+  color: var(--noc-accent);
+  border-color: var(--noc-accent);
+  transform: translateY(-1px);
+}
+
+.arrow:active {
+  transform: translateY(-1px) scale(0.92);
+}
+
 .nextText {
-  margin-top: 44px;
+  margin-top: 18px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -60,13 +97,9 @@
 
 @media (max-width: 1180px) {
   .logoRow {
-    overflow-x: auto;
     grid-template-columns: repeat(8, 112px);
     padding-bottom: 8px;
-    scrollbar-width: none;
   }
-
-  .logoRow::-webkit-scrollbar { display: none; }
 }
 
 @media (max-width: 1024px) {
@@ -79,8 +112,9 @@
 
 @media (max-width: 640px) {
   .logoRow {
-    grid-template-columns: repeat(8, 96px);
-    gap: 28px;
+    grid-template-columns: repeat(8, calc((100% - 32px) / 3));
+    gap: 16px;
+    padding-bottom: 10px;
   }
 
   .logoCell { height: 70px; }
