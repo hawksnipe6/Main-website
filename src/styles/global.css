@@ -10,10 +10,6 @@ html, body {
   max-width: 100%;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   font-family: var(--noc-font);
   background: var(--noc-black);

@@ -8,7 +8,8 @@ function isTouchDevice() {
 
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
-  const size = useRef(18)
+  const width = useRef(18)
+  const height = useRef(18)
 
   useEffect(() => {
     if (isTouchDevice()) return
@@ -17,19 +18,21 @@ export function CustomCursor() {
     if (!cursor) return
 
     cursor.style.display = 'block'
+    const bound = new WeakSet<Element>()
 
     const move = (e: MouseEvent) => {
-      const half = size.current / 2
-      cursor.style.transform = `translate(${e.clientX - half}px, ${e.clientY - half}px)`
+      cursor.style.transform = `translate(${e.clientX - width.current / 2}px, ${e.clientY - height.current / 2}px)`
     }
 
     const grow = () => {
-      size.current = 34
+      width.current = 34
+      height.current = 34
       cursor.classList.add(styles.hover)
     }
 
     const shrink = () => {
-      size.current = 18
+      width.current = 18
+      height.current = 18
       cursor.classList.remove(styles.hover)
     }
 
@@ -37,6 +40,9 @@ export function CustomCursor() {
 
     const bind = () => {
       document.querySelectorAll('a, button').forEach((el) => {
+        if (bound.has(el)) return
+        bound.add(el)
+
         el.addEventListener('mouseenter', grow)
         el.addEventListener('mouseleave', shrink)
       })
@@ -52,5 +58,7 @@ export function CustomCursor() {
     }
   }, [])
 
-  return <div ref={cursorRef} className={styles.cursor} style={{ display: 'none' }} />
+  return (
+    <div ref={cursorRef} className={styles.cursor} style={{ display: 'none' }} />
+  )
 }

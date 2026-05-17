@@ -119,6 +119,12 @@
   animation: panelArrive 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+.panelWide {
+  width: min(1160px, 100%);
+  max-height: min(620px, calc(100vh - 56px));
+  padding: 24px 24px 20px;
+}
+
 .panel::before {
   content: '';
   position: absolute;
@@ -190,35 +196,76 @@
   font-size: 11px;
   font-weight: 600;
   color: var(--noc-accent);
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 .panelTitle {
-  font-size: clamp(32px, 5vw, 52px);
+  font-size: clamp(30px, 4vw, 56px);
   font-weight: 700;
-  line-height: 1;
+  line-height: 0.98;
   color: var(--noc-white);
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 }
 
 .panelBody {
-  max-width: 520px;
-  font-size: 15px;
-  line-height: 1.65;
+  max-width: 700px;
+  font-size: 13px;
+  line-height: 1.45;
   color: var(--noc-grey-5);
+}
+
+.projectLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  margin-top: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--noc-accent);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.projectLink::after {
+  content: '↗';
+  font-size: 14px;
+  line-height: 1;
+}
+
+.projectLink:hover {
+  opacity: 0.82;
+  transform: translateY(-1px);
+}
+
+.projectLinkPill {
+  margin-top: auto;
+  align-self: start;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid rgba(232, 97, 42, 0.4);
+  border-radius: 999px;
+  background: #000000;
+  color: var(--noc-accent);
+}
+
+[data-theme='dark'] .projectLinkPill {
+  background: #ffffff;
 }
 
 .panelDivider {
   height: 1px;
   background: var(--noc-grey-2);
-  margin: 34px 0 24px;
+  margin: 12px 0 10px;
 }
 
 .scopeTitle {
   font-size: 11px;
   font-weight: 600;
   color: var(--noc-grey-4);
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   text-transform: uppercase;
 }
 
@@ -242,6 +289,109 @@
   color: var(--noc-accent);
 }
 
+.scopeListCompact {
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.scopeListCompact li {
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.industrialLayout {
+  display: grid;
+  grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.industrialIntro {
+  display: grid;
+  align-content: start;
+  gap: 0;
+  min-width: 0;
+  min-height: 100%;
+}
+
+.industrialCardsColumn {
+  min-width: 0;
+}
+
+.processHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.processGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.processGridIndustrial {
+  grid-template-columns: repeat(2, minmax(0, 360px));
+  justify-content: center;
+  gap: 12px;
+}
+
+.processCard {
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  padding: 10px;
+}
+
+.processMeta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  align-items: start;
+  margin-bottom: 8px;
+}
+
+.processNum {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--noc-accent);
+}
+
+.processCardTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--noc-white);
+  line-height: 1.2;
+  margin-bottom: 3px;
+}
+
+.processCardBody {
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--noc-grey-5);
+}
+
+.processImageWrap {
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--noc-grey-1);
+  aspect-ratio: 1.95 / 1;
+}
+
+.processImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.processImageContain {
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.96);
+}
+
 @media (max-width: 1180px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
@@ -261,6 +411,26 @@
     grid-template-columns: 1fr;
     gap: 40px;
   }
+
+  .panelWide {
+    width: min(980px, 100%);
+    max-height: calc(100vh - 56px);
+    overflow: auto;
+  }
+
+  .industrialLayout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .projectLinkPill {
+    margin-top: 14px;
+  }
+
+  .processGridIndustrial {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    justify-content: stretch;
+  }
 }
 
 @media (max-width: 640px) {
@@ -276,5 +446,10 @@
 
   .panel {
     padding: 34px 24px 28px;
+  }
+
+  .processGrid,
+  .processGridIndustrial {
+    grid-template-columns: 1fr;
   }
 }
