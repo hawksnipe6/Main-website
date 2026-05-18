@@ -3,14 +3,21 @@ import { useScrollNav } from '../hooks/useScrollNav'
 import { ThemeToggle } from './ThemeToggle'
 import styles from './Nav.module.css'
 
-const NAV_LINKS = [
-  { label: 'Brands',   href: '#brands' },
+const DRAWER_LINKS = [
+  { label: 'Brands', href: '#brands' },
   { label: 'Services', href: '#services' },
-  { label: 'Engage',   href: '#cta' },
-  { label: 'FAQ',      href: '#faq' },
+  { label: 'Engage', href: '#cta' },
+  { label: 'FAQ', href: '#faq' },
 ]
 
-export function Nav({ onBooking }: { onBooking: () => void }) {
+type NavProps = {
+  onBooking: () => void
+  page: 'home' | 'work'
+  onNavigateHome: () => void
+  onNavigateWork: () => void
+}
+
+export function Nav({ onBooking, page, onNavigateHome, onNavigateWork }: NavProps) {
   useScrollNav('#nav', styles.scrolled)
   const progressRef = useRef<HTMLDivElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -28,13 +35,33 @@ export function Nav({ onBooking }: { onBooking: () => void }) {
     return () => window.removeEventListener('scroll', update)
   }, [])
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
   const close = () => setMenuOpen(false)
+
+  const navigateHome = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    close()
+
+    if (page === 'home') {
+      const hero = document.querySelector('#hero')
+      hero?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      window.history.pushState(null, '', '#hero')
+      return
+    }
+
+    onNavigateHome()
+  }
+
+  const navigateWork = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    close()
+    onNavigateWork()
+  }
+
   const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     event.preventDefault()
     close()
@@ -49,25 +76,27 @@ export function Nav({ onBooking }: { onBooking: () => void }) {
   return (
     <>
       <nav id="nav" className={`${styles.nav} ${menuOpen ? styles.navMenuOpen : ''}`}>
-        {/* Left */}
         <div className={styles.left}>
-          <a href="#hero" className={styles.logo} onClick={(event) => navigateToSection(event, '#hero')} aria-label="Nocturnal home">
+          <a href="/" className={styles.logo} onClick={navigateHome} aria-label="Nocturnal home">
             Nocturnal
           </a>
           <ThemeToggle />
         </div>
 
-        {/* Centre — desktop only */}
         <ul className={styles.links}>
-          {NAV_LINKS.map(l => (
-            <li key={l.href}><a href={l.href} onClick={(event) => navigateToSection(event, l.href)}>{l.label}</a></li>
-          ))}
+          <li>
+            {page === 'home' ? (
+              <a href="/work" onClick={navigateWork}>Work</a>
+            ) : (
+              <a href="/" onClick={navigateHome}>Home</a>
+            )}
+          </li>
         </ul>
 
-        {/* Right */}
         <div className={styles.right}>
-          <button className={`${styles.cta} ${styles.ctaDesktop}`} onClick={() => { close(); onBooking(); }}>Start a Project</button>
-          {/* Hamburger — mobile only */}
+          <button className={`${styles.cta} ${styles.ctaDesktop}`} onClick={() => { close(); onBooking(); }}>
+            Start a Project
+          </button>
           <button
             className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ''}`}
             onClick={() => setMenuOpen(o => !o)}
@@ -78,13 +107,11 @@ export function Nav({ onBooking }: { onBooking: () => void }) {
           </button>
         </div>
 
-        {/* Progress bar */}
         <div className={styles.progressTrack}>
           <div ref={progressRef} className={styles.progressBar} />
         </div>
       </nav>
 
-      {/* Mobile menu overlay */}
       <div
         className={`${styles.overlay} ${menuOpen ? styles.overlayOpen : ''}`}
         onClick={close}
@@ -92,13 +119,22 @@ export function Nav({ onBooking }: { onBooking: () => void }) {
       />
       <div className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}>
         <ul className={styles.drawerLinks}>
-          {NAV_LINKS.map((l, i) => (
+          <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '120ms' : '0ms' }}>
+            {page === 'home' ? (
+              <a href="/work" onClick={navigateWork}>Work</a>
+            ) : (
+              <a href="/" onClick={navigateHome}>Home</a>
+            )}
+          </li>
+          {page === 'home' && DRAWER_LINKS.map((link, index) => (
             <li
-              key={l.href}
+              key={link.href}
               className={styles.drawerItem}
-              style={{ transitionDelay: menuOpen ? `${i * 60 + 120}ms` : '0ms' }}
+              style={{ transitionDelay: menuOpen ? `${index * 60 + 180}ms` : '0ms' }}
             >
-              <a href={l.href} onClick={(event) => navigateToSection(event, l.href)}>{l.label}</a>
+              <a href={link.href} onClick={(event) => navigateToSection(event, link.href)}>
+                {link.label}
+              </a>
             </li>
           ))}
         </ul>

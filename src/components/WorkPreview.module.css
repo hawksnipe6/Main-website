@@ -1,0 +1,104 @@
+.section {
+  background: var(--noc-black);
+}
+
+.shell {
+  position: relative;
+  overflow: hidden;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+}
+
+.copy {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.copy :global(.section-title) {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.copy :global(.section-body) {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cards {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 210px;
+  margin-top: 34px;
+}
+
+.card {
+  width: 180px;
+  aspect-ratio: 1.2;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.2);
+  transition: transform 0.28s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) rotate(0deg) !important;
+}
+
+.card1 { transform: translateX(72px) rotate(-12deg); z-index: 1; }
+.card2 { transform: translateX(34px) translateY(16px) rotate(-6deg); z-index: 2; }
+.card3 { transform: translateY(-8px); z-index: 5; }
+.card4 { transform: translateX(-34px) translateY(16px) rotate(6deg); z-index: 3; }
+.card5 { transform: translateX(-72px) rotate(12deg); z-index: 1; }
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cta {
+  display: block;
+  margin: 10px auto 0;
+  padding: 12px 28px;
+  border-radius: 999px;
+  background: var(--noc-white);
+  color: var(--noc-black);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+@media (max-width: 760px) {
+  .shell {
+    min-height: auto;
+    padding: 0;
+  }
+
+  .copy {
+    margin-top: 0;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    min-height: 0;
+  }
+
+  .card,
+  .card1,
+  .card2,
+  .card3,
+  .card4,
+  .card5 {
+    width: 100%;
+    transform: none;
+  }
+}

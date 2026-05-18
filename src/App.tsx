@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
-import { Marquee } from './components/Marquee'
 import { Services } from './components/Services'
 import { LogoStrip } from './components/LogoStrip'
 import { Testimonials } from './components/Testimonials'
@@ -12,16 +11,25 @@ import { CustomCursor } from './components/CustomCursor'
 import { BookingModal } from './components/BookingModal'
 import { LoadingScreen } from './components/LoadingScreen'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
+import { WorkPreview } from './components/WorkPreview'
+import { WorkPage } from './components/WorkPage'
 
 export default function App() {
   useSmoothScroll()
   const [modalOpen, setModalOpen] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [path, setPath] = useState(window.location.pathname)
 
   useEffect(() => {
     document.body.style.overflow = loading ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [loading])
+
+  useEffect(() => {
+    const handlePopState = () => setPath(window.location.pathname)
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -38,20 +46,39 @@ export default function App() {
     return () => observer.disconnect()
   }, [])
 
+  const navigateToPath = (nextPath: string) => {
+    if (window.location.pathname !== nextPath) {
+      window.history.pushState(null, '', nextPath)
+      setPath(nextPath)
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const isWorkPage = path === '/work'
+
   return (
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       <CustomCursor />
-      <Nav onBooking={() => setModalOpen(true)} />
-      <main>
-        <Hero onBooking={() => setModalOpen(true)} />
-        <LogoStrip />
-        <Marquee />
-        <Services />
-        <Testimonials />
-        <Faq />
-        <Cta />
-      </main>
+      <Nav
+        onBooking={() => setModalOpen(true)}
+        page={isWorkPage ? 'work' : 'home'}
+        onNavigateHome={() => navigateToPath('/')}
+        onNavigateWork={() => navigateToPath('/work')}
+      />
+      {isWorkPage ? (
+        <WorkPage />
+      ) : (
+        <main>
+          <Hero onBooking={() => setModalOpen(true)} />
+          <LogoStrip />
+          <WorkPreview onOpenWork={() => navigateToPath('/work')} />
+          <Services />
+          <Testimonials />
+          <Faq />
+          <Cta />
+        </main>
+      )}
       <Footer />
       {modalOpen && <BookingModal onClose={() => setModalOpen(false)} />}
     </>

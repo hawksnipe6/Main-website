@@ -1,0 +1,160 @@
+.page {
+  min-height: 100vh;
+  background: var(--noc-black);
+}
+
+.scrollSection {
+  height: calc(var(--work-count) * 82vh);
+  padding: 0 calc(var(--gutter) + var(--site-padding));
+}
+
+.stickyFrame {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 72px;
+}
+
+.layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.85fr) minmax(260px, 0.9fr) minmax(320px, 1fr);
+  gap: clamp(32px, 5vw, 76px);
+  align-items: center;
+}
+
+.heading {
+  justify-self: center;
+  max-width: 260px;
+  color: var(--noc-white);
+  font-size: clamp(40px, 6vw, 86px);
+  line-height: 0.96;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-align: center;
+}
+
+.visualRail {
+  position: relative;
+  justify-self: center;
+  width: min(340px, 26vw);
+  min-width: 260px;
+  aspect-ratio: 0.82;
+}
+
+.visualCard {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: var(--noc-glass-bg);
+  opacity: 0;
+  pointer-events: none;
+  transform:
+    translateY(calc(var(--offset) * 34px))
+    scale(0.96);
+  transition:
+    opacity 0.42s ease,
+    transform 0.42s ease,
+    border-color 0.42s ease;
+}
+
+.visualCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.activeCard {
+  opacity: 1;
+  pointer-events: auto;
+  border-color: var(--noc-accent);
+  transform: translateY(0) scale(1);
+}
+
+.details {
+  max-width: 460px;
+  animation: detailFade 0.45s ease both;
+}
+
+.category {
+  margin-bottom: 18px;
+  color: var(--noc-grey-4);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.details h2 {
+  margin-bottom: 20px;
+  color: var(--noc-white);
+  font-size: clamp(30px, 3vw, 46px);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.details p:not(.category) {
+  color: var(--noc-grey-5);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 28px;
+}
+
+.details a {
+  display: inline-flex;
+  border-bottom: 1px solid currentColor;
+  color: var(--noc-white);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+@keyframes detailFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1000px) {
+  .scrollSection {
+    height: auto;
+    padding-top: calc(var(--page-padding-top) + 24px);
+    padding-bottom: var(--section-padding-v);
+  }
+
+  .stickyFrame {
+    position: static;
+    min-height: auto;
+    padding-top: 0;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .visualRail {
+    width: min(420px, 100%);
+  }
+
+  .visualCard {
+    position: relative;
+    display: none;
+    transform: none;
+  }
+
+  .activeCard {
+    display: block;
+  }
+}
