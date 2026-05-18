@@ -233,7 +233,6 @@ export function Services() {
                               muted
                               loop
                               playsInline
-                              controls
                             />
                           ) : (
                             <img
@@ -290,7 +289,6 @@ export function Services() {
                               muted
                               loop
                               playsInline
-                              controls
                             />
                           ) : (
                             <img
