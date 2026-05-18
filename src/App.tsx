@@ -45,8 +45,8 @@ export default function App() {
       <Nav onBooking={() => setModalOpen(true)} />
       <main>
         <Hero onBooking={() => setModalOpen(true)} />
-        <Marquee />
         <LogoStrip />
+        <Marquee />
         <Services />
         <Testimonials />
         <Faq />
