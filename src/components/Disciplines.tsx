@@ -3,7 +3,7 @@ import styles from './Disciplines.module.css'
 const DISCIPLINES = [
   { index: '01', name: 'Brand Identity',      tools: 'Figma · Adobe · Illustrator' },
   { index: '02', name: 'Product Design',       tools: 'Figma · Prototyping' },
-  { index: '03', name: '3D / Industrial',      tools: 'Blender · Fusion 360 · Keyshot' },
+  { index: '03', name: '3D Industrial',        tools: 'Blender · Fusion 360 · Keyshot' },
   { index: '04', name: 'Motion & Interaction', tools: 'After Effects · Framer' },
   { index: '05', name: 'UX Strategy',          tools: 'Research · Flows · Audits' },
   { index: '06', name: 'Print & Physical',     tools: 'InDesign · Physical Production' },

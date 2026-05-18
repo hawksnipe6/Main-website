@@ -14,7 +14,7 @@ const CARDS = [
   {
     num: '03',
     title: 'Phygital by Design',
-    body: 'We operate at the intersection of digital and physical — brand systems, product design, 3D/CAD, motion. One studio, one coherent approach across every surface.',
+    body: 'We operate at the intersection of digital and physical — brand systems, product design, 3D CAD, motion. One studio, one coherent approach across every surface.',
   },
   {
     num: '04',

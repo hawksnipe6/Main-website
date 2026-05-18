@@ -12,18 +12,18 @@ const CARDS: ScopeCard[] = [
     num: '01',
     title: 'Industrial Design',
     get: ['Product audit', 'Opportunity map', 'Concept ideation', 'Form sketches', 'Low-fi prototypes', 'Vendor connect'],
-    dont: ['Engineering', 'DFM / tooling', 'Manufacturing', 'Certification', 'Production management'],
+    dont: ['Engineering', 'DFM tooling', 'Manufacturing', 'Certification', 'Production management'],
   },
   {
     num: '02',
-    title: '2D/3D Design',
+    title: '2D and 3D Design',
     get: ['Ideation', 'Sketches', 'Digital mockups', '3D renders', 'Motion output', 'Ready-to-use files'],
     dont: ['Printing', 'Physical mockups', 'Fabrication', 'Long-form video', 'Shoot production'],
   },
   {
     num: '03',
-    title: 'UI/UX Design',
-    get: ['UX direction', 'User flows', 'Lo-fi / hi-fi screens', 'UI components', 'Dev handoff'],
+    title: 'UI and UX Design',
+    get: ['UX direction', 'User flows', 'Lo-fi and hi-fi screens', 'UI components', 'Dev handoff'],
     dont: ['Development', 'Backend', 'Deployment', 'QA testing', 'Analytics setup'],
   },
 ]

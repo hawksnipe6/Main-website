@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { useScrollNav } from '../hooks/useScrollNav'
 import { ThemeToggle } from './ThemeToggle'
 import styles from './Nav.module.css'
 
 const NAV_LINKS = [
+  { label: 'Brands',   href: '#brands' },
   { label: 'Services', href: '#services' },
-  { label: 'Engage',   href: '#pricing' },
+  { label: 'Engage',   href: '#cta' },
   { label: 'FAQ',      href: '#faq' },
 ]
 
@@ -34,20 +35,32 @@ export function Nav({ onBooking }: { onBooking: () => void }) {
   }, [menuOpen])
 
   const close = () => setMenuOpen(false)
+  const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault()
+    close()
+
+    const section = document.querySelector(href)
+    if (!section) return
+
+    section.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    window.history.pushState(null, '', href)
+  }
 
   return (
     <>
-      <nav id="nav" className={styles.nav}>
+      <nav id="nav" className={`${styles.nav} ${menuOpen ? styles.navMenuOpen : ''}`}>
         {/* Left */}
         <div className={styles.left}>
-          <a href="#hero" className={styles.logo} onClick={close}>Nocturnal</a>
+          <a href="#hero" className={styles.logo} onClick={(event) => navigateToSection(event, '#hero')} aria-label="Nocturnal home">
+            Nocturnal
+          </a>
           <ThemeToggle />
         </div>
 
         {/* Centre — desktop only */}
         <ul className={styles.links}>
           {NAV_LINKS.map(l => (
-            <li key={l.href}><a href={l.href}>{l.label}</a></li>
+            <li key={l.href}><a href={l.href} onClick={(event) => navigateToSection(event, l.href)}>{l.label}</a></li>
           ))}
         </ul>
 
@@ -85,7 +98,7 @@ export function Nav({ onBooking }: { onBooking: () => void }) {
               className={styles.drawerItem}
               style={{ transitionDelay: menuOpen ? `${i * 60 + 120}ms` : '0ms' }}
             >
-              <a href={l.href} onClick={close}>{l.label}</a>
+              <a href={l.href} onClick={(event) => navigateToSection(event, l.href)}>{l.label}</a>
             </li>
           ))}
         </ul>

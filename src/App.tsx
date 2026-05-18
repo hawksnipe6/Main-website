@@ -5,17 +5,23 @@ import { Marquee } from './components/Marquee'
 import { Services } from './components/Services'
 import { LogoStrip } from './components/LogoStrip'
 import { Testimonials } from './components/Testimonials'
-import { Pricing } from './components/Pricing'
 import { Faq } from './components/Faq'
 import { Cta } from './components/Cta'
 import { Footer } from './components/Footer'
 import { CustomCursor } from './components/CustomCursor'
 import { BookingModal } from './components/BookingModal'
+import { LoadingScreen } from './components/LoadingScreen'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 
 export default function App() {
   useSmoothScroll()
   const [modalOpen, setModalOpen] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    document.body.style.overflow = loading ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [loading])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,15 +40,15 @@ export default function App() {
 
   return (
     <>
+      {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       <CustomCursor />
       <Nav onBooking={() => setModalOpen(true)} />
       <main>
         <Hero onBooking={() => setModalOpen(true)} />
+        <LogoStrip />
         <Marquee />
         <Services />
-        <LogoStrip />
         <Testimonials />
-        <Pricing />
         <Faq />
         <Cta />
       </main>
