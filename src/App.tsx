@@ -32,6 +32,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
+    const revealItems = document.querySelectorAll('.reveal')
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -42,16 +43,19 @@ export default function App() {
       },
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     )
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    revealItems.forEach((el) => {
+      el.classList.remove('visible')
+      observer.observe(el)
+    })
     return () => observer.disconnect()
-  }, [])
+  }, [path])
 
   const navigateToPath = (nextPath: string) => {
     if (window.location.pathname !== nextPath) {
       window.history.pushState(null, '', nextPath)
       setPath(nextPath)
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }))
   }
 
   const isWorkPage = path === '/work'

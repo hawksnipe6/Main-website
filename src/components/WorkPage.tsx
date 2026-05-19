@@ -4,19 +4,35 @@ import styles from './WorkPage.module.css'
 
 export function WorkPage() {
   const sectionRef = useRef<HTMLElement>(null)
+  const snapTimerRef = useRef<number>()
+  const snappingRef = useRef(false)
   const [activeIndex, setActiveIndex] = useState(0)
   const active = WORK_SAMPLES[activeIndex]
 
   useEffect(() => {
-    const updateActiveWork = () => {
+    const isMobileWorkView = () => window.matchMedia('(max-width: 1000px)').matches
+
+    const getWorkScrollMetrics = () => {
       const section = sectionRef.current
-      if (!section) return
+      if (!section) return null
 
       const rect = section.getBoundingClientRect()
       const scrollable = rect.height - window.innerHeight
-      if (scrollable <= 0) return
+      if (scrollable <= 0) return null
 
-      const progress = Math.min(1, Math.max(0, -rect.top / scrollable))
+      return {
+        rect,
+        scrollable,
+        sectionTop: window.scrollY + rect.top,
+        step: scrollable / Math.max(1, WORK_SAMPLES.length - 1),
+      }
+    }
+
+    const updateActiveWork = () => {
+      const metrics = getWorkScrollMetrics()
+      if (!metrics) return
+
+      const progress = Math.min(1, Math.max(0, -metrics.rect.top / metrics.scrollable))
       const nextIndex = Math.min(
         WORK_SAMPLES.length - 1,
         Math.round(progress * (WORK_SAMPLES.length - 1))
@@ -24,11 +40,46 @@ export function WorkPage() {
       setActiveIndex(nextIndex)
     }
 
+    const settleToNearestWork = () => {
+      if (!isMobileWorkView()) return
+      if (snappingRef.current) return
+
+      const metrics = getWorkScrollMetrics()
+      if (!metrics) return
+      if (metrics.rect.bottom <= window.innerHeight || metrics.rect.top >= 0) return
+
+      const rawIndex = Math.round((window.scrollY - metrics.sectionTop) / metrics.step)
+      const nextIndex = Math.min(WORK_SAMPLES.length - 1, Math.max(0, rawIndex))
+      const nextTop = metrics.sectionTop + nextIndex * metrics.step
+
+      if (Math.abs(window.scrollY - nextTop) < 2) return
+
+      snappingRef.current = true
+      window.scrollTo({
+        top: nextTop,
+        behavior: 'smooth',
+      })
+
+      window.setTimeout(() => {
+        snappingRef.current = false
+      }, 420)
+    }
+
+    const scheduleMobileSettle = () => {
+      if (!isMobileWorkView() || snappingRef.current) return
+      window.clearTimeout(snapTimerRef.current)
+      snapTimerRef.current = window.setTimeout(settleToNearestWork, 120)
+    }
+
     updateActiveWork()
     window.addEventListener('scroll', updateActiveWork, { passive: true })
+    window.addEventListener('scroll', scheduleMobileSettle, { passive: true })
     window.addEventListener('resize', updateActiveWork)
+
     return () => {
+      window.clearTimeout(snapTimerRef.current)
       window.removeEventListener('scroll', updateActiveWork)
+      window.removeEventListener('scroll', scheduleMobileSettle)
       window.removeEventListener('resize', updateActiveWork)
     }
   }, [])

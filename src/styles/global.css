@@ -102,7 +102,7 @@ section#hero {
 .reveal-d3 { transition-delay: 0.24s; }
 
 /* ── HIDE CURSOR — desktop only ────────────── */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
   *, *::before, *::after {
     cursor: none !important;
   }
