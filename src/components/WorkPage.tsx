@@ -94,7 +94,7 @@ export function WorkPage() {
       >
         <div className={styles.stickyFrame}>
           <div className={styles.layout}>
-            <h1 className={styles.heading}>work sample</h1>
+            <h1 className={styles.heading}>Industrial design, UI/UX and CGI work samples</h1>
 
             <div className={styles.visualRail} aria-hidden="true">
               {WORK_SAMPLES.map((work, index) => {
@@ -109,7 +109,7 @@ export function WorkPage() {
                     style={{ ['--offset' as string]: offset }}
                     aria-label={`Open ${work.title}`}
                   >
-                    <img src={work.image} alt="" loading="lazy" />
+                    <img src={work.image} alt={`${work.title} — ${work.category}`} loading="lazy" />
                   </a>
                 )
               })}

@@ -13,6 +13,7 @@ import { LoadingScreen } from './components/LoadingScreen'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { WorkPreview } from './components/WorkPreview'
 import { WorkPage } from './components/WorkPage'
+import { Seo } from './components/Seo'
 
 export default function App() {
   useSmoothScroll()
@@ -63,6 +64,7 @@ export default function App() {
   return (
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
+      <Seo page={isWorkPage ? 'work' : 'home'} />
       <CustomCursor />
       <Nav
         onBooking={() => setModalOpen(true)}
