@@ -1,0 +1,32 @@
+.track {
+  position: fixed;
+  top: 0;
+  right: 4px;
+  width: 10px;
+  height: 100vh;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.visible {
+  opacity: 1;
+}
+
+.thumb {
+  position: absolute;
+  top: 0;
+  right: 2px;
+  width: 5px;
+  border-radius: 4px;
+  background: var(--noc-grey-4);
+  pointer-events: auto;
+  will-change: transform, height;
+  transition: width 0.18s ease, background 0.18s ease;
+}
+
+.thumb:hover {
+  width: 7px;
+  background: var(--noc-grey-5);
+}

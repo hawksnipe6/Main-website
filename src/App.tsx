@@ -8,6 +8,7 @@ import { Faq } from './components/Faq'
 import { Cta } from './components/Cta'
 import { Footer } from './components/Footer'
 import { CustomCursor } from './components/CustomCursor'
+import { CustomScrollbar } from './components/CustomScrollbar'
 import { BookingModal } from './components/BookingModal'
 import { LoadingScreen } from './components/LoadingScreen'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
@@ -66,6 +67,7 @@ export default function App() {
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       <Seo page={isWorkPage ? 'work' : 'home'} />
       <CustomCursor />
+      <CustomScrollbar />
       <Nav
         onBooking={() => setModalOpen(true)}
         page={isWorkPage ? 'work' : 'home'}
