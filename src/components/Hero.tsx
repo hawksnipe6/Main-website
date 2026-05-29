@@ -8,7 +8,7 @@ export function Hero({ onBooking }: { onBooking: () => void }) {
       <div className={styles.content}>
         <div className={styles.left}>
           <h1 className={`${styles.headline} reveal reveal-d1`}>
-            Industrial design, UI/UX, CGI and brand systems for startups
+            Turn messy ideas into market-ready products and interfaces.
           </h1>
           <p className={`${styles.sub} reveal reveal-d2`}>
             Nocturnal helps product teams, founders, and emerging brands turn complex ideas into clear physical products, digital interfaces, launch visuals, and scalable design systems.
