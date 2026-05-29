@@ -4,7 +4,7 @@ import { WORK_SAMPLES } from '../data/workSamples'
 const SITE_URL = 'https://www.getnctrnl.com'
 const LOGO_URL = `${SITE_URL}/logo%20512.png`
 
-type PageKey = 'home' | 'work'
+type PageKey = 'home' | 'work' | 'concepts'
 
 const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string }> = {
   home: {
@@ -20,6 +20,13 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
       'Selected Nocturnal work across industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and product visualization.',
     canonical: `${SITE_URL}/work`,
     image: `${SITE_URL}/work-cover-renderfolio-custom.png`,
+  },
+  concepts: {
+    title: 'Concepts — Nocturnal Product Design Research & Interactive Prototypes',
+    description:
+      'Independently researched product concepts by Nocturnal — each rooted in a real problem, designed end-to-end, and built as interactive prototypes. Currently featuring Firstweeks, a postpartum recovery app.',
+    canonical: `${SITE_URL}/concepts`,
+    image: LOGO_URL,
   },
 }
 
@@ -152,6 +159,7 @@ export function Seo({ page }: { page: PageKey }) {
     setMeta('meta[property="og:url"]', { property: 'og:url', content: meta.canonical })
     setMeta('meta[property="og:image"]', { property: 'og:image', content: meta.image })
     setMeta('meta[property="og:type"]', { property: 'og:type', content: page === 'home' ? 'website' : 'article' })
+    setMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: 'Nocturnal' })
     setMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' })
     setMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: meta.title })
     setMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: meta.description })
@@ -161,12 +169,13 @@ export function Seo({ page }: { page: PageKey }) {
     setJsonLd('schema-professional-service', professionalServiceSchema)
     if (page === 'home') {
       setJsonLd('schema-faq', faqSchema)
-      const workTag = document.getElementById('schema-work')
-      workTag?.remove()
-    } else {
+      document.getElementById('schema-work')?.remove()
+    } else if (page === 'work') {
       setJsonLd('schema-work', workSchema)
-      const faqTag = document.getElementById('schema-faq')
-      faqTag?.remove()
+      document.getElementById('schema-faq')?.remove()
+    } else {
+      document.getElementById('schema-faq')?.remove()
+      document.getElementById('schema-work')?.remove()
     }
   }, [page])
 

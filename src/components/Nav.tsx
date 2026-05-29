@@ -4,20 +4,21 @@ import { ThemeToggle } from './ThemeToggle'
 import styles from './Nav.module.css'
 
 const DRAWER_LINKS = [
-  { label: 'Brands', href: '#brands' },
+  { label: 'Brands',   href: '#brands' },
   { label: 'Services', href: '#services' },
-  { label: 'Engage', href: '#cta' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Engage',   href: '#cta' },
+  { label: 'FAQ',      href: '#faq' },
 ]
 
 type NavProps = {
   onBooking: () => void
-  page: 'home' | 'work'
+  page: 'home' | 'work' | 'concepts'
   onNavigateHome: () => void
   onNavigateWork: () => void
+  onNavigateConcepts: () => void
 }
 
-export function Nav({ onBooking, page, onNavigateHome, onNavigateWork }: NavProps) {
+export function Nav({ onBooking, page, onNavigateHome, onNavigateWork, onNavigateConcepts }: NavProps) {
   useScrollNav('#nav', styles.scrolled)
   const progressRef = useRef<HTMLDivElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -45,14 +46,12 @@ export function Nav({ onBooking, page, onNavigateHome, onNavigateWork }: NavProp
   const navigateHome = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
     close()
-
     if (page === 'home') {
       const hero = document.querySelector('#hero')
       hero?.scrollIntoView({ behavior: 'smooth', block: 'center' })
       window.history.pushState(null, '', '#hero')
       return
     }
-
     onNavigateHome()
   }
 
@@ -62,13 +61,17 @@ export function Nav({ onBooking, page, onNavigateHome, onNavigateWork }: NavProp
     onNavigateWork()
   }
 
+  const navigateConcepts = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    close()
+    onNavigateConcepts()
+  }
+
   const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     event.preventDefault()
     close()
-
     const section = document.querySelector(href)
     if (!section) return
-
     section.scrollIntoView({ behavior: 'smooth', block: 'center' })
     window.history.pushState(null, '', href)
   }
@@ -85,11 +88,22 @@ export function Nav({ onBooking, page, onNavigateHome, onNavigateWork }: NavProp
 
         <ul className={styles.links}>
           <li>
-            {page === 'home' ? (
-              <a href="/work" onClick={navigateWork}>Work</a>
-            ) : (
-              <a href="/" onClick={navigateHome}>Home</a>
-            )}
+            <a href="/" onClick={navigateHome}
+              style={{ color: page === 'home' ? 'var(--noc-white)' : undefined }}>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/work" onClick={navigateWork}
+              style={{ color: page === 'work' ? 'var(--noc-white)' : undefined }}>
+              Work
+            </a>
+          </li>
+          <li>
+            <a href="/concepts" onClick={navigateConcepts}
+              style={{ color: page === 'concepts' ? 'var(--noc-white)' : undefined }}>
+              Concepts
+            </a>
           </li>
         </ul>
 
@@ -119,18 +133,24 @@ export function Nav({ onBooking, page, onNavigateHome, onNavigateWork }: NavProp
       />
       <div className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}>
         <ul className={styles.drawerLinks}>
-          <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '120ms' : '0ms' }}>
-            {page === 'home' ? (
-              <a href="/work" onClick={navigateWork}>Work</a>
-            ) : (
-              <a href="/" onClick={navigateHome}>Home</a>
-            )}
+          {/* Home */}
+          <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '60ms' : '0ms' }}>
+            <a href="/" onClick={navigateHome}>Home</a>
           </li>
+          {/* Work */}
+          <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '120ms' : '0ms' }}>
+            <a href="/work" onClick={navigateWork}>Work</a>
+          </li>
+          {/* Concepts */}
+          <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '180ms' : '0ms' }}>
+            <a href="/concepts" onClick={navigateConcepts}>Concepts</a>
+          </li>
+          {/* Home-page section links */}
           {page === 'home' && DRAWER_LINKS.map((link, index) => (
             <li
               key={link.href}
               className={styles.drawerItem}
-              style={{ transitionDelay: menuOpen ? `${index * 60 + 180}ms` : '0ms' }}
+              style={{ transitionDelay: menuOpen ? `${index * 60 + 240}ms` : '0ms' }}
             >
               <a href={link.href} onClick={(event) => navigateToSection(event, link.href)}>
                 {link.label}

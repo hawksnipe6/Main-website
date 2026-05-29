@@ -8,12 +8,22 @@ import { Faq } from './components/Faq'
 import { Cta } from './components/Cta'
 import { Footer } from './components/Footer'
 import { CustomCursor } from './components/CustomCursor'
+import { CustomScrollbar } from './components/CustomScrollbar'
 import { BookingModal } from './components/BookingModal'
 import { LoadingScreen } from './components/LoadingScreen'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { WorkPreview } from './components/WorkPreview'
 import { WorkPage } from './components/WorkPage'
+import { ConceptsPage } from './components/ConceptsPage'
 import { Seo } from './components/Seo'
+
+type Page = 'home' | 'work' | 'concepts'
+
+function getPage(pathname: string): Page {
+  if (pathname === '/work') return 'work'
+  if (pathname === '/concepts') return 'concepts'
+  return 'home'
+}
 
 export default function App() {
   useSmoothScroll()
@@ -37,9 +47,7 @@ export default function App() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible')
-          }
+          if (entry.isIntersecting) entry.target.classList.add('visible')
         })
       },
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
@@ -59,21 +67,25 @@ export default function App() {
     requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }))
   }
 
-  const isWorkPage = path === '/work'
+  const page = getPage(path)
 
   return (
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
-      <Seo page={isWorkPage ? 'work' : 'home'} />
+      <Seo page={page} />
       <CustomCursor />
+      <CustomScrollbar />
       <Nav
         onBooking={() => setModalOpen(true)}
-        page={isWorkPage ? 'work' : 'home'}
+        page={page}
         onNavigateHome={() => navigateToPath('/')}
         onNavigateWork={() => navigateToPath('/work')}
+        onNavigateConcepts={() => navigateToPath('/concepts')}
       />
-      {isWorkPage ? (
+      {page === 'work' ? (
         <WorkPage />
+      ) : page === 'concepts' ? (
+        <ConceptsPage />
       ) : (
         <main>
           <Hero onBooking={() => setModalOpen(true)} />

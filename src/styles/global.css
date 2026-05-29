@@ -10,6 +10,15 @@ html, body {
   max-width: 100%;
 }
 
+/* Hide native scrollbar — replaced by the custom floating scrollbar */
+html {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* legacy Edge / IE */
+}
+html::-webkit-scrollbar {
+  display: none;                /* Chrome / Safari / Edge */
+}
+
 body {
   font-family: var(--noc-font);
   background: var(--noc-black);
