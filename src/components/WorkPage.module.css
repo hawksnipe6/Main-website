@@ -423,13 +423,14 @@
   gap: 8px;
   padding: 13px 24px;
   border-radius: 999px;
-  border: 1px solid var(--noc-grey-2);
+  border: 1px solid rgba(232, 97, 42, 0.42);
   background: var(--noc-white);
   color: var(--noc-black);
   font-size: 13px;
   font-weight: 700;
   white-space: nowrap;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  animation: ctaBreath 3.2s ease-in-out infinite;
 }
 
 .projectLink:hover {
@@ -498,5 +499,20 @@
 
   .quoteBlock {
     padding: 40px 0;
+  }
+}
+
+@keyframes ctaBreath {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(232, 97, 42, 0),
+      0 0 0 0 rgba(232, 97, 42, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 16px 42px rgba(232, 97, 42, 0.24),
+      0 0 0 8px rgba(232, 97, 42, 0.12);
   }
 }

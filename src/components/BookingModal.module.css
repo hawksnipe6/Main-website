@@ -20,11 +20,12 @@
 .modal {
   position: relative;
   background: var(--noc-black);
-  border: 1px solid var(--noc-grey-2);
-  border-radius: 4px;
+  border: 2px solid rgba(232, 97, 42, 0.42);
+  border-radius: 8px;
   padding: 56px 48px 48px;
   max-width: 480px;
   width: 100%;
+  overflow: hidden;
   animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -39,6 +40,7 @@
 
 .close {
   position: absolute;
+  z-index: 4;
   top: 20px;
   right: 20px;
   font-size: 14px;
@@ -94,11 +96,12 @@
   font-weight: 600;
   font-family: var(--noc-font);
   padding: 14px 32px;
-  border: 0;
+  border: 1px solid rgba(232, 97, 42, 0.64);
   border-radius: 999px;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, box-shadow 0.2s;
   margin-bottom: 20px;
   cursor: pointer;
+  animation: ctaBreath 3.2s ease-in-out infinite;
 }
 .cta:hover { opacity: 0.88; }
 
@@ -160,5 +163,52 @@
 
   .calendarFrame {
     height: 620px;
+  }
+}
+
+@keyframes ctaBreath {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(232, 97, 42, 0),
+      0 0 0 0 rgba(232, 97, 42, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 16px 42px rgba(232, 97, 42, 0.24),
+      0 0 0 8px rgba(232, 97, 42, 0.12);
+  }
+}
+
+.modal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 42deg,
+    rgba(232, 97, 42, 0.15) 54deg,
+    rgba(232, 97, 42, 1) 74deg,
+    rgba(232, 97, 42, 0.15) 94deg,
+    transparent 112deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: perimeterOrbit 4.8s linear infinite;
+}
+
+@keyframes perimeterOrbit {
+  to {
+    transform: rotate(360deg);
   }
 }

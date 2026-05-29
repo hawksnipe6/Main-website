@@ -410,11 +410,12 @@
   font-weight: 600;
   color: var(--noc-white);
   background: var(--noc-glass-bg-mid);
-  border: 1px solid var(--noc-glass-border);
+  border: 1px solid rgba(232, 97, 42, 0.42);
   cursor: pointer;
   font-family: var(--noc-font);
-  transition: background 0.2s, border-color 0.2s;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
   align-self: flex-start;
+  animation: ctaBreath 3.2s ease-in-out infinite;
 }
 
 .restartBtn:hover {
@@ -561,5 +562,20 @@
 
   .phoneOuter {
     width: min(300px, 100%);
+  }
+}
+
+@keyframes ctaBreath {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(232, 97, 42, 0),
+      0 0 0 0 rgba(232, 97, 42, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 16px 42px rgba(232, 97, 42, 0.24),
+      0 0 0 8px rgba(232, 97, 42, 0.12);
   }
 }

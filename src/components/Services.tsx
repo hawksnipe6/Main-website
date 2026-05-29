@@ -155,7 +155,7 @@ export function Services() {
         <div>
           <div className="section-label reveal">Services</div>
           <h2 className="section-title reveal reveal-d1">
-            Industrial design, product UI/UX, brand systems, CGI and motion.
+            What You Get
           </h2>
         </div>
         <p className="section-body reveal reveal-d2">
