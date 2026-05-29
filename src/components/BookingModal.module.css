@@ -175,8 +175,42 @@
 
   50% {
     box-shadow:
-      0 16px 42px rgba(232, 97, 42, 0.24),
-      0 0 0 8px rgba(232, 97, 42, 0.12);
+      0 8px 22px rgba(232, 97, 42, 0.18),
+      0 0 0 5px rgba(232, 97, 42, 0.08);
   }
 }
 
+/* ── Mobile booking modal polish ──────────── */
+@media (max-width: 600px) {
+  .backdrop {
+    padding: 16px;
+    align-items: flex-start;
+    overflow: auto;
+  }
+
+  .modal {
+    max-height: calc(100svh - 32px);
+    overflow: auto;
+    padding: 46px 24px 32px;
+    border-radius: 10px;
+  }
+
+  .title {
+    font-size: clamp(25px, 8.5vw, 32px);
+  }
+
+  .body {
+    font-size: 14px;
+    line-height: 1.62;
+    margin-bottom: 28px;
+  }
+
+  .cta {
+    width: 100%;
+    text-align: center;
+  }
+
+  .calendarFrame {
+    height: min(620px, calc(100svh - 190px));
+  }
+}

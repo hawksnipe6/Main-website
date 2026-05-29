@@ -152,7 +152,46 @@
 
   50% {
     box-shadow:
-      0 16px 42px rgba(232, 97, 42, 0.24),
-      0 0 0 8px rgba(232, 97, 42, 0.12);
+      0 8px 22px rgba(232, 97, 42, 0.18),
+      0 0 0 5px rgba(232, 97, 42, 0.08);
+  }
+}
+
+/* ── Mobile hero polish ───────────────────── */
+@media (max-width: 600px) {
+  .content {
+    min-height: 100svh;
+    padding: 76px calc(var(--site-padding) + 4px) 28px;
+  }
+
+  .left {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .headline {
+    max-width: 100%;
+    font-size: clamp(28px, 8vw, 40px);
+    line-height: 1;
+    letter-spacing: -0.052em;
+    white-space: nowrap;
+  }
+
+  .sub {
+    width: min(100%, 340px);
+    font-size: 14px;
+    line-height: 1.58;
+    margin-bottom: 30px;
+  }
+
+  .actions {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .btnPrimary {
+    padding: 12px 22px;
+    font-size: 12.5px;
+    box-shadow: none;
   }
 }

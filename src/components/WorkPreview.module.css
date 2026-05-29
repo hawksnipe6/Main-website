@@ -115,7 +115,30 @@
 
   50% {
     box-shadow:
-      0 16px 42px rgba(232, 97, 42, 0.24),
-      0 0 0 8px rgba(232, 97, 42, 0.12);
+      0 8px 22px rgba(232, 97, 42, 0.18),
+      0 0 0 5px rgba(232, 97, 42, 0.08);
+  }
+}
+
+/* ── Mobile work preview polish ───────────── */
+@media (max-width: 760px) {
+  .section {
+    overflow: visible;
+  }
+
+  .cards {
+    margin-top: 26px;
+  }
+
+  .card {
+    border-radius: 7px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
+  }
+
+  .cta {
+    width: min(100%, 260px);
+    margin-top: 18px;
+    padding: 12px 22px;
+    font-size: 12.5px;
   }
 }

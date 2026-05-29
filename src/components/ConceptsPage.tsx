@@ -41,14 +41,16 @@ function IPhoneFrame({
   resetKey,
   isLoading,
   onLoad,
+  variant = 'inline',
 }: {
   src: string
   resetKey: number
   isLoading: boolean
   onLoad: () => void
+  variant?: 'inline' | 'fullscreen'
 }) {
   return (
-    <div className={styles.phoneOuter} aria-label="Firstweeks mobile prototype">
+    <div className={`${styles.phoneOuter} ${variant === 'fullscreen' ? styles.phoneOuterFullscreen : ''}`} aria-label="Firstweeks mobile prototype">
       <div className={styles.phoneScreen}>
         {isLoading && (
           <div className={styles.phoneLoader}>
@@ -85,6 +87,19 @@ function IPhoneFrame({
 function ConceptDetail({ concept, onBack }: { concept: typeof CONCEPTS[0]; onBack: () => void }) {
   const [resetKey, setResetKey] = useState(0)
   const [iframeLoaded, setIframeLoaded] = useState(false)
+  const [prototypeOpen, setPrototypeOpen] = useState(false)
+
+  useEffect(() => {
+    document.body.style.overflow = prototypeOpen ? 'hidden' : ''
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setPrototypeOpen(false)
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKey)
+    }
+  }, [prototypeOpen])
 
   // Reset the embedded app — passes ?reset=true then bounces back
   function handleRestart() {
@@ -180,6 +195,9 @@ function ConceptDetail({ concept, onBack }: { concept: typeof CONCEPTS[0]; onBac
               </svg>
               Restart flow
             </button>
+            <button className={styles.prototypeBtn} onClick={() => setPrototypeOpen(true)}>
+              Open phone view
+            </button>
             <p className={styles.demoNote}>
               All data is stored locally in your browser. Nothing is sent anywhere.
             </p>
@@ -195,6 +213,28 @@ function ConceptDetail({ concept, onBack }: { concept: typeof CONCEPTS[0]; onBac
           />
         </div>
       </section>
+
+      {prototypeOpen && (
+        <div className={styles.prototypeOverlay} role="dialog" aria-modal="true" aria-label="Firstweeks full phone view">
+          <div className={styles.prototypeToolbar}>
+            <button className={styles.prototypeBackBtn} onClick={() => setPrototypeOpen(false)}>
+              Back to case study
+            </button>
+            <button className={styles.restartBtn} onClick={handleRestart}>
+              Restart flow
+            </button>
+          </div>
+          <div className={styles.prototypeStage}>
+            <IPhoneFrame
+              src={iframeSrc}
+              resetKey={resetKey}
+              isLoading={!iframeLoaded}
+              onLoad={() => setIframeLoaded(true)}
+              variant="fullscreen"
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

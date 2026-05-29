@@ -116,3 +116,38 @@ section#hero {
     cursor: none !important;
   }
 }
+
+/* ── Mobile polish pass ───────────────────── */
+@media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    text-rendering: geometricPrecision;
+  }
+
+  section {
+    padding-left: calc(var(--gutter) + var(--site-padding));
+    padding-right: calc(var(--gutter) + var(--site-padding));
+  }
+
+  .section-title {
+    font-size: clamp(30px, 10.8vw, 46px);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  .section-body {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .reveal {
+    transform: translateY(14px);
+  }
+}

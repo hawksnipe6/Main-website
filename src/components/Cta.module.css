@@ -362,7 +362,56 @@
 
   50% {
     box-shadow:
-      0 16px 42px rgba(232, 97, 42, 0.24),
-      0 0 0 8px rgba(232, 97, 42, 0.12);
+      0 8px 22px rgba(232, 97, 42, 0.18),
+      0 0 0 5px rgba(232, 97, 42, 0.08);
+  }
+}
+
+/* ── Mobile CTA/calendar polish ───────────── */
+@media (max-width: 640px) {
+  .cta {
+    gap: 32px;
+  }
+
+  .body {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .meta {
+    gap: 10px 14px;
+  }
+
+  .calWrap {
+    justify-content: stretch;
+    overflow: visible;
+  }
+
+  .calCard {
+    max-width: 100%;
+    padding: 18px;
+    border-radius: 10px;
+    overflow: visible;
+  }
+
+  .cell {
+    height: 36px;
+  }
+
+  .slotsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .slot,
+  .btn,
+  .btnConfirm,
+  .btnReopen {
+    width: 100%;
+    min-height: 40px;
+  }
+
+  .calendarFrame {
+    height: min(620px, calc(100svh - 190px));
   }
 }

@@ -433,8 +433,8 @@
 
   50% {
     box-shadow:
-      0 16px 42px rgba(232, 97, 42, 0.24),
-      0 0 0 8px rgba(232, 97, 42, 0.12);
+      0 8px 22px rgba(232, 97, 42, 0.18),
+      0 0 0 5px rgba(232, 97, 42, 0.08);
   }
 }
 
@@ -446,7 +446,70 @@
 
   50% {
     text-shadow:
-      0 0 12px rgba(232, 97, 42, 0.56),
-      0 0 26px rgba(232, 97, 42, 0.24);
+      0 0 8px rgba(232, 97, 42, 0.42),
+      0 0 16px rgba(232, 97, 42, 0.16);
+  }
+}
+
+/* ── Mobile services polish ───────────────── */
+@media (max-width: 640px) {
+  .header {
+    gap: 24px;
+    margin-bottom: 44px;
+  }
+
+  .card {
+    min-height: 240px;
+    padding: 32px 24px;
+  }
+
+  .num {
+    margin-bottom: 22px;
+  }
+
+  .title {
+    font-size: 17px;
+  }
+
+  .body {
+    font-size: 13px;
+    line-height: 1.62;
+  }
+
+  .openHint {
+    margin-top: 22px;
+  }
+
+  .overlay {
+    padding: 16px;
+    align-items: start;
+    overflow: auto;
+  }
+
+  .panel,
+  .panelWide {
+    width: 100%;
+    max-height: calc(100svh - 32px);
+    padding: 32px 22px 26px;
+    overflow: auto;
+    border-radius: 10px;
+  }
+
+  .panelTitle {
+    font-size: clamp(30px, 11vw, 44px);
+  }
+
+  .panelBody {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .projectLinkPill {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .processCard {
+    padding: 10px;
   }
 }

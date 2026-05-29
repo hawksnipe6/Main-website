@@ -273,7 +273,33 @@
 
   50% {
     text-shadow:
-      0 0 12px rgba(232, 97, 42, 0.56),
-      0 0 26px rgba(232, 97, 42, 0.24);
+      0 0 8px rgba(232, 97, 42, 0.42),
+      0 0 16px rgba(232, 97, 42, 0.16);
+  }
+}
+
+/* ── Mobile footer overlay polish ─────────── */
+@media (max-width: 640px) {
+  .overlay {
+    padding: 16px;
+    align-items: start;
+    overflow: auto;
+  }
+
+  .panel {
+    width: 100%;
+    max-height: calc(100svh - 32px);
+    overflow: auto;
+    border-radius: 10px;
+    padding: 42px 24px 30px;
+  }
+
+  .panelTitle {
+    font-size: clamp(28px, 10vw, 42px);
+  }
+
+  .panelBody {
+    font-size: 14px;
+    line-height: 1.62;
   }
 }

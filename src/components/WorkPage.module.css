@@ -512,7 +512,81 @@
 
   50% {
     box-shadow:
-      0 16px 42px rgba(232, 97, 42, 0.24),
-      0 0 0 8px rgba(232, 97, 42, 0.12);
+      0 8px 22px rgba(232, 97, 42, 0.18),
+      0 0 0 5px rgba(232, 97, 42, 0.08);
+  }
+}
+
+/* ── Mobile work page polish ──────────────── */
+@media (max-width: 768px) {
+  .pageHeader {
+    padding-top: 42px;
+    padding-bottom: 34px;
+  }
+
+  .pageTitle {
+    font-size: clamp(42px, 16vw, 64px);
+    line-height: 0.96;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+  }
+
+  .pageSubtitle {
+    font-size: 14px;
+    line-height: 1.62;
+  }
+
+  .grid {
+    gap: 14px;
+    padding-top: 28px;
+    padding-bottom: 44px;
+  }
+
+  .card {
+    border-radius: 8px;
+    min-height: auto;
+  }
+
+  .cardCover {
+    aspect-ratio: 16 / 11;
+  }
+
+  .cardBody {
+    padding: 22px 20px 20px;
+  }
+
+  .cardTitle {
+    font-size: 20px;
+    line-height: 1.18;
+  }
+
+  .cardTagline {
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+
+  .detailTitle {
+    font-size: clamp(36px, 12vw, 52px);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+  }
+
+  .detailTagline,
+  .bodyLarge {
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .projectLinkBlock {
+    padding: 24px;
+    gap: 22px;
+    overflow: visible;
+  }
+
+  .projectLink {
+    width: 100%;
+    padding: 13px 20px;
+    white-space: normal;
+    text-align: center;
   }
 }
