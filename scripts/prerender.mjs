@@ -20,6 +20,18 @@ const routes = [
     noscriptBody:
       'Selected Nocturnal projects across industrial design, medical product design, mobility UI/UX, EV charging systems, CGI, packaging, and product visualization.',
   },
+  {
+    out: 'dist/concepts/index.html',
+    title: 'Concepts — Nocturnal Product Concepts and Interactive Case Studies',
+    description:
+      'Independently researched Nocturnal product concepts including Densly, a hair-loss outcome tracking platform, and Firstweeks, a postpartum recovery operating system.',
+    canonical: `${SITE_URL}/concepts`,
+    image: `${SITE_URL}/logo%20512.png`,
+    ogType: 'article',
+    noscriptH1: 'Nocturnal — Product Concepts and Case Studies',
+    noscriptBody:
+      'Independent Nocturnal concepts rooted in real market problems, product strategy, UI/UX systems, and prototype thinking.',
+  },
 ]
 
 const workSchema = (description) => ({

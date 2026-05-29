@@ -888,3 +888,1112 @@
     filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.3));
   }
 }
+
+/* ── Densly case study system ───────────────────────────── */
+.denslyCover {
+  width: 100%;
+  height: 100%;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 255, 255, 0.12), transparent 28%),
+    linear-gradient(135deg, rgba(238, 235, 226, 0.08), rgba(107, 128, 102, 0.10));
+}
+
+.denslyCoverPanel {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--noc-grey-2);
+  background: rgba(245, 244, 240, 0.04);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 14px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.coverHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--noc-grey-5);
+}
+
+.coverPhoneRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 0;
+  transform: translateY(6px);
+}
+
+.denslyHero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(420px, 1.06fr);
+  gap: 64px;
+  align-items: end;
+  padding-bottom: 72px;
+  border-bottom: 1px solid var(--noc-grey-2);
+  margin-bottom: 72px;
+  overflow: visible;
+}
+
+.denslyHeroCopy {
+  min-width: 0;
+}
+
+.denslyHeroVisual {
+  position: relative;
+  min-height: 610px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 18px;
+  padding: 34px 24px;
+  border: 1px solid var(--noc-grey-2);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 60%),
+    var(--noc-glass-bg);
+  overflow: hidden;
+}
+
+.denslyHeroVisual::before {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border: 1px solid var(--noc-grey-2);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.denslyHeroVisual .denslyPhone:nth-child(1) {
+  transform: translateY(34px) rotate(-5deg);
+}
+
+.denslyHeroVisual .denslyPhone:nth-child(2) {
+  width: 220px;
+  transform: translateY(-4px);
+  z-index: 2;
+}
+
+.denslyHeroVisual .denslyPhone:nth-child(3) {
+  transform: translateY(34px) rotate(5deg);
+}
+
+.denslyThesisCard {
+  margin-top: 36px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-glass-bg);
+  padding: 24px;
+  max-width: 560px;
+}
+
+.denslyThesisCard span,
+.denslySourceNote,
+.denslyProblemCard span,
+.denslyScreenCard > div > span,
+.denslyFlowCard span,
+.denslyBusinessRows span {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+}
+
+.denslyThesisCard p {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--noc-grey-5);
+}
+
+.denslyIntroSection {
+  padding-top: 0;
+}
+
+.denslyIntroGrid {
+  margin-top: 52px;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+  padding: 40px 0 0;
+  border-top: 1px solid var(--noc-grey-2);
+}
+
+.denslyIntroGrid h2,
+.denslySectionHeader h2,
+.denslySplitPanel h2 {
+  font-size: clamp(32px, 4.8vw, 64px);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  color: var(--noc-white);
+  font-weight: 700;
+}
+
+.denslyIntroGrid p,
+.denslySectionHeader p {
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--noc-grey-5);
+  max-width: 650px;
+}
+
+.denslySourceNote {
+  margin-top: 18px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.denslyCategorizationSection,
+.denslyMatrixSection,
+.denslyScreensSection,
+.denslyFlowSection,
+.denslySplitSection,
+.denslyVisualDirection,
+.denslyRiskSection {
+  margin-bottom: 92px;
+}
+
+.denslySectionHeader {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.52fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 34px;
+}
+
+.denslySectionHeader .sectionLabel {
+  margin-bottom: 0;
+}
+
+.denslySectionHeader p {
+  grid-column: 2;
+  margin-top: -18px;
+}
+
+
+.denslyCategorizationCard {
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-glass-bg);
+  padding: 34px;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1fr);
+  gap: 34px;
+  align-items: stretch;
+}
+
+.denslyCategoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyCategoryItem {
+  background: var(--noc-black);
+  padding: 22px;
+  min-height: 104px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.denslyCategoryItem span,
+.denslyTrendBlock span {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+}
+
+.denslyCategoryItem strong {
+  display: block;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  color: var(--noc-white);
+  font-weight: 700;
+}
+
+.denslyTrendBlock {
+  border: 1px solid var(--noc-grey-2);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 62%),
+    var(--noc-black);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 212px;
+}
+
+.denslyTrendBlock p {
+  margin-top: 22px;
+  font-size: clamp(19px, 2.2vw, 30px);
+  line-height: 1.28;
+  letter-spacing: -0.04em;
+  color: var(--noc-white);
+  max-width: 760px;
+}
+
+.denslyProblemGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyProblemCard,
+.denslyFlowCard,
+.denslyRiskCard,
+.denslySplitPanel,
+.denslyScreenCard {
+  background: var(--noc-black);
+  border: 1px solid transparent;
+}
+
+.denslyProblemCard {
+  padding: 32px;
+  min-height: 250px;
+}
+
+.denslyProblemCard h3,
+.denslyFlowCard h3,
+.denslyRiskCard h3,
+.denslyScreenCard h3 {
+  margin-top: 18px;
+  font-size: 22px;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--noc-white);
+}
+
+.denslyProblemCard p,
+.denslyFlowCard p,
+.denslyRiskCard p,
+.denslyScreenCard p,
+.denslyBusinessRows p,
+.denslyList li {
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.62;
+  color: var(--noc-grey-5);
+}
+
+.numberedSolutionCard .solutionIcon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--noc-grey-2);
+  color: var(--noc-grey-5);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 0;
+}
+
+.denslyScreensGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.denslyScreenCard {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 30px;
+  align-items: center;
+  padding: 34px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-glass-bg);
+  overflow: hidden;
+}
+
+.denslyScreenCard .denslyPhone {
+  margin: 0 auto;
+}
+
+.denslyFlowGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyFlowCard {
+  padding: 26px;
+  min-height: 220px;
+}
+
+.denslySplitSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.denslySplitPanel {
+  border: 1px solid var(--noc-grey-2);
+  padding: 40px;
+  background: var(--noc-glass-bg);
+}
+
+.denslyList {
+  list-style: none;
+  margin-top: 30px;
+  display: grid;
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyList li {
+  position: relative;
+  margin-top: 0;
+  padding: 18px 18px 18px 46px;
+  background: var(--noc-black);
+}
+
+.denslyList li::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 26px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #1b7d46;
+}
+
+.denslyBusinessRows {
+  display: grid;
+  gap: 1px;
+  margin-top: 30px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyBusinessRows div {
+  padding: 20px;
+  background: var(--noc-black);
+}
+
+.denslyBusinessRows p {
+  margin-top: 8px;
+}
+
+.referenceGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.referenceGrid img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  background: var(--noc-black);
+  filter: saturate(0.64) contrast(0.96);
+}
+
+.denslyRiskGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyRiskCard {
+  padding: 28px;
+  min-height: 210px;
+}
+
+/* ── Densly app mockup ──────────────────────────────────── */
+.denslyPhone {
+  --app-bg: #f4f3ee;
+  --app-card: #ffffff;
+  --app-ink: #162017;
+  --app-muted: #7d827b;
+  --app-line: rgba(22, 32, 23, 0.11);
+  --app-green: #08703e;
+  position: relative;
+  width: 188px;
+  aspect-ratio: 9 / 19.5;
+  border-radius: 34px;
+  padding: 9px;
+  background: linear-gradient(180deg, #f7f6f1, #e5e2d7);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  flex-shrink: 0;
+  font-family: var(--noc-font);
+}
+
+.denslyPhoneCompact {
+  width: 104px;
+  border-radius: 22px;
+  padding: 5px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+}
+
+.denslyNotch {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  z-index: 4;
+  width: 34%;
+  height: 18px;
+  transform: translateX(-50%);
+  border-radius: 0 0 12px 12px;
+  background: #f7f6f1;
+}
+
+.denslyPhoneCompact .denslyNotch {
+  top: 5px;
+  height: 10px;
+  border-radius: 0 0 8px 8px;
+}
+
+.denslyApp {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 27px;
+  background: var(--app-bg);
+  color: var(--app-ink);
+  padding: 26px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.denslyPhoneCompact .denslyApp {
+  border-radius: 18px;
+  padding: 16px 7px 7px;
+  gap: 6px;
+}
+
+.denslyTopbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--app-ink);
+}
+
+.denslyPhoneCompact .denslyTopbar {
+  font-size: 5px;
+}
+
+.captureView {
+  position: relative;
+  min-height: 158px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 52% 20%, rgba(8, 112, 62, 0.10), transparent 28%),
+    #d9dcd1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.denslyPhoneCompact .captureView {
+  min-height: 88px;
+  border-radius: 14px;
+}
+
+.captureGrid {
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(22, 32, 23, 0.22);
+  border-radius: 18px;
+}
+
+.captureGrid::before,
+.captureGrid::after {
+  content: '';
+  position: absolute;
+  background: rgba(22, 32, 23, 0.12);
+}
+
+.captureGrid::before {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.captureGrid::after {
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+}
+
+.headShape {
+  position: relative;
+  width: 74px;
+  height: 96px;
+  border-radius: 44% 44% 46% 46%;
+  background: #d6a889;
+  overflow: hidden;
+  transform: translateY(10px);
+}
+
+.denslyPhoneCompact .headShape {
+  width: 41px;
+  height: 54px;
+}
+
+.hairMass {
+  position: absolute;
+  inset: -8px 2px 44px;
+  border-radius: 48% 48% 34% 34%;
+  background: #171512;
+}
+
+.zoneRing {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  width: 36px;
+  height: 30px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  border-radius: 999px;
+}
+
+.captureInstruction {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--app-ink);
+  font-size: 8px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.denslyPhoneCompact .captureInstruction {
+  display: none;
+}
+
+.qualityPanel,
+.reportCard,
+.routineHero,
+.progressHero {
+  border-radius: 22px;
+  background: var(--app-card);
+  border: 1px solid var(--app-line);
+}
+
+.qualityPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+}
+
+.miniLabel {
+  display: block;
+  font-size: 7px;
+  font-weight: 700;
+  color: var(--app-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.qualityPanel strong {
+  font-size: 12px;
+  color: var(--app-ink);
+}
+
+.statusDot {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--app-green);
+  background: rgba(8, 112, 62, 0.08);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.denslyAction {
+  margin-top: auto;
+  width: 100%;
+  min-height: 38px;
+  border-radius: 999px;
+  background: var(--app-green);
+  color: #ffffff;
+  font-family: var(--noc-font);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.progressHero,
+.reportCard,
+.routineHero {
+  padding: 14px;
+}
+
+.progressHero h4,
+.reportCard h4 {
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.progressHero p,
+.reportCard p,
+.routineHero span {
+  margin-top: 6px;
+  font-size: 9px;
+  line-height: 1.45;
+  color: var(--app-muted);
+}
+
+.zoneList,
+.reportRows,
+.routineList {
+  display: grid;
+  gap: 6px;
+}
+
+.zoneList div,
+.reportRows div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.56);
+  font-size: 8px;
+  color: var(--app-muted);
+}
+
+.zoneList strong,
+.reportRows strong {
+  color: var(--app-green);
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.timelineBars {
+  margin-top: auto;
+  height: 58px;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid var(--app-line);
+}
+
+.timelineBars span {
+  flex: 1;
+  min-height: 10px;
+  border-radius: 999px 999px 0 0;
+  background: rgba(8, 112, 62, 0.18);
+}
+
+.timelineBars span:nth-child(n+4) {
+  background: rgba(8, 112, 62, 0.55);
+}
+
+.denslyLogo {
+  width: 24px;
+  height: 22px;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 3px;
+}
+
+.denslyLogo span {
+  display: block;
+  border-radius: 999px;
+  background: #08703e;
+}
+
+.denslyLogo span:nth-child(2) {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.reportRows {
+  margin-top: 4px;
+}
+
+.routineHero {
+  min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    radial-gradient(circle at 74% 22%, rgba(8, 112, 62, 0.12), transparent 28%),
+    #ffffff;
+}
+
+.routineHero strong {
+  margin-top: 6px;
+  font-size: 18px;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+
+.routineList div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 15px;
+  background: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.routineList span {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(8, 112, 62, 0.22);
+}
+
+.calendarStrip {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  font-size: 8px;
+  color: var(--app-muted);
+}
+
+.calendarStrip span,
+.calendarStrip strong {
+  height: 24px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.calendarStrip strong {
+  background: var(--app-green);
+  color: #ffffff;
+}
+
+.denslyPhoneCompact .qualityPanel,
+.denslyPhoneCompact .denslyAction,
+.denslyPhoneCompact .zoneList,
+.denslyPhoneCompact .timelineBars {
+  display: none;
+}
+
+.denslyPhoneCompact .progressHero {
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.denslyPhoneCompact .progressHero h4 {
+  margin-top: 22px;
+  font-size: 8px;
+}
+
+.denslyPhoneCompact .progressHero p {
+  font-size: 5px;
+}
+
+.denslyPhoneCompact .denslyLogo {
+  width: 13px;
+  height: 12px;
+  gap: 2px;
+}
+
+@media (max-width: 1180px) {
+  .denslyHero {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .denslyHeroVisual {
+    min-height: 520px;
+  }
+
+  .denslyFlowGrid,
+  .denslyRiskGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .denslyScreensGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .denslyProblemGrid,
+  .referenceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .referenceGrid img {
+    height: 300px;
+  }
+
+  .denslySplitSection {
+    grid-template-columns: 1fr;
+  }
+
+  .denslyCategorizationCard {
+    grid-template-columns: 1fr;
+    padding: 26px;
+  }
+
+  .denslySectionHeader,
+  .denslyIntroGrid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .denslySectionHeader p {
+    grid-column: auto;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .denslyHero {
+    gap: 30px;
+    padding-bottom: 48px;
+    margin-bottom: 52px;
+  }
+
+  .denslyThesisCard {
+    margin-top: 28px;
+    padding: 20px;
+  }
+
+  .denslyHeroVisual {
+    min-height: 370px;
+    padding: 26px 12px;
+    gap: 8px;
+  }
+
+  .denslyHeroVisual .denslyPhone {
+    width: 128px;
+    border-radius: 27px;
+    padding: 7px;
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(1) {
+    transform: translate(26px, 22px) rotate(-5deg);
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(2) {
+    width: 150px;
+    transform: translateY(-2px);
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(3) {
+    transform: translate(-26px, 22px) rotate(5deg);
+  }
+
+  .denslyPhone .denslyApp {
+    border-radius: 22px;
+    padding: 24px 10px 10px;
+    gap: 8px;
+  }
+
+  .denslyPhone .captureView {
+    min-height: 112px;
+    border-radius: 18px;
+  }
+
+  .denslyPhone .headShape {
+    width: 54px;
+    height: 72px;
+  }
+
+  .denslyPhone .qualityPanel {
+    padding: 9px;
+    border-radius: 17px;
+  }
+
+  .denslyPhone .qualityPanel strong {
+    font-size: 10px;
+  }
+
+  .denslyPhone .statusDot {
+    width: 28px;
+    height: 28px;
+    font-size: 9px;
+  }
+
+  .denslyPhone .progressHero h4,
+  .denslyPhone .reportCard h4 {
+    font-size: 13px;
+  }
+
+  .denslyPhone .routineHero {
+    min-height: 86px;
+  }
+
+  .denslyPhone .routineHero strong {
+    font-size: 14px;
+  }
+
+  .denslyIntroGrid h2,
+  .denslySectionHeader h2,
+  .denslySplitPanel h2 {
+    font-size: clamp(30px, 11vw, 44px);
+  }
+
+  .denslyIntroGrid p,
+  .denslySectionHeader p {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .denslyCategorizationSection,
+  .denslyMatrixSection,
+  .denslyScreensSection,
+  .denslyFlowSection,
+  .denslySplitSection,
+  .denslyVisualDirection,
+  .denslyRiskSection {
+    margin-bottom: 64px;
+  }
+
+  .denslyCategorizationCard {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .denslyCategoryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .denslyCategoryItem {
+    min-height: 86px;
+    padding: 18px;
+  }
+
+  .denslyTrendBlock {
+    min-height: auto;
+    padding: 22px;
+  }
+
+  .denslyTrendBlock p {
+    font-size: 20px;
+    line-height: 1.36;
+  }
+
+  .denslyProblemCard,
+  .denslySplitPanel,
+  .denslyRiskCard,
+  .denslyFlowCard {
+    padding: 24px 20px;
+    min-height: auto;
+  }
+
+  .denslyScreensGrid {
+    gap: 1px;
+  }
+
+  .denslyScreenCard {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 20px;
+  }
+
+  .denslyScreenCard .denslyPhone {
+    width: min(214px, 76vw);
+  }
+
+  .denslyFlowGrid,
+  .denslyRiskGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .referenceGrid img {
+    height: 260px;
+  }
+
+  .denslyCover {
+    padding: 14px;
+  }
+
+  .denslyCoverPanel {
+    padding: 12px;
+  }
+
+  .coverPhoneRow {
+    gap: 8px;
+  }
+
+  .coverPhoneRow .denslyPhoneCompact {
+    width: 92px;
+  }
+}
+
+@media (max-width: 430px) {
+  .denslyHeroVisual {
+    min-height: 330px;
+  }
+
+  .denslyHeroVisual .denslyPhone {
+    width: 112px;
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(2) {
+    width: 132px;
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(1) {
+    transform: translate(34px, 20px) rotate(-5deg);
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(3) {
+    transform: translate(-34px, 20px) rotate(5deg);
+  }
+
+  .referenceGrid img {
+    height: 220px;
+  }
+}

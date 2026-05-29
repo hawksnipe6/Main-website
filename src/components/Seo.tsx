@@ -24,7 +24,7 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
   concepts: {
     title: 'Concepts — Nocturnal Product Design Research & Interactive Prototypes',
     description:
-      'Independently researched product concepts by Nocturnal — each rooted in a real problem, designed end-to-end, and built as interactive prototypes. Currently featuring Firstweeks, a postpartum recovery app.',
+      'Independently researched product concepts by Nocturnal, each rooted in a real problem, designed end-to-end, and built as interactive or product-ready case studies. Currently featuring Densly and Firstweeks.',
     canonical: `${SITE_URL}/concepts`,
     image: LOGO_URL,
   },
