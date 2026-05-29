@@ -1997,3 +1997,225 @@
     height: 220px;
   }
 }
+
+/* ── Densly embedded prototype + strategy sections ───────── */
+.denslyPrototypeSection {
+  margin: 104px 0;
+  padding: clamp(28px, 5vw, 56px);
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(232, 97, 42, 0.08), transparent 28%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.denslyPrototypeSection .demoText {
+  align-self: center;
+}
+
+.denslyPrototypeSection .demoHeading {
+  max-width: 520px;
+}
+
+.denslyPrototypeSection .demoBody {
+  max-width: 520px;
+}
+
+.denslyPrototypeSection .demoPhoneWrap {
+  align-items: center;
+}
+
+.denslyPrototypeSection .phoneOuter {
+  width: min(342px, 100%);
+}
+
+.denslyOfferSection,
+.denslyProofSection,
+.denslyFrameworkSection {
+  margin-bottom: 96px;
+}
+
+.denslyOfferGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--noc-grey-2);
+}
+
+.denslyOfferCard {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 22px;
+  padding: clamp(22px, 3vw, 32px);
+  background: var(--noc-black);
+}
+
+.denslyOfferStep {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(232, 97, 42, 0.12);
+  color: var(--noc-accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.denslyOfferLabel {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--noc-grey-4);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.denslyOfferCard h3 {
+  margin: 0 0 8px;
+  color: var(--noc-white);
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.denslyOfferCard small {
+  color: var(--noc-grey-5);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.denslyOfferCard p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--noc-grey-4);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.denslyProofGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--noc-grey-2);
+}
+
+.denslyProofCard {
+  min-height: 250px;
+  padding: clamp(24px, 3vw, 36px);
+  background: var(--noc-black);
+  display: flex;
+  flex-direction: column;
+}
+
+.denslyProofCard h3 {
+  margin: 0 0 14px;
+  color: var(--noc-white);
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.denslyProofCard p {
+  margin: 0 0 28px;
+  color: var(--noc-grey-4);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.denslyProofCard span {
+  margin-top: auto;
+  color: var(--noc-accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.denslyFrameworkGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.denslyFrameworkCard {
+  min-height: 280px;
+  padding: 28px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.denslyFrameworkCard > span {
+  color: var(--noc-grey-4);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.denslyFrameworkCard strong {
+  margin: 30px 0 8px;
+  color: var(--noc-white);
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.denslyFrameworkCard small {
+  color: var(--noc-accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.denslyFrameworkCard p {
+  margin: auto 0 0;
+  color: var(--noc-grey-4);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@media (max-width: 1180px) {
+  .denslyFrameworkGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .denslyPrototypeSection {
+    margin: 72px 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .denslyPrototypeSection {
+    margin: 56px 0;
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .denslyPrototypeSection .phoneOuter {
+    width: min(286px, calc(100vw - 72px));
+  }
+
+  .denslyOfferCard {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .denslyProofGrid,
+  .denslyFrameworkGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .denslyProofCard,
+  .denslyFrameworkCard {
+    min-height: auto;
+  }
+}

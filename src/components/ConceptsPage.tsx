@@ -144,6 +144,80 @@ const denslyRisks = [
   { title: 'Trust risk', body: 'If two photos taken ten minutes apart generate different results, the product loses credibility.' },
 ]
 
+const denslyOffer = [
+  {
+    step: '01',
+    label: 'Lead magnet',
+    title: 'Hair-loss diagnostic quiz',
+    price: 'Free',
+    body: 'An interactive quiz that helps users define their goal, treatment stage, and baseline risk before the first scan.',
+  },
+  {
+    step: '02',
+    label: 'Frontend',
+    title: 'Basic selfie hair tracker',
+    price: '$5/month',
+    body: 'AI-aligned comparison images, monthly reminders, treatment notes, and basic progress history.',
+  },
+  {
+    step: '03',
+    label: 'Core',
+    title: 'Advanced progression tracker',
+    price: '$15/month',
+    body: 'Zone timelines, density-style heatmaps, doctor-ready PDF reports, and confidence warnings.',
+  },
+]
+
+const denslyProofBlocks = [
+  {
+    title: 'Why now',
+    body: 'Personalized health tools, telehealth behavior, and AI-assisted image workflows make users more open to tracking outcomes outside the clinic.',
+    cta: 'See why the timing matters',
+  },
+  {
+    title: 'Proof and signals',
+    body: 'The strongest validation path is not a viral launch. It is proving that repeated guided captures create more trustworthy follow-up evidence than random camera-roll photos.',
+    cta: 'Explore proof signals',
+  },
+  {
+    title: 'The market gap',
+    body: 'The hair-loss market has treatments, clinics, creators, and anxious communities. What it lacks is a neutral measurement layer that helps users and clinicians trust the timeline.',
+    cta: 'Understand the market gap',
+  },
+  {
+    title: 'Execution plan',
+    body: 'Start with a narrow consumer tracker, validate scan consistency, add dermatologist exports, then expand into clinic follow-up dashboards.',
+    cta: 'View execution strategy',
+  },
+]
+
+const denslyFrameworks = [
+  {
+    title: 'Value equation',
+    metric: '6',
+    label: 'Good',
+    body: 'A strong painkiller concept, but it must earn trust before charging for advanced insight.',
+  },
+  {
+    title: 'Market matrix',
+    metric: 'Category king',
+    label: 'High uniqueness / high value',
+    body: 'The wedge is not another treatment app. It is outcome infrastructure for a treatment-heavy market.',
+  },
+  {
+    title: 'A.C.P. framework',
+    metric: '8 / 9 / 8',
+    label: 'Audience / Community / Product',
+    body: 'Hair-loss communities are active, the pain is visible, and the product can be tested with a small cohort.',
+  },
+  {
+    title: 'Value ladder',
+    metric: '$0 → $15 → Clinic',
+    label: 'Continuity path',
+    body: 'Free quiz, basic tracking, advanced reports, and clinic licensing create a clean expansion path.',
+  },
+]
+
 /* ─── iPhone frame ──────────────────────────────────────── */
 
 function IPhoneFrame({
@@ -152,15 +226,19 @@ function IPhoneFrame({
   isLoading,
   onLoad,
   variant = 'inline',
+  label = 'Mobile prototype',
+  title = 'Mobile app prototype',
 }: {
   src: string
   resetKey: number
   isLoading: boolean
   onLoad: () => void
   variant?: 'inline' | 'fullscreen'
+  label?: string
+  title?: string
 }) {
   return (
-    <div className={`${styles.phoneOuter} ${variant === 'fullscreen' ? styles.phoneOuterFullscreen : ''}`} aria-label="Firstweeks mobile prototype">
+    <div className={`${styles.phoneOuter} ${variant === 'fullscreen' ? styles.phoneOuterFullscreen : ''}`} aria-label={label}>
       <div className={styles.phoneScreen}>
         {isLoading && (
           <div className={styles.phoneLoader}>
@@ -174,7 +252,7 @@ function IPhoneFrame({
           key={resetKey}
           src={src}
           className={styles.iframe}
-          title="Firstweeks app prototype"
+          title={title}
           allow="clipboard-write"
           sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
           onLoad={onLoad}
@@ -327,6 +405,31 @@ function DenslyCover() {
 /* ─── Densly case study ─────────────────────────────────── */
 
 function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => void }) {
+  const [resetKey, setResetKey] = useState(0)
+  const [iframeLoaded, setIframeLoaded] = useState(false)
+  const [prototypeOpen, setPrototypeOpen] = useState(false)
+
+  useEffect(() => {
+    document.body.style.overflow = prototypeOpen ? 'hidden' : ''
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setPrototypeOpen(false)
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKey)
+    }
+  }, [prototypeOpen])
+
+  function handleRestart() {
+    setIframeLoaded(false)
+    setResetKey(k => k + 1)
+  }
+
+  const iframeSrc = resetKey === 0
+    ? '/densly/index.html'
+    : `/densly/index.html?restart=${resetKey}`
+
   return (
     <div className={styles.detail}>
       <button className={styles.backBtn} onClick={onBack}>
@@ -483,6 +586,66 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
         </div>
       </section>
 
+      <section className={`${styles.demoSection} ${styles.denslyPrototypeSection}`}>
+        <div className={styles.demoText}>
+          <span className={styles.sectionLabel}>Interactive prototype</span>
+          <h2 className={styles.demoHeading}>Try the Densly flow</h2>
+          <p className={styles.demoBody}>
+            Explore the guided hair-loss tracking prototype inside the same iPhone-frame system used across the Concepts page. The flow keeps the MVP focused on capture, consistency, and outcome reporting.
+          </p>
+
+          <div className={styles.demoActions}>
+            <button className={styles.restartBtn} onClick={handleRestart}>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M12 7A5 5 0 1 1 7 2M7 2V0M7 2L10 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Restart prototype
+            </button>
+            <button className={styles.prototypeBtn} onClick={() => setPrototypeOpen(true)}>
+              Open phone view
+            </button>
+            <p className={styles.demoNote}>
+              Prototype is embedded locally. The app stays treatment-agnostic and avoids diagnostic claims.
+            </p>
+          </div>
+        </div>
+
+        <div className={styles.demoPhoneWrap}>
+          <IPhoneFrame
+            src={iframeSrc}
+            resetKey={resetKey}
+            isLoading={!iframeLoaded}
+            onLoad={() => setIframeLoaded(true)}
+            label="Densly mobile prototype"
+            title="Densly app prototype"
+          />
+        </div>
+      </section>
+
+      {prototypeOpen && (
+        <div className={styles.prototypeOverlay} role="dialog" aria-modal="true" aria-label="Densly full phone view">
+          <div className={styles.prototypeToolbar}>
+            <button className={styles.prototypeBackBtn} onClick={() => setPrototypeOpen(false)}>
+              Back to case study
+            </button>
+            <button className={styles.restartBtn} onClick={handleRestart}>
+              Restart prototype
+            </button>
+          </div>
+          <div className={styles.prototypeStage}>
+            <IPhoneFrame
+              src={iframeSrc}
+              resetKey={resetKey}
+              isLoading={!iframeLoaded}
+              onLoad={() => setIframeLoaded(true)}
+              variant="fullscreen"
+              label="Densly full mobile prototype"
+              title="Densly app prototype"
+            />
+          </div>
+        </div>
+      )}
+
       <section className={styles.denslyFlowSection}>
         <div className={styles.denslySectionHeader}>
           <span className={styles.sectionLabel}>Measurement pipeline</span>
@@ -528,6 +691,58 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
           <img src="/concepts/densly-ref-01.png" alt="Hydration hair-care visual reference board" />
           <img src="/concepts/densly-ref-02.png" alt="Soft product commerce mobile UI reference" />
           <img src="/concepts/densly-ref-03.png" alt="Minimal order and product mobile UI reference" />
+        </div>
+      </section>
+
+      <section className={styles.denslyOfferSection}>
+        <div className={styles.denslySectionHeader}>
+          <span className={styles.sectionLabel}>Offer strategy</span>
+          <h2>A simple value ladder from curiosity to clinic-grade documentation.</h2>
+        </div>
+        <div className={styles.denslyOfferGrid}>
+          {denslyOffer.map(item => (
+            <article key={item.title} className={styles.denslyOfferCard}>
+              <span className={styles.denslyOfferStep}>{item.step}</span>
+              <div>
+                <span className={styles.denslyOfferLabel}>{item.label}</span>
+                <h3>{item.title} <small>{item.price}</small></h3>
+                <p>{item.body}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.denslyProofSection}>
+        <div className={styles.denslySectionHeader}>
+          <span className={styles.sectionLabel}>Proof and signals</span>
+          <h2>Useful only if the evidence becomes more reliable than memory.</h2>
+        </div>
+        <div className={styles.denslyProofGrid}>
+          {denslyProofBlocks.map(item => (
+            <article key={item.title} className={styles.denslyProofCard}>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+              <span>{item.cta} →</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className={styles.denslyFrameworkSection}>
+        <div className={styles.denslySectionHeader}>
+          <span className={styles.sectionLabel}>Framework fit</span>
+          <h2>The opportunity is strong, but the product has to earn trust first.</h2>
+        </div>
+        <div className={styles.denslyFrameworkGrid}>
+          {denslyFrameworks.map(item => (
+            <article key={item.title} className={styles.denslyFrameworkCard}>
+              <span>{item.title}</span>
+              <strong>{item.metric}</strong>
+              <small>{item.label}</small>
+              <p>{item.body}</p>
+            </article>
+          ))}
         </div>
       </section>
 
