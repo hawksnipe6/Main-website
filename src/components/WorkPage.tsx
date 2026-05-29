@@ -94,7 +94,7 @@ export function WorkPage() {
       >
         <div className={styles.stickyFrame}>
           <div className={styles.layout}>
-            <h1 className={styles.heading}>Industrial design, UI/UX and CGI work samples</h1>
+            <h1 className={styles.heading}>Work Sampe</h1>
 
             <div className={styles.visualRail} aria-hidden="true">
               {WORK_SAMPLES.map((work, index) => {
