@@ -479,7 +479,7 @@ export function WorkPage() {
         <>
           <header className={styles.pageHeader}>
             <p className={styles.pageLabel}>Portfolio</p>
-            <h1 className={styles.pageTitle}>Work Sampe</h1>
+            <h1 className={styles.pageTitle}>Work Sample</h1>
             <p className={styles.pageSubtitle}>
               Selected projects structured as case studies across product design, interface systems, CGI, packaging, mobility, healthcare, and brand visuals.
             </p>

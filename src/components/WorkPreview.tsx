@@ -6,7 +6,7 @@ export function WorkPreview({ onOpenWork }: { onOpenWork: () => void }) {
     <section id="work-preview" className={styles.section} aria-label="Featured work samples">
       <div className={styles.shell}>
         <div className={styles.copy}>
-          <h2 className="section-title reveal reveal-d1">Work Sampe</h2>
+          <h2 className="section-title reveal reveal-d1">Work Sample</h2>
           <p className="section-body reveal reveal-d2">
             Portfolio work across medical product design, EV charging ecosystems, mobility interfaces, brand visuals, product rendering, packaging, and interface systems.
           </p>
