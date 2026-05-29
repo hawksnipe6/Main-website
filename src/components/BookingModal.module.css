@@ -20,8 +20,8 @@
 .modal {
   position: relative;
   background: var(--noc-black);
-  border: 2px solid rgba(232, 97, 42, 0.42);
-  border-radius: 8px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 4px;
   padding: 56px 48px 48px;
   max-width: 480px;
   width: 100%;
@@ -40,7 +40,6 @@
 
 .close {
   position: absolute;
-  z-index: 4;
   top: 20px;
   right: 20px;
   font-size: 14px;
@@ -181,34 +180,3 @@
   }
 }
 
-.modal::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  border-radius: inherit;
-  padding: 2px;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 42deg,
-    rgba(232, 97, 42, 0.15) 54deg,
-    rgba(232, 97, 42, 1) 74deg,
-    rgba(232, 97, 42, 0.15) 94deg,
-    transparent 112deg,
-    transparent 360deg
-  );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  animation: perimeterOrbit 4.8s linear infinite;
-}
-
-@keyframes perimeterOrbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
