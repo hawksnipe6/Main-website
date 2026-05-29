@@ -433,8 +433,8 @@
 
   50% {
     box-shadow:
-      0 8px 22px rgba(232, 97, 42, 0.18),
-      0 0 0 5px rgba(232, 97, 42, 0.08);
+      0 5px 14px rgba(232, 97, 42, 0.12),
+      0 0 0 3px rgba(232, 97, 42, 0.05);
   }
 }
 
@@ -446,8 +446,8 @@
 
   50% {
     text-shadow:
-      0 0 8px rgba(232, 97, 42, 0.42),
-      0 0 16px rgba(232, 97, 42, 0.16);
+      0 0 6px rgba(232, 97, 42, 0.24),
+      0 0 12px rgba(232, 97, 42, 0.08);
   }
 }
 
@@ -511,5 +511,20 @@
 
   .processCard {
     padding: 10px;
+  }
+}
+
+/* ── Mobile shadow trim v2 ── */
+@media (max-width: 768px) {
+  .btnPrimary,
+  .cta,
+  .btn,
+  .btnConfirm,
+  .btnReopen,
+  .projectLink,
+  .projectLinkPill,
+  .slot,
+  .panelMail {
+    box-shadow: none;
   }
 }
