@@ -226,12 +226,12 @@ const denslyCasePillars = [
   },
   {
     label: 'Why choose this',
-    title: 'The market already spends heavily on treatment, but lacks a neutral outcome layer.',
+    title: 'A large treatment market lacks a neutral outcome layer.',
     body: 'Minoxidil, finasteride, PRP, transplant recovery, supplements, and clinic plans all depend on proof over time. Densly does not compete with treatments. It measures whether the journey is becoming easier to understand.',
   },
   {
     label: 'Why an app',
-    title: 'The phone is the only camera, reminder, journal, and report tool users already carry.',
+    title: 'The phone is already the camera, reminder, journal, and report tool.',
     body: 'A mobile app can guide capture, reject weak photos, maintain monthly cadence, store treatment notes, and generate doctor-ready reports without asking users to buy separate hardware or visit a clinic every month.',
   },
 ]
@@ -314,7 +314,7 @@ function DenslyHeroSignalPanel() {
       <DenslyFloatingIcon large />
       <div className={styles.denslyHeroSignalCopy}>
         <span>Outcome layer</span>
-        <h2>Treatment progress needs evidence, not guesswork.</h2>
+        <h2>Evidence over guesswork.</h2>
         <p>Guided captures, monthly comparison, confidence labels, and doctor-ready exports turn scattered selfies into a usable recovery record.</p>
       </div>
       <div className={styles.denslyHeroSignalGrid}>
@@ -399,7 +399,7 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
       <section className={styles.denslyCasePillarSection}>
         <div className={styles.denslySectionHeader}>
           <span className={styles.sectionLabel}>Case study frame</span>
-          <h2>Problem, selection logic, and product format.</h2>
+          <h2>Problem, logic, format.</h2>
         </div>
         <div className={styles.denslyCasePillarGrid}>
           {denslyCasePillars.map(item => (
@@ -429,7 +429,7 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
       <section className={styles.denslyCategorizationSection}>
         <div className={styles.denslySectionHeader}>
           <span className={styles.sectionLabel}>Categorization</span>
-          <h2>Commercial shape of the concept.</h2>
+          <h2>Commercial shape.</h2>
         </div>
         <div className={styles.denslyCategorizationCard}>
           <div className={styles.denslyCategoryGrid}>
@@ -450,7 +450,7 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
       <section className={styles.denslyMatrixSection}>
         <div className={styles.denslySectionHeader}>
           <span className={styles.sectionLabel}>Problem map</span>
-          <h2>Three groups already need the same thing: proof over memory.</h2>
+          <h2>Three groups need proof.</h2>
         </div>
         <div className={styles.denslyProblemGrid}>
           {denslyOpportunity.map(item => (
@@ -546,7 +546,7 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
       <section className={styles.denslyFlowSection}>
         <div className={styles.denslySectionHeader}>
           <span className={styles.sectionLabel}>Measurement pipeline</span>
-          <h2>The core product is a repeatability engine.</h2>
+          <h2>Repeatable capture engine.</h2>
         </div>
         <div className={styles.denslyFlowGrid}>
           {denslyFlow.map(item => (
@@ -562,7 +562,7 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
       <section className={styles.denslySplitSection}>
         <div className={styles.denslySplitPanel}>
           <span className={styles.sectionLabel}>What ships first</span>
-          <h2>Keep the MVP narrow enough to be trusted.</h2>
+          <h2>Narrow MVP. Strong trust.</h2>
           <ul className={styles.denslyList}>
             {denslyMvp.map(item => <li key={item}>{item}</li>)}
           </ul>
@@ -581,7 +581,7 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
       <section className={styles.denslyOfferSection}>
         <div className={styles.denslySectionHeader}>
           <span className={styles.sectionLabel}>Offer strategy</span>
-          <h2>A simple value ladder from curiosity to clinic-grade documentation.</h2>
+          <h2>From curiosity to clinic proof.</h2>
         </div>
         <div className={styles.denslyOfferGrid}>
           {denslyOffer.map(item => (
@@ -600,7 +600,7 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
       <section className={styles.denslyProofSection}>
         <div className={styles.denslySectionHeader}>
           <span className={styles.sectionLabel}>Proof and signals</span>
-          <h2>Useful only if the evidence becomes more reliable than memory.</h2>
+          <h2>Evidence must beat memory.</h2>
         </div>
         <div className={styles.denslyProofGrid}>
           {denslyProofBlocks.map(item => (
@@ -616,7 +616,7 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
       <section className={styles.denslyFrameworkSection}>
         <div className={styles.denslySectionHeader}>
           <span className={styles.sectionLabel}>Framework fit</span>
-          <h2>The opportunity is strong, but the product has to earn trust first.</h2>
+          <h2>Strong opportunity. Trust first.</h2>
         </div>
         <div className={styles.denslyFrameworkGrid}>
           {denslyFrameworks.map(item => (
@@ -633,7 +633,7 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
       <section className={styles.denslyRiskSection}>
         <div className={styles.denslySectionHeader}>
           <span className={styles.sectionLabel}>Validation gates</span>
-          <h2>The pilot should prove consistency before growth.</h2>
+          <h2>Prove consistency first.</h2>
         </div>
         <div className={styles.denslyRiskGrid}>
           {denslyRisks.map(item => (
