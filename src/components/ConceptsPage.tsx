@@ -218,6 +218,24 @@ const denslyFrameworks = [
   },
 ]
 
+const denslyCasePillars = [
+  {
+    label: 'Problem',
+    title: 'Hair-loss progress is emotional, delayed, and badly documented.',
+    body: 'People take random photos under different lighting, styling, angles, and hair lengths, then use those images to judge whether months of treatment are working. The decision loop is noisy, anxious, and easy to misread.',
+  },
+  {
+    label: 'Why choose this',
+    title: 'The market already spends heavily on treatment, but lacks a neutral outcome layer.',
+    body: 'Minoxidil, finasteride, PRP, transplant recovery, supplements, and clinic plans all depend on proof over time. Densly does not compete with treatments. It measures whether the journey is becoming easier to understand.',
+  },
+  {
+    label: 'Why an app',
+    title: 'The phone is the only camera, reminder, journal, and report tool users already carry.',
+    body: 'A mobile app can guide capture, reject weak photos, maintain monthly cadence, store treatment notes, and generate doctor-ready reports without asking users to buy separate hardware or visit a clinic every month.',
+  },
+]
+
 /* ─── iPhone frame ──────────────────────────────────────── */
 
 function IPhoneFrame({
@@ -270,117 +288,14 @@ function IPhoneFrame({
   )
 }
 
-/* ─── Densly visual system ──────────────────────────────── */
+/* ─── Densly floating icon system ───────────────────────── */
 
-function DenslyAppLogo() {
+function DenslyFloatingIcon({ large = false }: { large?: boolean }) {
   return (
-    <div className={styles.denslyLogo} aria-hidden="true">
+    <div className={`${styles.denslyFloatIcon} ${large ? styles.denslyFloatIconLarge : ''}`} aria-hidden="true">
       <span />
       <span />
       <span />
-    </div>
-  )
-}
-
-function DenslyPhone({ variant, compact = false }: { variant: 'capture' | 'timeline' | 'report' | 'routine'; compact?: boolean }) {
-  return (
-    <div className={`${styles.denslyPhone} ${compact ? styles.denslyPhoneCompact : ''}`}>
-      <div className={styles.denslyNotch} />
-      <div className={styles.denslyApp}>
-        {variant === 'capture' && (
-          <>
-            <div className={styles.denslyTopbar}>
-              <span>Baseline</span>
-              <span>Step 2/5</span>
-            </div>
-            <div className={styles.captureView}>
-              <div className={styles.headShape}>
-                <div className={styles.hairMass} />
-                <div className={styles.zoneRing} />
-              </div>
-              <div className={styles.captureGrid} />
-              <div className={styles.captureInstruction}>Align crown inside the guide</div>
-            </div>
-            <div className={styles.qualityPanel}>
-              <div>
-                <span className={styles.miniLabel}>Quality gate</span>
-                <strong>Good capture</strong>
-              </div>
-              <span className={styles.statusDot}>96</span>
-            </div>
-            <button className={styles.denslyAction}>Use this scan</button>
-          </>
-        )}
-
-        {variant === 'timeline' && (
-          <>
-            <div className={styles.denslyTopbar}>
-              <span>Progress</span>
-              <span>Month 6</span>
-            </div>
-            <div className={styles.progressHero}>
-              <DenslyAppLogo />
-              <h4>Crown stability detected</h4>
-              <p>Comparison confidence: high</p>
-            </div>
-            <div className={styles.zoneList}>
-              <div><span>Crown</span><strong>+8%</strong></div>
-              <div><span>Left temple</span><strong>Flat</strong></div>
-              <div><span>Right temple</span><strong>+3%</strong></div>
-            </div>
-            <div className={styles.timelineBars}>
-              <span style={{ height: '34%' }} />
-              <span style={{ height: '38%' }} />
-              <span style={{ height: '40%' }} />
-              <span style={{ height: '52%' }} />
-              <span style={{ height: '58%' }} />
-              <span style={{ height: '63%' }} />
-            </div>
-          </>
-        )}
-
-        {variant === 'report' && (
-          <>
-            <div className={styles.denslyTopbar}>
-              <span>Report</span>
-              <span>PDF</span>
-            </div>
-            <div className={styles.reportCard}>
-              <DenslyAppLogo />
-              <h4>Dermatology summary</h4>
-              <p>6-month treatment record prepared for consult.</p>
-            </div>
-            <div className={styles.reportRows}>
-              <div><span>Routine</span><strong>Minoxidil 5%</strong></div>
-              <div><span>Started</span><strong>12 Jan</strong></div>
-              <div><span>Adherence</span><strong>82%</strong></div>
-              <div><span>Flag</span><strong>No severe shedding</strong></div>
-            </div>
-            <button className={styles.denslyAction}>Export for doctor</button>
-          </>
-        )}
-
-        {variant === 'routine' && (
-          <>
-            <div className={styles.denslyTopbar}>
-              <span>Routine</span>
-              <span>Today</span>
-            </div>
-            <div className={styles.routineHero}>
-              <span>Do not judge week by week.</span>
-              <strong>Next scan in 19 days</strong>
-            </div>
-            <div className={styles.routineList}>
-              <div><span />Minoxidil PM</div>
-              <div><span />Progress note</div>
-              <div><span />Side-effect check</div>
-            </div>
-            <div className={styles.calendarStrip}>
-              <span>M</span><span>T</span><span>W</span><span>T</span><strong>F</strong><span>S</span><span>S</span>
-            </div>
-          </>
-        )}
-      </div>
     </div>
   )
 }
@@ -388,15 +303,24 @@ function DenslyPhone({ variant, compact = false }: { variant: 'capture' | 'timel
 function DenslyCover() {
   return (
     <div className={styles.denslyCover}>
-      <div className={styles.denslyCoverPanel}>
-        <div className={styles.coverHeader}>
-          <DenslyAppLogo />
-          <span>outcome layer</span>
-        </div>
-        <div className={styles.coverPhoneRow}>
-          <DenslyPhone variant="capture" compact />
-          <DenslyPhone variant="timeline" compact />
-        </div>
+      <DenslyFloatingIcon large />
+    </div>
+  )
+}
+
+function DenslyHeroSignalPanel() {
+  return (
+    <div className={styles.denslyHeroSignalPanel} aria-label="Densly concept signal">
+      <DenslyFloatingIcon large />
+      <div className={styles.denslyHeroSignalCopy}>
+        <span>Outcome layer</span>
+        <h2>Treatment progress needs evidence, not guesswork.</h2>
+        <p>Guided captures, monthly comparison, confidence labels, and doctor-ready exports turn scattered selfies into a usable recovery record.</p>
+      </div>
+      <div className={styles.denslyHeroSignalGrid}>
+        <div><strong>5</strong><span>guided views</span></div>
+        <div><strong>30d</strong><span>scan cadence</span></div>
+        <div><strong>PDF</strong><span>clinic export</span></div>
       </div>
     </div>
   )
@@ -454,15 +378,13 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
             <p>Build trust before intelligence. The first product win is not an AI diagnosis. It is repeatable image capture, honest uncertainty, and clinic-ready evidence.</p>
           </div>
         </div>
-        <div className={styles.denslyHeroVisual} aria-label="Densly mobile interface previews">
-          <DenslyPhone variant="capture" />
-          <DenslyPhone variant="timeline" />
-          <DenslyPhone variant="report" />
+        <div className={styles.denslyHeroVisual} aria-label="Densly concept summary">
+          <DenslyHeroSignalPanel />
         </div>
       </header>
 
       <section className={`${styles.section} ${styles.denslyIntroSection}`}>
-        <span className={styles.sectionLabel}>Why this should exist</span>
+        <span className={styles.sectionLabel}>Problem</span>
         <p className={styles.bodyLarge}>{concept.problem}</p>
         <div className={styles.denslyIntroGrid}>
           <div>
@@ -471,6 +393,22 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
           <p>
             Hair changes slowly, but anxiety updates daily. The user keeps comparing old selfies taken under different light and different hair states. Densly turns that chaotic habit into a controlled monthly protocol, then packages the result into a timeline that a user and clinician can understand.
           </p>
+        </div>
+      </section>
+
+      <section className={styles.denslyCasePillarSection}>
+        <div className={styles.denslySectionHeader}>
+          <span className={styles.sectionLabel}>Case study frame</span>
+          <h2>Problem, selection logic, and product format.</h2>
+        </div>
+        <div className={styles.denslyCasePillarGrid}>
+          {denslyCasePillars.map(item => (
+            <article key={item.label} className={styles.denslyCasePillarCard}>
+              <span>{item.label}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -544,54 +482,13 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
         </div>
       </section>
 
-      <section className={styles.denslyScreensSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Interface direction</span>
-          <h2>Wellness-soft visually, clinical in behavior.</h2>
-          <p>The app uses soft product-card proportions from the references, but the interaction model stays strict: fewer decorative screens, clearer capture gates, and no fake medical certainty.</p>
-        </div>
-        <div className={styles.denslyScreensGrid}>
-          <div className={styles.denslyScreenCard}>
-            <DenslyPhone variant="capture" />
-            <div>
-              <span>01</span>
-              <h3>Guided capture</h3>
-              <p>The interface behaves like a camera protocol, not a casual selfie flow. It tells the user exactly what must be corrected before the scan is allowed.</p>
-            </div>
-          </div>
-          <div className={styles.denslyScreenCard}>
-            <DenslyPhone variant="timeline" />
-            <div>
-              <span>02</span>
-              <h3>Progress timeline</h3>
-              <p>Progress is shown through confidence-labeled zones and month stacks. The user sees trend direction without being trapped by a single fragile score.</p>
-            </div>
-          </div>
-          <div className={styles.denslyScreenCard}>
-            <DenslyPhone variant="routine" />
-            <div>
-              <span>03</span>
-              <h3>Adherence layer</h3>
-              <p>The app keeps treatment notes, routine adherence, side effects, and shedding context close to the image timeline, because the photo alone is never the full story.</p>
-            </div>
-          </div>
-          <div className={styles.denslyScreenCard}>
-            <DenslyPhone variant="report" />
-            <div>
-              <span>04</span>
-              <h3>Doctor-ready export</h3>
-              <p>Every scan can become a structured report with image quality warnings, medication history, and notes. This is where consumer tracking becomes useful to clinics.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className={`${styles.demoSection} ${styles.denslyPrototypeSection}`}>
+
         <div className={styles.demoText}>
           <span className={styles.sectionLabel}>Interactive prototype</span>
           <h2 className={styles.demoHeading}>Try the Densly flow</h2>
           <p className={styles.demoBody}>
-            Explore the guided hair-loss tracking prototype inside the same iPhone-frame system used across the Concepts page. The flow keeps the MVP focused on capture, consistency, and outcome reporting.
+            Explore the real Densly prototype inside the same iPhone-frame system used across the Concepts page. The flow focuses on guided onboarding, capture consistency, treatment context, and outcome reporting.
           </p>
 
           <div className={styles.demoActions}>
@@ -678,19 +575,6 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
             <div><span>$15/mo</span><p>Advanced heatmaps, PDF exports, trend alerts, and doctor-share package.</p></div>
             <div><span>Clinic license</span><p>White-labeled dashboard for consults, procedure follow-ups, and retention.</p></div>
           </div>
-        </div>
-      </section>
-
-      <section className={styles.denslyVisualDirection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Visual reference translation</span>
-          <h2>From cosmetic softness to outcome utility.</h2>
-          <p>The uploaded references were used for rounded product-card proportions, soft negative space, cropped image behavior, muted sage actions, and editorial calm. The case study keeps those cues while using the existing Nocturnal typography and page system.</p>
-        </div>
-        <div className={styles.referenceGrid}>
-          <img src="/concepts/densly-ref-01.png" alt="Hydration hair-care visual reference board" />
-          <img src="/concepts/densly-ref-02.png" alt="Soft product commerce mobile UI reference" />
-          <img src="/concepts/densly-ref-03.png" alt="Minimal order and product mobile UI reference" />
         </div>
       </section>
 
