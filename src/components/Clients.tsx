@@ -7,7 +7,7 @@ const CLIENT_TYPES = [
   },
   {
     title: 'Startups scaling from MVP',
-    body: 'You have traction. The early version worked. Now the product needs to look like the company it\'s becoming — not the one it started as. We rebuild the system to carry the weight.',
+    body: 'You have traction. The early version worked. Now the product needs to look like the company it is becoming, not the one it started as. We rebuild the system to carry the weight.',
   },
   {
     title: 'Businesses with fragmented systems',

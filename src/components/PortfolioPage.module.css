@@ -1,0 +1,119 @@
+.page {
+  padding-top: var(--page-padding-top);
+  min-height: 100dvh;
+  background: var(--noc-black);
+}
+
+.pageHeader {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 80px calc(var(--gutter) + var(--site-padding)) 64px;
+  border-bottom: 1px solid var(--noc-grey-2);
+}
+
+.pageLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+  margin-bottom: 20px;
+  margin-top: 28px;
+}
+
+.pageTitle {
+  font-size: clamp(56px, 8vw, 100px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--noc-white);
+  line-height: 0.95;
+  margin-bottom: 28px;
+}
+
+.pageSubtitle {
+  font-size: 16px;
+  color: var(--noc-grey-4);
+  line-height: 1.6;
+  max-width: 660px;
+  margin-bottom: 32px;
+}
+
+/* ── Tab switcher ───────────────────────────────────────── */
+.tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--noc-grey-1);
+  border: 1px solid var(--noc-grey-2);
+  margin-bottom: 32px;
+}
+
+.tab {
+  padding: 10px 24px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--noc-grey-4);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tab:hover {
+  color: var(--noc-white);
+}
+
+.tabActive {
+  background: var(--noc-white);
+  color: var(--noc-black);
+}
+
+.tabActive:hover {
+  color: var(--noc-black);
+}
+
+/* ── Tab panel entrance ─────────────────────────────────── */
+.tabPanel {
+  animation: tabPanelIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes tabPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .pageHeader {
+    padding-top: 42px;
+    padding-bottom: 34px;
+    padding-left: var(--site-padding);
+    padding-right: var(--site-padding);
+  }
+
+  .pageTitle {
+    font-size: clamp(42px, 16vw, 64px);
+    line-height: 0.96;
+    letter-spacing: -0.055em;
+    text-wrap: balance;
+  }
+
+  .pageSubtitle {
+    font-size: 14px;
+    line-height: 1.62;
+    margin-bottom: 24px;
+  }
+
+  .tab {
+    padding: 9px 20px;
+    font-size: 12.5px;
+  }
+}

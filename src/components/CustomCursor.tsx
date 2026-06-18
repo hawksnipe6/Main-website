@@ -1,18 +1,35 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './CustomCursor.module.css'
 
-// Only render on non-touch devices
-function isTouchDevice() {
-  return window.matchMedia('(hover: none) and (pointer: coarse)').matches
+function canUseCustomCursor() {
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  const desktopViewport = window.matchMedia('(min-width: 1025px)').matches
+  return finePointer && desktopViewport
 }
 
 export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const width = useRef(18)
   const height = useRef(18)
+  const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
-    if (isTouchDevice()) return
+    const pointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const viewportQuery = window.matchMedia('(min-width: 1025px)')
+    const update = () => setEnabled(canUseCustomCursor())
+
+    update()
+    pointerQuery.addEventListener('change', update)
+    viewportQuery.addEventListener('change', update)
+
+    return () => {
+      pointerQuery.removeEventListener('change', update)
+      viewportQuery.removeEventListener('change', update)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!enabled) return
 
     const cursor = cursorRef.current
     if (!cursor) return
@@ -56,7 +73,9 @@ export function CustomCursor() {
       window.removeEventListener('mousemove', move)
       observer.disconnect()
     }
-  }, [])
+  }, [enabled])
+
+  if (!enabled) return null
 
   return (
     <div ref={cursorRef} className={styles.cursor} style={{ display: 'none' }} />

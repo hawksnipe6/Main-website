@@ -158,33 +158,6 @@
   animation: panelArrive 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.panel::before {
-  content: '';
-  position: absolute;
-  inset: -48%;
-  z-index: -2;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 58deg,
-    rgba(232, 97, 42, 0.16) 72deg,
-    rgba(232, 97, 42, 0.95) 88deg,
-    rgba(232, 97, 42, 0.16) 104deg,
-    transparent 120deg,
-    transparent 360deg
-  );
-  animation: orbitAccent 6.8s linear infinite;
-}
-
-.panel::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  z-index: -1;
-  border-radius: 6px;
-  background: var(--noc-black);
-}
-
 .close {
   position: absolute;
   top: 18px;
@@ -242,17 +215,12 @@
   font-weight: 700;
   padding-top: 16px;
   border-top: 1px solid var(--noc-grey-2);
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+  animation: ctaTextBreath 3.2s ease-in-out infinite;
 }
 
 .panelMail:hover {
   color: var(--noc-white);
-}
-
-@keyframes orbitAccent {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @keyframes panelArrive {
@@ -294,5 +262,59 @@
     align-items: center;
     flex-direction: column;
     gap: 10px;
+  }
+}
+
+@keyframes ctaTextBreath {
+  0%,
+  100% {
+    text-shadow: 0 0 0 rgba(232, 97, 42, 0);
+  }
+
+  50% {
+    text-shadow:
+      0 0 6px rgba(232, 97, 42, 0.24),
+      0 0 12px rgba(232, 97, 42, 0.08);
+  }
+}
+
+/* ── Mobile footer overlay polish ─────────── */
+@media (max-width: 640px) {
+  .overlay {
+    padding: 16px;
+    align-items: start;
+    overflow: auto;
+  }
+
+  .panel {
+    width: 100%;
+    max-height: calc(100svh - 32px);
+    overflow: auto;
+    border-radius: 10px;
+    padding: 42px 24px 30px;
+  }
+
+  .panelTitle {
+    font-size: clamp(28px, 10vw, 42px);
+  }
+
+  .panelBody {
+    font-size: 14px;
+    line-height: 1.62;
+  }
+}
+
+/* ── Mobile shadow trim v2 ── */
+@media (max-width: 768px) {
+  .btnPrimary,
+  .cta,
+  .btn,
+  .btnConfirm,
+  .btnReopen,
+  .projectLink,
+  .projectLinkPill,
+  .slot,
+  .panelMail {
+    box-shadow: none;
   }
 }

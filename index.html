@@ -3,29 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nocturnal — Design Intelligence Studio</title>
-    <meta name="description" content="A problem-framing and solution-design system. We design the rules, then build the instances." />
+    <title>Nocturnal — Industrial Design, UI/UX, CGI & Brand Systems Studio</title>
+    <meta name="description" content="Nocturnal is a design intelligence studio for startups and product brands. We build industrial design, UI/UX systems, CGI, motion, and brand systems with strategic clarity." />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="theme-color" content="#0D0D0D" />
+    <link rel="canonical" href="https://www.getnctrnl.com/" />
+
+    <!-- Pre-paint theme: apply stored/default theme before first paint to avoid a flash.
+         Dark is the default experience; a stored 'light' preference is respected.
+         The inline background-color prevents a white flash while the CSS bundle loads. -->
+    <script>
+      document.documentElement.setAttribute('data-theme', 'light')
+      document.documentElement.style.background = '#F5F4F0'
+    </script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="96x96" href="/apple-touch-icon.png" />
 
-    <!-- Google Search Console logo -->
-    <link rel="image_src" href="/logo 512.png" />
-    <meta property="og:image" content="/logo 512.png" />
-    <meta property="og:title" content="Nocturnal — Design Intelligence Studio" />
-    <meta property="og:description" content="A problem-framing and solution-design system. We design the rules, then build the instances." />
+    <!-- Social preview -->
+    <link rel="image_src" href="/logo%20512.png" />
+    <meta property="og:site_name" content="Nocturnal" />
+    <meta property="og:title" content="Nocturnal — Industrial Design, UI/UX, CGI & Brand Systems Studio" />
+    <meta property="og:description" content="Strategic design studio for industrial design, product UI/UX, CGI, motion, and brand systems for startups and product brands." />
     <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:image" content="/logo 512.png" />
+    <meta property="og:url" content="https://www.getnctrnl.com/" />
+    <meta property="og:image" content="https://www.getnctrnl.com/logo%20512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Nocturnal — Industrial Design, UI/UX, CGI & Brand Systems Studio" />
+    <meta name="twitter:description" content="Strategic design studio for industrial design, product UI/UX, CGI, motion, and brand systems for startups and product brands." />
+    <meta name="twitter:image" content="https://www.getnctrnl.com/logo%20512.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Nocturnal",
+        "url": "https://www.getnctrnl.com/",
+        "logo": "https://www.getnctrnl.com/logo%20512.png",
+        "areaServed": ["India", "Global"],
+        "serviceType": ["Industrial Design", "Product UI/UX Design", "Brand Design", "CGI and Motion Design", "Product Visualization", "Design Systems"],
+        "sameAs": ["https://www.behance.net/abeermahad064c", "https://www.linkedin.com/in/abeermahadane44/", "https://www.instagram.com/designwithabeer/"],
+        "description": "Nocturnal is a design intelligence studio specializing in industrial design, product UI/UX, CGI, motion, and brand systems."
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <main style="font-family: sans-serif; padding: 48px; line-height: 1.5;">
+        <h1>Nocturnal — Industrial Design, UI/UX, CGI and Brand Systems Studio</h1>
+        <p>Nocturnal helps startups and product brands build physical products, digital interfaces, CGI, motion assets, and brand systems with strategic clarity.</p>
+      </main>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

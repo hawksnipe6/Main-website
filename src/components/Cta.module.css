@@ -56,8 +56,197 @@
   max-width: 560px;
   background: var(--noc-black);
   border: 1px solid var(--noc-grey-2);
-  border-radius: 8px;
+  border-radius: 14px;
   padding: 28px;
+}
+
+.calCardEmbed {
+  max-width: 680px;
+  padding: 12px;
+}
+
+/* ── Native dark "Google Calendar" booking panel ─────────── */
+.calCardNative {
+  max-width: 720px;
+}
+
+.gcal {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.gcalHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--noc-grey-2);
+}
+
+.gcalOrg {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gcalAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--noc-grey-1);
+  border: 1px solid var(--noc-grey-2);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.gcalAvatar img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.gcalOrgName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-grey-5);
+}
+
+.gcalProvider {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--noc-grey-4);
+  letter-spacing: -0.01em;
+}
+
+.gcalGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.gcalEventTitle {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--noc-white);
+  margin-bottom: 16px;
+}
+
+.gcalEventRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--noc-grey-5);
+  margin-bottom: 12px;
+}
+
+.gcalEventRow svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--noc-grey-4);
+}
+
+.gcalDesc {
+  margin-top: 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--noc-grey-4);
+}
+
+.gcalPickerTop {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.gcalPickerLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--noc-white);
+}
+
+.gcalTz {
+  font-size: 11px;
+  color: var(--noc-grey-4);
+}
+
+.gcalChosen {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-accent);
+  margin-bottom: 14px;
+}
+
+.gcalSlots {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gcalSlot {
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-white);
+  background: var(--noc-grey-1);
+  border: 1px solid var(--noc-grey-2);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.gcalSlot:hover {
+  border-color: var(--noc-accent);
+  color: var(--noc-accent);
+  transform: translateY(-1px);
+}
+
+.gcalSlotActive {
+  border-color: var(--noc-accent);
+  color: var(--noc-accent);
+  background: var(--noc-accent-subtle);
+}
+
+.gcalFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid var(--noc-grey-2);
+}
+
+.gcalConfirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-white);
+  background: var(--noc-grey-1);
+  border: 1px solid rgba(232, 97, 42, 0.42);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.gcalConfirm:hover {
+  border-color: var(--noc-accent);
+  background: var(--noc-grey-2);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .gcalGrid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
 }
 
 .calHeader {
@@ -170,7 +359,7 @@
 .btnReopen {
   min-height: 38px;
   padding: 10px 12px;
-  border: 1px solid var(--noc-grey-2);
+  border: 1px solid rgba(232, 97, 42, 0.42);
   border-radius: 6px;
   background: transparent;
   color: var(--noc-white);
@@ -178,7 +367,8 @@
   font-weight: 600;
   font-family: var(--noc-font);
   text-align: center;
-  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease, box-shadow 0.2s ease;
+  animation: ctaBreath 3.2s ease-in-out infinite;
 }
 
 .slot:hover,
@@ -238,10 +428,38 @@
   color: var(--noc-grey-4);
   text-decoration: underline;
   text-underline-offset: 3px;
+  background: transparent;
+  border: 0;
+  font-family: var(--noc-font);
+  cursor: pointer;
 }
 
 .flowLink:hover {
   color: var(--noc-white);
+}
+
+.embedState {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 640px;
+}
+
+.embedTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 10px 0;
+}
+
+.calendarFrame {
+  width: 100%;
+  height: 560px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 8px;
+  background: var(--noc-black);
+  filter: invert(1) hue-rotate(180deg) saturate(0.82) contrast(0.95);
 }
 
 .spinnerWrap,
@@ -291,6 +509,10 @@
     padding: 20px;
   }
 
+  .calCardEmbed {
+    padding: 10px;
+  }
+
   .slotsGrid {
     grid-template-columns: 1fr 1fr;
   }
@@ -302,5 +524,93 @@
 
   .btn {
     width: 100%;
+  }
+
+  .embedTop {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .calendarFrame {
+    height: 620px;
+  }
+}
+
+@keyframes ctaBreath {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(232, 97, 42, 0),
+      0 0 0 0 rgba(232, 97, 42, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 5px 14px rgba(232, 97, 42, 0.12),
+      0 0 0 3px rgba(232, 97, 42, 0.05);
+  }
+}
+
+/* ── Mobile CTA/calendar polish ───────────── */
+@media (max-width: 640px) {
+  .cta {
+    gap: 32px;
+  }
+
+  .body {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .meta {
+    gap: 10px 14px;
+  }
+
+  .calWrap {
+    justify-content: stretch;
+    overflow: visible;
+  }
+
+  .calCard {
+    max-width: 100%;
+    padding: 18px;
+    border-radius: 10px;
+    overflow: visible;
+  }
+
+  .cell {
+    height: 36px;
+  }
+
+  .slotsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .slot,
+  .btn,
+  .btnConfirm,
+  .btnReopen {
+    width: 100%;
+    min-height: 40px;
+  }
+
+  .calendarFrame {
+    height: min(620px, calc(100svh - 190px));
+  }
+}
+
+/* ── Mobile shadow trim v2 ── */
+@media (max-width: 768px) {
+  .btnPrimary,
+  .cta,
+  .btn,
+  .btnConfirm,
+  .btnReopen,
+  .projectLink,
+  .projectLinkPill,
+  .slot,
+  .panelMail {
+    box-shadow: none;
   }
 }

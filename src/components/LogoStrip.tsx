@@ -49,9 +49,9 @@ export function LogoStrip() {
     <section id="brands" className={styles.brands}>
       <div className={styles.header}>
         <div>
-          <div className="section-label reveal">Nocturnal</div>
+          <div className="section-label reveal">WORK EX</div>
           <h2 className="section-title reveal reveal-d1">
-            Brands we have<br />worked with.
+            People who trust
           </h2>
         </div>
         <p className="section-body reveal reveal-d2">
@@ -59,7 +59,7 @@ export function LogoStrip() {
         </p>
       </div>
 
-      <div ref={logoRowRef} className={`${styles.logoRow} reveal reveal-d2`} aria-label="Brands we have worked with">
+      <div ref={logoRowRef} className={`${styles.logoRow} reveal reveal-d2`} aria-label="People who trust">
         {LOGOS.map((logo) => (
           <div key={logo.alt} className={`${styles.logoCell} ${styles[logo.shape ?? 'rect']}`}>
             <img src={logo.src} alt={logo.alt} className={styles.logo} draggable={false} />

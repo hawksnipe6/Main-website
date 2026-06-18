@@ -29,8 +29,7 @@ const ITEMS = [
   {
     title: 'Motion sample',
     href: 'https://www.instagram.com/p/DNrwFQgUkcR/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-    image: '/work-sample-instagram-05.jpg',
-    framed: true,
+    image: '/ssofa.jpg',
   },
   {
     title: 'EV Charging ecosystem',
@@ -95,10 +94,10 @@ export function Marquee() {
   return (
     <section className={styles.wrapper} aria-label="Work sample carousel">
       <div className={styles.header}>
-        <span className={styles.title}>Work sample</span>
+        <h2 className={`section-title reveal reveal-d1 ${styles.heading}`}>Work sample.</h2>
       </div>
 
-      <div className={styles.viewport}>
+      <div className={`${styles.viewport} reveal reveal-d2`}>
         <div className={styles.track}>
           {doubled.map((item, i) => (
             <a
@@ -110,7 +109,7 @@ export function Marquee() {
               aria-label={`Open ${item.title}`}
             >
               <img
-                className={item.framed ? `${styles.image} ${styles.imageFramed}` : styles.image}
+                className={styles.image}
                 src={item.image}
                 alt={item.title}
                 loading="lazy"

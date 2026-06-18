@@ -1,0 +1,35 @@
+.wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--noc-black);
+}
+
+/* Subtle brand-orange center glow */
+.glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 55% at 50% 40%, rgba(232, 97, 42, 0.07), transparent 70%);
+}
+
+/* Radial vignette fades the grid lines towards the edges, matching the reference */
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 100% 85% at 50% 50%, transparent 35%, var(--noc-black) 100%);
+}
+
+/* Bottom edge dissolves into the next section */
+.fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 52%, var(--noc-black) 100%);
+}
+
+[data-theme='light'] .vignette {
+  background: radial-gradient(ellipse 100% 85% at 50% 50%, transparent 35%, var(--noc-black) 100%);
+}

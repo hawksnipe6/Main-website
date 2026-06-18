@@ -1,3 +1,53 @@
+@import "tailwindcss";
+
+/* ── shadcn/ui CSS variable bridge ─────────────────────────── */
+@layer base {
+  :root {
+    --background: 245 244 240;
+    --foreground: 13 13 13;
+    --card: 245 244 240;
+    --card-foreground: 13 13 13;
+    --popover: 245 244 240;
+    --popover-foreground: 13 13 13;
+    --primary: 232 97 42;
+    --primary-foreground: 245 244 240;
+    --secondary: 232 231 227;
+    --secondary-foreground: 13 13 13;
+    --muted: 232 231 227;
+    --muted-foreground: 136 136 136;
+    --accent: 232 231 227;
+    --accent-foreground: 13 13 13;
+    --destructive: 239 68 68;
+    --destructive-foreground: 245 244 240;
+    --border: 208 207 203;
+    --input: 208 207 203;
+    --ring: 232 97 42;
+    --radius: 0.875rem;
+  }
+
+  [data-theme='dark'] {
+    --background: 13 13 13;
+    --foreground: 245 244 240;
+    --card: 26 26 26;
+    --card-foreground: 245 244 240;
+    --popover: 26 26 26;
+    --popover-foreground: 245 244 240;
+    --primary: 232 97 42;
+    --primary-foreground: 245 244 240;
+    --secondary: 42 42 42;
+    --secondary-foreground: 245 244 240;
+    --muted: 26 26 26;
+    --muted-foreground: 102 102 102;
+    --accent: 42 42 42;
+    --accent-foreground: 245 244 240;
+    --destructive: 239 68 68;
+    --destructive-foreground: 245 244 240;
+    --border: 42 42 42;
+    --input: 42 42 42;
+    --ring: 232 97 42;
+  }
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -10,6 +60,15 @@ html, body {
   max-width: 100%;
 }
 
+/* Hide native scrollbar — replaced by the custom floating scrollbar */
+html {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* legacy Edge / IE */
+}
+html::-webkit-scrollbar {
+  display: none;                /* Chrome / Safari / Edge */
+}
+
 body {
   font-family: var(--noc-font);
   background: var(--noc-black);
@@ -18,6 +77,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   letter-spacing: 0;
+}
+
+p {
+  text-align: justify;
+  hyphens: none;
 }
 
 a {
@@ -101,9 +165,59 @@ section#hero {
 .reveal-d2 { transition-delay: 0.16s; }
 .reveal-d3 { transition-delay: 0.24s; }
 
+/* ── ROUTE ENTRANCE ────────────────────────── */
+/* Brief fade/slide when a page mounts on navigation. */
+.routeEnter {
+  animation: routeEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes routeEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .routeEnter { animation: none; }
+}
+
 /* ── HIDE CURSOR — desktop only ────────────── */
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) and (pointer: fine) and (min-width: 1025px) {
   *, *::before, *::after {
     cursor: none !important;
+  }
+}
+
+/* ── Mobile polish pass ───────────────────── */
+@media (max-width: 768px) {
+  html,
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    text-rendering: geometricPrecision;
+  }
+
+  section {
+    padding-left: calc(var(--gutter) + var(--site-padding));
+    padding-right: calc(var(--gutter) + var(--site-padding));
+  }
+
+  .section-title {
+    font-size: clamp(30px, 10.8vw, 46px);
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  .section-body {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .reveal {
+    transform: translateY(14px);
   }
 }

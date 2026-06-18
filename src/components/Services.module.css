@@ -13,30 +13,29 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--noc-grey-2);
+  gap: 20px;
 }
 
 .card {
   min-height: 310px;
   padding: 48px 36px;
-  border-right: 1px solid var(--noc-grey-2);
-  border-bottom: 1px solid var(--noc-grey-2);
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 14px;
   background: transparent;
   color: inherit;
   text-align: left;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-.card:nth-child(4n) {
-  border-right: none;
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .card:hover,
 .card:focus-visible {
   background: var(--noc-grey-1);
   border-color: var(--noc-grey-3);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.16);
+  transform: translateY(-3px);
   outline: none;
 }
 
@@ -74,6 +73,7 @@
   font-weight: 600;
   color: var(--noc-accent);
   text-transform: uppercase;
+  animation: ctaTextBreath 3.2s ease-in-out infinite;
 }
 
 .overlay {
@@ -123,39 +123,6 @@
   width: min(1160px, 100%);
   max-height: min(620px, calc(100vh - 56px));
   padding: 24px 24px 20px;
-}
-
-.panel::before {
-  content: '';
-  position: absolute;
-  inset: -48%;
-  z-index: -2;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 58deg,
-    rgba(232, 97, 42, 0.16) 72deg,
-    rgba(232, 97, 42, 0.95) 88deg,
-    rgba(232, 97, 42, 0.16) 104deg,
-    transparent 120deg,
-    transparent 360deg
-  );
-  animation: orbitAccent 6.8s linear infinite;
-}
-
-.panel::after {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  z-index: -1;
-  border-radius: 6px;
-  background: var(--noc-black);
-}
-
-@keyframes orbitAccent {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @keyframes panelArrive {
@@ -245,10 +212,11 @@
   justify-content: center;
   min-height: 42px;
   padding: 0 18px;
-  border: 1px solid rgba(232, 97, 42, 0.4);
+  border: 1px solid rgba(232, 97, 42, 0.54);
   border-radius: 999px;
   background: #000000;
   color: var(--noc-accent);
+  animation: ctaBreath 3.2s ease-in-out infinite;
 }
 
 [data-theme='dark'] .projectLinkPill {
@@ -396,14 +364,6 @@
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .card:nth-child(4n) {
-    border-right: 1px solid var(--noc-grey-2);
-  }
-
-  .card:nth-child(2n) {
-    border-right: none;
-  }
 }
 
 @media (max-width: 1024px) {
@@ -436,12 +396,7 @@
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
-  }
-
-  .card,
-  .card:nth-child(4n),
-  .card:nth-child(2n) {
-    border-right: none;
+    gap: 14px;
   }
 
   .panel {
@@ -451,5 +406,111 @@
   .processGrid,
   .processGridIndustrial {
     grid-template-columns: 1fr;
+  }
+}
+
+@keyframes ctaBreath {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(232, 97, 42, 0),
+      0 0 0 0 rgba(232, 97, 42, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 5px 14px rgba(232, 97, 42, 0.12),
+      0 0 0 3px rgba(232, 97, 42, 0.05);
+  }
+}
+
+@keyframes ctaTextBreath {
+  0%,
+  100% {
+    text-shadow: 0 0 0 rgba(232, 97, 42, 0);
+  }
+
+  50% {
+    text-shadow:
+      0 0 6px rgba(232, 97, 42, 0.24),
+      0 0 12px rgba(232, 97, 42, 0.08);
+  }
+}
+
+/* ── Mobile services polish ───────────────── */
+@media (max-width: 640px) {
+  .header {
+    gap: 24px;
+    margin-bottom: 44px;
+  }
+
+  .card {
+    min-height: 240px;
+    padding: 32px 24px;
+  }
+
+  .num {
+    margin-bottom: 22px;
+  }
+
+  .title {
+    font-size: 17px;
+  }
+
+  .body {
+    font-size: 13px;
+    line-height: 1.62;
+  }
+
+  .openHint {
+    margin-top: 22px;
+  }
+
+  .overlay {
+    padding: 16px;
+    align-items: start;
+    overflow: auto;
+  }
+
+  .panel,
+  .panelWide {
+    width: 100%;
+    max-height: calc(100svh - 32px);
+    padding: 32px 22px 26px;
+    overflow: auto;
+    border-radius: 10px;
+  }
+
+  .panelTitle {
+    font-size: clamp(30px, 11vw, 44px);
+  }
+
+  .panelBody {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .projectLinkPill {
+    width: 100%;
+    min-height: 42px;
+  }
+
+  .processCard {
+    padding: 10px;
+  }
+}
+
+/* ── Mobile shadow trim v2 ── */
+@media (max-width: 768px) {
+  .btnPrimary,
+  .cta,
+  .btn,
+  .btnConfirm,
+  .btnReopen,
+  .projectLink,
+  .projectLinkPill,
+  .slot,
+  .panelMail {
+    box-shadow: none;
   }
 }

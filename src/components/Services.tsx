@@ -5,7 +5,7 @@ const SERVICES = [
   {
     num: '01',
     title: 'Industrial Design',
-    body: 'Physical product thinking from form direction to prototype-ready output.',
+    body: 'Industrial design for physical products, from research and form direction to prototype-ready 3D output.',
     deliverables: ['Form Concepts', 'Lo-Fi Prototypes', '3D Renders', '3D Printed Products and Prototypes'],
     projectUrl: 'https://www.behance.net/gallery/227654211/Alivio-Posture-Corrector-and-TENS-Device',
     process: [
@@ -23,7 +23,7 @@ const SERVICES = [
       },
       {
         num: '03',
-        title: '3D Vizualisation',
+        title: '3D Visualization',
         body: 'Rendered assembly, material direction, and presentation output.',
         image: 'https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/d64acb227654211.68540b9b1d395.png',
       },
@@ -38,7 +38,7 @@ const SERVICES = [
   {
     num: '02',
     title: 'Brand Design',
-    body: 'Identity systems that define how a brand looks, speaks, and behaves.',
+    body: 'Brand identity systems that define positioning, visual language, communication, and recall.',
     deliverables: ['Identity', 'Positioning & Strategy', 'Communication and Advertising', 'Experience'],
     projectUrl: 'https://www.behance.net/gallery/249160397/Visual-Design-for-armor',
     process: [
@@ -71,7 +71,7 @@ const SERVICES = [
   {
     num: '03',
     title: 'UI/UX System',
-    body: 'Interface systems that make product decisions clear, usable, and scalable.',
+    body: 'Product UI/UX systems for apps, dashboards, AI workflows, and digital products that need clarity at scale.',
     deliverables: ['UX Research & Strategy', 'Information Architecture & Wireframing', 'Prototype', 'Design System & Dev handoff'],
     projectUrl: 'https://www.behance.net/gallery/225607573/Sailfish-Hyperloop-Commuting-app',
     process: [
@@ -104,7 +104,7 @@ const SERVICES = [
   {
     num: '04',
     title: 'Motion Design',
-    body: 'Motion assets and interaction details that make communication feel authored.',
+    body: 'CGI, product visualization, motion assets, and interaction details for campaigns, launches, and product communication.',
     deliverables: ['2D & 3D Brand & Marketing Assets', 'Social Media Assets', 'Information & Communication', 'Promo Ads'],
     projectUrl: 'https://www.instagram.com/designwithabeer/',
     process: [
@@ -155,11 +155,11 @@ export function Services() {
         <div>
           <div className="section-label reveal">Services</div>
           <h2 className="section-title reveal reveal-d1">
-            Different disciplines.<br />One coherent system.
+            What You Get
           </h2>
         </div>
         <p className="section-body reveal reveal-d2">
-          Four focused capabilities. Each one can stand alone, but the strongest outcomes happen when they work together.
+          Four focused capabilities for startups and product brands. Each service can stand alone, but the strongest outcomes happen when physical product design, interface design, brand strategy, and launch visuals work as one system.
         </p>
       </div>
 
@@ -233,7 +233,6 @@ export function Services() {
                               muted
                               loop
                               playsInline
-                              controls
                             />
                           ) : (
                             <img
@@ -290,7 +289,6 @@ export function Services() {
                               muted
                               loop
                               playsInline
-                              controls
                             />
                           ) : (
                             <img

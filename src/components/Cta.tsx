@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import styles from './Cta.module.css'
 
-const CAL_URL = 'https://calendar.app.google/uaXpuZ2dCKAUhnzj7'
+const CAL_EMBED_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2xISzflS6opp0w6KlVdoltYpVkVYOawSSL9SklQQ-oN-bUU2GVMLXIElRo_JH0Iu9uQiCHKb7u?gv=true'
 
 const MONTHS = [
   'January','February','March','April','May','June',
@@ -10,7 +10,7 @@ const MONTHS = [
 const DAY_LABELS = ['SUN','MON','TUE','WED','THU','FRI','SAT']
 const SLOTS = ['10:00 AM', '11:30 AM', '2:00 PM', '3:30 PM', '5:00 PM']
 
-type Flow = 'calendar' | 'pending' | 'returning' | 'confirmed'
+type Flow = 'calendar' | 'embed'
 
 function useCalendar() {
   const now = new Date()
@@ -36,67 +36,27 @@ function useCalendar() {
 
 export function Cta() {
   const { year, month, today, cells, available } = useCalendar()
-  const [selected, setSelected]     = useState<number | null>(null)
+  const [selected, setSelected] = useState<number | null>(null)
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null)
-  const [flow, setFlow]             = useState<Flow>('calendar')
-  const focusRef = useRef<(() => void) | null>(null)
-
-  useEffect(() => {
-    return () => {
-      if (focusRef.current) window.removeEventListener('focus', focusRef.current)
-    }
-  }, [])
-
-  const attachFocusListener = () => {
-    if (focusRef.current) window.removeEventListener('focus', focusRef.current)
-    focusRef.current = () => {
-      // User is back — ask whether they completed the booking
-      setFlow('returning')
-      if (focusRef.current) {
-        window.removeEventListener('focus', focusRef.current)
-        focusRef.current = null
-      }
-    }
-    window.addEventListener('focus', focusRef.current)
-  }
-
-  const openCal = () => {
-    window.open(CAL_URL, '_blank', 'noopener,noreferrer')
-  }
+  const [flow, setFlow] = useState<Flow>('calendar')
 
   const handleSlot = (slot: string) => {
     setSelectedSlot(slot)
-    setFlow('pending')
-    openCal()
-    attachFocusListener()
+    setFlow('embed')
   }
 
   const handleOpenWithoutSlot = () => {
-    setFlow('pending')
-    openCal()
-    attachFocusListener()
-  }
-
-  const reopenCal = () => {
-    openCal()
-    attachFocusListener()
-    setFlow('pending')
+    setFlow('embed')
   }
 
   const reset = () => {
     setFlow('calendar')
     setSelected(null)
     setSelectedSlot(null)
-    if (focusRef.current) {
-      window.removeEventListener('focus', focusRef.current)
-      focusRef.current = null
-    }
   }
 
   return (
     <section id="cta" className={styles.cta}>
-
-      {/* ── Left copy ── */}
       <div className={styles.left}>
         <div className="section-label reveal">Work with us</div>
         <h2 className={`section-title ${styles.title} reveal reveal-d1`}>
@@ -113,11 +73,8 @@ export function Cta() {
         </div>
       </div>
 
-      {/* ── Calendar card ── */}
       <div className={`${styles.calWrap} reveal reveal-d1`}>
-        <div className={styles.calCard}>
-
-          {/* ── FLOW: calendar ── */}
+        <div className={`${styles.calCard} ${flow === 'embed' ? styles.calCardNative : ''}`}>
           {flow === 'calendar' && (
             <>
               <div className={styles.calHeader}>
@@ -132,18 +89,18 @@ export function Cta() {
                 {cells.map((day, i) => {
                   const isToday = day === today
                   const isAvail = day !== null && available.has(day)
-                  const isSel   = day !== null && day === selected
-                  const isPast  = day !== null && day <= today
+                  const isSel = day !== null && day === selected
+                  const isPast = day !== null && day <= today
                   return (
                     <div
                       key={i}
                       className={[
                         styles.cell,
-                        day === null        ? styles.cellEmpty  : '',
-                        isPast && !isToday ? styles.cellPast    : '',
-                        isToday            ? styles.cellToday   : '',
-                        isAvail            ? styles.cellAvail   : '',
-                        isSel              ? styles.cellSelected: '',
+                        day === null ? styles.cellEmpty : '',
+                        isPast && !isToday ? styles.cellPast : '',
+                        isToday ? styles.cellToday : '',
+                        isAvail ? styles.cellAvail : '',
+                        isSel ? styles.cellSelected : '',
                       ].join(' ')}
                       onClick={() => isAvail && setSelected(isSel ? null : day)}
                     >
@@ -156,7 +113,7 @@ export function Cta() {
               {selected ? (
                 <div className={styles.slots}>
                   <div className={styles.slotsLabel}>
-                    {MONTHS[month]} {selected} · pick a time
+                    {MONTHS[month]} {selected} - pick a time
                   </div>
                   <div className={styles.slotsGrid}>
                     {SLOTS.map((s) => (
@@ -177,79 +134,83 @@ export function Cta() {
             </>
           )}
 
-          {/* ── FLOW: pending ── */}
-          {flow === 'pending' && (
-            <div className={styles.flowState}>
-              <div className={styles.spinnerWrap}>
-                <div className={styles.spinner} />
-              </div>
-              <div className={styles.flowTitle}>Booking page open</div>
-              <div className={styles.flowBody}>
-                Complete your details in the Google Calendar tab and return here once done.
-              </div>
-              {selectedSlot && (
-                <div className={styles.slotBadge}>
-                  {MONTHS[month]} {selected} · {selectedSlot}
+          {flow === 'embed' && (
+            <div className={styles.gcal}>
+              <div className={styles.gcalHead}>
+                <div className={styles.gcalOrg}>
+                  <span className={styles.gcalAvatar}>
+                    <img src="/N-light.png" alt="" />
+                  </span>
+                  <span className={styles.gcalOrgName}>Nocturnal</span>
                 </div>
-              )}
-              <button className={styles.flowLink} onClick={reset}>
-                Choose a different time
-              </button>
-            </div>
-          )}
+                <span className={styles.gcalProvider}>Google Calendar</span>
+              </div>
 
-          {/* ── FLOW: returning — did they actually book? ── */}
-          {flow === 'returning' && (
-            <div className={styles.flowState}>
-              <div className={styles.questionMark}>?</div>
-              <div className={styles.flowTitle}>Did you complete the booking?</div>
-              <div className={styles.flowBody}>
-                Let us know so we can confirm your slot — or go back if you need more time.
-              </div>
-              {selectedSlot && (
-                <div className={styles.slotBadge}>
-                  {MONTHS[month]} {selected} · {selectedSlot}
+              <div className={styles.gcalGrid}>
+                <div className={styles.gcalEvent}>
+                  <h3 className={styles.gcalEventTitle}>Discovery Call</h3>
+                  <div className={styles.gcalEventRow}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 7v5l3 2" />
+                    </svg>
+                    60 min appointments
+                  </div>
+                  <div className={styles.gcalEventRow}>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="6" width="13" height="12" rx="2" />
+                      <path d="M15 10l6-3v10l-6-3" />
+                    </svg>
+                    Google Meet video conference info added after booking
+                  </div>
+                  <p className={styles.gcalDesc}>
+                    So glad you are here. This is the first step toward sharper brand and
+                    product decisions. We use the call to find what is working, what is not,
+                    and what to fix first.
+                  </p>
                 </div>
-              )}
-              <div className={styles.returningActions}>
-                <button className={styles.btnConfirm} onClick={() => setFlow('confirmed')}>
-                  Yes, I'm booked
+
+                <div className={styles.gcalPicker}>
+                  <div className={styles.gcalPickerTop}>
+                    <span className={styles.gcalPickerLabel}>Select an appointment time</span>
+                    <span className={styles.gcalTz}>(GMT+05:30) India Standard Time, Kolkata</span>
+                  </div>
+                  <div className={styles.gcalChosen}>
+                    {MONTHS[month]} {selected ?? today}{selectedSlot ? ` · ${selectedSlot}` : ''}
+                  </div>
+                  <div className={styles.gcalSlots}>
+                    {SLOTS.map((s) => (
+                      <button
+                        key={s}
+                        type="button"
+                        className={`${styles.gcalSlot} ${selectedSlot === s ? styles.gcalSlotActive : ''}`}
+                        onClick={() => setSelectedSlot(s)}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.gcalFoot}>
+                <button className={styles.flowLink} onClick={reset}>
+                  Back
                 </button>
-                <button className={styles.btnReopen} onClick={reopenCal}>
-                  Reopen booking page
-                </button>
+                <a
+                  className={styles.gcalConfirm}
+                  href={CAL_EMBED_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Confirm in Google Calendar
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M3 7H11M11 7L7 3M11 7L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
               </div>
-              <button className={styles.flowLink} onClick={reset}>
-                Choose a different time
-              </button>
             </div>
           )}
-
-          {/* ── FLOW: confirmed ── */}
-          {flow === 'confirmed' && (
-            <div className={styles.flowState}>
-              <div className={styles.checkWrap}>
-                <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
-                  <circle cx="13" cy="13" r="12" stroke="currentColor" strokeWidth="1.4"/>
-                  <path d="M8 13.5L11.5 17L18 9.5" stroke="currentColor" strokeWidth="1.4"
-                    strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <div className={styles.flowTitle}>Booking confirmed.</div>
-              <div className={styles.flowBody}>
-                A calendar invite and confirmation email are on their way. We'll be ready.
-              </div>
-              {selectedSlot && (
-                <div className={styles.slotBadge}>
-                  {MONTHS[month]} {selected} · {selectedSlot} · Google Meet
-                </div>
-              )}
-              <button className={styles.flowLink} onClick={reset}>
-                Book another call
-              </button>
-            </div>
-          )}
-
         </div>
       </div>
     </section>

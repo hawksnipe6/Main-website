@@ -25,7 +25,12 @@
   padding: 56px 48px 48px;
   max-width: 480px;
   width: 100%;
+  overflow: hidden;
   animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modalWide {
+  max-width: 760px;
 }
 
 @keyframes slideUp {
@@ -88,10 +93,14 @@
   color: #F5F4F0;
   font-size: 14px;
   font-weight: 600;
+  font-family: var(--noc-font);
   padding: 14px 32px;
+  border: 1px solid rgba(232, 97, 42, 0.64);
   border-radius: 999px;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, box-shadow 0.2s;
   margin-bottom: 20px;
+  cursor: pointer;
+  animation: ctaBreath 3.2s ease-in-out infinite;
 }
 .cta:hover { opacity: 0.88; }
 
@@ -100,8 +109,123 @@
   color: var(--noc-grey-4);
 }
 
+.calendarEmbed {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.calendarFrame {
+  width: 100%;
+  height: 560px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 8px;
+  background: var(--noc-black);
+  filter: invert(1) hue-rotate(180deg) saturate(0.82) contrast(0.95);
+}
+
+.backButton {
+  color: var(--noc-grey-4);
+  background: transparent;
+  border: 0;
+  font-size: 12px;
+  font-family: var(--noc-font);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  color: var(--noc-white);
+}
+
 @media (max-width: 600px) {
   .modal {
     padding: 48px 28px 36px;
+  }
+
+  .modalWide {
+    max-width: calc(100vw - 28px);
+  }
+
+  .calendarHeader {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .calendarFrame {
+    height: 620px;
+  }
+}
+
+@keyframes ctaBreath {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(232, 97, 42, 0),
+      0 0 0 0 rgba(232, 97, 42, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 5px 14px rgba(232, 97, 42, 0.12),
+      0 0 0 3px rgba(232, 97, 42, 0.05);
+  }
+}
+
+/* ── Mobile booking modal polish ──────────── */
+@media (max-width: 600px) {
+  .backdrop {
+    padding: 16px;
+    align-items: flex-start;
+    overflow: auto;
+  }
+
+  .modal {
+    max-height: calc(100svh - 32px);
+    overflow: auto;
+    padding: 46px 24px 32px;
+    border-radius: 10px;
+  }
+
+  .title {
+    font-size: clamp(25px, 8.5vw, 32px);
+  }
+
+  .body {
+    font-size: 14px;
+    line-height: 1.62;
+    margin-bottom: 28px;
+  }
+
+  .cta {
+    width: 100%;
+    text-align: center;
+  }
+
+  .calendarFrame {
+    height: min(620px, calc(100svh - 190px));
+  }
+}
+
+/* ── Mobile shadow trim v2 ── */
+@media (max-width: 768px) {
+  .btnPrimary,
+  .cta,
+  .btn,
+  .btnConfirm,
+  .btnReopen,
+  .projectLink,
+  .projectLinkPill,
+  .slot,
+  .panelMail {
+    box-shadow: none;
   }
 }

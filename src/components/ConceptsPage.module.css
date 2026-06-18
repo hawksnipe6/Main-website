@@ -1,0 +1,2711 @@
+/* ── Page shell ─────────────────────────────────────────── */
+.page {
+  padding-top: var(--page-padding-top);
+  min-height: 100dvh;
+}
+
+/* ── Page header ────────────────────────────────────────── */
+.pageHeader {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 80px calc(var(--gutter) + var(--site-padding)) 64px;
+  border-bottom: 1px solid var(--noc-grey-2);
+}
+
+.pageLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+  margin-bottom: 20px;
+}
+
+.pageTitle {
+  font-size: clamp(56px, 8vw, 100px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--noc-white);
+  line-height: 0.95;
+  margin-bottom: 28px;
+}
+
+.pageSubtitle {
+  font-size: 16px;
+  color: var(--noc-grey-4);
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+/* ── Category filters ───────────────────────────────────── */
+.filters {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 40px calc(var(--gutter) + var(--site-padding)) 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--noc-grey-4);
+  background: var(--noc-grey-1);
+  border: 1px solid var(--noc-grey-2);
+  cursor: pointer;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chip:hover {
+  color: var(--noc-white);
+}
+
+.chipActive {
+  background: var(--noc-white);
+  color: var(--noc-black);
+  border-color: var(--noc-white);
+}
+
+.chipActive:hover {
+  color: var(--noc-black);
+}
+
+/* ── Grid ───────────────────────────────────────────────── */
+.grid {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 64px calc(var(--gutter) + var(--site-padding));
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 2px;
+}
+
+.filters + .grid {
+  padding-top: 28px;
+}
+
+/* ── Card ───────────────────────────────────────────────── */
+.card {
+  cursor: pointer;
+  background: var(--noc-black);
+  border: 1px solid var(--noc-grey-2);
+  overflow: hidden;
+  transition: border-color 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover { border-color: var(--noc-grey-4); }
+
+.cardSoon { cursor: default; }
+.cardSoon:hover { border-color: var(--noc-grey-2); }
+
+.cardCover {
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardCoverInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardEmoji {
+  font-size: 52px;
+  filter: drop-shadow(0 4px 24px rgba(0,0,0,0.2));
+  animation: float 4s ease-in-out infinite;
+}
+
+.cardBody {
+  padding: 28px 28px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cardMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cardTitle {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--noc-white);
+  line-height: 1.2;
+}
+
+.cardTagline {
+  font-size: 14px;
+  color: var(--noc-grey-4);
+  line-height: 1.55;
+  flex: 1;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--noc-grey-2);
+  margin-top: auto;
+}
+
+.cardYear {
+  font-size: 12px;
+  color: var(--noc-grey-5);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.cardArrow {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--noc-grey-4);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s, gap 0.2s;
+}
+
+.card:hover .cardArrow {
+  color: var(--noc-white);
+  gap: 10px;
+}
+
+/* ── Tags ───────────────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--noc-accent-subtle);
+  color: var(--noc-accent);
+}
+
+.tagOutline {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid var(--noc-grey-3);
+  color: var(--noc-grey-4);
+}
+
+.tagStatus {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(183, 204, 255, 0.12);
+  color: #8ab0e8;
+  border: 1px solid rgba(183, 204, 255, 0.2);
+}
+
+/* ── Detail page ────────────────────────────────────────── */
+.detail {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 calc(var(--gutter) + var(--site-padding)) 120px;
+}
+
+.backBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--noc-grey-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 24px 0 40px;
+  font-family: var(--noc-font);
+  transition: color 0.2s;
+}
+
+.backBtn:hover { color: var(--noc-white); }
+
+.detailHero {
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--noc-grey-2);
+  margin-bottom: 64px;
+}
+
+.detailMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 28px;
+}
+
+.detailTitle {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--noc-white);
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+
+.detailTagline {
+  font-size: 18px;
+  color: var(--noc-grey-4);
+  line-height: 1.55;
+  max-width: 600px;
+}
+
+/* ── Sections ───────────────────────────────────────────── */
+.section {
+  margin-bottom: 80px;
+}
+
+.sectionLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+  margin-bottom: 24px;
+}
+
+.bodyLarge {
+  font-size: 18px;
+  color: var(--noc-grey-5);
+  line-height: 1.7;
+  max-width: 720px;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
+}
+
+/* ── Stats grid ─────────────────────────────────────────── */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+}
+
+.statCard {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--noc-glass-bg);
+}
+
+.statNum {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--noc-white);
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 13px;
+  color: var(--noc-grey-4);
+  line-height: 1.5;
+}
+
+/* ── Insight block ──────────────────────────────────────── */
+.insightBlock {
+  border-left: 2px solid var(--noc-accent);
+  padding: 8px 0 8px 36px;
+  margin-bottom: 80px;
+}
+
+.insightText {
+  font-size: clamp(20px, 2.5vw, 28px);
+  color: var(--noc-grey-5);
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-style: italic;
+  max-width: 680px;
+}
+
+/* ── Solution grid ──────────────────────────────────────── */
+.solutionGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--noc-grey-2);
+}
+
+.solutionCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--noc-grey-2);
+  transition: background 0.2s;
+}
+
+.solutionCard:last-child { border-bottom: none; }
+.solutionCard:hover { background: var(--noc-glass-bg); }
+
+.solutionIcon {
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.solutionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--noc-white);
+  margin-bottom: 4px;
+}
+
+.solutionDesc {
+  font-size: 14px;
+  color: var(--noc-grey-4);
+  line-height: 1.55;
+}
+
+/* ── Quote block ────────────────────────────────────────── */
+.quoteBlock {
+  padding: 64px 0;
+  border-top: 1px solid var(--noc-grey-2);
+  border-bottom: 1px solid var(--noc-grey-2);
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+.quote {
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--noc-white);
+  line-height: 1.3;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ── Demo section ───────────────────────────────────────── */
+.demoSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.demoText {
+  position: sticky;
+  top: 100px;
+}
+
+.demoHeading {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--noc-white);
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.demoBody {
+  font-size: 16px;
+  color: var(--noc-grey-4);
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+
+.demoActions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.restartBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-white);
+  background: var(--noc-glass-bg-mid);
+  border: 1px solid rgba(232, 97, 42, 0.42);
+  cursor: pointer;
+  font-family: var(--noc-font);
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  align-self: flex-start;
+  animation: ctaBreath 3.2s ease-in-out infinite;
+}
+
+.restartBtn:hover {
+  background: var(--noc-glass-bg);
+  border-color: var(--noc-grey-3);
+}
+
+.demoNote {
+  font-size: 12px;
+  color: var(--noc-grey-5);
+  line-height: 1.5;
+}
+
+.demoPhoneWrap {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+/* Hidden preload iframe */
+.iframeHidden {
+  display: none;
+}
+
+/* ── Loader dots ────────────────────────────────────────── */
+.phoneLoader {
+  position: absolute;
+  inset: 0;
+  background: #F8F3EC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.loaderDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--noc-grey-3);
+  animation: dotPulse 1.2s ease-in-out infinite;
+}
+
+.loaderDot:nth-child(2) { animation-delay: 0.2s; }
+.loaderDot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ── iPhone frame ───────────────────────────────────────── */
+.phoneOuter {
+  position: relative;
+  width: min(360px, 100%);
+  aspect-ratio: 1001 / 2048;
+  flex-shrink: 0;
+  filter: drop-shadow(0 40px 100px rgba(0, 0, 0, 0.62));
+  isolation: isolate;
+}
+
+.phoneScreen {
+  position: absolute;
+  left: 5.49%;
+  top: 2.54%;
+  width: 89.11%;
+  height: 94.87%;
+  overflow: hidden;
+  border-radius: 9.4% / 4.4%;
+  background: #F8F3EC;
+  z-index: 1;
+}
+
+.phoneFrameImage {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  background: #F8F3EC;
+}
+
+/* ── Keyframes ──────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes dotPulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .demoSection {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .demoText { position: static; }
+
+  .demoPhoneWrap {
+    justify-content: center;
+    padding: 32px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageTitle { font-size: 48px; }
+
+  .grid {
+    grid-template-columns: 1fr;
+    padding: 32px var(--site-padding);
+  }
+
+  .detail {
+    padding: 0 var(--site-padding) 80px;
+  }
+
+  .detailTitle { font-size: 42px; }
+
+  .statsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .insightBlock {
+    padding-left: 20px;
+  }
+
+  .pageHeader {
+    padding: 48px var(--site-padding) 40px;
+  }
+
+  .quoteBlock { padding: 40px 0; }
+
+  .phoneOuter {
+    width: min(300px, 100%);
+  }
+}
+
+@keyframes ctaBreath {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 rgba(232, 97, 42, 0),
+      0 0 0 0 rgba(232, 97, 42, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 5px 14px rgba(232, 97, 42, 0.12),
+      0 0 0 3px rgba(232, 97, 42, 0.05);
+  }
+}
+
+/* ── Prototype fullscreen and mobile polish ── */
+.prototypeBtn,
+.prototypeBackBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-white);
+  background: transparent;
+  border: 1px solid var(--noc-grey-2);
+  cursor: pointer;
+  font-family: var(--noc-font);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.prototypeBtn:hover,
+.prototypeBackBtn:hover {
+  color: var(--noc-accent);
+  border-color: var(--noc-accent);
+}
+
+.prototypeOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 18px;
+  padding: 18px;
+  background: rgba(13, 13, 13, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.prototypeToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: min(100%, 960px);
+  margin: 0 auto;
+  padding: 6px 0;
+}
+
+.prototypeStage {
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 4px 0 18px;
+}
+
+.phoneOuterFullscreen {
+  width: min(420px, calc(100vw - 48px), calc((100svh - 108px) * 0.4888));
+  filter: drop-shadow(0 24px 60px rgba(0, 0, 0, 0.46));
+}
+
+.phoneScreen {
+  -webkit-overflow-scrolling: touch;
+}
+
+.iframe {
+  touch-action: pan-y;
+}
+
+@media (max-width: 768px) {
+  .pageHeader {
+    padding-top: 42px;
+    padding-bottom: 34px;
+  }
+
+  .pageTitle {
+    font-size: clamp(42px, 16vw, 64px);
+    line-height: 0.96;
+    letter-spacing: -0.055em;
+  }
+
+  .pageSubtitle,
+  .detailTagline,
+  .bodyLarge,
+  .demoBody {
+    font-size: 14px;
+    line-height: 1.62;
+  }
+
+  .detailTitle {
+    font-size: clamp(36px, 12vw, 52px);
+    line-height: 0.98;
+    letter-spacing: -0.05em;
+  }
+
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .solutionCard {
+    gap: 14px;
+    padding: 22px 20px;
+  }
+
+  .demoSection {
+    gap: 32px;
+  }
+
+  .demoHeading {
+    font-size: clamp(30px, 10vw, 42px);
+  }
+
+  .demoActions {
+    gap: 12px;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .restartBtn,
+  .prototypeBtn,
+  .prototypeBackBtn {
+    width: 100%;
+    min-height: 42px;
+    justify-content: center;
+  }
+
+  .demoPhoneWrap {
+    padding: 18px 0 10px;
+    overflow: visible;
+  }
+
+  .phoneOuter {
+    width: min(316px, calc(100vw - 40px));
+    filter: drop-shadow(0 18px 42px rgba(0, 0, 0, 0.42));
+  }
+
+  .phoneOuterFullscreen {
+    width: min(360px, calc(100vw - 28px), calc((100svh - 132px) * 0.4888));
+  }
+
+  .prototypeOverlay {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .prototypeToolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .prototypeStage {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ── Concepts mobile alignment fix v2 ── */
+.demoSection {
+  overflow: visible;
+}
+
+.demoText {
+  max-width: 100%;
+}
+
+.demoActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.demoActions > button {
+  min-height: 48px;
+}
+
+.demoNote {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.demoPhoneWrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  overflow: visible;
+}
+
+.demoPhoneWrap .phoneOuter {
+  margin: 0 auto;
+}
+
+.prototypeOverlay {
+  overscroll-behavior: contain;
+}
+
+.prototypeToolbar .prototypeBackBtn,
+.prototypeToolbar .restartBtn {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  animation: none;
+  box-shadow: none;
+}
+
+.prototypeToolbar .prototypeBackBtn:hover,
+.prototypeToolbar .restartBtn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.prototypeToolbar .restartBtn svg {
+  color: currentColor;
+}
+
+@media (max-width: 768px) {
+  .demoSection {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .demoText {
+    position: static;
+    max-width: 100%;
+  }
+
+  .demoHeading {
+    max-width: 10ch;
+    text-wrap: balance;
+  }
+
+  .demoBody {
+    max-width: 100%;
+  }
+
+  .demoActions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .demoNote {
+    font-size: 13px;
+    line-height: 1.55;
+    max-width: 100%;
+  }
+
+  .demoPhoneWrap {
+    padding: 8px 0 4px;
+  }
+
+  .phoneOuter {
+    width: min(296px, calc(100vw - 56px));
+    filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.28));
+  }
+
+  .prototypeOverlay {
+    grid-template-rows: auto 1fr;
+    gap: 10px;
+    padding:
+      max(10px, env(safe-area-inset-top))
+      14px
+      max(14px, env(safe-area-inset-bottom))
+      14px;
+    background: rgba(10, 10, 10, 0.97);
+  }
+
+  .prototypeToolbar {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+    max-width: 420px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 0 auto;
+    padding: 4px 0 6px;
+  }
+
+  .prototypeToolbar .prototypeBackBtn,
+  .prototypeToolbar .restartBtn {
+    width: 100%;
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .prototypeStage {
+    align-items: flex-start;
+    justify-content: center;
+    overflow: auto;
+    padding: 4px 0 0;
+  }
+
+  .phoneOuterFullscreen {
+    width: min(334px, calc(100vw - 28px), calc((100svh - 132px) * 0.4888));
+    margin: 0 auto;
+    filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.3));
+  }
+}
+
+/* ── Densly case study system ───────────────────────────── */
+.denslyCover {
+  width: 100%;
+  height: 100%;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(255, 255, 255, 0.12), transparent 28%),
+    linear-gradient(135deg, rgba(238, 235, 226, 0.08), rgba(107, 128, 102, 0.10));
+}
+
+.denslyCoverPanel {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--noc-grey-2);
+  background: rgba(245, 244, 240, 0.04);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 14px;
+  padding: 16px;
+  overflow: hidden;
+}
+
+.coverHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--noc-grey-5);
+}
+
+.coverPhoneRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 0;
+  transform: translateY(6px);
+}
+
+.denslyHero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(420px, 1.06fr);
+  gap: 64px;
+  align-items: end;
+  padding-bottom: 72px;
+  border-bottom: 1px solid var(--noc-grey-2);
+  margin-bottom: 72px;
+  overflow: visible;
+}
+
+.denslyHeroCopy {
+  min-width: 0;
+}
+
+.denslyHeroVisual {
+  position: relative;
+  min-height: 610px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 18px;
+  padding: 34px 24px;
+  border: 1px solid var(--noc-grey-2);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 60%),
+    var(--noc-glass-bg);
+  overflow: hidden;
+}
+
+.denslyHeroVisual::before {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border: 1px solid var(--noc-grey-2);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.denslyHeroVisual .denslyPhone:nth-child(1) {
+  transform: translateY(34px) rotate(-5deg);
+}
+
+.denslyHeroVisual .denslyPhone:nth-child(2) {
+  width: 220px;
+  transform: translateY(-4px);
+  z-index: 2;
+}
+
+.denslyHeroVisual .denslyPhone:nth-child(3) {
+  transform: translateY(34px) rotate(5deg);
+}
+
+.denslyThesisCard {
+  margin-top: 36px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-glass-bg);
+  padding: 24px;
+  max-width: 560px;
+}
+
+.denslyThesisCard span,
+.denslySourceNote,
+.denslyProblemCard span,
+.denslyScreenCard > div > span,
+.denslyFlowCard span,
+.denslyBusinessRows span {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+}
+
+.denslyThesisCard p {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--noc-grey-5);
+}
+
+.denslyIntroSection {
+  padding-top: 0;
+}
+
+.denslyIntroGrid {
+  margin-top: 52px;
+  display: grid;
+  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+  padding: 40px 0 0;
+  border-top: 1px solid var(--noc-grey-2);
+}
+
+.denslyIntroGrid h2,
+.denslySectionHeader h2,
+.denslySplitPanel h2 {
+  font-size: clamp(32px, 4.8vw, 64px);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  color: var(--noc-white);
+  font-weight: 700;
+}
+
+.denslyIntroGrid p,
+.denslySectionHeader p {
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--noc-grey-5);
+  max-width: 650px;
+}
+
+.denslySourceNote {
+  margin-top: 18px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.denslyCategorizationSection,
+.denslyMatrixSection,
+.denslyScreensSection,
+.denslyFlowSection,
+.denslySplitSection,
+.denslyVisualDirection,
+.denslyRiskSection {
+  margin-bottom: 92px;
+}
+
+.denslySectionHeader {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.52fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 34px;
+}
+
+.denslySectionHeader .sectionLabel {
+  margin-bottom: 0;
+}
+
+.denslySectionHeader p {
+  grid-column: 2;
+  margin-top: -18px;
+}
+
+
+.denslyCategorizationCard {
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-glass-bg);
+  padding: 34px;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1fr);
+  gap: 34px;
+  align-items: stretch;
+}
+
+.denslyCategoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyCategoryItem {
+  background: var(--noc-black);
+  padding: 22px;
+  min-height: 104px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.denslyCategoryItem span,
+.denslyTrendBlock span {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+}
+
+.denslyCategoryItem strong {
+  display: block;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  color: var(--noc-white);
+  font-weight: 700;
+}
+
+.denslyTrendBlock {
+  border: 1px solid var(--noc-grey-2);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 62%),
+    var(--noc-black);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 212px;
+}
+
+.denslyTrendBlock p {
+  margin-top: 22px;
+  font-size: clamp(19px, 2.2vw, 30px);
+  line-height: 1.28;
+  letter-spacing: -0.04em;
+  color: var(--noc-white);
+  max-width: 760px;
+}
+
+.denslyProblemGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyProblemCard,
+.denslyFlowCard,
+.denslyRiskCard,
+.denslySplitPanel,
+.denslyScreenCard {
+  background: var(--noc-black);
+  border: 1px solid transparent;
+}
+
+.denslyProblemCard {
+  padding: 32px;
+  min-height: 250px;
+}
+
+.denslyProblemCard h3,
+.denslyFlowCard h3,
+.denslyRiskCard h3,
+.denslyScreenCard h3 {
+  margin-top: 18px;
+  font-size: 22px;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  color: var(--noc-white);
+}
+
+.denslyProblemCard p,
+.denslyFlowCard p,
+.denslyRiskCard p,
+.denslyScreenCard p,
+.denslyBusinessRows p,
+.denslyList li {
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.62;
+  color: var(--noc-grey-5);
+}
+
+.numberedSolutionCard .solutionIcon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--noc-grey-2);
+  color: var(--noc-grey-5);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 0;
+}
+
+.denslyScreensGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+}
+
+.denslyScreenCard {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  gap: 30px;
+  align-items: center;
+  padding: 34px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-glass-bg);
+  overflow: hidden;
+}
+
+.denslyScreenCard .denslyPhone {
+  margin: 0 auto;
+}
+
+.denslyFlowGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyFlowCard {
+  padding: 26px;
+  min-height: 220px;
+}
+
+.denslySplitSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.denslySplitPanel {
+  border: 1px solid var(--noc-grey-2);
+  padding: 40px;
+  background: var(--noc-glass-bg);
+}
+
+.denslyList {
+  list-style: none;
+  margin-top: 30px;
+  display: grid;
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyList li {
+  position: relative;
+  margin-top: 0;
+  padding: 18px 18px 18px 46px;
+  background: var(--noc-black);
+}
+
+.denslyList li::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 26px;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #1b7d46;
+}
+
+.denslyBusinessRows {
+  display: grid;
+  gap: 1px;
+  margin-top: 30px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyBusinessRows div {
+  padding: 20px;
+  background: var(--noc-black);
+}
+
+.denslyBusinessRows p {
+  margin-top: 8px;
+}
+
+.denslyRiskGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.denslyRiskCard {
+  padding: 28px;
+  min-height: 210px;
+}
+
+/* ── Densly app mockup ──────────────────────────────────── */
+.denslyPhone {
+  --app-bg: #f4f3ee;
+  --app-card: #ffffff;
+  --app-ink: #162017;
+  --app-muted: #7d827b;
+  --app-line: rgba(22, 32, 23, 0.11);
+  --app-green: #08703e;
+  position: relative;
+  width: 188px;
+  aspect-ratio: 9 / 19.5;
+  border-radius: 34px;
+  padding: 9px;
+  background: linear-gradient(180deg, #f7f6f1, #e5e2d7);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.26);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  flex-shrink: 0;
+  font-family: var(--noc-font);
+}
+
+.denslyPhoneCompact {
+  width: 104px;
+  border-radius: 22px;
+  padding: 5px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.22);
+}
+
+.denslyNotch {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  z-index: 4;
+  width: 34%;
+  height: 18px;
+  transform: translateX(-50%);
+  border-radius: 0 0 12px 12px;
+  background: #f7f6f1;
+}
+
+.denslyPhoneCompact .denslyNotch {
+  top: 5px;
+  height: 10px;
+  border-radius: 0 0 8px 8px;
+}
+
+.denslyApp {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 27px;
+  background: var(--app-bg);
+  color: var(--app-ink);
+  padding: 26px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.denslyPhoneCompact .denslyApp {
+  border-radius: 18px;
+  padding: 16px 7px 7px;
+  gap: 6px;
+}
+
+.denslyTopbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--app-ink);
+}
+
+.denslyPhoneCompact .denslyTopbar {
+  font-size: 5px;
+}
+
+.captureView {
+  position: relative;
+  min-height: 158px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 52% 20%, rgba(8, 112, 62, 0.10), transparent 28%),
+    #d9dcd1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.denslyPhoneCompact .captureView {
+  min-height: 88px;
+  border-radius: 14px;
+}
+
+.captureGrid {
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(22, 32, 23, 0.22);
+  border-radius: 18px;
+}
+
+.captureGrid::before,
+.captureGrid::after {
+  content: '';
+  position: absolute;
+  background: rgba(22, 32, 23, 0.12);
+}
+
+.captureGrid::before {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+
+.captureGrid::after {
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+}
+
+.headShape {
+  position: relative;
+  width: 74px;
+  height: 96px;
+  border-radius: 44% 44% 46% 46%;
+  background: #d6a889;
+  overflow: hidden;
+  transform: translateY(10px);
+}
+
+.denslyPhoneCompact .headShape {
+  width: 41px;
+  height: 54px;
+}
+
+.hairMass {
+  position: absolute;
+  inset: -8px 2px 44px;
+  border-radius: 48% 48% 34% 34%;
+  background: #171512;
+}
+
+.zoneRing {
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  width: 36px;
+  height: 30px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.76);
+  border-radius: 999px;
+}
+
+.captureInstruction {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--app-ink);
+  font-size: 8px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.denslyPhoneCompact .captureInstruction {
+  display: none;
+}
+
+.qualityPanel,
+.reportCard,
+.routineHero,
+.progressHero {
+  border-radius: 22px;
+  background: var(--app-card);
+  border: 1px solid var(--app-line);
+}
+
+.qualityPanel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px;
+}
+
+.miniLabel {
+  display: block;
+  font-size: 7px;
+  font-weight: 700;
+  color: var(--app-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.qualityPanel strong {
+  font-size: 12px;
+  color: var(--app-ink);
+}
+
+.statusDot {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--app-green);
+  background: rgba(8, 112, 62, 0.08);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.denslyAction {
+  margin-top: auto;
+  width: 100%;
+  min-height: 38px;
+  border-radius: 999px;
+  background: var(--app-green);
+  color: #ffffff;
+  font-family: var(--noc-font);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.progressHero,
+.reportCard,
+.routineHero {
+  padding: 14px;
+}
+
+.progressHero h4,
+.reportCard h4 {
+  margin-top: 20px;
+  font-size: 16px;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.progressHero p,
+.reportCard p,
+.routineHero span {
+  margin-top: 6px;
+  font-size: 9px;
+  line-height: 1.45;
+  color: var(--app-muted);
+}
+
+.zoneList,
+.reportRows,
+.routineList {
+  display: grid;
+  gap: 6px;
+}
+
+.zoneList div,
+.reportRows div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.56);
+  font-size: 8px;
+  color: var(--app-muted);
+}
+
+.zoneList strong,
+.reportRows strong {
+  color: var(--app-green);
+  font-size: 8px;
+  white-space: nowrap;
+}
+
+.timelineBars {
+  margin-top: auto;
+  height: 58px;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid var(--app-line);
+}
+
+.timelineBars span {
+  flex: 1;
+  min-height: 10px;
+  border-radius: 999px 999px 0 0;
+  background: rgba(8, 112, 62, 0.18);
+}
+
+.timelineBars span:nth-child(n+4) {
+  background: rgba(8, 112, 62, 0.55);
+}
+
+.denslyLogo {
+  width: 24px;
+  height: 22px;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 3px;
+}
+
+.denslyLogo span {
+  display: block;
+  border-radius: 999px;
+  background: #08703e;
+}
+
+.denslyLogo span:nth-child(2) {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.reportRows {
+  margin-top: 4px;
+}
+
+.routineHero {
+  min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    radial-gradient(circle at 74% 22%, rgba(8, 112, 62, 0.12), transparent 28%),
+    #ffffff;
+}
+
+.routineHero strong {
+  margin-top: 6px;
+  font-size: 18px;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+}
+
+.routineList div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 15px;
+  background: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.routineList span {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(8, 112, 62, 0.22);
+}
+
+.calendarStrip {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  font-size: 8px;
+  color: var(--app-muted);
+}
+
+.calendarStrip span,
+.calendarStrip strong {
+  height: 24px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.calendarStrip strong {
+  background: var(--app-green);
+  color: #ffffff;
+}
+
+.denslyPhoneCompact .qualityPanel,
+.denslyPhoneCompact .denslyAction,
+.denslyPhoneCompact .zoneList,
+.denslyPhoneCompact .timelineBars {
+  display: none;
+}
+
+.denslyPhoneCompact .progressHero {
+  padding: 8px;
+  border-radius: 12px;
+}
+
+.denslyPhoneCompact .progressHero h4 {
+  margin-top: 22px;
+  font-size: 8px;
+}
+
+.denslyPhoneCompact .progressHero p {
+  font-size: 5px;
+}
+
+.denslyPhoneCompact .denslyLogo {
+  width: 13px;
+  height: 12px;
+  gap: 2px;
+}
+
+@media (max-width: 1180px) {
+  .denslyHero {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .denslyHeroVisual {
+    min-height: 520px;
+  }
+
+  .denslyFlowGrid,
+  .denslyRiskGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .denslyScreensGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .denslyProblemGrid,
+  .referenceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .referenceGrid img {
+    height: 300px;
+  }
+
+  .denslySplitSection {
+    grid-template-columns: 1fr;
+  }
+
+  .denslyCategorizationCard {
+    grid-template-columns: 1fr;
+    padding: 26px;
+  }
+
+  .denslySectionHeader,
+  .denslyIntroGrid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .denslySectionHeader p {
+    grid-column: auto;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .denslyHero {
+    gap: 30px;
+    padding-bottom: 48px;
+    margin-bottom: 52px;
+  }
+
+  .denslyThesisCard {
+    margin-top: 28px;
+    padding: 20px;
+  }
+
+  .denslyHeroVisual {
+    min-height: 370px;
+    padding: 26px 12px;
+    gap: 8px;
+  }
+
+  .denslyHeroVisual .denslyPhone {
+    width: 128px;
+    border-radius: 27px;
+    padding: 7px;
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(1) {
+    transform: translate(26px, 22px) rotate(-5deg);
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(2) {
+    width: 150px;
+    transform: translateY(-2px);
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(3) {
+    transform: translate(-26px, 22px) rotate(5deg);
+  }
+
+  .denslyPhone .denslyApp {
+    border-radius: 22px;
+    padding: 24px 10px 10px;
+    gap: 8px;
+  }
+
+  .denslyPhone .captureView {
+    min-height: 112px;
+    border-radius: 18px;
+  }
+
+  .denslyPhone .headShape {
+    width: 54px;
+    height: 72px;
+  }
+
+  .denslyPhone .qualityPanel {
+    padding: 9px;
+    border-radius: 17px;
+  }
+
+  .denslyPhone .qualityPanel strong {
+    font-size: 10px;
+  }
+
+  .denslyPhone .statusDot {
+    width: 28px;
+    height: 28px;
+    font-size: 9px;
+  }
+
+  .denslyPhone .progressHero h4,
+  .denslyPhone .reportCard h4 {
+    font-size: 13px;
+  }
+
+  .denslyPhone .routineHero {
+    min-height: 86px;
+  }
+
+  .denslyPhone .routineHero strong {
+    font-size: 14px;
+  }
+
+  .denslyIntroGrid h2,
+  .denslySectionHeader h2,
+  .denslySplitPanel h2 {
+    font-size: clamp(30px, 11vw, 44px);
+  }
+
+  .denslyIntroGrid p,
+  .denslySectionHeader p {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .denslyCategorizationSection,
+  .denslyMatrixSection,
+  .denslyScreensSection,
+  .denslyFlowSection,
+  .denslySplitSection,
+  .denslyVisualDirection,
+  .denslyRiskSection {
+    margin-bottom: 64px;
+  }
+
+  .denslyCategorizationCard {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .denslyCategoryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .denslyCategoryItem {
+    min-height: 86px;
+    padding: 18px;
+  }
+
+  .denslyTrendBlock {
+    min-height: auto;
+    padding: 22px;
+  }
+
+  .denslyTrendBlock p {
+    font-size: 20px;
+    line-height: 1.36;
+  }
+
+  .denslyProblemCard,
+  .denslySplitPanel,
+  .denslyRiskCard,
+  .denslyFlowCard {
+    padding: 24px 20px;
+    min-height: auto;
+  }
+
+  .denslyScreensGrid {
+    gap: 1px;
+  }
+
+  .denslyScreenCard {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 28px 20px;
+  }
+
+  .denslyScreenCard .denslyPhone {
+    width: min(214px, 76vw);
+  }
+
+  .denslyFlowGrid,
+  .denslyRiskGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .referenceGrid img {
+    height: 260px;
+  }
+
+  .denslyCover {
+    padding: 14px;
+  }
+
+  .denslyCoverPanel {
+    padding: 12px;
+  }
+
+  .coverPhoneRow {
+    gap: 8px;
+  }
+
+  .coverPhoneRow .denslyPhoneCompact {
+    width: 92px;
+  }
+}
+
+@media (max-width: 430px) {
+  .denslyHeroVisual {
+    min-height: 330px;
+  }
+
+  .denslyHeroVisual .denslyPhone {
+    width: 112px;
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(2) {
+    width: 132px;
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(1) {
+    transform: translate(34px, 20px) rotate(-5deg);
+  }
+
+  .denslyHeroVisual .denslyPhone:nth-child(3) {
+    transform: translate(-34px, 20px) rotate(5deg);
+  }
+
+  .referenceGrid img {
+    height: 220px;
+  }
+}
+
+/* ── Densly embedded prototype + strategy sections ───────── */
+.denslyPrototypeSection {
+  margin: 104px 0;
+  padding: clamp(28px, 5vw, 56px);
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(232, 97, 42, 0.08), transparent 28%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.denslyPrototypeSection .demoText {
+  align-self: center;
+}
+
+.denslyPrototypeSection .demoHeading {
+  max-width: 520px;
+}
+
+.denslyPrototypeSection .demoBody {
+  max-width: 520px;
+}
+
+.denslyPrototypeSection .demoPhoneWrap {
+  align-items: center;
+}
+
+.denslyPrototypeSection .phoneOuter {
+  width: min(342px, 100%);
+}
+
+.denslyOfferSection,
+.denslyProofSection,
+.denslyFrameworkSection {
+  margin-bottom: 96px;
+}
+
+.denslyOfferGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--noc-grey-2);
+}
+
+.denslyOfferCard {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 22px;
+  padding: clamp(22px, 3vw, 32px);
+  background: var(--noc-black);
+}
+
+.denslyOfferStep {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(232, 97, 42, 0.12);
+  color: var(--noc-accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.denslyOfferLabel {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--noc-grey-4);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.denslyOfferCard h3 {
+  margin: 0 0 8px;
+  color: var(--noc-white);
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+.denslyOfferCard small {
+  color: var(--noc-grey-5);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.denslyOfferCard p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--noc-grey-4);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.denslyProofGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--noc-grey-2);
+}
+
+.denslyProofCard {
+  min-height: 250px;
+  padding: clamp(24px, 3vw, 36px);
+  background: var(--noc-black);
+  display: flex;
+  flex-direction: column;
+}
+
+.denslyProofCard h3 {
+  margin: 0 0 14px;
+  color: var(--noc-white);
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.denslyProofCard p {
+  margin: 0 0 28px;
+  color: var(--noc-grey-4);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.denslyProofCard span {
+  margin-top: auto;
+  color: var(--noc-accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.denslyFrameworkGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.denslyFrameworkCard {
+  min-height: 280px;
+  padding: 28px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.025);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.denslyFrameworkCard > span {
+  color: var(--noc-grey-4);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.denslyFrameworkCard strong {
+  margin: 30px 0 8px;
+  color: var(--noc-white);
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.denslyFrameworkCard small {
+  color: var(--noc-accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.denslyFrameworkCard p {
+  margin: auto 0 0;
+  color: var(--noc-grey-4);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@media (max-width: 1180px) {
+  .denslyFrameworkGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .denslyPrototypeSection {
+    margin: 72px 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .denslyPrototypeSection {
+    margin: 56px 0;
+    padding: 22px;
+    border-radius: 14px;
+  }
+
+  .denslyPrototypeSection .phoneOuter {
+    width: min(286px, calc(100vw - 72px));
+  }
+
+  .denslyOfferCard {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .denslyProofGrid,
+  .denslyFrameworkGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .denslyProofCard,
+  .denslyFrameworkCard {
+    min-height: auto;
+  }
+}
+
+/* ── Densly clean case-study refinement ─────────────────── */
+.denslyCover {
+  width: 100%;
+  height: 100%;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(8, 112, 62, 0.18), transparent 26%),
+    linear-gradient(135deg, rgba(245, 244, 240, 0.05), rgba(76, 122, 95, 0.08));
+}
+
+.denslyFloatIcon {
+  position: relative;
+  width: 86px;
+  height: 86px;
+  border-radius: 26px;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(180deg, rgba(245, 244, 240, 0.10), rgba(245, 244, 240, 0.025)),
+    rgba(8, 112, 62, 0.10);
+  border: 1px solid rgba(245, 244, 240, 0.14);
+  box-shadow:
+    0 26px 70px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  animation: denslyIconFloat 4.8s ease-in-out infinite;
+}
+
+.denslyFloatIconLarge {
+  width: clamp(86px, 10vw, 132px);
+  height: clamp(86px, 10vw, 132px);
+  border-radius: clamp(26px, 3vw, 36px);
+}
+
+.denslyFloatIconCard {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+}
+
+.denslyFloatIconCard span {
+  height: 4px;
+}
+
+.denslyFloatIcon span {
+  position: absolute;
+  left: 50%;
+  width: 34%;
+  height: 6px;
+  border-radius: 999px;
+  background: #08703e;
+  transform: translateX(-50%);
+}
+
+.denslyFloatIcon span:nth-child(1) {
+  top: 35%;
+  width: 42%;
+}
+
+.denslyFloatIcon span:nth-child(2) {
+  top: 48%;
+  width: 31%;
+}
+
+.denslyFloatIcon span:nth-child(3) {
+  top: 61%;
+  width: 22%;
+}
+
+@keyframes denslyIconFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.denslyHeroVisual {
+  min-height: 0;
+  padding: clamp(28px, 4vw, 44px);
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(8, 112, 62, 0.13), transparent 32%),
+    rgba(255, 255, 255, 0.025);
+  overflow: hidden;
+}
+
+.denslyHeroVisual::before,
+.denslyHeroVisual .denslyPhone {
+  display: none;
+}
+
+.denslyHeroSignalPanel {
+  min-height: 520px;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  align-items: center;
+  justify-items: center;
+  gap: 34px;
+  text-align: center;
+}
+
+.denslyHeroSignalCopy {
+  max-width: 520px;
+}
+
+.denslyHeroSignalCopy span {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--noc-grey-4);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.denslyHeroSignalCopy h2 {
+  margin: 0;
+  color: var(--noc-white);
+  font-size: clamp(34px, 4.8vw, 58px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.denslyHeroSignalCopy p {
+  margin: 20px auto 0;
+  color: var(--noc-grey-4);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.denslyHeroSignalGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+  gap: 1px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.denslyHeroSignalGrid div {
+  min-height: 96px;
+  padding: 18px 12px;
+  display: grid;
+  place-items: center;
+  background: var(--noc-black);
+}
+
+.denslyHeroSignalGrid strong {
+  color: var(--noc-white);
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.denslyHeroSignalGrid span {
+  color: var(--noc-grey-4);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.denslyCasePillarSection {
+  margin-bottom: 92px;
+}
+
+.denslyCasePillarGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 16px;
+  background: var(--noc-grey-2);
+  overflow: hidden;
+}
+
+.denslyCasePillarCard {
+  min-height: 330px;
+  padding: clamp(24px, 3vw, 34px);
+  background: var(--noc-black);
+  display: flex;
+  flex-direction: column;
+}
+
+.denslyCasePillarCard span {
+  color: var(--noc-accent);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.denslyCasePillarCard h3 {
+  margin: 32px 0 18px;
+  color: var(--noc-white);
+  font-size: clamp(24px, 3vw, 36px);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.denslyCasePillarCard p {
+  margin: auto 0 0;
+  color: var(--noc-grey-4);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.denslyPrototypeSection {
+  background:
+    radial-gradient(circle at 76% 16%, rgba(8, 112, 62, 0.10), transparent 28%),
+    rgba(255, 255, 255, 0.025);
+}
+
+@media (max-width: 1180px) {
+  .denslyHero {
+    grid-template-columns: 1fr;
+  }
+
+  .denslyHeroVisual {
+    min-height: auto;
+  }
+
+  .denslyHeroSignalPanel {
+    min-height: 440px;
+  }
+
+  .denslyCasePillarGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .denslyCasePillarCard {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .denslyHeroSignalPanel {
+    min-height: 380px;
+    gap: 26px;
+  }
+
+  .denslyHeroSignalGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .denslyHeroSignalGrid div {
+    min-height: 78px;
+  }
+
+  .denslyFloatIconLarge {
+    width: 88px;
+    height: 88px;
+    border-radius: 26px;
+  }
+
+  .denslyCasePillarCard {
+    padding: 24px;
+  }
+}
+
+/* ── Densly heading consistency pass ───────────────────── */
+.denslySectionHeader h2,
+.denslyHeroSignalCopy h2,
+.denslyCasePillarCard h3,
+.denslyProofCard h3,
+.denslyFrameworkCard strong,
+.denslyOfferCard h3,
+.denslySplitPanel h2,
+.denslyFlowCard h3,
+.denslyRiskCard h3,
+.denslyProblemCard h3 {
+  text-wrap: balance;
+}
+
+.denslySectionHeader h2 {
+  max-width: 620px;
+  font-size: clamp(32px, 4.4vw, 56px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.denslyHeroSignalCopy h2 {
+  max-width: 460px;
+  margin-inline: auto;
+  font-size: clamp(34px, 4.4vw, 54px);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.denslyCasePillarCard h3 {
+  max-width: 480px;
+  font-size: clamp(22px, 2.35vw, 32px);
+  line-height: 1.06;
+}
+
+.denslyProofCard h3 {
+  max-width: 480px;
+  font-size: clamp(22px, 2.4vw, 34px);
+  line-height: 1.05;
+}
+
+.denslyFrameworkCard strong {
+  max-width: 100%;
+  font-size: clamp(28px, 3.2vw, 42px);
+  line-height: 0.98;
+}
+
+.denslyOfferCard h3,
+.denslySplitPanel h2 {
+  max-width: 680px;
+  font-size: clamp(22px, 2.7vw, 36px);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.denslyFlowCard h3,
+.denslyRiskCard h3,
+.denslyProblemCard h3 {
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+}
+
+.denslySectionHeader {
+  align-items: start;
+}
+
+.denslySectionHeader p {
+  max-width: 680px;
+}
+
+@media (max-width: 760px) {
+  .denslySectionHeader {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .denslySectionHeader p {
+    grid-column: auto;
+    margin-top: 0;
+  }
+
+  .denslySectionHeader h2 {
+    max-width: 100%;
+    font-size: clamp(30px, 11vw, 44px);
+    line-height: 1;
+  }
+
+  .denslyHeroSignalCopy h2 {
+    font-size: clamp(30px, 10.5vw, 42px);
+  }
+
+  .denslyCasePillarCard h3,
+  .denslyProofCard h3,
+  .denslyOfferCard h3,
+  .denslySplitPanel h2 {
+    font-size: clamp(24px, 8vw, 34px);
+    line-height: 1.05;
+  }
+
+  .denslyFrameworkCard strong {
+    font-size: clamp(30px, 10vw, 40px);
+  }
+}
+
+/* ── Voca concept visual system ─────────────────────────── */
+.vocaCover {
+  width: 100%;
+  height: 100%;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(224, 48, 32, 0.18), transparent 30%),
+    linear-gradient(135deg, rgba(245, 244, 240, 0.03), rgba(18, 6, 4, 0.12));
+}
+
+.vocaFloatIcon {
+  position: relative;
+  width: 86px;
+  height: 86px;
+  border-radius: 26px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  padding: 20px 16px;
+  background:
+    linear-gradient(180deg, rgba(245, 244, 240, 0.10), rgba(245, 244, 240, 0.025)),
+    rgba(224, 48, 32, 0.08);
+  border: 1px solid rgba(245, 244, 240, 0.14);
+  box-shadow:
+    0 26px 70px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  animation: vocaIconFloat 4.2s ease-in-out infinite;
+}
+
+.vocaFloatIconLarge {
+  width: clamp(86px, 10vw, 132px);
+  height: clamp(86px, 10vw, 132px);
+  border-radius: clamp(26px, 3vw, 36px);
+  padding: clamp(18px, 2.5vw, 28px) clamp(14px, 2vw, 22px);
+  gap: clamp(3px, 0.4vw, 6px);
+}
+
+.vocaFloatIconCard {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  padding: 12px 9px;
+  gap: 2px;
+}
+
+.vocaFloatIcon span {
+  flex: 1;
+  border-radius: 999px;
+  background: rgba(245, 244, 240, 0.68);
+}
+
+.vocaFloatIcon span:nth-child(1) { height: 38%; }
+.vocaFloatIcon span:nth-child(2) { height: 65%; }
+.vocaFloatIcon span:nth-child(3) { height: 100%; background: #E03020; }
+.vocaFloatIcon span:nth-child(4) { height: 55%; }
+.vocaFloatIcon span:nth-child(5) { height: 28%; }
+
+@keyframes vocaIconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.vocaHeroVisual {
+  background:
+    radial-gradient(circle at 50% 10%, rgba(224, 48, 32, 0.11), transparent 32%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.vocaPrototypeSection {
+  background:
+    radial-gradient(circle at 76% 16%, rgba(224, 48, 32, 0.08), transparent 28%),
+    rgba(255, 255, 255, 0.025);
+}
+
+@media (max-width: 760px) {
+  .vocaFloatIconLarge {
+    width: 88px;
+    height: 88px;
+    border-radius: 26px;
+  }
+}

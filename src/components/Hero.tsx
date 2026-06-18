@@ -1,17 +1,20 @@
 import styles from './Hero.module.css'
+import { GridBackground } from './GridBackground'
+import { GridCanvas } from './GridCanvas'
 
 export function Hero({ onBooking }: { onBooking: () => void }) {
   return (
     <section id="hero" className={styles.hero}>
-      <div className={styles.bg} aria-hidden="true" />
+      <GridBackground />
+      <GridCanvas />
 
       <div className={styles.content}>
         <div className={styles.left}>
           <h1 className={`${styles.headline} reveal reveal-d1`}>
-            A Step into <br />Design Intelligence
+            Great design starts now
           </h1>
           <p className={`${styles.sub} reveal reveal-d2`}>
-            We help organizations design and implement systems that are not only beautiful but also intelligent, efficient, and sustainable.
+            Nocturnal helps founders and product teams turn unclear ideas into sharper websites, usable interfaces, and launch-ready product experiences.
           </p>
           <div className={`${styles.actions} reveal reveal-d3`}>
             <button className={styles.btnPrimary} onClick={onBooking}>Start a Project</button>
