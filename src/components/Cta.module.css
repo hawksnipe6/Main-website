@@ -56,13 +56,197 @@
   max-width: 560px;
   background: var(--noc-black);
   border: 1px solid var(--noc-grey-2);
-  border-radius: 8px;
+  border-radius: 14px;
   padding: 28px;
 }
 
 .calCardEmbed {
   max-width: 680px;
   padding: 12px;
+}
+
+/* ── Native dark "Google Calendar" booking panel ─────────── */
+.calCardNative {
+  max-width: 720px;
+}
+
+.gcal {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.gcalHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--noc-grey-2);
+}
+
+.gcalOrg {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gcalAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--noc-grey-1);
+  border: 1px solid var(--noc-grey-2);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.gcalAvatar img {
+  width: 17px;
+  height: 17px;
+  object-fit: contain;
+}
+
+.gcalOrgName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-grey-5);
+}
+
+.gcalProvider {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--noc-grey-4);
+  letter-spacing: -0.01em;
+}
+
+.gcalGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.gcalEventTitle {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--noc-white);
+  margin-bottom: 16px;
+}
+
+.gcalEventRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--noc-grey-5);
+  margin-bottom: 12px;
+}
+
+.gcalEventRow svg {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--noc-grey-4);
+}
+
+.gcalDesc {
+  margin-top: 16px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--noc-grey-4);
+}
+
+.gcalPickerTop {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.gcalPickerLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--noc-white);
+}
+
+.gcalTz {
+  font-size: 11px;
+  color: var(--noc-grey-4);
+}
+
+.gcalChosen {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-accent);
+  margin-bottom: 14px;
+}
+
+.gcalSlots {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gcalSlot {
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-white);
+  background: var(--noc-grey-1);
+  border: 1px solid var(--noc-grey-2);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.gcalSlot:hover {
+  border-color: var(--noc-accent);
+  color: var(--noc-accent);
+  transform: translateY(-1px);
+}
+
+.gcalSlotActive {
+  border-color: var(--noc-accent);
+  color: var(--noc-accent);
+  background: var(--noc-accent-subtle);
+}
+
+.gcalFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 18px;
+  border-top: 1px solid var(--noc-grey-2);
+}
+
+.gcalConfirm {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--noc-white);
+  background: var(--noc-grey-1);
+  border: 1px solid rgba(232, 97, 42, 0.42);
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.gcalConfirm:hover {
+  border-color: var(--noc-accent);
+  background: var(--noc-grey-2);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .gcalGrid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
 }
 
 .calHeader {

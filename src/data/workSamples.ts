@@ -109,4 +109,4 @@ export const WORK_SAMPLES: WorkSample[] = [
   },
 ]
 
-export const FEATURED_WORK_SAMPLES = WORK_SAMPLES.slice(0, 5)
+export const FEATURED_WORK_SAMPLES = WORK_SAMPLES.slice(0, 7)

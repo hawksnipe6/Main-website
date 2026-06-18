@@ -51,19 +51,104 @@
 }
 
 .card {
-  min-height: 118px;
+  min-height: 168px;
   background: var(--noc-black);
   border: 1px solid var(--noc-grey-2);
-  border-radius: 6px;
+  border-radius: 14px;
   padding: 26px;
   display: flex;
-  align-items: center;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: center;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .card:hover {
   border-color: var(--noc-grey-3);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.16);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.logo {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.82;
+  transition: opacity 0.25s ease, filter 0.25s ease;
+  user-select: none;
+}
+
+.card:hover .logo {
+  opacity: 1;
+  filter: grayscale(0);
+}
+
+.logoInverted {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: invert(1) grayscale(1);
+  opacity: 0.82;
+  transition: opacity 0.25s ease, filter 0.25s ease;
+  user-select: none;
+}
+
+.card:hover .logoInverted {
+  opacity: 1;
+  filter: invert(1) grayscale(0);
+}
+
+.logoMark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-1);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--noc-grey-4);
+  letter-spacing: 0.02em;
+}
+
+.byline {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.person {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--noc-white);
+  line-height: 1.2;
+}
+
+.company {
+  font-size: 11px;
+  color: var(--noc-grey-4);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .quote {

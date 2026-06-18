@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voca</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F0EEEB;--surface:#F7F5F2;--card:#FFFFFF;
+  --ink:#1A1916;--ink2:#7A766F;--ink3:#B8B4AE;
+  --red:#E03020;--red-lt:rgba(224,48,32,.1);--red-dim:rgba(224,48,32,.14);
+  --border:#E8E4DF;--border-lt:#F0ECE8;
+  --dark:#14120F;--r:18px;--r-sm:12px;
+}
+html,body{
+  height:100%;background:#C0BBB3;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Sans',-apple-system,sans-serif;min-height:100vh;
+}
+
+/* ── iPhone shell ── */
+.iphone{position:relative;width:393px;height:852px;flex-shrink:0;user-select:none}
+.iphone-frame{
+  position:absolute;inset:0;border-radius:54px;
+  background:linear-gradient(160deg,#D6D6D6 0%,#AEAEAE 45%,#C4C4C4 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.55),inset 0 0 0 2.5px rgba(0,0,0,.18),
+             0 32px 80px rgba(0,0,0,.38),0 8px 24px rgba(0,0,0,.22);
+}
+.iphone-frame::before{content:'';position:absolute;inset:3px;border-radius:51px;background:#111}
+.btn{position:absolute;background:linear-gradient(90deg,#AEAEAE,#C8C8C8);border-radius:3px}
+.btn-pwr{right:-3px;top:180px;width:4px;height:72px}
+.btn-v1{left:-3px;top:158px;width:4px;height:36px}
+.btn-v2{left:-3px;top:206px;width:4px;height:70px}
+.btn-v3{left:-3px;top:288px;width:4px;height:70px}
+.iphone-screen{
+  position:absolute;top:10px;left:10px;right:10px;bottom:10px;
+  border-radius:46px;overflow:hidden;background:var(--bg)
+}
+.island{
+  position:absolute;top:14px;left:50%;transform:translateX(-50%);
+  width:124px;height:36px;background:#000;border-radius:20px;z-index:200;
+  display:flex;align-items:center;justify-content:flex-end;padding-right:11px
+}
+.island-cam{width:11px;height:11px;border-radius:50%;background:#111;border:2px solid #1e1e1e;position:relative}
+.island-cam::after{content:'';position:absolute;inset:2px;border-radius:50%;background:#0a0a0a}
+
+/* ── ONBOARDING ── */
+.onboarding{position:absolute;inset:0;z-index:100}
+.onb-screen{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transition:opacity .35s ease
+}
+.onb-screen.active{opacity:1;pointer-events:all}
+
+/* Welcome */
+.onb-dark{background:var(--dark)}
+.onb-art{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden
+}
+.art-glow{
+  position:absolute;width:320px;height:320px;border-radius:50%;
+  background:radial-gradient(ellipse,rgba(224,48,32,.16) 0%,transparent 65%);
+  top:50%;left:50%;transform:translate(-50%,-54%)
+}
+.art-wave{position:relative;z-index:1;display:flex;align-items:flex-end;gap:7px;height:88px}
+.aw-bar{border-radius:5px;background:rgba(255,255,255,.18);animation:artWave 2s ease-in-out infinite}
+.aw-bar:nth-child(1){width:9px;height:28%;animation-delay:0s}
+.aw-bar:nth-child(2){width:9px;height:50%;animation-delay:.12s}
+.aw-bar:nth-child(3){width:9px;height:78%;animation-delay:.24s;background:rgba(224,48,32,.8)}
+.aw-bar:nth-child(4){width:9px;height:100%;animation-delay:.36s;background:var(--red)}
+.aw-bar:nth-child(5){width:9px;height:82%;animation-delay:.48s;background:rgba(224,48,32,.7)}
+.aw-bar:nth-child(6){width:9px;height:55%;animation-delay:.6s}
+.aw-bar:nth-child(7){width:9px;height:30%;animation-delay:.72s}
+@keyframes artWave{0%,100%{transform:scaleY(1);opacity:.7}50%{transform:scaleY(1.25);opacity:1}}
+
+.onb-brand{padding:0 36px;flex-shrink:0}
+.onb-wordmark{font-size:56px;font-weight:800;color:#fff;letter-spacing:-2.8px;line-height:.9;margin-bottom:10px}
+.onb-tag{font-size:13px;color:rgba(255,255,255,.4);line-height:1.6}
+.onb-ctas{padding:24px 28px 52px;display:flex;flex-direction:column;gap:10px;flex-shrink:0}
+.btn-red{
+  width:100%;background:var(--red);color:#fff;border:none;
+  border-radius:var(--r);padding:15px;font-size:14px;font-weight:600;
+  font-family:inherit;cursor:pointer;transition:opacity .15s
+}
+.btn-red:active{opacity:.82}
+.btn-ghost{
+  width:100%;background:transparent;color:rgba(255,255,255,.38);
+  border:1px solid rgba(255,255,255,.12);border-radius:var(--r);
+  padding:14px;font-size:13px;font-weight:500;font-family:inherit;cursor:pointer
+}
+
+/* Mode select */
+.onb-light{background:var(--bg)}
+.onb-head{padding:72px 28px 18px;flex-shrink:0}
+.onb-step{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+.onb-h1{font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-.7px;line-height:1.15;margin-bottom:5px}
+.onb-h2{font-size:13px;color:var(--ink2)}
+.mode-list{flex:1;display:flex;flex-direction:column;gap:10px;padding:8px 24px;overflow:hidden}
+.mode-card{
+  padding:18px 20px;background:var(--card);border:1.5px solid var(--border);
+  border-radius:var(--r);cursor:pointer;transition:all .18s;
+  display:flex;align-items:flex-start;gap:14px
+}
+.mode-card.sel{border-color:var(--red);background:var(--red-lt)}
+.mode-ico{
+  width:40px;height:40px;border-radius:12px;background:var(--surface);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .18s
+}
+.mode-card.sel .mode-ico{background:var(--red)}
+.mode-name{font-size:15px;font-weight:600;color:var(--ink)}
+.mode-desc{font-size:12px;color:var(--ink2);margin-top:3px;line-height:1.4}
+.onb-foot{padding:14px 24px 52px;flex-shrink:0}
+.onb-dots{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
+.onb-dot{width:6px;height:6px;border-radius:3px;background:var(--border);transition:all .25s}
+.onb-dot.on{width:18px;background:var(--red)}
+.btn-next{
+  width:100%;background:var(--red);color:#fff;border:none;
+  border-radius:var(--r);padding:15px;font-size:14px;font-weight:600;
+  font-family:inherit;cursor:pointer;opacity:.38;transition:opacity .2s
+}
+.btn-next.on{opacity:1}
+
+/* How it works */
+.how-list{flex:1;display:flex;flex-direction:column;gap:10px;padding:0 24px;justify-content:center}
+.how-item{
+  display:flex;gap:14px;align-items:flex-start;padding:14px 16px;
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r)
+}
+.how-n{
+  width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;
+  font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px
+}
+.how-name{font-size:13px;font-weight:600;color:var(--ink)}
+.how-desc{font-size:11px;color:var(--ink2);margin-top:3px;line-height:1.5}
+
+/* ── MAIN APP ── */
+.app{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s}
+.app.on{opacity:1;pointer-events:all}
+.screen-wrap{flex:1;position:relative;overflow:hidden;min-height:0}
+.screen{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;transform:translateX(20px);
+  transition:opacity .28s ease,transform .28s ease
+}
+.screen.on{opacity:1;pointer-events:all;transform:translateX(0)}
+
+.sbar{
+  height:59px;padding:16px 24px 0;flex-shrink:0;
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:10
+}
+.sbar-t{font-size:15px;font-weight:600;letter-spacing:-.2px;color:var(--ink)}
+.sbar-icons{display:flex;align-items:center;gap:6px}
+.sbar-lt .sbar-t{color:rgba(255,255,255,.8)}
+
+.scroll{overflow-y:auto;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+
+/* ── HOME ── */
+.home-top{padding:2px 24px 0;flex-shrink:0}
+.home-eye{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.home-title{font-size:34px;font-weight:800;color:var(--ink);letter-spacing:-1.4px;line-height:1}
+.home-sub{font-size:13px;color:var(--ink2);margin-top:4px}
+.home-body{flex:1;padding:14px 18px 0;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.sess-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:14px 16px;flex-shrink:0;cursor:pointer;transition:border-color .18s
+}
+.sess-card:first-child{border-color:rgba(224,48,32,.35)}
+.sess-card:active{opacity:.85}
+.sc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sc-name{font-size:14px;font-weight:600;color:var(--ink)}
+.sc-time{font-size:11px;color:var(--ink3)}
+.sc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.sc-m{display:flex;flex-direction:column;gap:2px}
+.sc-ml{font-size:9px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--ink3)}
+.sc-mv{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.4px}
+.sc-ms{font-size:9px;font-weight:600}
+.ok{color:#3A8A5A}.warn{color:var(--red)}
+.sc-bar{margin-top:10px;height:2px;background:var(--border-lt);border-radius:2px;overflow:hidden}
+.sc-fill{height:100%;border-radius:2px;background:#3A8A5A}
+.sc-fill.w{background:var(--red)}
+.cta-card{
+  flex-shrink:0;background:var(--dark);border-radius:var(--r);
+  padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer
+}
+.cta-dot{
+  width:38px;height:38px;border-radius:50%;background:var(--red);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center
+}
+.cta-title{font-size:14px;font-weight:600;color:#fff}
+.cta-sub{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+
+/* ── RECORD ── */
+.screen-record{background:var(--dark);position:relative;overflow:hidden}
+.rec-bg{
+  position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,255,255,.07) 1px,transparent 1px);
+  background-size:22px 22px;pointer-events:none;z-index:0
+}
+.rec-title-wrap{flex-shrink:0;padding:2px 28px 0;position:relative;z-index:2}
+.rec-title{
+  font-size:76px;font-weight:800;color:#fff;letter-spacing:-4.5px;
+  line-height:.88;text-transform:uppercase;opacity:.88
+}
+
+.rec-stage{
+  flex:1;position:relative;display:flex;flex-direction:column;
+  align-items:center;min-height:0;z-index:2;padding-top:2px
+}
+
+/* ghost rings */
+.ghost-ring{
+  position:absolute;border-radius:50%;pointer-events:none;
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.rec-patient{
+  font-size:13px;font-weight:600;color:rgba(255,255,255,.65);
+  letter-spacing:-.2px;text-align:center;margin-top:72px;position:relative;z-index:2
+}
+
+/* Main dial */
+.rec-dial{
+  position:relative;width:256px;height:256px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;z-index:2;margin-top:6px
+}
+.rec-dial svg{position:absolute;inset:0;width:100%;height:100%}
+
+/* waveform inside dial */
+.rec-wave{
+  display:flex;align-items:center;gap:4px;height:60px;
+  position:relative;z-index:1
+}
+.rw{width:6px;border-radius:999px;background:rgba(255,255,255,.55);transition:height .12s ease}
+.rw:nth-child(5){background:var(--red)}
+
+/* stop btn */
+.stop-btn{
+  position:absolute;width:60px;height:60px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:none;
+  display:none;align-items:center;justify-content:center;
+  cursor:pointer;z-index:3;transition:background .2s
+}
+.stop-btn.on{display:flex}
+.stop-btn:active{background:rgba(255,255,255,.18)}
+
+/* mic icon */
+.mic-icon{position:absolute;z-index:3;opacity:.45;pointer-events:none}
+.mic-icon.hidden{display:none}
+
+.rec-timer{
+  font-size:17px;font-weight:600;color:rgba(255,255,255,.5);
+  letter-spacing:-.3px;text-align:center;margin-top:8px;
+  font-variant-numeric:tabular-nums;position:relative;z-index:2
+}
+.rec-dots{
+  color:rgba(255,255,255,.35);font-size:16px;letter-spacing:4px;
+  text-align:center;margin-top:6px;position:relative;z-index:2
+}
+.ghost-names{
+  margin-top:auto;text-align:center;position:relative;z-index:2;padding-bottom:6px
+}
+.gn1{font-size:12px;font-weight:500;color:rgba(255,255,255,.28)}
+.gn2{font-size:11px;font-weight:500;color:rgba(255,255,255,.14);margin-top:5px}
+
+/* record button */
+.rec-foot{
+  flex-shrink:0;display:flex;flex-direction:column;align-items:center;
+  padding-bottom:24px;position:relative;z-index:2
+}
+.rec-hint{font-size:11px;color:rgba(255,255,255,.32);margin-bottom:14px}
+.rec-btn-wrap{position:relative;width:80px;height:80px;display:flex;align-items:center;justify-content:center}
+.rec-dashed{
+  position:absolute;inset:0;border-radius:50%;
+  border:2px dashed rgba(224,48,32,.4);
+  animation:dashSpin 8s linear infinite
+}
+@keyframes dashSpin{to{transform:rotate(360deg)}}
+.rec-btn{
+  width:62px;height:62px;border-radius:50%;background:var(--red);border:none;
+  cursor:pointer;transition:transform .15s;
+  box-shadow:0 8px 28px rgba(224,48,32,.45);position:relative
+}
+.rec-btn::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:2px solid rgba(255,255,255,.25);
+  animation:recPulse 2.2s ease-in-out infinite
+}
+@keyframes recPulse{0%,100%{transform:scale(1);opacity:0}50%{transform:scale(1.5);opacity:.5}}
+.rec-btn:active{transform:scale(.93)}
+
+/* Analyzing overlay */
+.analyzing{
+  position:absolute;inset:0;background:var(--dark);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  z-index:50;opacity:0;pointer-events:none;transition:opacity .3s
+}
+.analyzing.on{opacity:1;pointer-events:all}
+.a-spin{
+  width:46px;height:46px;border:2px solid rgba(255,255,255,.12);
+  border-top-color:var(--red);border-radius:50%;animation:spin 1s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.a-label{font-size:14px;font-weight:500;color:rgba(255,255,255,.6);text-align:center}
+.a-sub{font-size:11px;color:rgba(255,255,255,.28);text-align:center}
+
+/* ── REPORT ── */
+.rep-head{padding:2px 24px 12px;flex-shrink:0}
+.rep-eye{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--red);margin-bottom:4px}
+.rep-name{font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-.6px;margin-bottom:2px}
+.rep-date{font-size:12px;color:var(--ink3)}
+.rep-body{flex:1;padding:0 18px 8px;display:flex;flex-direction:column;gap:9px;overflow:hidden}
+
+/* score hero */
+.score-hero{
+  background:var(--dark);border-radius:var(--r);padding:16px 18px;
+  display:flex;align-items:center;gap:16px;flex-shrink:0
+}
+.score-ring{position:relative;flex-shrink:0;width:72px;height:72px}
+.score-ring svg{position:absolute;inset:0}
+.score-inner{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center
+}
+.score-n{font-size:24px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1}
+.score-d{font-size:9px;color:rgba(255,255,255,.32)}
+.score-copy{}
+.score-t{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px}
+.score-s{font-size:11px;color:rgba(255,255,255,.38);margin-top:3px;line-height:1.45}
+.score-badge{
+  display:inline-flex;align-items:center;gap:4px;margin-top:7px;
+  padding:4px 9px;border-radius:100px;
+  background:rgba(58,138,90,.16);color:#5BAE80;font-size:10px;font-weight:600
+}
+
+/* metrics */
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex-shrink:0}
+.mc{background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px}
+.mc.w{border-color:rgba(224,48,32,.28)}
+.mc-l{font-size:9px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.mc-v{font-size:19px;font-weight:700;color:var(--ink);letter-spacing:-.5px;line-height:1}
+.mc-u{font-size:10px;font-weight:400;color:var(--ink2)}
+.mc-bar{margin-top:7px;height:2px;background:var(--border);border-radius:2px;overflow:hidden}
+.mc-fill{height:100%;border-radius:2px;background:#3A8A5A}
+.mc.w .mc-fill{background:var(--red)}
+.mc-s{font-size:9px;font-weight:600;margin-top:4px;color:#3A8A5A}
+.mc.w .mc-s{color:var(--red)}
+
+/* notes */
+.rep-notes{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:11px 13px;flex-shrink:0
+}
+.rn-l{font-size:9px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+.rn-t{font-size:11px;color:var(--ink2);line-height:1.55}
+
+.rep-export{
+  flex-shrink:0;width:100%;padding:13px;background:var(--ink);color:#fff;border:none;
+  border-radius:var(--r);font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px
+}
+.rep-export:active{opacity:.85}
+
+/* ── PATIENTS ── */
+.pts-head{padding:2px 24px 14px;flex-shrink:0}
+.pts-eye{font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);margin-bottom:4px}
+.pts-title{font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.6px}
+.search{
+  flex-shrink:0;margin:0 18px 10px;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:10px 14px;display:flex;align-items:center;gap:8px
+}
+.search-txt{font-size:13px;color:var(--ink3)}
+.pts-list{flex:1;overflow:hidden;padding:0 18px;display:flex;flex-direction:column;gap:8px}
+.pt-row{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:13px 15px;display:flex;align-items:center;gap:12px;cursor:pointer;flex-shrink:0
+}
+.pt-row:active{opacity:.85}
+.pt-av{
+  width:40px;height:40px;border-radius:50%;background:var(--surface);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--ink2);flex-shrink:0
+}
+.pt-info{flex:1}
+.pt-n{font-size:14px;font-weight:600;color:var(--ink)}
+.pt-s{font-size:11px;color:var(--ink3);margin-top:2px}
+.pt-score{text-align:right;flex-shrink:0}
+.pt-num{font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.5px}
+.pt-lbl{font-size:9px;color:var(--ink3);letter-spacing:.3px}
+.pt-tr{font-size:10px;font-weight:600}
+.tr-up{color:#3A8A5A}.tr-dn{color:var(--red)}.tr-n{color:var(--ink3)}
+
+/* ── PROGRESS ── */
+.prog-head{padding:2px 24px 12px;flex-shrink:0}
+.prog-back{
+  display:flex;align-items:center;gap:5px;font-size:13px;font-weight:600;
+  color:var(--red);margin-bottom:12px;cursor:pointer
+}
+.prog-name{font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-.6px}
+.prog-sub{font-size:12px;color:var(--ink3);margin-top:2px}
+.prog-body{flex:1;padding:0 18px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+
+/* chart */
+.chart{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;flex-shrink:0}
+.chart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.chart-t{font-size:13px;font-weight:600;color:var(--ink)}
+.chart-c{font-size:12px;font-weight:600;color:#3A8A5A}
+.chart-bars{display:flex;align-items:flex-end;gap:7px;height:64px}
+.cb-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.cb{width:100%;border-radius:3px 3px 0 0;background:var(--border-lt);transition:background .2s}
+.cb.good{background:#3A8A5A}
+.cb.active{background:var(--red)}
+.cb-l{font-size:8px;color:var(--ink3);text-align:center}
+
+/* latest metrics */
+.lat-metrics{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:13px 15px;flex-shrink:0}
+.lm-title{font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--ink3);margin-bottom:11px}
+.lm-row{margin-bottom:9px}
+.lm-row:last-child{margin-bottom:0}
+.lm-top{display:flex;justify-content:space-between;margin-bottom:4px}
+.lm-name{font-size:12px;font-weight:600;color:var(--ink)}
+.lm-val{font-size:12px;color:var(--ink2)}
+.lm-bar{height:2px;background:var(--border);border-radius:2px;overflow:hidden}
+.lm-fill{height:100%;border-radius:2px;background:#3A8A5A}
+.lm-fill.w{background:var(--red)}
+
+/* history */
+.hist{flex:1;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.hist-lbl{font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--ink3);flex-shrink:0}
+.hist-row{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r-sm);
+  padding:11px 13px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0
+}
+.hr-date{font-size:12px;font-weight:600;color:var(--ink)}
+.hr-sub{font-size:10px;color:var(--ink3);margin-top:1px}
+.hr-s{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.4px}
+.hr-c{font-size:10px;font-weight:600}
+
+/* ── BOTTOM NAV ── */
+.bnav{
+  display:flex;align-items:center;
+  background:var(--bg);border-top:1px solid var(--border-lt);
+  padding:8px 0 20px;flex-shrink:0;transition:background .3s,border-top-color .3s
+}
+.nv{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 0}
+.nv-ico{width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.nv-lbl{font-size:10px;font-weight:500;color:var(--ink3)}
+.nv.on .nv-lbl{color:var(--red)}
+
+/* FAB */
+.nv-fab{flex:none;width:56px}
+.fab{
+  width:54px;height:54px;border-radius:50%;background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;margin-top:-14px;
+  box-shadow:0 6px 20px rgba(224,48,32,.35);transition:transform .15s
+}
+.fab:active{transform:scale(.92)}
+
+/* Embedded inside Nocturnal iPhone frame */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+  background: var(--bg) !important;
+  display: block !important;
+  align-items: initial !important;
+  justify-content: initial !important;
+}
+
+.iphone {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.iphone-frame,
+.iphone-frame::before,
+.btn,
+.island {
+  display: none !important;
+}
+
+.iphone-screen {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
+}
+
+@media (max-width: 430px) {
+  .iphone {
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="iphone">
+  <div class="iphone-frame">
+    <div class="btn btn-pwr"></div>
+    <div class="btn btn-v1"></div>
+    <div class="btn btn-v2"></div>
+    <div class="btn btn-v3"></div>
+  </div>
+
+  <div class="iphone-screen">
+    <div class="island"><div class="island-cam"></div></div>
+
+    <!-- ══ ONBOARDING ══ -->
+    <div class="onboarding" id="onboarding">
+
+      <!-- 0: Welcome -->
+      <div class="onb-screen onb-dark active" id="onb-0">
+        <div class="onb-art">
+          <div class="art-glow"></div>
+          <div class="art-wave">
+            <div class="aw-bar"></div><div class="aw-bar"></div><div class="aw-bar"></div>
+            <div class="aw-bar"></div><div class="aw-bar"></div><div class="aw-bar"></div>
+            <div class="aw-bar"></div>
+          </div>
+        </div>
+        <div class="onb-brand">
+          <div class="onb-wordmark">Voca</div>
+          <div class="onb-tag">Clinical voice analysis.<br>Mobile-first. Built for therapists.</div>
+        </div>
+        <div class="onb-ctas">
+          <button class="btn-red" onclick="goOnb(1)">Get started</button>
+          <button class="btn-ghost" onclick="enterApp()">Skip intro</button>
+        </div>
+      </div>
+
+      <!-- 1: Mode -->
+      <div class="onb-screen onb-light" id="onb-1">
+        <div class="onb-head">
+          <div class="onb-step">Step 1 of 2</div>
+          <div class="onb-h1">How are you using Voca?</div>
+          <div class="onb-h2">Select your role to get started.</div>
+        </div>
+        <div class="mode-list">
+          <div class="mode-card" onclick="selectMode(this,'therapist')">
+            <div class="mode-ico">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <rect x="3" y="2" width="14" height="16" rx="2.5" stroke="#B8B4AE" stroke-width="1.5"/>
+                <line x1="6" y1="7" x2="14" y2="7" stroke="#B8B4AE" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="6" y1="10" x2="14" y2="10" stroke="#B8B4AE" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="6" y1="13" x2="10" y2="13" stroke="#B8B4AE" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="mode-name">Speech-language therapist</div>
+              <div class="mode-desc">Run in-session recordings, generate acoustic reports, manage patient roster.</div>
+            </div>
+          </div>
+          <div class="mode-card" onclick="selectMode(this,'patient')">
+            <div class="mode-ico">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="7" r="3.5" stroke="#B8B4AE" stroke-width="1.5"/>
+                <path d="M4 18c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="#B8B4AE" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>
+              <div class="mode-name">Patient / home practice</div>
+              <div class="mode-desc">Self-record voice exercises, log sessions, and track your progress.</div>
+            </div>
+          </div>
+        </div>
+        <div class="onb-foot">
+          <div class="onb-dots"><div class="onb-dot on"></div><div class="onb-dot"></div></div>
+          <button class="btn-next" id="btn-mode-next" onclick="goOnb(2)">Continue</button>
+        </div>
+      </div>
+
+      <!-- 2: How it works -->
+      <div class="onb-screen onb-light" id="onb-2">
+        <div class="onb-head">
+          <div class="onb-step">Step 2 of 2</div>
+          <div class="onb-h1">How Voca works</div>
+          <div class="onb-h2">A 60-second sample. A clinic-ready report.</div>
+        </div>
+        <div class="how-list">
+          <div class="how-item">
+            <div class="how-n">1</div>
+            <div>
+              <div class="how-name">Record a voice sample</div>
+              <div class="how-desc">60-second guided capture with real-time waveform — in session or at home.</div>
+            </div>
+          </div>
+          <div class="how-item">
+            <div class="how-n">2</div>
+            <div>
+              <div class="how-name">Get the acoustic report</div>
+              <div class="how-desc">Pitch, roughness, jitter, shimmer, and resonance — scored instantly by Praat.</div>
+            </div>
+          </div>
+          <div class="how-item">
+            <div class="how-n">3</div>
+            <div>
+              <div class="how-name">Review before they leave</div>
+              <div class="how-desc">Export as PDF. Sync to dashboard. Patient tracks progress between sessions.</div>
+            </div>
+          </div>
+        </div>
+        <div class="onb-foot">
+          <div class="onb-dots"><div class="onb-dot"></div><div class="onb-dot on"></div></div>
+          <button class="btn-next on" onclick="enterApp()">Enter Voca</button>
+        </div>
+      </div>
+
+    </div><!-- /onboarding -->
+
+    <!-- ══ MAIN APP ══ -->
+    <div class="app" id="app">
+      <div class="screen-wrap">
+
+        <!-- HOME -->
+        <div class="screen on" id="s-home">
+          <div class="sbar">
+            <span class="sbar-t">9:41</span>
+            <div class="sbar-icons">
+              <svg width="16" height="11" viewBox="0 0 16 11"><rect x="0" y="3" width="3" height="8" rx="1" fill="#1A1916" opacity=".3"/><rect x="4.3" y="2" width="3" height="9" rx="1" fill="#1A1916" opacity=".5"/><rect x="8.6" y="1" width="3" height="10" rx="1" fill="#1A1916" opacity=".75"/><rect x="12.9" y="0" width="3" height="11" rx="1" fill="#1A1916"/></svg>
+              <svg width="24" height="11" viewBox="0 0 24 11"><rect x="0" y=".5" width="21" height="10" rx="2.5" fill="none" stroke="#1A1916" stroke-width="1.1"/><rect x="22" y="3.5" width="2" height="4" rx="1" fill="#1A1916" opacity=".45"/><rect x="1.2" y="1.8" width="16" height="7.5" rx="1.5" fill="#1A1916"/></svg>
+            </div>
+          </div>
+          <div class="home-top">
+            <div class="home-eye">Voca · Therapist</div>
+            <div class="home-title">Today</div>
+            <div class="home-sub">Tuesday, Jun 9 · 2 sessions</div>
+          </div>
+          <div class="home-body scroll">
+            <div class="sess-card" onclick="nav('report')">
+              <div class="sc-top">
+                <span class="sc-name">Sarah Chen</span>
+                <span class="sc-time">11:30 AM · Session 8</span>
+              </div>
+              <div class="sc-row">
+                <div class="sc-m">
+                  <span class="sc-ml">Pitch</span>
+                  <span class="sc-mv">187<span style="font-size:10px;font-weight:400"> Hz</span></span>
+                  <span class="sc-ms ok">Normal</span>
+                </div>
+                <div class="sc-m">
+                  <span class="sc-ml">Roughness</span>
+                  <span class="sc-mv warn">0.48</span>
+                  <span class="sc-ms warn">↑ Elevated</span>
+                </div>
+                <div class="sc-m">
+                  <span class="sc-ml">Score</span>
+                  <span class="sc-mv">74<span style="font-size:10px;font-weight:400">/100</span></span>
+                  <span class="sc-ms ok">+3 pts</span>
+                </div>
+              </div>
+              <div class="sc-bar"><div class="sc-fill" style="width:74%"></div></div>
+            </div>
+            <div class="sess-card" onclick="nav('report')">
+              <div class="sc-top">
+                <span class="sc-name">James R.</span>
+                <span class="sc-time">9:00 AM · Session 3</span>
+              </div>
+              <div class="sc-row">
+                <div class="sc-m">
+                  <span class="sc-ml">Pitch</span>
+                  <span class="sc-mv">215<span style="font-size:10px;font-weight:400"> Hz</span></span>
+                  <span class="sc-ms ok">Normal</span>
+                </div>
+                <div class="sc-m">
+                  <span class="sc-ml">Roughness</span>
+                  <span class="sc-mv">0.31</span>
+                  <span class="sc-ms ok">Normal</span>
+                </div>
+                <div class="sc-m">
+                  <span class="sc-ml">Score</span>
+                  <span class="sc-mv">81<span style="font-size:10px;font-weight:400">/100</span></span>
+                  <span class="sc-ms ok">+6 pts</span>
+                </div>
+              </div>
+              <div class="sc-bar"><div class="sc-fill" style="width:81%"></div></div>
+            </div>
+            <div class="cta-card" onclick="nav('record')">
+              <div class="cta-dot">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="8" r="5.5" stroke="white" stroke-width="1.5" opacity=".4"/>
+                  <circle cx="8" cy="8" r="3" fill="white"/>
+                </svg>
+              </div>
+              <div>
+                <div class="cta-title">New session</div>
+                <div class="cta-sub">Start recording → instant report</div>
+              </div>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="margin-left:auto;flex-shrink:0">
+                <path d="M5 3l4 4-4 4" stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        </div><!-- /home -->
+
+        <!-- RECORD -->
+        <div class="screen screen-record" id="s-record">
+          <div class="rec-bg"></div>
+          <div class="sbar sbar-lt" style="background:transparent">
+            <span class="sbar-t" style="color:rgba(255,255,255,.75)">9:41</span>
+            <div class="sbar-icons">
+              <svg width="16" height="11" viewBox="0 0 16 11"><rect x="0" y="3" width="3" height="8" rx="1" fill="white" opacity=".25"/><rect x="4.3" y="2" width="3" height="9" rx="1" fill="white" opacity=".45"/><rect x="8.6" y="1" width="3" height="10" rx="1" fill="white" opacity=".7"/><rect x="12.9" y="0" width="3" height="11" rx="1" fill="white" opacity=".9"/></svg>
+              <svg width="24" height="11" viewBox="0 0 24 11"><rect x="0" y=".5" width="21" height="10" rx="2.5" fill="none" stroke="white" stroke-width="1.1" opacity=".5"/><rect x="22" y="3.5" width="2" height="4" rx="1" fill="white" opacity=".35"/><rect x="1.2" y="1.8" width="16" height="7.5" rx="1.5" fill="white" opacity=".55"/></svg>
+            </div>
+          </div>
+
+          <div class="rec-title-wrap">
+            <div class="rec-title">SESSION</div>
+          </div>
+
+          <div class="rec-stage">
+            <!-- ghost rings -->
+            <div class="ghost-ring" style="width:256px;height:256px;bottom:74px;opacity:.35;transform:translateX(-50%) scale(.82);left:50%"></div>
+            <div class="ghost-ring" style="width:256px;height:256px;bottom:54px;opacity:.16;transform:translateX(-50%) scale(.64);left:50%"></div>
+
+            <div class="rec-patient" id="rec-patient">Maya Williams</div>
+
+            <div class="rec-dial" id="rec-dial">
+              <!-- tick ring -->
+              <svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="128" cy="128" r="124" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                <circle cx="128" cy="128" r="108" fill="rgba(255,255,255,.025)" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+                <g id="tick-g"></g>
+              </svg>
+
+              <!-- waveform -->
+              <div class="rec-wave" id="rec-wave">
+                <div class="rw" style="height:20%"></div>
+                <div class="rw" style="height:38%"></div>
+                <div class="rw" style="height:60%"></div>
+                <div class="rw" style="height:88%"></div>
+                <div class="rw" style="height:100%"></div>
+                <div class="rw" style="height:82%"></div>
+                <div class="rw" style="height:55%"></div>
+                <div class="rw" style="height:34%"></div>
+                <div class="rw" style="height:18%"></div>
+              </div>
+
+              <!-- mic icon (idle) -->
+              <svg class="mic-icon" id="mic-icon" width="28" height="34" viewBox="0 0 28 34" fill="none">
+                <rect x="8" y="2" width="12" height="18" rx="6" stroke="rgba(255,255,255,.45)" stroke-width="1.8"/>
+                <path d="M4 17c0 5.523 4.477 10 10 10s10-4.477 10-10" stroke="rgba(255,255,255,.45)" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="14" y1="27" x2="14" y2="32" stroke="rgba(255,255,255,.45)" stroke-width="1.8" stroke-linecap="round"/>
+                <line x1="10" y1="32" x2="18" y2="32" stroke="rgba(255,255,255,.45)" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+
+              <!-- stop btn -->
+              <button class="stop-btn" id="stop-btn" onclick="stopRec()">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <rect x="4" y="4" width="10" height="10" rx="2" fill="rgba(255,255,255,.8)"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="rec-timer" id="rec-timer">0:00</div>
+            <div class="rec-dots">···</div>
+
+            <div class="ghost-names">
+              <div class="gn1">James R.</div>
+              <div class="gn2">Emma T.</div>
+            </div>
+          </div>
+
+          <div class="rec-foot">
+            <div class="rec-hint" id="rec-hint">Tap to record a new session</div>
+            <div class="rec-btn-wrap">
+              <div class="rec-dashed" id="rec-dashed"></div>
+              <button class="rec-btn" id="rec-btn" onclick="toggleRec()"></button>
+            </div>
+          </div>
+
+          <div class="analyzing" id="analyzing">
+            <div class="a-spin"></div>
+            <div class="a-label">Analyzing voice sample…</div>
+            <div class="a-sub">Pitch · Roughness · Jitter · Shimmer · Resonance</div>
+          </div>
+        </div><!-- /record -->
+
+        <!-- REPORT -->
+        <div class="screen" id="s-report">
+          <div class="sbar">
+            <span class="sbar-t">9:41</span>
+            <div class="sbar-icons">
+              <svg width="16" height="11" viewBox="0 0 16 11"><rect x="0" y="3" width="3" height="8" rx="1" fill="#1A1916" opacity=".3"/><rect x="4.3" y="2" width="3" height="9" rx="1" fill="#1A1916" opacity=".5"/><rect x="8.6" y="1" width="3" height="10" rx="1" fill="#1A1916" opacity=".75"/><rect x="12.9" y="0" width="3" height="11" rx="1" fill="#1A1916"/></svg>
+              <svg width="24" height="11" viewBox="0 0 24 11"><rect x="0" y=".5" width="21" height="10" rx="2.5" fill="none" stroke="#1A1916" stroke-width="1.1"/><rect x="22" y="3.5" width="2" height="4" rx="1" fill="#1A1916" opacity=".45"/><rect x="1.2" y="1.8" width="16" height="7.5" rx="1.5" fill="#1A1916"/></svg>
+            </div>
+          </div>
+          <div class="rep-head">
+            <div class="rep-eye">Acoustic Report · Session 8</div>
+            <div class="rep-name">Sarah Chen</div>
+            <div class="rep-date">Jun 9, 2026 · 11:30 AM · 61 sec</div>
+          </div>
+          <div class="rep-body scroll">
+            <!-- score hero -->
+            <div class="score-hero">
+              <div class="score-ring">
+                <svg viewBox="0 0 72 72" fill="none">
+                  <circle cx="36" cy="36" r="28" stroke="rgba(255,255,255,.08)" stroke-width="8"/>
+                  <circle cx="36" cy="36" r="28" stroke="#3A8A5A" stroke-width="8" fill="none"
+                    stroke-dasharray="175.9" stroke-dashoffset="46"
+                    stroke-linecap="round" transform="rotate(-90 36 36)"/>
+                </svg>
+                <div class="score-inner">
+                  <div class="score-n">74</div>
+                  <div class="score-d">/100</div>
+                </div>
+              </div>
+              <div class="score-copy">
+                <div class="score-t">Vocal Health Score</div>
+                <div class="score-s">Session 8 of 12 planned.<br>Progress on track.</div>
+                <span class="score-badge">
+                  <span style="width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0"></span>
+                  +3 pts vs last session
+                </span>
+              </div>
+            </div>
+            <!-- metrics -->
+            <div class="metrics">
+              <div class="mc">
+                <div class="mc-l">Pitch (F0)</div>
+                <div class="mc-v">187 <span class="mc-u">Hz</span></div>
+                <div class="mc-bar"><div class="mc-fill" style="width:62%"></div></div>
+                <div class="mc-s">Within target</div>
+              </div>
+              <div class="mc w">
+                <div class="mc-l">Roughness</div>
+                <div class="mc-v">0.48 <span class="mc-u">GNE</span></div>
+                <div class="mc-bar"><div class="mc-fill" style="width:78%"></div></div>
+                <div class="mc-s">↑ Elevated</div>
+              </div>
+              <div class="mc">
+                <div class="mc-l">Jitter</div>
+                <div class="mc-v">0.82 <span class="mc-u">%</span></div>
+                <div class="mc-bar"><div class="mc-fill" style="width:41%"></div></div>
+                <div class="mc-s">Normal range</div>
+              </div>
+              <div class="mc">
+                <div class="mc-l">Shimmer</div>
+                <div class="mc-v">3.1 <span class="mc-u">%</span></div>
+                <div class="mc-bar"><div class="mc-fill" style="width:52%"></div></div>
+                <div class="mc-s">Normal range</div>
+              </div>
+              <div class="mc">
+                <div class="mc-l">Stability</div>
+                <div class="mc-v">89 <span class="mc-u">%</span></div>
+                <div class="mc-bar"><div class="mc-fill" style="width:89%"></div></div>
+                <div class="mc-s">Good</div>
+              </div>
+              <div class="mc">
+                <div class="mc-l">Resonance</div>
+                <div class="mc-v">F1 <span class="mc-u">540</span></div>
+                <div class="mc-bar"><div class="mc-fill" style="width:58%"></div></div>
+                <div class="mc-s">F2 1820 Hz</div>
+              </div>
+            </div>
+            <!-- notes -->
+            <div class="rep-notes">
+              <div class="rn-l">Session notes</div>
+              <div class="rn-t">Patient reported dryness after weekend. Roughness elevation consistent with reduced hydration. Same exercises — increase water intake before next session.</div>
+            </div>
+            <button class="rep-export">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 1v8M4.5 6.5L7 9l2.5-2.5" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 10v1.5a.5.5 0 00.5.5h9a.5.5 0 00.5-.5V10" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+              Export PDF report
+            </button>
+          </div>
+        </div><!-- /report -->
+
+        <!-- PATIENTS -->
+        <div class="screen" id="s-patients">
+          <div class="sbar">
+            <span class="sbar-t">9:41</span>
+            <div class="sbar-icons">
+              <svg width="16" height="11" viewBox="0 0 16 11"><rect x="0" y="3" width="3" height="8" rx="1" fill="#1A1916" opacity=".3"/><rect x="4.3" y="2" width="3" height="9" rx="1" fill="#1A1916" opacity=".5"/><rect x="8.6" y="1" width="3" height="10" rx="1" fill="#1A1916" opacity=".75"/><rect x="12.9" y="0" width="3" height="11" rx="1" fill="#1A1916"/></svg>
+              <svg width="24" height="11" viewBox="0 0 24 11"><rect x="0" y=".5" width="21" height="10" rx="2.5" fill="none" stroke="#1A1916" stroke-width="1.1"/><rect x="22" y="3.5" width="2" height="4" rx="1" fill="#1A1916" opacity=".45"/><rect x="1.2" y="1.8" width="16" height="7.5" rx="1.5" fill="#1A1916"/></svg>
+            </div>
+          </div>
+          <div class="pts-head">
+            <div class="pts-eye">Active patients</div>
+            <div class="pts-title">Roster</div>
+          </div>
+          <div class="search">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <circle cx="6" cy="6" r="4.5" stroke="#B8B4AE" stroke-width="1.3"/>
+              <path d="M9.5 9.5L13 13" stroke="#B8B4AE" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            <span class="search-txt">Search patients…</span>
+          </div>
+          <div class="pts-list scroll">
+            <div class="pt-row" onclick="nav('progress')">
+              <div class="pt-av">SC</div>
+              <div class="pt-info"><div class="pt-n">Sarah Chen</div><div class="pt-s">Session 8 · Last: Jun 9</div></div>
+              <div class="pt-score"><div class="pt-num">74</div><div class="pt-lbl">SCORE</div><div class="pt-tr tr-up">↑ +3</div></div>
+            </div>
+            <div class="pt-row" onclick="nav('progress')">
+              <div class="pt-av">JR</div>
+              <div class="pt-info"><div class="pt-n">James R.</div><div class="pt-s">Session 3 · Last: Jun 9</div></div>
+              <div class="pt-score"><div class="pt-num">81</div><div class="pt-lbl">SCORE</div><div class="pt-tr tr-up">↑ +6</div></div>
+            </div>
+            <div class="pt-row" onclick="nav('progress')">
+              <div class="pt-av">MW</div>
+              <div class="pt-info"><div class="pt-n">Maya Williams</div><div class="pt-s">Session 1 · Last: Jun 7</div></div>
+              <div class="pt-score"><div class="pt-num">68</div><div class="pt-lbl">SCORE</div><div class="pt-tr tr-n">—</div></div>
+            </div>
+            <div class="pt-row" onclick="nav('progress')">
+              <div class="pt-av">ET</div>
+              <div class="pt-info"><div class="pt-n">Emma T.</div><div class="pt-s">Session 5 · Last: Jun 6</div></div>
+              <div class="pt-score"><div class="pt-num">77</div><div class="pt-lbl">SCORE</div><div class="pt-tr tr-dn">↓ −2</div></div>
+            </div>
+          </div>
+        </div><!-- /patients -->
+
+        <!-- PROGRESS -->
+        <div class="screen" id="s-progress">
+          <div class="sbar">
+            <span class="sbar-t">9:41</span>
+            <div class="sbar-icons">
+              <svg width="16" height="11" viewBox="0 0 16 11"><rect x="0" y="3" width="3" height="8" rx="1" fill="#1A1916" opacity=".3"/><rect x="4.3" y="2" width="3" height="9" rx="1" fill="#1A1916" opacity=".5"/><rect x="8.6" y="1" width="3" height="10" rx="1" fill="#1A1916" opacity=".75"/><rect x="12.9" y="0" width="3" height="11" rx="1" fill="#1A1916"/></svg>
+              <svg width="24" height="11" viewBox="0 0 24 11"><rect x="0" y=".5" width="21" height="10" rx="2.5" fill="none" stroke="#1A1916" stroke-width="1.1"/><rect x="22" y="3.5" width="2" height="4" rx="1" fill="#1A1916" opacity=".45"/><rect x="1.2" y="1.8" width="16" height="7.5" rx="1.5" fill="#1A1916"/></svg>
+            </div>
+          </div>
+          <div class="prog-head">
+            <div class="prog-back" onclick="nav('patients')">
+              <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path d="M8 2.5L3.5 6.5 8 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              All patients
+            </div>
+            <div class="prog-name">Sarah Chen</div>
+            <div class="prog-sub">8 sessions · Trans voice training</div>
+          </div>
+          <div class="prog-body scroll">
+            <div class="chart">
+              <div class="chart-head">
+                <span class="chart-t">Vocal Health Score</span>
+                <span class="chart-c">+12 pts / 8 sessions</span>
+              </div>
+              <div class="chart-bars">
+                <div class="cb-wrap"><div class="cb" style="height:50%"></div><div class="cb-l">Apr</div></div>
+                <div class="cb-wrap"><div class="cb" style="height:54%"></div><div class="cb-l"></div></div>
+                <div class="cb-wrap"><div class="cb" style="height:58%"></div><div class="cb-l">May</div></div>
+                <div class="cb-wrap"><div class="cb" style="height:62%"></div><div class="cb-l"></div></div>
+                <div class="cb-wrap"><div class="cb good" style="height:67%"></div><div class="cb-l"></div></div>
+                <div class="cb-wrap"><div class="cb good" style="height:70%"></div><div class="cb-l">Jun</div></div>
+                <div class="cb-wrap"><div class="cb good" style="height:71%"></div><div class="cb-l"></div></div>
+                <div class="cb-wrap"><div class="cb active" style="height:74%"></div><div class="cb-l">Now</div></div>
+              </div>
+            </div>
+            <div class="lat-metrics">
+              <div class="lm-title">Latest metrics</div>
+              <div class="lm-row">
+                <div class="lm-top"><span class="lm-name">Pitch (F0)</span><span class="lm-val">187 Hz <span style="color:#3A8A5A;font-size:10px">Normal</span></span></div>
+                <div class="lm-bar"><div class="lm-fill" style="width:62%"></div></div>
+              </div>
+              <div class="lm-row">
+                <div class="lm-top"><span class="lm-name">Roughness</span><span class="lm-val" style="color:var(--red)">0.48 <span style="font-size:10px">↑ Elevated</span></span></div>
+                <div class="lm-bar"><div class="lm-fill w" style="width:78%"></div></div>
+              </div>
+              <div class="lm-row">
+                <div class="lm-top"><span class="lm-name">Stability</span><span class="lm-val">89% <span style="color:#3A8A5A;font-size:10px">Good</span></span></div>
+                <div class="lm-bar"><div class="lm-fill" style="width:89%"></div></div>
+              </div>
+            </div>
+            <div class="hist">
+              <div class="hist-lbl">Session history</div>
+              <div class="hist-row">
+                <div><div class="hr-date">Jun 9, 2026</div><div class="hr-sub">Session 8 · 61 sec</div></div>
+                <div style="text-align:right"><div class="hr-s">74</div><div class="hr-c tr-up">+3</div></div>
+              </div>
+              <div class="hist-row">
+                <div><div class="hr-date">May 26, 2026</div><div class="hr-sub">Session 7 · 60 sec</div></div>
+                <div style="text-align:right"><div class="hr-s">71</div><div class="hr-c tr-up">+4</div></div>
+              </div>
+              <div class="hist-row">
+                <div><div class="hr-date">May 12, 2026</div><div class="hr-sub">Session 6 · 60 sec</div></div>
+                <div style="text-align:right"><div class="hr-s">67</div><div class="hr-c tr-up">+3</div></div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /progress -->
+
+      </div><!-- /screen-wrap -->
+
+      <!-- BOTTOM NAV -->
+      <nav class="bnav" id="bnav">
+        <div class="nv on" id="nv-home" onclick="nav('home')">
+          <div class="nv-ico">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <path d="M11 2.5L3.5 9v9.5a1 1 0 001 1h4.5v-5h4v5H17.5a1 1 0 001-1V9L11 2.5z" fill="#E03020" stroke="#E03020" stroke-width=".5"/>
+            </svg>
+          </div>
+          <span class="nv-lbl" style="color:var(--red)">Home</span>
+        </div>
+        <div class="nv" id="nv-patients" onclick="nav('patients')">
+          <div class="nv-ico">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <circle cx="11" cy="8" r="3.5" stroke="#B8B4AE" stroke-width="1.5"/>
+              <path d="M4 19c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#B8B4AE" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="nv-lbl">Patients</span>
+        </div>
+        <!-- FAB -->
+        <div class="nv nv-fab" id="nv-record" onclick="nav('record')">
+          <div class="fab">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="5.5" stroke="white" stroke-width="1.5" opacity=".4"/>
+              <circle cx="10" cy="10" r="2.8" fill="white"/>
+            </svg>
+          </div>
+        </div>
+        <div class="nv" id="nv-report" onclick="nav('report')">
+          <div class="nv-ico">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <rect x="4.5" y="2" width="13" height="18" rx="2" stroke="#B8B4AE" stroke-width="1.5"/>
+              <line x1="7.5" y1="7" x2="14.5" y2="7" stroke="#B8B4AE" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="7.5" y1="10.5" x2="14.5" y2="10.5" stroke="#B8B4AE" stroke-width="1.5" stroke-linecap="round"/>
+              <line x1="7.5" y1="14" x2="11.5" y2="14" stroke="#B8B4AE" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="nv-lbl">Reports</span>
+        </div>
+        <div class="nv" id="nv-progress" onclick="nav('progress')">
+          <div class="nv-ico">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <rect x="2.5" y="14" width="4" height="6" rx="1" stroke="#B8B4AE" stroke-width="1.5"/>
+              <rect x="9" y="9" width="4" height="11" rx="1" stroke="#B8B4AE" stroke-width="1.5"/>
+              <rect x="15.5" y="4" width="4" height="16" rx="1" stroke="#B8B4AE" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <span class="nv-lbl">Progress</span>
+        </div>
+      </nav>
+
+    </div><!-- /app -->
+  </div><!-- /iphone-screen -->
+</div><!-- /iphone -->
+
+<script>
+/* ── Tick marks ── */
+(function(){
+  const g = document.getElementById('tick-g');
+  const cx=128,cy=128,r=120;
+  for(let i=0;i<60;i++){
+    const a=(i/60)*Math.PI*2-Math.PI/2;
+    const major=i%5===0;
+    const len=major?9:4;
+    const x1=cx+r*Math.cos(a), y1=cy+r*Math.sin(a);
+    const x2=cx+(r-len)*Math.cos(a), y2=cy+(r-len)*Math.sin(a);
+    const l=document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1',x1); l.setAttribute('y1',y1);
+    l.setAttribute('x2',x2); l.setAttribute('y2',y2);
+    l.setAttribute('stroke',major?'rgba(255,255,255,.22)':'rgba(255,255,255,.09)');
+    l.setAttribute('stroke-width',major?'1.5':'1');
+    l.setAttribute('stroke-linecap','round');
+    g.appendChild(l);
+  }
+})();
+
+/* ── Onboarding ── */
+let onbStep=0;
+function goOnb(n){
+  document.getElementById('onb-'+onbStep).classList.remove('active');
+  onbStep=n;
+  document.getElementById('onb-'+n).classList.add('active');
+}
+function selectMode(el,mode){
+  document.querySelectorAll('.mode-card').forEach(c=>{
+    c.classList.remove('sel');
+    c.querySelectorAll('svg *').forEach(p=>{
+      if(p.hasAttribute('stroke')&&p.getAttribute('stroke')!=='none') p.setAttribute('stroke','#B8B4AE');
+    });
+  });
+  el.classList.add('sel');
+  el.querySelectorAll('svg *').forEach(p=>{
+    if(p.hasAttribute('stroke')&&p.getAttribute('stroke')!=='none') p.setAttribute('stroke','white');
+  });
+  document.getElementById('btn-mode-next').classList.add('on');
+}
+function enterApp(){
+  const onb=document.getElementById('onboarding');
+  onb.style.opacity='0'; onb.style.transition='opacity .4s'; onb.style.pointerEvents='none';
+  setTimeout(()=>onb.style.display='none',400);
+  document.getElementById('app').classList.add('on');
+}
+
+/* ── Nav ── */
+const SCREENS=['home','record','report','patients','progress'];
+const NAV_MAP={home:'nv-home',patients:'nv-patients',record:'nv-record',report:'nv-report',progress:'nv-progress'};
+
+function nav(id){
+  SCREENS.forEach(s=>{
+    document.getElementById('s-'+s).classList.toggle('on',s===id);
+  });
+  const bnav=document.getElementById('bnav');
+  Object.entries(NAV_MAP).forEach(([screen,nvId])=>{
+    const nv=document.getElementById(nvId);
+    if(!nv) return;
+    const active=NAV_MAP[id]===nvId;
+    nv.classList.toggle('on',active);
+    const lbl=nv.querySelector('.nv-lbl');
+    if(lbl) lbl.style.color=active?'var(--red)':'';
+    nv.querySelectorAll('svg *').forEach(p=>{
+      const isStr=p.hasAttribute('stroke')&&p.getAttribute('stroke')!=='none'&&p.getAttribute('stroke')!=='white';
+      const isFil=p.hasAttribute('fill')&&p.getAttribute('fill')!=='none'&&p.getAttribute('fill')!=='white';
+      if(isStr) p.setAttribute('stroke',active?'#E03020':'#B8B4AE');
+      if(isFil) p.setAttribute('fill',active?'#E03020':'#B8B4AE');
+    });
+  });
+  if(id==='record'){
+    bnav.style.background='var(--dark)';
+    bnav.style.borderTopColor='rgba(255,255,255,.08)';
+    bnav.querySelectorAll('.nv-lbl').forEach(l=>{ if(l.style.color!=='var(--red)') l.style.color='rgba(255,255,255,.28)'; });
+  } else {
+    bnav.style.background='';
+    bnav.style.borderTopColor='';
+    bnav.querySelectorAll('.nv-lbl').forEach(l=>{ if(l.style.color==='rgba(255,255,255,.28)') l.style.color=''; });
+  }
+}
+
+/* ── Recording ── */
+let recording=false, recTimer=null, elapsed=0;
+const BASE_H=[20,38,60,88,100,82,55,34,18];
+
+function pad(n){return n<10?'0'+n:''+n}
+
+function toggleRec(){
+  if(recording) stopRec();
+  else startRec();
+}
+
+function startRec(){
+  recording=true; elapsed=0;
+  document.getElementById('rec-btn').style.background='rgba(224,48,32,.7)';
+  document.getElementById('stop-btn').classList.add('on');
+  document.getElementById('mic-icon').classList.add('hidden');
+  document.getElementById('rec-hint').textContent='Recording…';
+  document.getElementById('rec-dashed').style.animationDuration='3s';
+
+  const bars=document.querySelectorAll('.rw');
+  bars.forEach((b,i)=>{
+    b.style.animation=`recWave ${0.75+(i%4)*0.12}s ease-in-out infinite ${i*0.07}s`;
+  });
+
+  recTimer=setInterval(()=>{
+    elapsed++;
+    document.getElementById('rec-timer').textContent=Math.floor(elapsed/60)+':'+pad(elapsed%60);
+    bars.forEach((b,i)=>{
+      const h=Math.max(12,Math.min(100,BASE_H[i]+(Math.random()*36-18)));
+      b.style.height=h+'%';
+    });
+    if(elapsed>=60) stopRec();
+  },1000);
+}
+
+function stopRec(){
+  if(!recording) return;
+  recording=false;
+  clearInterval(recTimer);
+
+  document.getElementById('rec-btn').style.background='';
+  document.getElementById('stop-btn').classList.remove('on');
+  document.getElementById('mic-icon').classList.remove('hidden');
+  document.getElementById('rec-dashed').style.animationDuration='8s';
+
+  const bars=document.querySelectorAll('.rw');
+  bars.forEach((b,i)=>{b.style.animation='none'; b.style.height=BASE_H[i]+'%';});
+
+  const analyzing=document.getElementById('analyzing');
+  analyzing.classList.add('on');
+
+  setTimeout(()=>{
+    analyzing.classList.remove('on');
+    document.getElementById('rec-hint').textContent='Tap to record a new session';
+    document.getElementById('rec-timer').textContent='0:00';
+    elapsed=0;
+    nav('report');
+  },2200);
+}
+
+/* CSS for wave animation — injected so JS can set it */
+const style=document.createElement('style');
+style.textContent=`@keyframes recWave{0%,100%{height:12%}50%{height:100%}}`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>

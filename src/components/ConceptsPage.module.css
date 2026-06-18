@@ -37,6 +37,45 @@
   max-width: 520px;
 }
 
+/* ── Category filters ───────────────────────────────────── */
+.filters {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 40px calc(var(--gutter) + var(--site-padding)) 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--noc-grey-4);
+  background: var(--noc-grey-1);
+  border: 1px solid var(--noc-grey-2);
+  cursor: pointer;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chip:hover {
+  color: var(--noc-white);
+}
+
+.chipActive {
+  background: var(--noc-white);
+  color: var(--noc-black);
+  border-color: var(--noc-white);
+}
+
+.chipActive:hover {
+  color: var(--noc-black);
+}
+
 /* ── Grid ───────────────────────────────────────────────── */
 .grid {
   max-width: var(--max-width);
@@ -45,6 +84,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 2px;
+}
+
+.filters + .grid {
+  padding-top: 28px;
 }
 
 /* ── Card ───────────────────────────────────────────────── */
@@ -258,6 +301,9 @@
   color: var(--noc-grey-5);
   line-height: 1.7;
   max-width: 720px;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
 }
 
 /* ── Stats grid ─────────────────────────────────────────── */
@@ -2240,6 +2286,16 @@
   border-radius: clamp(26px, 3vw, 36px);
 }
 
+.denslyFloatIconCard {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+}
+
+.denslyFloatIconCard span {
+  height: 4px;
+}
+
 .denslyFloatIcon span {
   position: absolute;
   left: 50%;
@@ -2565,5 +2621,91 @@
 
   .denslyFrameworkCard strong {
     font-size: clamp(30px, 10vw, 40px);
+  }
+}
+
+/* ── Voca concept visual system ─────────────────────────── */
+.vocaCover {
+  width: 100%;
+  height: 100%;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(224, 48, 32, 0.18), transparent 30%),
+    linear-gradient(135deg, rgba(245, 244, 240, 0.03), rgba(18, 6, 4, 0.12));
+}
+
+.vocaFloatIcon {
+  position: relative;
+  width: 86px;
+  height: 86px;
+  border-radius: 26px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  padding: 20px 16px;
+  background:
+    linear-gradient(180deg, rgba(245, 244, 240, 0.10), rgba(245, 244, 240, 0.025)),
+    rgba(224, 48, 32, 0.08);
+  border: 1px solid rgba(245, 244, 240, 0.14);
+  box-shadow:
+    0 26px 70px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  animation: vocaIconFloat 4.2s ease-in-out infinite;
+}
+
+.vocaFloatIconLarge {
+  width: clamp(86px, 10vw, 132px);
+  height: clamp(86px, 10vw, 132px);
+  border-radius: clamp(26px, 3vw, 36px);
+  padding: clamp(18px, 2.5vw, 28px) clamp(14px, 2vw, 22px);
+  gap: clamp(3px, 0.4vw, 6px);
+}
+
+.vocaFloatIconCard {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  padding: 12px 9px;
+  gap: 2px;
+}
+
+.vocaFloatIcon span {
+  flex: 1;
+  border-radius: 999px;
+  background: rgba(245, 244, 240, 0.68);
+}
+
+.vocaFloatIcon span:nth-child(1) { height: 38%; }
+.vocaFloatIcon span:nth-child(2) { height: 65%; }
+.vocaFloatIcon span:nth-child(3) { height: 100%; background: #E03020; }
+.vocaFloatIcon span:nth-child(4) { height: 55%; }
+.vocaFloatIcon span:nth-child(5) { height: 28%; }
+
+@keyframes vocaIconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.vocaHeroVisual {
+  background:
+    radial-gradient(circle at 50% 10%, rgba(224, 48, 32, 0.11), transparent 32%),
+    rgba(255, 255, 255, 0.025);
+}
+
+.vocaPrototypeSection {
+  background:
+    radial-gradient(circle at 76% 16%, rgba(224, 48, 32, 0.08), transparent 28%),
+    rgba(255, 255, 255, 0.025);
+}
+
+@media (max-width: 760px) {
+  .vocaFloatIconLarge {
+    width: 88px;
+    height: 88px;
+    border-radius: 26px;
   }
 }

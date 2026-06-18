@@ -13,30 +13,29 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid var(--noc-grey-2);
+  gap: 20px;
 }
 
 .card {
   min-height: 310px;
   padding: 48px 36px;
-  border-right: 1px solid var(--noc-grey-2);
-  border-bottom: 1px solid var(--noc-grey-2);
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 14px;
   background: transparent;
   color: inherit;
   text-align: left;
   display: grid;
   grid-template-rows: auto auto 1fr auto;
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-.card:nth-child(4n) {
-  border-right: none;
+  overflow: hidden;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .card:hover,
 .card:focus-visible {
   background: var(--noc-grey-1);
   border-color: var(--noc-grey-3);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.16);
+  transform: translateY(-3px);
   outline: none;
 }
 
@@ -365,14 +364,6 @@
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .card:nth-child(4n) {
-    border-right: 1px solid var(--noc-grey-2);
-  }
-
-  .card:nth-child(2n) {
-    border-right: none;
-  }
 }
 
 @media (max-width: 1024px) {
@@ -405,12 +396,7 @@
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
-  }
-
-  .card,
-  .card:nth-child(4n),
-  .card:nth-child(2n) {
-    border-right: none;
+    gap: 14px;
   }
 
   .panel {

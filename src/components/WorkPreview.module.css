@@ -3,14 +3,9 @@
 }
 
 .shell {
-  position: relative;
-  overflow: hidden;
-  min-height: 560px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  padding: 24px 0;
 }
 
 .copy {
@@ -29,44 +24,89 @@
   text-align: center;
 }
 
-.cards {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 210px;
-  margin-top: 34px;
+/* ── Static grid ────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  margin-top: 48px;
 }
 
 .card {
-  width: 180px;
-  aspect-ratio: 1.2;
+  display: block;
+  border-radius: 14px;
   overflow: hidden;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.2);
-  transition: transform 0.28s ease;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-1);
+  text-decoration: none;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease;
 }
 
 .card:hover {
-  transform: translateY(-8px) rotate(0deg) !important;
+  transform: translateY(-4px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.28);
+  border-color: var(--noc-grey-3);
 }
 
-.card1 { transform: translateX(72px) rotate(-12deg); z-index: 1; }
-.card2 { transform: translateX(34px) translateY(16px) rotate(-6deg); z-index: 2; }
-.card3 { transform: translateY(-8px); z-index: 5; }
-.card4 { transform: translateX(-34px) translateY(16px) rotate(6deg); z-index: 3; }
-.card5 { transform: translateX(-72px) rotate(12deg); z-index: 1; }
+.cardImg {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
 
-.image {
+.cardImg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.card:hover .cardImg img {
+  transform: scale(1.04);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.28);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+.cardMeta {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--noc-white);
+  line-height: 1.3;
+}
+
+.cardCategory {
+  font-size: 11px;
+  color: var(--noc-grey-4);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── CTA ─────────────────────────────────────────────────── */
 .cta {
   display: block;
-  margin: 10px auto 0;
+  margin: 38px auto 0;
   padding: 12px 28px;
   border-radius: 999px;
   background: var(--noc-white);
@@ -77,31 +117,30 @@
   animation: ctaBreath 3.2s ease-in-out infinite;
 }
 
-@media (max-width: 760px) {
-  .shell {
-    min-height: auto;
-    padding: 0;
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  .copy {
-    margin-top: 0;
-  }
-
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
     gap: 12px;
-    min-height: 0;
+    margin-top: 28px;
   }
 
-  .card,
-  .card1,
-  .card2,
-  .card3,
-  .card4,
-  .card5 {
-    width: 100%;
-    transform: none;
+  .cta {
+    width: min(100%, 260px);
+    margin-top: 18px;
+    padding: 12px 22px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cta {
+    box-shadow: none;
   }
 }
 
@@ -117,43 +156,5 @@
     box-shadow:
       0 5px 14px rgba(232, 97, 42, 0.12),
       0 0 0 3px rgba(232, 97, 42, 0.05);
-  }
-}
-
-/* ── Mobile work preview polish ───────────── */
-@media (max-width: 760px) {
-  .section {
-    overflow: visible;
-  }
-
-  .cards {
-    margin-top: 26px;
-  }
-
-  .card {
-    border-radius: 7px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
-  }
-
-  .cta {
-    width: min(100%, 260px);
-    margin-top: 18px;
-    padding: 12px 22px;
-    font-size: 12.5px;
-  }
-}
-
-/* ── Mobile shadow trim v2 ── */
-@media (max-width: 768px) {
-  .btnPrimary,
-  .cta,
-  .btn,
-  .btnConfirm,
-  .btnReopen,
-  .projectLink,
-  .projectLinkPill,
-  .slot,
-  .panelMail {
-    box-shadow: none;
   }
 }

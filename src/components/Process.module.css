@@ -2,28 +2,32 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
-  margin-bottom: 100px;
+  margin-bottom: 56px;
   align-items: end;
 }
 
 .steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--noc-grey-2);
+  gap: 20px;
 }
 
 .step {
-  padding: 64px 40px 64px 0;
-  border-right: 1px solid var(--noc-grey-2);
+  padding: 40px;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: 14px;
+  background: transparent;
+  transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.step:nth-child(2) {
-  padding: 64px 40px;
-}
-
-.step:last-child {
-  padding: 64px 0 64px 40px;
-  border-right: none;
+.step:hover {
+  background: var(--noc-grey-1);
+  border-color: var(--noc-grey-3);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.16);
+  transform: translateY(-3px);
 }
 
 .num {
@@ -57,12 +61,10 @@
 
   .steps {
     grid-template-columns: 1fr;
+    gap: 14px;
   }
 
-  .step,
-  .step:nth-child(2),
-  .step:last-child {
-    padding: 40px 0;
-    border-right: none;
+  .step {
+    padding: 32px;
   }
 }

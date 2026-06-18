@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Tollgate</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  /* backgrounds */
+  --bg:#F2F2F7;
+  --card:#FFFFFF;
+  --dark:#1C1C1E;
+  --dark2:#2C2C2E;
+  --dark3:#3A3A3C;
+  /* accent – electric teal */
+  --t:#0EC8B5;
+  --t2:#09A898;
+  --t-bg:rgba(14,200,181,.13);
+  --t-border:rgba(14,200,181,.28);
+  --t-glow:rgba(14,200,181,.22);
+  /* ink */
+  --ink:#1C1C1E;
+  --ink2:#6E6E73;
+  --ink3:#AEAEB2;
+  /* semantic */
+  --green:#34C759;
+  --green-bg:rgba(52,199,89,.12);
+  --green-dk:#1A7A34;
+  --amber:#FF9F0A;
+  --amber-bg:rgba(255,159,10,.13);
+  --red:#FF3B30;
+  --red-bg:rgba(255,59,48,.12);
+  /* ui */
+  --line:#E5E5EA;
+  --r:22px;
+  --r-sm:14px;
+}
+
+html,body{
+  height:100%;background:var(--dark);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden;
+}
+
+.app{
+  position:relative;height:100svh;width:100%;
+  display:flex;flex-direction:column;overflow:hidden;
+  background:var(--bg);
+}
+
+/* ═══════════════ STATUS BAR ═══════════════ */
+.sb{
+  flex:none;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 22px 0;font-size:15px;font-weight:600;letter-spacing:-.01em;
+}
+.sb.light{color:#fff}
+.sb.dark{color:var(--ink);background:var(--bg)}
+.sb-r{display:flex;align-items:center;gap:5px}
+
+/* ═══════════════ SCREEN ROUTING ═══════════════ */
+.screens{flex:1;position:relative;overflow:hidden}
+.screen{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  opacity:0;transform:translateX(22px);pointer-events:none;
+  transition:opacity .3s ease,transform .3s ease;overflow:hidden;
+}
+.screen.active{opacity:1;transform:none;pointer-events:auto}
+.screen.exit{opacity:0;transform:translateX(-22px)}
+
+/* ═══════════════ ONBOARDING ═══════════════ */
+.onb{background:var(--dark);display:flex;flex-direction:column}
+
+.onb-art{
+  flex:0 0 58%;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.onb-art-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 60%, var(--t-glow), transparent 70%),
+             linear-gradient(180deg,#252528 0%,var(--dark) 100%);
+}
+.onb-art svg{position:relative;z-index:1}
+
+.onb-ring1,.onb-ring2,.onb-ring3{
+  position:absolute;border-radius:50%;
+  border:1px solid var(--t-border);
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  animation:ringPulse 3s ease-in-out infinite;
+}
+.onb-ring1{width:180px;height:180px;opacity:.35}
+.onb-ring2{width:260px;height:260px;opacity:.18;animation-delay:.6s}
+.onb-ring3{width:340px;height:340px;opacity:.09;animation-delay:1.2s}
+@keyframes ringPulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.04)}}
+
+.onb-float{animation:float 4s ease-in-out infinite}
+.onb-float2{animation:float 4s ease-in-out infinite;animation-delay:1.2s}
+.onb-float3{animation:float 3.6s ease-in-out infinite;animation-delay:.7s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+.onb-body{
+  flex:1;background:var(--card);border-radius:32px 32px 0 0;
+  padding:28px 28px 0;display:flex;flex-direction:column;
+  box-shadow:0 -8px 32px rgba(0,0,0,.22);
+}
+.onb-dots{display:flex;gap:7px;margin-bottom:22px}
+.dot{
+  height:7px;border-radius:999px;background:var(--line);
+  transition:width .35s ease,background .35s ease;width:7px;
+}
+.dot.on{width:24px;background:var(--t)}
+.onb-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t);margin-bottom:10px}
+.onb-h{font-size:26px;font-weight:800;letter-spacing:-.03em;line-height:1.12;color:var(--ink)}
+.onb-p{font-size:15px;line-height:1.58;color:var(--ink2);margin-top:11px}
+.onb-foot{margin-top:auto;padding:20px 0 calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:10px}
+
+/* ═══════════════ SHARED: HEADER (dark) ═══════════════ */
+.hdr{
+  flex:none;padding:8px 22px 22px;background:var(--dark);
+  border-radius:0 0 30px 30px;position:relative;overflow:hidden;
+}
+.hdr::after{
+  content:'';position:absolute;top:-60px;right:-60px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,var(--t-glow),transparent 70%);
+  pointer-events:none;
+}
+.hdr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.hdr-brand{display:flex;align-items:center;gap:9px}
+.brand-mark{
+  width:30px;height:30px;border-radius:9px;flex:none;
+  background:linear-gradient(140deg,var(--t),#09A898);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 14px rgba(14,200,181,.38);
+}
+.brand-mark svg{width:16px;height:16px}
+.brand-name{font-size:15px;font-weight:700;color:#fff;letter-spacing:.01em}
+.hdr-pill{
+  font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:999px;cursor:pointer;
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:none;font-family:inherit;
+}
+
+.balance-lbl{
+  display:flex;align-items:center;gap:6px;margin-bottom:7px;
+  font-size:12.5px;font-weight:500;color:rgba(255,255,255,.45);
+  letter-spacing:.05em;text-transform:uppercase;
+}
+.balance-lbl svg{width:13px;height:13px}
+.balance-num{
+  font-size:46px;font-weight:800;letter-spacing:-.04em;color:#fff;line-height:1;
+  display:flex;align-items:flex-end;gap:3px;
+}
+.balance-dec{font-size:27px;font-weight:700;color:rgba(255,255,255,.5);margin-bottom:3px}
+.status-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  margin-top:13px;padding:6px 13px;border-radius:999px;
+  background:var(--t-bg);border:1px solid var(--t-border);
+  font-size:12.5px;font-weight:600;color:var(--t);
+}
+.status-badge .bdot{width:7px;height:7px;border-radius:50%;background:var(--t);flex:none}
+.status-badge.warn{background:rgba(255,159,10,.14);border-color:rgba(255,159,10,.3);color:var(--amber)}
+.status-badge.warn .bdot{background:var(--amber)}
+
+/* action row under header */
+.act-row{
+  flex:none;display:flex;gap:10px;
+  padding:12px 22px 16px;background:var(--dark);
+  border-radius:0 0 26px 26px;margin-top:-8px;z-index:1;
+}
+.act-btn{
+  flex:1;border:none;border-radius:999px;padding:14px;cursor:pointer;
+  font-family:inherit;font-size:14px;font-weight:600;letter-spacing:-.01em;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  transition:transform .1s,opacity .15s;
+}
+.act-btn:active{transform:scale(.96)}
+.act-btn.solid{background:#fff;color:var(--ink)}
+.act-btn.ghost{background:rgba(255,255,255,.14);color:#fff}
+
+/* ═══════════════ SHEET ═══════════════ */
+.sheet{
+  flex:1;overflow-y:auto;padding:18px 16px 24px;
+  display:flex;flex-direction:column;gap:14px;
+}
+.sheet::-webkit-scrollbar{width:0}
+
+/* ═══════════════ SECTION TITLE ═══════════════ */
+.sec{display:flex;align-items:center;justify-content:space-between;padding:0 4px}
+.sec b{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.sec-link{
+  font-size:13.5px;font-weight:600;color:var(--t2);cursor:pointer;
+  background:none;border:none;font-family:inherit;padding:4px 0;
+}
+
+/* ═══════════════ CARDS ═══════════════ */
+.card{
+  background:var(--card);border-radius:var(--r);
+  box-shadow:0 2px 14px rgba(0,0,0,.06);padding:18px;
+}
+.card-lbl{font-size:12px;font-weight:600;color:var(--ink2);letter-spacing:.01em;margin-bottom:12px}
+
+/* ═══════════════ LEDGER ═══════════════ */
+.lrow{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.lrow:first-child{border-top:none}
+.lico{
+  width:42px;height:42px;border-radius:14px;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:19px;
+  background:var(--bg);
+}
+.lmid{flex:1;min-width:0}
+.lmid b{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.lmid span{font-size:12px;color:var(--ink2);margin-top:2px;display:block}
+.lamt{font-size:15px;font-weight:700;letter-spacing:-.02em;text-align:right}
+.lamt.neg{color:var(--ink)}
+.lamt.blk{color:var(--ink3)}
+.ltag{
+  font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:999px;
+  display:inline-block;margin-top:3px;
+}
+.ltag.auto{background:var(--t-bg);color:var(--t2)}
+.ltag.ok{background:var(--t-bg);color:var(--t2)}
+.ltag.blocked{background:var(--red-bg);color:var(--red)}
+
+/* ═══════════════ HELPERS LIST ═══════════════ */
+.hrow{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 0;border-top:1px solid var(--line);
+}
+.hrow:first-child{border-top:none}
+.hava{
+  width:40px;height:40px;border-radius:13px;flex:none;
+  background:linear-gradient(145deg,#252528,#1C1C1E);
+  display:flex;align-items:center;justify-content:center;font-size:19px;
+  box-shadow:0 4px 12px rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.07);
+}
+.hmid{flex:1;min-width:0}
+.hmid b{font-size:14px;font-weight:600;letter-spacing:-.01em}
+.hmid span{font-size:12px;color:var(--ink2);margin-top:2px;display:block}
+.hchip{
+  display:flex;align-items:center;gap:5px;padding:5px 10px;
+  border-radius:999px;font-size:11.5px;font-weight:600;flex:none;
+}
+.hchip.on{background:var(--t-bg);border:1px solid var(--t-border);color:var(--t2)}
+.hchip.off{background:rgba(110,110,115,.1);border:1px solid rgba(110,110,115,.18);color:var(--ink3)}
+.hchip-dot{width:6px;height:6px;border-radius:50%;flex:none}
+.hchip.on .hchip-dot{background:var(--t)}
+.hchip.off .hchip-dot{background:var(--ink3)}
+
+/* ═══════════════ SETUP SCREEN ═══════════════ */
+.setup-hdr{
+  flex:none;padding:8px 22px 24px;background:var(--dark);
+  border-radius:0 0 28px 28px;position:relative;overflow:hidden;
+}
+.setup-hdr::after{
+  content:'';position:absolute;bottom:-40px;left:-40px;
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,var(--t-glow),transparent 70%);pointer-events:none;
+}
+.setup-kicker{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t);margin-bottom:8px}
+.setup-name{font-size:22px;font-weight:800;letter-spacing:-.03em;color:#fff}
+.setup-sub{font-size:13px;color:rgba(255,255,255,.45);margin-top:3px}
+
+/* cap stepper */
+.cap-num{font-size:44px;font-weight:800;letter-spacing:-.04em;color:var(--ink)}
+.cap-sub{font-size:12px;color:var(--ink2);margin-top:3px}
+.stepper{display:flex;align-items:center;gap:14px;margin-top:16px}
+.s-btn{
+  width:46px;height:46px;border-radius:14px;border:1.5px solid var(--line);
+  background:var(--bg);color:var(--ink);font-size:22px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:transform .1s,background .15s;font-weight:400;
+}
+.s-btn:active{transform:scale(.92);background:var(--line)}
+.s-track{
+  flex:1;height:7px;border-radius:999px;
+  background:var(--line);overflow:hidden;
+}
+.s-track i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--t),#0AAFA0);transition:width .25s ease}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.chip{
+  font-size:13px;font-weight:500;padding:8px 14px;border-radius:999px;cursor:pointer;
+  border:1.5px solid var(--line);color:var(--ink2);background:var(--card);
+  display:flex;align-items:center;gap:6px;transition:all .15s;user-select:none;
+}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink);font-weight:600}
+.chip .x{opacity:.5;font-size:13px}
+
+/* toggle row */
+.trow{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line)}
+.trow:first-of-type{border-top:none}
+.trow-l b{font-size:14.5px;font-weight:600;letter-spacing:-.01em;display:block}
+.trow-l span{font-size:12px;color:var(--ink2);margin-top:2px;display:block}
+.sw{
+  width:50px;height:30px;border-radius:999px;background:var(--line);
+  position:relative;flex:none;cursor:pointer;transition:background .2s;
+}
+.sw::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:24px;height:24px;border-radius:50%;background:#fff;
+  box-shadow:0 2px 6px rgba(0,0,0,.16);transition:left .2s;
+}
+.sw.on{background:var(--t)}
+.sw.on::after{left:23px}
+
+/* ═══════════════ APPROVAL SCREEN ═══════════════ */
+.appr-hdr{
+  flex:none;padding:8px 22px 24px;background:var(--dark);
+  border-radius:0 0 30px 30px;position:relative;overflow:hidden;
+}
+.appr-hdr::after{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,159,10,.2),transparent 70%);pointer-events:none;
+}
+.appr-pill{
+  display:inline-flex;align-items:center;gap:7px;padding:6px 13px;
+  border-radius:999px;background:rgba(255,159,10,.16);
+  border:1px solid rgba(255,159,10,.35);
+  font-size:12px;font-weight:600;color:var(--amber);margin-bottom:14px;
+}
+.appr-pulse{width:8px;height:8px;border-radius:50%;background:var(--amber);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,159,10,.5)}70%{box-shadow:0 0 0 8px rgba(255,159,10,0)}}
+.appr-amt{font-size:50px;font-weight:800;letter-spacing:-.05em;color:#fff;line-height:1.05}
+.appr-from{font-size:14px;color:rgba(255,255,255,.5);margin-top:5px}
+.appr-from b{color:rgba(255,255,255,.9)}
+
+.item-list{background:var(--card);border-radius:var(--r);box-shadow:0 2px 14px rgba(0,0,0,.06);overflow:hidden;margin-bottom:12px}
+.irow{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-top:1px solid var(--line)}
+.irow:first-child{border-top:none}
+.irow span{font-size:14px;color:var(--ink2)}
+.irow b{font-size:14.5px;font-weight:600}
+.warn-box{
+  display:flex;gap:11px;align-items:flex-start;padding:14px 16px;
+  background:var(--amber-bg);border-radius:var(--r-sm);
+  border:1px solid rgba(255,159,10,.22);
+  font-size:13.5px;color:#9B6400;line-height:1.45;margin-bottom:2px;
+}
+.warn-box svg{width:19px;height:19px;flex:none;margin-top:1px;color:var(--amber)}
+.cd-note{text-align:center;font-size:12.5px;color:var(--ink2);margin-top:12px}
+.cd-note b{color:var(--ink);font-variant-numeric:tabular-nums}
+
+/* ═══════════════ STOP-ALL SCREEN ═══════════════ */
+.stop-hdr{
+  flex:none;padding:8px 22px 24px;background:var(--dark);
+  border-radius:0 0 30px 30px;position:relative;overflow:hidden;
+}
+.stop-hdr::after{
+  content:'';position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);
+  width:240px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,59,48,.2),transparent 65%);pointer-events:none;
+}
+.stop-icon{
+  width:58px;height:58px;border-radius:18px;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,59,48,.18);border:1px solid rgba(255,59,48,.3);
+}
+.stop-icon svg{width:26px;height:26px}
+.stop-h{font-size:26px;font-weight:800;letter-spacing:-.03em;color:#fff;line-height:1.1}
+.stop-sub{font-size:14px;color:rgba(255,255,255,.45);margin-top:7px;line-height:1.55;max-width:28ch}
+
+.alist{background:var(--card);border-radius:var(--r);box-shadow:0 2px 14px rgba(0,0,0,.06);overflow:hidden}
+.arow{display:flex;align-items:center;gap:13px;padding:14px 18px;border-top:1px solid var(--line)}
+.arow:first-child{border-top:none}
+.adot{width:10px;height:10px;border-radius:50%;background:var(--t);flex:none;transition:background .3s}
+.adot.off{background:var(--ink3)}
+.arow b{flex:1;font-size:14.5px;font-weight:600;letter-spacing:-.01em}
+.arow span{font-size:12.5px;color:var(--t);font-weight:500;transition:color .3s}
+.arow span.off{color:var(--red)}
+
+/* ═══════════════ FOOTER / BUTTONS ═══════════════ */
+.footer{
+  flex:none;padding:12px 16px calc(18px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;gap:9px;background:var(--bg);
+}
+.btn{
+  width:100%;border:none;border-radius:16px;padding:17px;font-family:inherit;
+  font-size:16px;font-weight:700;cursor:pointer;letter-spacing:-.01em;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .1s,opacity .12s;
+}
+.btn:active{transform:scale(.98)}
+.btn-teal{background:var(--t);color:#04302C}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-ghost{background:var(--card);color:var(--ink);box-shadow:0 2px 10px rgba(0,0,0,.07)}
+.btn-danger{background:rgba(255,59,48,.14);color:var(--red);border:1px solid rgba(255,59,48,.22)}
+.btn-row{display:flex;gap:10px}
+.btn-row .btn{flex:1}
+.lnk{
+  background:none;border:none;color:var(--ink2);font-family:inherit;
+  font-size:14px;font-weight:500;cursor:pointer;padding:8px;
+  text-align:center;letter-spacing:-.01em;
+}
+
+/* ═══════════════ TAB BAR ═══════════════ */
+.tabbar{
+  flex:none;display:grid;grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--line);background:rgba(242,242,247,.88);
+  backdrop-filter:blur(22px);
+  padding:10px 6px calc(12px + env(safe-area-inset-bottom));
+}
+.tab{
+  background:none;border:none;color:var(--ink3);font-family:inherit;
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;
+  gap:4px;font-size:10.5px;font-weight:500;padding:6px 0;
+  transition:color .15s;
+}
+.tab svg{
+  width:24px;height:24px;stroke:currentColor;fill:none;
+  stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;
+}
+.tab.on{color:var(--t2);font-weight:600}
+
+/* ═══════════════ TOAST ═══════════════ */
+.toast{
+  position:absolute;left:50%;bottom:96px;
+  transform:translateX(-50%) translateY(14px);
+  background:var(--dark);color:#fff;font-size:13.5px;font-weight:600;
+  padding:12px 20px;border-radius:999px;
+  opacity:0;pointer-events:none;z-index:200;white-space:nowrap;
+  transition:opacity .22s,transform .22s;
+  box-shadow:0 8px 30px rgba(0,0,0,.25);letter-spacing:-.01em;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.hide{display:none!important}
+
+/* ─── svg icon helpers ─── */
+.ico{display:inline-flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ══════════════════════════════════════════
+     ONBOARDING 1 — Meet Tollgate
+══════════════════════════════════════════ -->
+<section class="screen onb active" data-screen="onb1">
+  <div class="onb-art">
+    <div class="onb-art-bg"></div>
+    <div class="onb-ring1"></div>
+    <div class="onb-ring2"></div>
+    <div class="onb-ring3"></div>
+
+    <svg width="260" height="210" viewBox="0 0 260 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Shield glow -->
+      <ellipse cx="130" cy="108" rx="52" ry="58" fill="rgba(14,200,181,.18)" filter="url(#g1)"/>
+      <defs>
+        <filter id="g1" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="14"/>
+        </filter>
+      </defs>
+      <!-- Shield shape -->
+      <path d="M130 30 L92 48 L92 98 C92 124 108 144 130 154 C152 144 168 124 168 98 L168 48 Z"
+        fill="rgba(14,200,181,.1)" stroke="#0EC8B5" stroke-width="1.5" stroke-linejoin="round"/>
+      <!-- Checkmark -->
+      <path d="M113 96 L123 108 L148 82"
+        stroke="#0EC8B5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- AI agent dots approaching — left -->
+      <g class="onb-float">
+        <circle cx="46" cy="82" r="16" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+        <text x="46" y="87" text-anchor="middle" font-size="14" fill="rgba(255,255,255,.7)">🤖</text>
+      </g>
+      <!-- arrow from agent to shield -->
+      <line x1="64" y1="82" x2="88" y2="82" stroke="rgba(14,200,181,.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <path d="M85 78 L90 82 L85 86" fill="none" stroke="rgba(14,200,181,.4)" stroke-width="1.5" stroke-linecap="round"/>
+
+      <!-- Second agent — top-left -->
+      <g class="onb-float2">
+        <circle cx="62" cy="50" r="14" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
+        <text x="62" y="55" text-anchor="middle" font-size="12" fill="rgba(255,255,255,.7)">⚙️</text>
+      </g>
+      <line x1="74" y1="58" x2="90" y2="68" stroke="rgba(14,200,181,.3)" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+      <!-- Third agent — bottom-left, blocked -->
+      <g class="onb-float3">
+        <circle cx="50" cy="136" r="14" fill="rgba(255,255,255,.05)" stroke="rgba(255,59,48,.3)" stroke-width="1"/>
+        <text x="50" y="141" text-anchor="middle" font-size="12" fill="rgba(255,255,255,.5)">🛒</text>
+      </g>
+      <line x1="64" y1="132" x2="86" y2="118" stroke="rgba(255,59,48,.3)" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <!-- blocked × -->
+      <circle cx="80" cy="115" r="8" fill="rgba(255,59,48,.22)"/>
+      <path d="M76 111 L84 119 M84 111 L76 119" stroke="#FF3B30" stroke-width="1.8" stroke-linecap="round"/>
+
+      <!-- Approved spend leaving right -->
+      <line x1="170" y1="90" x2="210" y2="76" stroke="rgba(14,200,181,.35)" stroke-width="1.4" stroke-dasharray="4 3"/>
+      <g class="onb-float">
+        <circle cx="220" cy="72" r="15" fill="rgba(14,200,181,.12)" stroke="rgba(14,200,181,.35)" stroke-width="1"/>
+        <text x="220" y="77" text-anchor="middle" font-size="13" fill="rgba(255,255,255,.8)">✓</text>
+      </g>
+
+      <!-- Dollar amounts floating -->
+      <text x="188" y="148" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,.2)" letter-spacing="-.5">$200/wk</text>
+      <text x="28" y="168" font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="rgba(14,200,181,.3)" letter-spacing="-.5">$75 check-in</text>
+    </svg>
+  </div>
+
+  <div class="onb-body">
+    <div class="onb-dots"><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+    <p class="onb-label">Tollgate · Spending Guard</p>
+    <h1 class="onb-h">Your AI helpers. Your rules.</h1>
+    <p class="onb-p">AI assistants can now shop, book, and buy on your behalf. Tollgate makes sure they only do exactly what you've allowed.</p>
+    <div class="onb-foot">
+      <button class="btn btn-dark" data-go="onb2">
+        Continue
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8M9 5l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ONBOARDING 2 — Set your limits
+══════════════════════════════════════════ -->
+<section class="screen onb" data-screen="onb2">
+  <div class="onb-art">
+    <div class="onb-art-bg" style="background:radial-gradient(ellipse 65% 55% at 50% 65%,rgba(14,200,181,.18),transparent 70%),linear-gradient(180deg,#252528 0%,var(--dark) 100%)"></div>
+
+    <svg width="270" height="210" viewBox="0 0 270 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Card base -->
+      <rect x="45" y="42" width="180" height="112" rx="18" fill="#252528" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+      <!-- Card shimmer stripe -->
+      <rect x="45" y="62" width="180" height="22" fill="rgba(255,255,255,.04)"/>
+      <!-- Budget label -->
+      <text x="63" y="56" font-family="Inter,sans-serif" font-size="9" font-weight="600" fill="rgba(255,255,255,.35)" letter-spacing="1">WEEKLY BUDGET</text>
+      <!-- Amount -->
+      <text x="63" y="98" font-family="Inter,sans-serif" font-size="28" font-weight="800" fill="#ffffff" letter-spacing="-1.2">$200</text>
+      <!-- Track bg -->
+      <rect x="63" y="110" width="144" height="7" rx="4" fill="rgba(255,255,255,.1)"/>
+      <!-- Track fill -->
+      <rect x="63" y="110" width="98" height="7" rx="4" fill="url(#tgrad)"/>
+      <defs>
+        <linearGradient id="tgrad" x1="63" y1="0" x2="207" y2="0" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#0EC8B5"/><stop offset="1" stop-color="#0AAFA0"/>
+        </linearGradient>
+      </defs>
+      <!-- Track label -->
+      <text x="63" y="130" font-family="Inter,sans-serif" font-size="9" font-weight="500" fill="rgba(255,255,255,.35)">$142 spent</text>
+      <text x="163" y="130" font-family="Inter,sans-serif" font-size="9" font-weight="500" fill="rgba(255,255,255,.25)">$58 left</text>
+
+      <!-- Store chips -->
+      <rect x="63" y="138" width="64" height="22" rx="11" fill="rgba(14,200,181,.18)" stroke="rgba(14,200,181,.35)" stroke-width=".8"/>
+      <text x="95" y="153" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" font-weight="600" fill="#0EC8B5">FreshCart</text>
+      <rect x="134" y="138" width="48" height="22" rx="11" fill="rgba(14,200,181,.12)" stroke="rgba(14,200,181,.25)" stroke-width=".8"/>
+      <text x="158" y="153" text-anchor="middle" font-family="Inter,sans-serif" font-size="9.5" font-weight="600" fill="#0EC8B5">DeliCo</text>
+
+      <!-- Floating badges -->
+      <g class="onb-float">
+        <rect x="170" y="18" width="76" height="28" rx="14" fill="rgba(14,200,181,.12)" stroke="rgba(14,200,181,.28)" stroke-width="1"/>
+        <text x="208" y="36" text-anchor="middle" font-family="Inter,sans-serif" font-size="10.5" font-weight="600" fill="#0EC8B5">✓ Groceries</text>
+      </g>
+      <g class="onb-float2">
+        <rect x="18" y="32" width="60" height="26" rx="13" fill="rgba(255,59,48,.1)" stroke="rgba(255,59,48,.25)" stroke-width="1"/>
+        <text x="48" y="49" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#FF3B30">✕ Clothing</text>
+      </g>
+      <g class="onb-float3">
+        <rect x="20" y="168" width="82" height="26" rx="13" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+        <text x="61" y="185" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="500" fill="rgba(255,255,255,.5)">Resets Mon 🔄</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="onb-body">
+    <div class="onb-dots"><div class="dot"></div><div class="dot on"></div><div class="dot"></div></div>
+    <p class="onb-label">Step 2 · Your limits</p>
+    <h1 class="onb-h">Set exactly what they can spend.</h1>
+    <p class="onb-p">Weekly limit, allowed stores, and what categories they're allowed in. Change it anytime — it takes effect immediately.</p>
+    <div class="onb-foot">
+      <button class="btn btn-dark" data-go="onb3">
+        Continue
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8M9 5l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="lnk" data-go="onb1">← Back</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     ONBOARDING 3 — Always your call
+══════════════════════════════════════════ -->
+<section class="screen onb" data-screen="onb3">
+  <div class="onb-art">
+    <div class="onb-art-bg" style="background:radial-gradient(ellipse 60% 50% at 50% 60%,rgba(14,200,181,.16),transparent 68%),linear-gradient(180deg,#252528 0%,var(--dark) 100%)"></div>
+
+    <svg width="260" height="210" viewBox="0 0 260 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Notification card -->
+      <g class="onb-float">
+        <rect x="30" y="20" width="200" height="110" rx="20" fill="#252528" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+        <!-- amber pill -->
+        <rect x="46" y="34" width="116" height="20" rx="10" fill="rgba(255,159,10,.18)"/>
+        <circle cx="56" cy="44" r="4" fill="#FF9F0A"/>
+        <text x="78" y="48" font-family="Inter,sans-serif" font-size="9.5" font-weight="600" fill="#FF9F0A">Quick check needed</text>
+        <!-- amount -->
+        <text x="46" y="74" font-family="Inter,sans-serif" font-size="26" font-weight="800" fill="#ffffff" letter-spacing="-1">$86.40</text>
+        <!-- from -->
+        <text x="46" y="89" font-family="Inter,sans-serif" font-size="9.5" fill="rgba(255,255,255,.45)">Grocery helper → FreshCart</text>
+        <!-- buttons -->
+        <rect x="46" y="96" width="78" height="24" rx="12" fill="rgba(255,255,255,.1)"/>
+        <text x="85" y="112" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,.65)">No thanks</text>
+        <rect x="134" y="96" width="80" height="24" rx="12" fill="#0EC8B5"/>
+        <text x="174" y="112" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="#04302C">Yes, buy it</text>
+      </g>
+
+      <!-- User avatar above, tapping yes -->
+      <g class="onb-float2">
+        <circle cx="196" cy="150" r="22" fill="rgba(14,200,181,.12)" stroke="rgba(14,200,181,.3)" stroke-width="1.2"/>
+        <text x="196" y="156" text-anchor="middle" font-size="20">👤</text>
+      </g>
+      <!-- tap arrow -->
+      <path d="M188 138 L182 130 L178 135" stroke="rgba(14,200,181,.5)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- Stop-all badge bottom-left -->
+      <g class="onb-float3">
+        <rect x="18" y="154" width="102" height="30" rx="15" fill="rgba(255,59,48,.1)" stroke="rgba(255,59,48,.25)" stroke-width="1"/>
+        <text x="69" y="174" text-anchor="middle" font-family="Inter,sans-serif" font-size="10.5" font-weight="600" fill="#FF3B30">⏹ Stop everything</text>
+      </g>
+
+      <!-- small label: instant -->
+      <text x="142" y="190" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" font-weight="500" fill="rgba(14,200,181,.45)" letter-spacing=".5">INSTANT · ALWAYS</text>
+    </svg>
+  </div>
+
+  <div class="onb-body">
+    <div class="onb-dots"><div class="dot"></div><div class="dot"></div><div class="dot on"></div></div>
+    <p class="onb-label">Step 3 · Your veto</p>
+    <h1 class="onb-h">You're always the last word.</h1>
+    <p class="onb-p">Big purchases check with you first. And if you ever want to stop everything — one tap, done. Every helper pauses instantly.</p>
+    <div class="onb-foot">
+      <button class="btn btn-teal" id="getStartedBtn">
+        Set up my first helper
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8M9 5l3 3-3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="lnk" data-go="onb2">← Back</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SETUP — Set up helper
+══════════════════════════════════════════ -->
+<section class="screen" data-screen="setup">
+  <div class="sb light" style="background:var(--dark)">
+    <span id="clk1">9:41</span><div class="sb-r"><svg viewBox="0 0 17 12" fill="#fff" width="16" height="12"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".3"/></svg><svg viewBox="0 0 25 12" fill="none" stroke="#fff" stroke-width="1.2" width="22" height="12"><rect x="0" y="1" width="21" height="10" rx="2.5"/><rect x="1.5" y="2.5" width="15" height="7" rx="1.5" fill="#fff" stroke="none"/><rect x="22" y="3.5" width="3" height="5" rx="1" fill="#fff" opacity=".6" stroke="none"/></svg></div>
+  </div>
+  <div class="setup-hdr">
+    <p class="setup-kicker">New helper</p>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:8px">
+      <div style="width:46px;height:46px;border-radius:14px;background:linear-gradient(145deg,#2C2C2E,#1C1C1E);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 16px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.07)">🧺</div>
+      <div>
+        <div class="setup-name">Grocery helper</div>
+        <div class="setup-sub">Auto-reorders from your stores</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:1;overflow-y:auto;padding:14px 16px 0">
+    <div style="display:flex;flex-direction:column;gap:12px">
+
+      <div class="card">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:4px">
+          <div>
+            <div class="card-lbl">Weekly spending limit</div>
+            <div class="cap-num" id="capAmt">$200</div>
+            <div class="cap-sub">Resets every Monday</div>
+          </div>
+          <div id="armStatus" class="hchip off"><span class="hchip-dot"></span>Off</div>
+        </div>
+        <div class="stepper">
+          <div class="s-btn" id="capMinus">−</div>
+          <div class="s-track"><i id="capTrack" style="width:50%"></i></div>
+          <div class="s-btn" id="capPlus">+</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-lbl">Allowed stores</div>
+        <div class="chips" id="chips">
+          <button class="chip on" data-m="FreshCart">FreshCart<span class="x"> ×</span></button>
+          <button class="chip on" data-m="DeliCo">DeliCo<span class="x"> ×</span></button>
+          <button class="chip" data-m="add">+ Add store</button>
+        </div>
+      </div>
+
+      <div class="card" style="padding:4px 18px 6px">
+        <div class="trow">
+          <div class="trow-l"><b>Check with me over $75</b><span>I'll ask before anything bigger goes through</span></div>
+          <div class="sw on" id="tgAsk"></div>
+        </div>
+        <div class="trow">
+          <div class="trow-l"><b>Groceries only</b><span>No random purchases outside food</span></div>
+          <div class="sw on" id="tgBlock"></div>
+        </div>
+        <div class="trow">
+          <div class="trow-l"><b>Weekly recap</b><span>Summary every Saturday evening</span></div>
+          <div class="sw on" id="tgSum"></div>
+        </div>
+      </div>
+
+    </div>
+    <div style="height:14px"></div>
+  </div>
+  <div class="footer">
+    <button class="btn btn-teal" id="armBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4.5"/></svg>
+      Save &amp; turn on
+    </button>
+    <button class="lnk" data-go="onb3">← Back</button>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     DASHBOARD — Home
+══════════════════════════════════════════ -->
+<section class="screen" data-screen="dash">
+  <div class="sb light" style="background:var(--dark)">
+    <span id="clk2">9:41</span><div class="sb-r"><svg viewBox="0 0 17 12" fill="#fff" width="16" height="12"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity=".3"/></svg><svg viewBox="0 0 25 12" fill="none" stroke="#fff" stroke-width="1.2" width="22" height="12"><rect x="0" y="1" width="21" height="10" rx="2.5"/><rect x="1.5" y="2.5" width="15" height="7" rx="1.5" fill="#fff" stroke="none"/><rect x="22" y="3.5" width="3" height="5" rx="1" fill="#fff" opacity=".6" stroke="none"/></svg></div>
+  </div>
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="hdr-brand">
+        <div class="brand-mark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#04302C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4.5"/></svg></div>
+        <span class="brand-name">tollgate</span>
+      </div>
+      <button class="hdr-pill" data-go="stopall">Stop all</button>
+    </div>
+    <div class="balance-lbl">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg>
+      <span>This week</span>
+    </div>
+    <div class="balance-num"><span id="dashSpent">$142</span><span class="balance-dec" id="dashOf">/200</span></div>
+    <div id="dashBadge" class="status-badge">
+      <span class="bdot"></span>3 helpers active
+    </div>
+  </div>
+
+  <div class="act-row">
+    <button class="act-btn solid" id="simBtn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      Try a purchase
+    </button>
+    <button class="act-btn ghost" data-go="setup">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      My rules
+    </button>
+  </div>
+
+  <div class="sheet">
+    <div class="sec"><b>Recent purchases</b><button class="sec-link" id="actLink">See all</button></div>
+    <div class="card"><div class="ledger" id="ledger"></div></div>
+
+    <div class="sec"><b>My helpers</b><button class="sec-link" data-go="setup">Edit</button></div>
+    <div class="card" style="padding:4px 18px">
+      <div class="hrow" style="border-top:none">
+        <div class="hava">🧺</div>
+        <div class="hmid"><b>Grocery helper</b><span>$200/wk · FreshCart, DeliCo</span></div>
+        <div class="hchip on" id="chip1"><span class="hchip-dot"></span>On</div>
+      </div>
+      <div class="hrow">
+        <div class="hava">✈️</div>
+        <div class="hmid"><b>Travel helper</b><span>$500/trip · airlines, hotels</span></div>
+        <div class="hchip on"><span class="hchip-dot"></span>On</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <button class="tab on" data-go="dash">
+      <svg viewBox="0 0 24 24"><path d="M3 10l9-7 9 7v10a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></svg>Home
+    </button>
+    <button class="tab" data-go="setup">
+      <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="18" cy="18" r="3"/><path d="M18 16.5v1.5l1 1"/></svg>My Rules
+    </button>
+    <button class="tab" data-go="stopall">
+      <svg viewBox="0 0 24 24"><path d="M12 2L4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/></svg>Stop All
+    </button>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     APPROVAL — Quick check
+══════════════════════════════════════════ -->
+<section class="screen" data-screen="approval">
+  <div class="sb light" style="background:var(--dark)">
+    <span id="clk3">9:41</span><div class="sb-r"><svg viewBox="0 0 17 12" fill="#fff" width="16" height="12"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 25 12" fill="none" stroke="#fff" stroke-width="1.2" width="22" height="12"><rect x="0" y="1" width="21" height="10" rx="2.5"/><rect x="1.5" y="2.5" width="15" height="7" rx="1.5" fill="#fff" stroke="none"/><rect x="22" y="3.5" width="3" height="5" rx="1" fill="#fff" opacity=".6" stroke="none"/></svg></div>
+  </div>
+  <div class="appr-hdr">
+    <div class="appr-pill"><span class="appr-pulse"></span>Quick check needed</div>
+    <div class="appr-amt" id="reqAmt">$86.40</div>
+    <div class="appr-from"><b id="reqAgent">Grocery helper</b> wants to buy from <span id="reqMerch">FreshCart</span></div>
+  </div>
+
+  <div style="flex:1;overflow-y:auto;padding:16px 16px 0">
+    <div class="item-list" id="reqLines"></div>
+    <div class="warn-box" id="reqFlag">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span id="reqFlagText">This is more than your $75 check-in amount — just making sure you're OK with it.</span>
+    </div>
+    <div class="cd-note">Skips automatically in <b id="cd">0:42</b></div>
+    <div style="height:20px"></div>
+  </div>
+  <div class="footer">
+    <div class="btn-row">
+      <button class="btn btn-ghost" id="declineBtn">No thanks</button>
+      <button class="btn btn-teal" id="approveBtn">Yes, buy $<span id="apBtnAmt">86.40</span></button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     STOP ALL — Kill switch
+══════════════════════════════════════════ -->
+<section class="screen" data-screen="stopall">
+  <div class="sb light" style="background:var(--dark)">
+    <span id="clk4">9:41</span><div class="sb-r"><svg viewBox="0 0 17 12" fill="#fff" width="16" height="12"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/></svg><svg viewBox="0 0 25 12" fill="none" stroke="#fff" stroke-width="1.2" width="22" height="12"><rect x="0" y="1" width="21" height="10" rx="2.5"/><rect x="1.5" y="2.5" width="15" height="7" rx="1.5" fill="#fff" stroke="none"/><rect x="22" y="3.5" width="3" height="5" rx="1" fill="#fff" opacity=".6" stroke="none"/></svg></div>
+  </div>
+  <div class="stop-hdr">
+    <div class="stop-icon" id="stopIcon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/><path d="M9 9l6 6M15 9l-6 6"/></svg>
+    </div>
+    <h2 class="stop-h" id="stopTitle">Stop all your helpers?</h2>
+    <p class="stop-sub" id="stopSub">Every helper stops spending right away. Anything in their cart gets cancelled too.</p>
+  </div>
+
+  <div style="flex:1;overflow-y:auto;padding:16px 16px 0">
+    <div class="alist" id="alist">
+      <div class="arow"><span class="adot"></span><b>Grocery helper</b><span>on</span></div>
+      <div class="arow"><span class="adot"></span><b>Travel helper</b><span>on</span></div>
+      <div class="arow"><span class="adot"></span><b>Car · charging</b><span>on</span></div>
+    </div>
+    <div style="height:20px"></div>
+  </div>
+  <div class="footer" id="stopFoot">
+    <button class="btn btn-danger" id="stopBtn">Stop all helpers</button>
+    <button class="lnk" data-go="dash" id="stopBack">Never mind</button>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+(function(){
+  var state={
+    cap:200,spent:142,askLimit:75,
+    askOn:true,blockOn:true,sumOn:true,
+    active:true,pending:null,
+    ledger:[
+      {merch:'FreshCart',amt:86.40,icon:'🧺',cls:'ok'},
+      {merch:'DeliCo',amt:31.20,icon:'🥬',cls:'auto'},
+      {merch:'FreshCart',amt:24.40,icon:'🧺',cls:'auto'}
+    ]
+  };
+  var cdTimer=null;
+  var T=document.getElementById('toast');
+
+  function $(id){return document.getElementById(id)}
+
+  function toast(msg){
+    T.textContent=msg;T.classList.add('show');
+    clearTimeout(T._t);T._t=setTimeout(function(){T.classList.remove('show')},2600);
+  }
+
+  function show(name){
+    var all=document.querySelectorAll('.screen');
+    all.forEach(function(s){
+      var going=s.dataset.screen===name;
+      s.classList.toggle('active',going);
+      s.classList.remove('exit');
+      if(!going && s.classList.contains('active')){s.classList.add('exit')}
+    });
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.go===name)});
+    document.querySelectorAll('.screen').forEach(function(s){
+      if(s.dataset.screen===name){
+        s.querySelectorAll('.sheet,[style*="overflow-y"]').forEach(function(d){d.scrollTop=0});
+      }
+    });
+    if(name==='approval')startCd();
+    else if(cdTimer){clearInterval(cdTimer);cdTimer=null;}
+    if(name==='stopall')resetStop();
+  }
+
+  document.querySelectorAll('[data-go]').forEach(function(el){
+    el.addEventListener('click',function(e){e.stopPropagation();show(el.dataset.go)});
+  });
+
+  $('getStartedBtn').addEventListener('click',function(){show('setup')});
+
+  /* ── cap stepper ── */
+  function renderCap(){
+    $('capAmt').textContent='$'+state.cap;
+    $('capTrack').style.width=Math.min(100,(state.cap/400)*100)+'%';
+  }
+  $('capMinus').addEventListener('click',function(){state.cap=Math.max(50,state.cap-25);renderCap()});
+  $('capPlus').addEventListener('click',function(){state.cap=Math.min(400,state.cap+25);renderCap()});
+
+  /* ── chips ── */
+  $('chips').addEventListener('click',function(e){
+    var c=e.target.closest('.chip');if(!c)return;
+    if(c.dataset.m==='add'){toast('Merchant search — demo only');return;}
+    c.classList.toggle('on');
+  });
+
+  /* ── toggles ── */
+  function sw(id,k){$(id).addEventListener('click',function(){this.classList.toggle('on');state[k]=this.classList.contains('on')})}
+  sw('tgAsk','askOn');sw('tgBlock','blockOn');sw('tgSum','sumOn');
+
+  /* ── arm ── */
+  $('armBtn').addEventListener('click',function(){
+    state.active=true;
+    var s=$('armStatus');s.className='hchip on';
+    s.innerHTML='<span class="hchip-dot"></span>On';
+    renderDash();toast('Grocery helper is on · $'+state.cap+'/wk');show('dash');
+  });
+
+  /* ── dashboard ── */
+  function renderDash(){
+    $('dashSpent').textContent='$'+Math.round(state.spent);
+    $('dashOf').textContent='/'+state.cap;
+    var b=$('dashBadge');
+    if(!state.active){
+      b.className='status-badge warn';
+      b.innerHTML='<span class="bdot"></span>All helpers stopped';
+    } else {
+      b.className='status-badge';
+      b.innerHTML='<span class="bdot"></span>3 helpers active';
+    }
+    var c1=$('chip1');
+    if(c1){c1.className=state.active?'hchip on':'hchip off';c1.innerHTML=(state.active?'<span class="hchip-dot"></span>On':'<span class="hchip-dot"></span>Off')}
+    var html='';
+    state.ledger.forEach(function(r){
+      var lbl=r.cls==='ok'?'You said yes':r.cls==='blocked'?'Skipped · over your limit':'Handled automatically';
+      var amt=r.cls==='blocked'?'—':'−$'+r.amt.toFixed(2);
+      var ac=r.cls==='blocked'?'blk':'neg';
+      html+='<div class="lrow"><div class="lico">'+r.icon+'</div>'
+        +'<div class="lmid"><b>'+r.merch+'</b><span class="ltag '+r.cls+'">'+lbl+'</span></div>'
+        +'<div class="lamt '+ac+'">'+amt+'</div></div>';
+    });
+    $('ledger').innerHTML=html;
+  }
+
+  /* ── simulate ── */
+  var samples=[
+    {merch:'FreshCart',icon:'🧺',lines:[['Oat milk ×3',14.10],['Cold brew kit',38.00],['Pantry staples',34.30]]},
+    {merch:'DeliCo',icon:'🥬',lines:[['Sourdough ×2',11.50],['Olive oil',22.00],['Cheese board',49.90]]},
+    {merch:'FreshCart',icon:'🧺',lines:[['Coffee beans',18.00],['Filters ×2',9.40],['Bulk snacks',61.20]]}
+  ];
+  function doSim(){
+    if(!state.active){toast('Your helpers are off — turn one on first');return;}
+    var s=samples[Math.floor(Math.random()*samples.length)];
+    var total=parseFloat(s.lines.reduce(function(a,b){return a+b[1]},0).toFixed(2));
+    state.pending={merch:s.merch,icon:s.icon,amt:total,lines:s.lines};
+    if(total<=state.askLimit && state.spent+total<=state.cap){
+      state.spent=parseFloat((state.spent+total).toFixed(2));
+      state.ledger.unshift({merch:s.merch,amt:total,icon:s.icon,cls:'auto'});
+      renderDash();toast('Handled automatically · $'+total.toFixed(2));return;
+    }
+    renderApproval();show('approval');
+  }
+  $('simBtn').addEventListener('click',doSim);
+  $('actLink').addEventListener('click',doSim);
+
+  function renderApproval(){
+    var p=state.pending;
+    $('reqAmt').textContent='$'+p.amt.toFixed(2);
+    $('apBtnAmt').textContent=p.amt.toFixed(2);
+    $('reqMerch').textContent=p.merch;
+    var h='';
+    p.lines.forEach(function(l){h+='<div class="irow"><span>'+l[0]+'</span><b>$'+l[1].toFixed(2)+'</b></div>';});
+    $('reqLines').innerHTML=h;
+    $('reqFlagText').textContent=state.spent+p.amt>state.cap
+      ?'This would go over your $'+state.cap+' weekly limit.'
+      :'This is more than your $'+state.askLimit+' check-in amount — just making sure you\'re OK with it.';
+  }
+
+  function startCd(){
+    var t=42;if(cdTimer)clearInterval(cdTimer);
+    $('cd').textContent='0:42';
+    cdTimer=setInterval(function(){
+      t--;
+      if(t<=0){clearInterval(cdTimer);cdTimer=null;skipPurchase(true);return;}
+      $('cd').textContent='0:'+('0'+t).slice(-2);
+    },1000);
+  }
+
+  $('approveBtn').addEventListener('click',function(){
+    var p=state.pending;if(!p)return;
+    if(cdTimer){clearInterval(cdTimer);cdTimer=null;}
+    state.spent=parseFloat((state.spent+p.amt).toFixed(2));
+    state.ledger.unshift({merch:p.merch,amt:p.amt,icon:p.icon,cls:'ok'});
+    state.pending=null;renderDash();toast('Got it — $'+p.amt.toFixed(2)+' at '+p.merch);show('dash');
+  });
+
+  function skipPurchase(auto){
+    var p=state.pending;if(!p)return;
+    if(cdTimer){clearInterval(cdTimer);cdTimer=null;}
+    state.ledger.unshift({merch:p.merch,amt:p.amt,icon:p.icon,cls:'blocked'});
+    state.pending=null;renderDash();
+    toast(auto?'Skipped automatically':'Purchase skipped');show('dash');
+  }
+  $('declineBtn').addEventListener('click',function(){skipPurchase(false)});
+
+  /* ── stop all ── */
+  function resetStop(){
+    $('stopTitle').textContent='Stop all your helpers?';
+    $('stopSub').textContent='Every helper stops spending right away. Anything in their cart gets cancelled too.';
+    $('stopIcon').style.background='rgba(255,59,48,.18)';
+    $('stopIcon').innerHTML='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/><path d="M9 9l6 6M15 9l-6 6"/></svg>';
+    $('stopBtn').classList.remove('hide');
+    $('stopBack').textContent='Never mind';
+    $('alist').querySelectorAll('.arow').forEach(function(r){
+      r.querySelector('.adot').className='adot';
+      r.querySelector('span:last-child').textContent='on';
+      r.querySelector('span:last-child').className='';
+      r.querySelector('span:last-child').style.color='var(--t2)';
+    });
+  }
+
+  $('stopBtn').addEventListener('click',function(){
+    state.active=false;
+    $('stopTitle').textContent='All helpers stopped.';
+    $('stopSub').textContent='Done. Everything stopped. Turn any helper back on whenever you like.';
+    $('stopIcon').style.background='rgba(52,199,89,.14)';
+    $('stopIcon').innerHTML='<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 5v6c0 5 3.5 8.5 8 11 4.5-2.5 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4.5"/></svg>';
+    $('stopBtn').classList.add('hide');
+    $('stopBack').textContent='Back to home';
+    $('alist').querySelectorAll('.arow').forEach(function(r){
+      r.querySelector('.adot').className='adot off';
+      r.querySelector('span:last-child').textContent='stopped';
+      r.querySelector('span:last-child').style.color='var(--red)';
+    });
+    renderDash();toast('All helpers stopped');
+  });
+
+  /* ── clock ── */
+  function tick(){
+    var d=new Date(),h=d.getHours()%12||12,m=('0'+d.getMinutes()).slice(-2),t=h+':'+m;
+    ['clk1','clk2','clk3','clk4'].forEach(function(id){var el=$(id);if(el)el.textContent=t});
+  }
+  tick();setInterval(tick,10000);
+
+  renderCap();renderDash();show('onb1');
+})();
+</script>
+</body>
+</html>
