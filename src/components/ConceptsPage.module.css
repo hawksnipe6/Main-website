@@ -1,6 +1,7 @@
 /* ── Page shell ─────────────────────────────────────────── */
 .page {
   padding-top: var(--page-padding-top);
+  min-height: 100vh;
   min-height: 100dvh;
 }
 
