@@ -2,6 +2,24 @@ import { useEffect, useState } from 'react'
 import { WORK_SAMPLES } from '../data/workSamples'
 import styles from './WorkPage.module.css'
 
+// Curated thematic groups derived from each project's existing category, so
+// prospects can self-select by the kind of work they need.
+const WORK_GROUPS: Record<string, string> = {
+  alivio: 'Product Design',
+  'audio-1': 'Product Design',
+  osmo: 'Product Design',
+  bedizen: 'Product Design',
+  'ice-tray': 'Product Design',
+  renderfolio: 'Brand & Visuals',
+  armor: 'Brand & Visuals',
+  palan: 'Brand & Visuals',
+  sailfish: 'Research & Strategy',
+  medwise: 'Research & Strategy',
+  'ev-charging': 'Research & Strategy',
+}
+
+const WORK_FILTERS = ['All', 'Product Design', 'Brand & Visuals', 'Research & Strategy'] as const
+
 type WorkCaseStudy = {
   slug: string
   title: string
@@ -320,23 +338,12 @@ function WorkCard({ work, onClick }: { work: WorkCaseStudy; onClick: () => void 
     <article className={styles.card} onClick={onClick}>
       <div className={styles.cardCover}>
         <img src={work.image} alt={`${work.title} cover`} loading="lazy" />
-      </div>
-
-      <div className={styles.cardBody}>
-        <div className={styles.cardMeta}>
-          <span className={styles.tag}>{work.format}</span>
-          <span className={styles.tagOutline}>{work.year}</span>
-        </div>
-        <h3 className={styles.cardTitle}>{work.title}</h3>
-        <p className={styles.cardTagline}>{work.description}</p>
-        <div className={styles.cardFooter}>
-          <span className={styles.cardYear}>{work.category}</span>
-          <span className={styles.cardArrow}>
-            View case study
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M3 7H11M11 7L7 3M11 7L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
+        <div className={styles.cardOverlay}>
+          <div className={styles.cardInfo}>
+            <h3 className={styles.cardTitle}>{work.title}</h3>
+            <p className={styles.cardTagline}>{work.description}</p>
+            <span className={styles.viewProject}>View project</span>
+          </div>
         </div>
       </div>
     </article>
@@ -448,8 +455,9 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
   )
 }
 
-export function WorkPage() {
+export function WorkPage({ embedded = false }: { embedded?: boolean } = {}) {
   const [active, setActive] = useState<string | null>(null)
+  const [filter, setFilter] = useState<string>('All')
 
   useEffect(() => {
     const onPop = () => {
@@ -471,27 +479,45 @@ export function WorkPage() {
 
   const activeWork = WORK_CASE_STUDIES.find(work => work.slug === active)
 
-  return (
-    <main className={styles.page}>
-      {activeWork ? (
-        <WorkDetail work={activeWork} onBack={closeWork} />
-      ) : (
-        <>
-          <header className={styles.pageHeader}>
-            <p className={styles.pageLabel}>Portfolio</p>
-            <h1 className={styles.pageTitle}>Work Sample</h1>
-            <p className={styles.pageSubtitle}>
-              Selected projects structured as case studies across product design, interface systems, CGI, packaging, mobility, healthcare, and brand visuals.
-            </p>
-          </header>
-
-          <div className={styles.grid}>
-            {WORK_CASE_STUDIES.map(work => (
-              <WorkCard key={work.slug} work={work} onClick={() => openWork(work.slug)} />
-            ))}
-          </div>
-        </>
+  const body = activeWork ? (
+    <WorkDetail work={activeWork} onBack={closeWork} />
+  ) : (
+    <>
+      {!embedded && (
+        <header className={styles.pageHeader}>
+          <p className={styles.pageLabel}>Portfolio</p>
+          <h1 className={styles.pageTitle}>Work</h1>
+          <p className={styles.pageSubtitle}>
+            Selected projects structured as case studies across product design, interface systems, CGI, packaging, mobility, healthcare, and brand visuals.
+          </p>
+        </header>
       )}
-    </main>
+
+      <div className={styles.filters} role="tablist" aria-label="Filter work by category">
+        {WORK_FILTERS.map(f => (
+          <button
+            key={f}
+            type="button"
+            className={`${styles.chip} ${filter === f ? styles.chipActive : ''}`}
+            aria-pressed={filter === f}
+            onClick={() => setFilter(f)}
+          >
+            {f}
+          </button>
+        ))}
+      </div>
+
+      <div className={styles.grid}>
+        {WORK_CASE_STUDIES
+          .filter(work => filter === 'All' || WORK_GROUPS[work.slug] === filter)
+          .map(work => (
+            <WorkCard key={work.slug} work={work} onClick={() => openWork(work.slug)} />
+          ))}
+      </div>
+    </>
   )
+
+  if (embedded) return body
+
+  return <main className={styles.page}>{body}</main>
 }

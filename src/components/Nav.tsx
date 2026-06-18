@@ -1,24 +1,24 @@
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { useScrollNav } from '../hooks/useScrollNav'
-import { ThemeToggle } from './ThemeToggle'
 import styles from './Nav.module.css'
 
 const DRAWER_LINKS = [
-  { label: 'Brands',   href: '#brands' },
+  { label: 'Work',     href: '#work-preview' },
   { label: 'Services', href: '#services' },
-  { label: 'Engage',   href: '#cta' },
+  { label: 'Process',  href: '#how' },
+  { label: 'Brands',   href: '#brands' },
   { label: 'FAQ',      href: '#faq' },
 ]
 
 type NavProps = {
-  onBooking: () => void
-  page: 'home' | 'work' | 'concepts'
+  page: 'home' | 'work' | 'concepts' | 'about' | 'contact'
   onNavigateHome: () => void
   onNavigateWork: () => void
-  onNavigateConcepts: () => void
+  onNavigateAbout: () => void
+  onNavigateContact: () => void
 }
 
-export function Nav({ onBooking, page, onNavigateHome, onNavigateWork, onNavigateConcepts }: NavProps) {
+export function Nav({ page, onNavigateHome, onNavigateWork, onNavigateAbout, onNavigateContact }: NavProps) {
   useScrollNav('#nav', styles.scrolled)
   const progressRef = useRef<HTMLDivElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -61,10 +61,16 @@ export function Nav({ onBooking, page, onNavigateHome, onNavigateWork, onNavigat
     onNavigateWork()
   }
 
-  const navigateConcepts = (event: MouseEvent<HTMLAnchorElement>) => {
+  const navigateAbout = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
     close()
-    onNavigateConcepts()
+    onNavigateAbout()
+  }
+
+  const navigateContact = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    close()
+    onNavigateContact()
   }
 
   const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -83,7 +89,6 @@ export function Nav({ onBooking, page, onNavigateHome, onNavigateWork, onNavigat
           <a href="/" className={styles.logo} onClick={navigateHome} aria-label="Nocturnal home">
             Nocturnal
           </a>
-          <ThemeToggle />
         </div>
 
         <ul className={styles.links}>
@@ -94,21 +99,30 @@ export function Nav({ onBooking, page, onNavigateHome, onNavigateWork, onNavigat
             </a>
           </li>
           <li>
-            <a href="/work" onClick={navigateWork}
-              style={{ color: page === 'work' ? 'var(--noc-white)' : undefined }}>
-              Work
+            <a href="/about" onClick={navigateAbout}
+              style={{ color: page === 'about' ? 'var(--noc-white)' : undefined }}>
+              About
             </a>
           </li>
           <li>
-            <a href="/concepts" onClick={navigateConcepts}
-              style={{ color: page === 'concepts' ? 'var(--noc-white)' : undefined }}>
-              Concepts
+            <a href="/work" onClick={navigateWork}
+              style={{ color: page === 'work' || page === 'concepts' ? 'var(--noc-white)' : undefined }}>
+              Projects
+            </a>
+          </li>
+          <li>
+            <a href="/contact" onClick={navigateContact}
+              style={{ color: page === 'contact' ? 'var(--noc-white)' : undefined }}>
+              Contact
             </a>
           </li>
         </ul>
 
         <div className={styles.right}>
-          <button className={`${styles.cta} ${styles.ctaDesktop}`} onClick={() => { close(); onBooking(); }}>
+          <button
+            className={`${styles.cta} ${styles.ctaDesktop}`}
+            onClick={() => { close(); onNavigateContact() }}
+          >
             Start a Project
           </button>
           <button
@@ -133,24 +147,23 @@ export function Nav({ onBooking, page, onNavigateHome, onNavigateWork, onNavigat
       />
       <div className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}>
         <ul className={styles.drawerLinks}>
-          {/* Home */}
           <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '60ms' : '0ms' }}>
             <a href="/" onClick={navigateHome}>Home</a>
           </li>
-          {/* Work */}
           <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '120ms' : '0ms' }}>
-            <a href="/work" onClick={navigateWork}>Work</a>
+            <a href="/about" onClick={navigateAbout}>About</a>
           </li>
-          {/* Concepts */}
           <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '180ms' : '0ms' }}>
-            <a href="/concepts" onClick={navigateConcepts}>Concepts</a>
+            <a href="/work" onClick={navigateWork}>Projects</a>
           </li>
-          {/* Home-page section links */}
+          <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '240ms' : '0ms' }}>
+            <a href="/contact" onClick={navigateContact}>Contact</a>
+          </li>
           {page === 'home' && DRAWER_LINKS.map((link, index) => (
             <li
               key={link.href}
               className={styles.drawerItem}
-              style={{ transitionDelay: menuOpen ? `${index * 60 + 240}ms` : '0ms' }}
+              style={{ transitionDelay: menuOpen ? `${index * 60 + 300}ms` : '0ms' }}
             >
               <a href={link.href} onClick={(event) => navigateToSection(event, link.href)}>
                 {link.label}
@@ -158,7 +171,7 @@ export function Nav({ onBooking, page, onNavigateHome, onNavigateWork, onNavigat
             </li>
           ))}
         </ul>
-        <button className={styles.drawerCta} onClick={() => { close(); onBooking(); }}>
+        <button className={styles.drawerCta} onClick={() => { close(); onNavigateContact() }}>
           Start a Project
         </button>
       </div>

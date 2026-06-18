@@ -31,10 +31,14 @@ const SOCIAL_LINKS = [
   },
 ]
 
-const FOOTER_COLS = [
+type FooterLink = { label: string; href: string; navigate?: boolean }
+
+const FOOTER_COLS: { title: string; links: FooterLink[] }[] = [
   {
     title: 'Studio',
     links: [
+      { label: 'The Team', href: '/about', navigate: true },
+      { label: 'Contact', href: '/contact', navigate: true },
       { label: 'Brands', href: '#brands' },
       { label: 'Services', href: '#services' },
       { label: 'Testimonials', href: '#testimonials' },
@@ -49,7 +53,7 @@ const FOOTER_COLS = [
   },
 ]
 
-export function Footer() {
+export function Footer({ onNavigate }: { onNavigate?: (path: string) => void }) {
   const [careerOpen, setCareerOpen] = useState(false)
 
   useEffect(() => {
@@ -77,6 +81,10 @@ export function Footer() {
                   <li key={link.label}>
                     {link.href === 'careers' ? (
                       <button className={styles.linkButton} onClick={() => setCareerOpen(true)} type="button">
+                        {link.label}
+                      </button>
+                    ) : link.navigate ? (
+                      <button className={styles.linkButton} onClick={() => onNavigate?.(link.href)} type="button">
                         {link.label}
                       </button>
                     ) : (

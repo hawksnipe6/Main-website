@@ -9,9 +9,13 @@
     <meta name="theme-color" content="#0D0D0D" />
     <link rel="canonical" href="https://www.getnctrnl.com/" />
 
-    <!-- Preload LCP hero image (responsive) for faster Core Web Vitals -->
-    <link rel="preload" as="image" href="/hero-bg.png" media="(min-width: 769px)" />
-    <link rel="preload" as="image" href="/hero-bg-mobile.png" media="(max-width: 768px)" />
+    <!-- Pre-paint theme: apply stored/default theme before first paint to avoid a flash.
+         Dark is the default experience; a stored 'light' preference is respected.
+         The inline background-color prevents a white flash while the CSS bundle loads. -->
+    <script>
+      document.documentElement.setAttribute('data-theme', 'light')
+      document.documentElement.style.background = '#F5F4F0'
+    </script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

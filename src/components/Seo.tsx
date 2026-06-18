@@ -4,7 +4,7 @@ import { WORK_SAMPLES } from '../data/workSamples'
 const SITE_URL = 'https://www.getnctrnl.com'
 const LOGO_URL = `${SITE_URL}/logo%20512.png`
 
-type PageKey = 'home' | 'work' | 'concepts'
+type PageKey = 'home' | 'work' | 'concepts' | 'about' | 'contact'
 
 const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string }> = {
   home: {
@@ -15,17 +15,31 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
     image: LOGO_URL,
   },
   work: {
-    title: 'Work — Nocturnal Industrial Design, Product UI/UX & CGI Portfolio',
+    title: 'Portfolio — Nocturnal Work & Concepts: Industrial Design, UI/UX, CGI',
     description:
-      'Selected Nocturnal work across industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and product visualization.',
+      'Selected Nocturnal work and independently researched product concepts — spanning industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and interactive prototypes.',
     canonical: `${SITE_URL}/work`,
     image: `${SITE_URL}/work-cover-renderfolio-custom.png`,
   },
   concepts: {
-    title: 'Concepts — Nocturnal Product Design Research & Interactive Prototypes',
+    title: 'Portfolio — Nocturnal Work & Concepts: Industrial Design, UI/UX, CGI',
     description:
-      'Independently researched product concepts by Nocturnal, each rooted in a real problem, designed end-to-end, and built as interactive or product-ready case studies. Currently featuring Densly and Firstweeks.',
+      'Selected Nocturnal work and independently researched product concepts — spanning industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and interactive prototypes.',
     canonical: `${SITE_URL}/concepts`,
+    image: LOGO_URL,
+  },
+  about: {
+    title: 'About — Nocturnal Design Studio',
+    description:
+      'Abeer Mahadane is the founder of Nocturnal, a design intelligence studio building industrial design, UI/UX systems, CGI, and brand for startups and product brands.',
+    canonical: `${SITE_URL}/about`,
+    image: LOGO_URL,
+  },
+  contact: {
+    title: 'Start a Project — Nocturnal Design Studio',
+    description:
+      'Book a strategy call with Nocturnal. Thirty minutes, no pitch decks — we identify the design friction in your brand and product and tell you exactly what to fix first.',
+    canonical: `${SITE_URL}/contact`,
     image: LOGO_URL,
   },
 }

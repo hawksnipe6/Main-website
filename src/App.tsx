@@ -1,27 +1,24 @@
 import { useEffect, useState } from 'react'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
-import { Services } from './components/Services'
-import { LogoStrip } from './components/LogoStrip'
-import { Testimonials } from './components/Testimonials'
-import { Faq } from './components/Faq'
-import { Cta } from './components/Cta'
 import { Footer } from './components/Footer'
 import { CustomCursor } from './components/CustomCursor'
 import { CustomScrollbar } from './components/CustomScrollbar'
 import { BookingModal } from './components/BookingModal'
 import { LoadingScreen } from './components/LoadingScreen'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
-import { WorkPreview } from './components/WorkPreview'
-import { WorkPage } from './components/WorkPage'
-import { ConceptsPage } from './components/ConceptsPage'
+import { PortfolioPage } from './components/PortfolioPage'
+import { AboutPage } from './components/AboutPage'
+import { ContactPage } from './components/ContactPage'
 import { Seo } from './components/Seo'
 
-type Page = 'home' | 'work' | 'concepts'
+type Page = 'home' | 'work' | 'concepts' | 'about' | 'contact'
 
 function getPage(pathname: string): Page {
   if (pathname === '/work') return 'work'
   if (pathname === '/concepts') return 'concepts'
+  if (pathname === '/about') return 'about'
+  if (pathname === '/contact') return 'contact'
   return 'home'
 }
 
@@ -76,28 +73,27 @@ export default function App() {
       <CustomCursor />
       <CustomScrollbar />
       <Nav
-        onBooking={() => setModalOpen(true)}
         page={page}
         onNavigateHome={() => navigateToPath('/')}
         onNavigateWork={() => navigateToPath('/work')}
-        onNavigateConcepts={() => navigateToPath('/concepts')}
+        onNavigateAbout={() => navigateToPath('/about')}
+        onNavigateContact={() => navigateToPath('/contact')}
       />
-      {page === 'work' ? (
-        <WorkPage />
-      ) : page === 'concepts' ? (
-        <ConceptsPage />
+      {page === 'about' ? (
+        <AboutPage />
+      ) : page === 'contact' ? (
+        <ContactPage />
+      ) : page === 'work' || page === 'concepts' ? (
+        <PortfolioPage
+          activeTab={page}
+          onTabChange={(tab) => navigateToPath(tab === 'work' ? '/work' : '/concepts')}
+        />
       ) : (
-        <main>
+        <main className="routeEnter">
           <Hero onBooking={() => setModalOpen(true)} />
-          <LogoStrip />
-          <WorkPreview onOpenWork={() => navigateToPath('/work')} />
-          <Services />
-          <Testimonials />
-          <Faq />
-          <Cta />
         </main>
       )}
-      <Footer />
+      <Footer onNavigate={navigateToPath} />
       {modalOpen && <BookingModal onClose={() => setModalOpen(false)} />}
     </>
   )
