@@ -1,6 +1,7 @@
 .page {
   background: var(--noc-black);
   min-height: 100dvh;
+  padding-top: var(--page-padding-top);
 }
 
 /* ── Editorial hero ─────────────────────────── */

@@ -159,17 +159,6 @@ export function Nav({ page, onNavigateHome, onNavigateWork, onNavigateAbout, onN
           <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '240ms' : '0ms' }}>
             <a href="/contact" onClick={navigateContact}>Contact</a>
           </li>
-          {page === 'home' && DRAWER_LINKS.map((link, index) => (
-            <li
-              key={link.href}
-              className={styles.drawerItem}
-              style={{ transitionDelay: menuOpen ? `${index * 60 + 300}ms` : '0ms' }}
-            >
-              <a href={link.href} onClick={(event) => navigateToSection(event, link.href)}>
-                {link.label}
-              </a>
-            </li>
-          ))}
         </ul>
         <button className={styles.drawerCta} onClick={() => { close(); onNavigateContact() }}>
           Start a Project

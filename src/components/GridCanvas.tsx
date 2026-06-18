@@ -130,8 +130,12 @@ export function GridCanvas() {
     const ro = new ResizeObserver(resize)
     ro.observe(canvas)
     resize()
+    const onTouchEnd = () => { mx = -9999; my = -9999 }
+
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mousedown', onDown)
+    window.addEventListener('touchend', onTouchEnd)
+    window.addEventListener('touchcancel', onTouchEnd)
     raf = requestAnimationFrame(tick)
 
     return () => {
@@ -139,6 +143,8 @@ export function GridCanvas() {
       ro.disconnect()
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mousedown', onDown)
+      window.removeEventListener('touchend', onTouchEnd)
+      window.removeEventListener('touchcancel', onTouchEnd)
     }
   }, [])
 

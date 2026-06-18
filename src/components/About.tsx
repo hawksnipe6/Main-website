@@ -14,12 +14,12 @@ const CARDS = [
   {
     num: '03',
     title: 'Phygital by Design',
-    body: 'We operate at the intersection of digital and physical — brand systems, product design, 3D CAD, motion. One studio, one coherent approach across every surface.',
+    body: 'We operate at the intersection of digital and physical: brand systems, product design, 3D CAD, motion. One studio, one coherent approach across every surface.',
   },
   {
     num: '04',
     title: 'The Right Clients',
-    body: 'Early-stage founders who need clarity. Startups scaling from MVP to structured product. Businesses with fragmented brand and product systems. We do not work with everyone — by design.',
+    body: 'Early-stage founders who need clarity. Startups scaling from MVP to structured product. Businesses with fragmented brand and product systems. We do not work with everyone. By design.',
   },
 ]
 
@@ -32,7 +32,7 @@ export function About() {
           <h2 className="section-title reveal reveal-d1">High-quality design is not decoration.</h2>
         </div>
         <p className="section-body reveal reveal-d2">
-          It is decision-making made visible. One belief drives everything Nocturnal produces — from the first brief to the final handover.
+          It is decision-making made visible. One belief drives everything Nocturnal produces, from the first brief to the final handover.
         </p>
       </div>
       <div className={styles.cards}>

@@ -1,4 +1,5 @@
 import { Cta } from './Cta'
+import { GridCanvas } from './GridCanvas'
 import styles from './ContactPage.module.css'
 
 export function ContactPage() {
@@ -6,7 +7,9 @@ export function ContactPage() {
     <main className={`${styles.page} routeEnter`}>
 
       {/* ── Join our team ───────────────────────── */}
-      <section className={styles.section}>
+      <div className={styles.sectionWrap}>
+        <GridCanvas />
+        <section className={styles.section}>
         <div className={styles.inner}>
           <p className={`${styles.sectionLabel} reveal`}>Join our team</p>
           <p className={`${styles.joinText} reveal reveal-d1`}>
@@ -31,7 +34,8 @@ export function ContactPage() {
             report it to your service provider.
           </p>
         </div>
-      </section>
+        </section>
+      </div>
 
       {/* ── Booking calendar ────────────────────── */}
       <Cta />

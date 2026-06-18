@@ -4,7 +4,7 @@ import styles from './PortfolioPage.module.css'
 
 type Tab = 'work' | 'concepts'
 
-const PAGE_TITLE = 'Portfolio'
+const PAGE_TITLE = 'Projects'
 
 const TAB_COPY: Record<Tab, { label: string; subtitle: string }> = {
   work: {
@@ -52,7 +52,6 @@ export function PortfolioPage({
           </button>
         </div>
 
-        <p className={styles.pageLabel}>{copy.label}</p>
         <h1 className={styles.pageTitle}>{PAGE_TITLE}</h1>
         <p className={styles.pageSubtitle}>{copy.subtitle}</p>
       </header>

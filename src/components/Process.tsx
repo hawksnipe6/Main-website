@@ -4,17 +4,17 @@ const STEPS = [
   {
     num: '01',
     title: 'Frame',
-    body: 'Every project begins with the right questions — not the obvious ones. We spend time understanding the real problem before any execution begins. The brief is never the brief.',
+    body: 'Every project begins with the right questions, not the obvious ones. We spend time understanding the real problem before any execution begins. The brief is never the brief.',
   },
   {
     num: '02',
     title: 'Design',
-    body: 'We build systems, not instances. Decisions are made at the rule level — which means every output is a coherent expression of a shared logic, not a collection of isolated deliverables.',
+    body: 'We build systems, not instances. Decisions are made at the rule level, which means every output is a coherent expression of a shared logic, not a collection of isolated deliverables.',
   },
   {
     num: '03',
     title: 'Deploy',
-    body: 'Final work is handed over ready to use — documented, structured, and built to outlast the project. We do not deliver mystery boxes.',
+    body: 'Final work is handed over ready to use: documented, structured, and built to outlast the project. We do not deliver mystery boxes.',
   },
 ]
 

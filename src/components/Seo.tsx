@@ -8,37 +8,37 @@ type PageKey = 'home' | 'work' | 'concepts' | 'about' | 'contact'
 
 const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string }> = {
   home: {
-    title: 'Nocturnal — Industrial Design, UI/UX, CGI & Brand Systems Studio',
+    title: 'Nocturnal | Industrial Design, UI/UX, CGI and Brand Systems Studio',
     description:
       'Nocturnal is a design intelligence studio for startups and product brands. We build industrial design, UI/UX systems, CGI, motion, and brand systems with strategic clarity.',
     canonical: SITE_URL,
     image: LOGO_URL,
   },
   work: {
-    title: 'Portfolio — Nocturnal Work & Concepts: Industrial Design, UI/UX, CGI',
+    title: 'Portfolio | Nocturnal Work and Concepts: Industrial Design, UI/UX, CGI',
     description:
-      'Selected Nocturnal work and independently researched product concepts — spanning industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and interactive prototypes.',
+      'Selected Nocturnal work and independently researched product concepts spanning industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and interactive prototypes.',
     canonical: `${SITE_URL}/work`,
     image: `${SITE_URL}/work-cover-renderfolio-custom.png`,
   },
   concepts: {
-    title: 'Portfolio — Nocturnal Work & Concepts: Industrial Design, UI/UX, CGI',
+    title: 'Portfolio | Nocturnal Work and Concepts: Industrial Design, UI/UX, CGI',
     description:
-      'Selected Nocturnal work and independently researched product concepts — spanning industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and interactive prototypes.',
+      'Selected Nocturnal work and independently researched product concepts spanning industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and interactive prototypes.',
     canonical: `${SITE_URL}/concepts`,
     image: LOGO_URL,
   },
   about: {
-    title: 'About — Nocturnal Design Studio',
+    title: 'About | Nocturnal Design Studio',
     description:
       'Abeer Mahadane is the founder of Nocturnal, a design intelligence studio building industrial design, UI/UX systems, CGI, and brand for startups and product brands.',
     canonical: `${SITE_URL}/about`,
     image: LOGO_URL,
   },
   contact: {
-    title: 'Start a Project — Nocturnal Design Studio',
+    title: 'Start a Project | Nocturnal Design Studio',
     description:
-      'Book a strategy call with Nocturnal. Thirty minutes, no pitch decks — we identify the design friction in your brand and product and tell you exactly what to fix first.',
+      'Book a strategy call with Nocturnal. Thirty minutes, no pitch decks. We identify the design friction in your brand and product and tell you exactly what to fix first.',
     canonical: `${SITE_URL}/contact`,
     image: LOGO_URL,
   },

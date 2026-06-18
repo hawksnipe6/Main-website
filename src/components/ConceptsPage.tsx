@@ -48,7 +48,7 @@ const CONCEPTS: Concept[] = [
     coverEmoji: '🛡️',
     prototypePath: '/tollgate/index.html',
     problem:
-      'By 2026, autonomous agents from OpenAI, Google, Visa, and Mastercard can run the full purchase loop — discover, compare, authorize, and pay — from a goal instead of a click. The intelligence is commoditizing fast; every platform is shipping a shopping agent. What no one has shipped is the consumer-owned layer that governs it: hard spend limits, approved merchants, ask-first thresholds, an audit trail, and revocation that is instant and enforceable. Without it, people are asked to hand an autonomous wallet a blank cheque, and most refuse.',
+      'By 2026, autonomous agents from OpenAI, Google, Visa, and Mastercard can run the full purchase loop: discover, compare, authorize, and pay, from a goal instead of a click. The intelligence is commoditizing fast; every platform is shipping a shopping agent. What no one has shipped is the consumer-owned layer that governs it: hard spend limits, approved merchants, ask-first thresholds, an audit trail, and revocation that is instant and enforceable. Without it, people are asked to hand an autonomous wallet a blank cheque, and most refuse.',
     discovery: [
       { stat: '$1T+', label: 'E-commerce spend agentic AI is projected to influence by 2026' },
       { stat: '81%', label: 'Of US consumers expect to use AI agents to shop' },
@@ -56,11 +56,11 @@ const CONCEPTS: Concept[] = [
       { stat: '#1', label: 'Barrier analysts name for adoption is trust, not capability' },
     ],
     insight:
-      'The agent is becoming a commodity every platform gives away. The scarce, ownable layer is verifiable, revocable permission — a firewall the user trusts more the longer it runs.',
+      'The agent is becoming a commodity every platform gives away. The scarce, ownable layer is verifiable, revocable permission: a firewall the user trusts more the longer it runs.',
     solution: [
       { icon: '01', label: 'Mandate builder', desc: 'Set a weekly cap, approved merchants, and allowed categories an agent can never exceed.' },
       { icon: '02', label: 'Ask-first thresholds', desc: 'Any spend over your limit pauses the agent and surfaces a request for a human tap.' },
-      { icon: '03', label: 'Real-time approval', desc: 'Pending purchases arrive with line items, a cap check, and a countdown — approve or decline in one move.' },
+      { icon: '03', label: 'Real-time approval', desc: 'Pending purchases arrive with line items, a cap check, and a countdown. Approve or decline in one move.' },
       { icon: '04', label: 'Instant revoke', desc: 'One tap disarms every agent, cancels in-flight buys, and is enforced at the network in real time.' },
       { icon: '05', label: 'Audit ledger', desc: 'Every approved, auto, and blocked purchase becomes an exportable receipt trail you and your bank can trust.' },
     ],
@@ -136,10 +136,10 @@ const CONCEPTS: Concept[] = [
     status: 'MVP Concept',
     coverType: 'voca',
     problem:
-      'Speech therapy clinics run on desktop analysis software built 10–20 years ago. PRAAT is the dominant tool — free, powerful, and built for a 1992 desktop workflow. Manual acoustic scoring burns 20 minutes per patient session. Home practice goes unmeasured between appointments. No existing tool bridges clinic analysis with patient-owned progress tracking, and nothing in the category is HIPAA-compliant, mobile-first, and usable by both therapist and patient in the same session.',
+      'Speech therapy clinics run on desktop analysis software built 10–20 years ago. PRAAT is the dominant tool: free, powerful, and built for a 1992 desktop workflow. Manual acoustic scoring burns 20 minutes per patient session. Home practice goes unmeasured between appointments. No existing tool bridges clinic analysis with patient-owned progress tracking, and nothing in the category is HIPAA-compliant, mobile-first, and usable by both therapist and patient in the same session.',
     discovery: [
       { stat: '220K+', label: 'ASHA-member speech-language pathologists in the US alone' },
-      { stat: '20 min', label: 'Typical manual acoustic scoring time per patient — replaced by under 2 minutes with automated analysis' },
+      { stat: '20 min', label: 'Typical manual acoustic scoring time per patient, replaced by under 2 minutes with automated analysis' },
       { stat: '$15B', label: 'Voice biomarker market projected by 2033, up from $2B today' },
       { stat: '$8K+', label: 'Entry cost for Kay Pentax Visi-Pitch, the primary hardware alternative to PRAAT' },
     ],
@@ -148,7 +148,7 @@ const CONCEPTS: Concept[] = [
     solution: [
       { icon: '01', label: '60-second voice recording', desc: 'Guided capture with real-time waveform visualization. Works in-session or as a patient home recording between appointments.' },
       { icon: '02', label: 'Acoustic analysis engine', desc: 'Parselmouth/Praat backend extracts pitch range, stability index, roughness score, jitter, shimmer, and resonance from each sample.' },
-      { icon: '03', label: 'Therapy report card', desc: 'Structured acoustic report generated immediately — scored, formatted, and PDF-exportable before the patient leaves the room.' },
+      { icon: '03', label: 'Therapy report card', desc: 'Structured acoustic report generated immediately: scored, formatted, and PDF-exportable before the patient leaves the room.' },
       { icon: '04', label: 'Patient home mode', desc: 'Patients self-record between sessions, log practice notes, and view per-metric progress curves inside the same app.' },
       { icon: '05', label: 'Therapist dashboard', desc: 'Web interface with full patient roster, session archive, report filtering by date and metric, and clinic-level aggregated data.' },
     ],
@@ -334,7 +334,7 @@ const vocaOpportunity = [
 const vocaFlow = [
   { step: '01', title: 'Record', body: '60-second guided voice sample with live waveform visualization. Works in-session or as a home recording.' },
   { step: '02', title: 'Analyze', body: 'Parselmouth/Praat engine extracts pitch range, stability index, roughness, jitter, shimmer, and resonance in real time.' },
-  { step: '03', title: 'Report', body: 'Acoustic report card generated immediately — scored, formatted, and PDF-exportable before the patient leaves.' },
+  { step: '03', title: 'Report', body: 'Acoustic report card generated immediately: scored, formatted, and PDF-exportable before the patient leaves.' },
   { step: '04', title: 'Archive', body: 'Session auto-syncs to therapist dashboard with session notes, acoustic data, and timestamps attached.' },
   { step: '05', title: 'Track', body: 'Patient home logs and per-metric progress curves are visible to both therapist and patient over time.' },
 ]
@@ -351,7 +351,7 @@ const vocaMvp = [
 const vocaRisks = [
   { title: 'Accuracy risk', body: 'Acoustic scores must validate against manual therapist scoring within ±5% on pitch and roughness before any report is shown to a patient.' },
   { title: 'HIPAA risk', body: 'Patient voice data is PHI. Architecture requires encrypted storage, no PHI in system logs, and a BAA-ready infrastructure partner before any clinical deployment.' },
-  { title: 'Adoption risk', body: 'SLPs are PRAAT-trained. Workflow change requires trust built through a structured beta — 10 therapists, 200 real sessions, published accuracy comparison.' },
+  { title: 'Adoption risk', body: 'SLPs are PRAAT-trained. Workflow change requires trust built through a structured beta with 10 therapists, 200 real sessions, and a published accuracy comparison.' },
   { title: 'Liability risk', body: 'Reports must be positioned as clinical decision support, not diagnostic output. Over-claiming acoustic accuracy creates direct regulatory exposure.' },
 ]
 
@@ -361,7 +361,7 @@ const vocaOffer = [
     label: 'Lead magnet',
     title: 'Voice Analysis Quick-Start Guide',
     price: 'Free',
-    body: 'Downloadable PDF for SLPs — no account required. Distributed to ASHA community, Reddit r/slp, and LinkedIn SLP groups to drive awareness before beta launch.',
+    body: 'Downloadable PDF for SLPs, no account required. Distributed to ASHA community, Reddit r/slp, and LinkedIn SLP groups to drive awareness before beta launch.',
   },
   {
     step: '02',
@@ -382,7 +382,7 @@ const vocaOffer = [
 const vocaProofBlocks = [
   {
     title: 'Market gap',
-    body: 'ASHA has 220,000+ members. No mobile-first, HIPAA-compliant voice analysis SaaS exists. PRAAT and Kay Pentax are the only real incumbents — both desktop-first and patient-inaccessible.',
+    body: 'ASHA has 220,000+ members. No mobile-first, HIPAA-compliant voice analysis SaaS exists. PRAAT and Kay Pentax are the only real incumbents, both desktop-first and patient-inaccessible.',
     cta: 'See the gap',
   },
   {
@@ -397,7 +397,7 @@ const vocaProofBlocks = [
   },
   {
     title: 'Data moat',
-    body: "Each session logged builds a normative database. Voca's acoustic benchmarks — trans voice, post-laryngeal surgery — become proprietary clinical reference data no competitor can replicate.",
+    body: "Each session logged builds a normative database. Voca's acoustic benchmarks, covering trans voice and post-laryngeal surgery, become proprietary clinical reference data no competitor can replicate.",
     cta: 'View the moat',
   },
 ]
@@ -438,12 +438,12 @@ const vocaCasePillars = [
   {
     label: 'Why choose this',
     title: 'The infrastructure gap is structural, not technical.',
-    body: 'Open-source acoustic analysis (Parselmouth/Praat) is already production-ready. The missing layer is mobile delivery, clinical report formatting, and HIPAA-compliant data architecture — not the analysis engine itself.',
+    body: 'Open-source acoustic analysis (Parselmouth/Praat) is already production-ready. The missing layer is mobile delivery, clinical report formatting, and HIPAA-compliant data architecture, not the analysis engine itself.',
   },
   {
     label: 'Why an app',
     title: 'The phone bridges clinic and home.',
-    body: "Voice therapy requires both session data and home practice data. The same tool a therapist uses in-session becomes the patient's monitoring device between appointments — no separate hardware required.",
+    body: "Voice therapy requires both session data and home practice data. The same tool a therapist uses in-session becomes the patient's monitoring device between appointments, with no separate hardware required.",
   },
 ]
 
@@ -478,7 +478,7 @@ function VocaHeroSignalPanel() {
       <div className={styles.denslyHeroSignalCopy}>
         <span>Clinical signal layer</span>
         <h2>Acoustic intelligence. Clinical format.</h2>
-        <p>60-second voice capture, real-time Praat analysis, and a therapy-ready report card — before the patient stands up to leave.</p>
+        <p>60-second voice capture, real-time Praat analysis, and a therapy-ready report card, before the patient stands up to leave.</p>
       </div>
       <div className={styles.denslyHeroSignalGrid}>
         <div><strong>60s</strong><span>capture</span></div>
@@ -950,7 +950,7 @@ function VocaDetail({ concept, onBack }: { concept: Concept; onBack: () => void 
           <p className={styles.detailTagline}>{concept.tagline}</p>
           <div className={styles.denslyThesisCard}>
             <span>Product thesis</span>
-            <p>Do not build a smarter acoustic engine. Build the clinical workflow layer that puts a Praat-quality report in a coat pocket — before the patient stands up to leave.</p>
+            <p>Do not build a smarter acoustic engine. Build the clinical workflow layer that puts a Praat-quality report in a coat pocket, before the patient stands up to leave.</p>
           </div>
         </div>
         <div className={`${styles.denslyHeroVisual} ${styles.vocaHeroVisual}`} aria-label="Voca concept summary">
@@ -966,7 +966,7 @@ function VocaDetail({ concept, onBack }: { concept: Concept; onBack: () => void 
             <h2>The clinic runs on tools older than the iPhone.</h2>
           </div>
           <p>
-            PRAAT is the industry standard — free, powerful, and designed for a 1992 desktop workflow. Acoustic scoring requires manual extraction, a separate report template, and a therapist who knows the software. Most do. None of that helps the patient who just left the room without their progress data.
+            PRAAT is the industry standard: free, powerful, and designed for a 1992 desktop workflow. Acoustic scoring requires manual extraction, a separate report template, and a therapist who knows the software. Most do. None of that helps the patient who just left the room without their progress data.
           </p>
         </div>
       </section>
@@ -1083,7 +1083,7 @@ function VocaDetail({ concept, onBack }: { concept: Concept; onBack: () => void 
         <div className={styles.denslySplitPanel}>
           <span className={styles.sectionLabel}>Business model</span>
           <div className={styles.denslyBusinessRows}>
-            <div><span>Free</span><p>Voice Analysis Quick-Start Guide — PDF for SLPs, no account required.</p></div>
+            <div><span>Free</span><p>Voice Analysis Quick-Start Guide: PDF for SLPs, no account required.</p></div>
             <div><span>$100/mo</span><p>Solo therapist license. Unlimited recordings, full acoustic suite, up to 10 patient home mode slots, PDF export.</p></div>
             <div><span>$300–500/mo</span><p>Clinic seat license. Dashboard, progress tracking, HIPAA-compliant BAA storage, multi-patient management.</p></div>
             <div><span>Phase 2</span><p>API access for telehealth platform embedding (SimplePractice, Therapy Brands).</p></div>
@@ -1163,7 +1163,7 @@ function VocaDetail({ concept, onBack }: { concept: Concept; onBack: () => void 
           <span className={styles.sectionLabel}>Interactive prototype</span>
           <h2 className={styles.demoHeading}>Try the Voca flow</h2>
           <p className={styles.demoBody}>
-            Explore the full Voca prototype — onboarding, live recording session, acoustic report card, patient roster, and progress tracking. All interactions are clickable.
+            Explore the full Voca prototype: onboarding, live recording session, acoustic report card, patient roster, and progress tracking. All interactions are clickable.
           </p>
           <div className={styles.demoActions}>
             <button className={styles.restartBtn} onClick={handleRestart}>
@@ -1176,7 +1176,7 @@ function VocaDetail({ concept, onBack }: { concept: Concept; onBack: () => void 
               Open phone view
             </button>
             <p className={styles.demoNote}>
-              Tap the red button on the record screen to run an analysis. All data is local — nothing is sent anywhere.
+              Tap the red button on the record screen to run an analysis. All data is local. Nothing is sent anywhere.
             </p>
           </div>
         </div>

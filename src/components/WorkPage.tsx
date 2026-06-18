@@ -485,8 +485,7 @@ export function WorkPage({ embedded = false }: { embedded?: boolean } = {}) {
     <>
       {!embedded && (
         <header className={styles.pageHeader}>
-          <p className={styles.pageLabel}>Portfolio</p>
-          <h1 className={styles.pageTitle}>Work</h1>
+          <h1 className={styles.pageTitle}>Projects</h1>
           <p className={styles.pageSubtitle}>
             Selected projects structured as case studies across product design, interface systems, CGI, packaging, mobility, healthcare, and brand visuals.
           </p>

@@ -165,7 +165,7 @@ export function Cta() {
                   </div>
                   <p className={styles.gcalDesc}>
                     So glad you are here. This is the first step toward sharper brand and
-                    product decisions — we use the call to find what is working, what is not,
+                    product decisions. We use the call to find what is working, what is not,
                     and what to fix first.
                   </p>
                 </div>
@@ -173,7 +173,7 @@ export function Cta() {
                 <div className={styles.gcalPicker}>
                   <div className={styles.gcalPickerTop}>
                     <span className={styles.gcalPickerLabel}>Select an appointment time</span>
-                    <span className={styles.gcalTz}>(GMT+05:30) India Standard Time — Kolkata</span>
+                    <span className={styles.gcalTz}>(GMT+05:30) India Standard Time, Kolkata</span>
                   </div>
                   <div className={styles.gcalChosen}>
                     {MONTHS[month]} {selected ?? today}{selectedSlot ? ` · ${selectedSlot}` : ''}

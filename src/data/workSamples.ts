@@ -9,24 +9,6 @@ export type WorkSample = {
 
 export const WORK_SAMPLES: WorkSample[] = [
   {
-    slug: 'renderfolio',
-    title: 'renderfolio.',
-    category: '3D visualisation and render studies',
-    description:
-      'A compact collection of rendered product studies focused on material behaviour, lighting control, and object storytelling.',
-    href: 'https://www.behance.net/gallery/235226069/renderfolio',
-    image: '/work-cover-renderfolio-custom.png',
-  },
-  {
-    slug: 'armor',
-    title: 'Visual Design for armor',
-    category: 'Brand visuals and campaign systems',
-    description:
-      'A visual design system for Armor that turns product features into crisp campaign assets, launch moments, and social-first compositions.',
-    href: 'https://www.behance.net/gallery/249160397/Visual-Design-for-armor',
-    image: '/work-cover-armor-custom.png',
-  },
-  {
     slug: 'alivio',
     title: 'Alivio - Posture Corrector and TENS Device',
     category: 'Medical product design',
@@ -43,6 +25,24 @@ export const WORK_SAMPLES: WorkSample[] = [
       'A home-audio concept influenced by restrained consumer electronics, with attention to interface hierarchy, CMF, and product presence.',
     href: 'https://www.behance.net/gallery/190090001/Audio-1',
     image: '/work-cover-audio-1.png',
+  },
+  {
+    slug: 'renderfolio',
+    title: 'renderfolio.',
+    category: '3D visualisation and render studies',
+    description:
+      'A compact collection of rendered product studies focused on material behaviour, lighting control, and object storytelling.',
+    href: 'https://www.behance.net/gallery/235226069/renderfolio',
+    image: '/work-cover-renderfolio-custom.png',
+  },
+  {
+    slug: 'armor',
+    title: 'Visual Design for armor',
+    category: 'Brand visuals and campaign systems',
+    description:
+      'A visual design system for Armor that turns product features into crisp campaign assets, launch moments, and social-first compositions.',
+    href: 'https://www.behance.net/gallery/249160397/Visual-Design-for-armor',
+    image: '/work-cover-armor-custom.png',
   },
   {
     slug: 'osmo',
