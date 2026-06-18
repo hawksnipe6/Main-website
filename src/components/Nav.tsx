@@ -2,13 +2,6 @@ import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { useScrollNav } from '../hooks/useScrollNav'
 import styles from './Nav.module.css'
 
-const DRAWER_LINKS = [
-  { label: 'Work',     href: '#work-preview' },
-  { label: 'Services', href: '#services' },
-  { label: 'Process',  href: '#how' },
-  { label: 'Brands',   href: '#brands' },
-  { label: 'FAQ',      href: '#faq' },
-]
 
 type NavProps = {
   page: 'home' | 'work' | 'concepts' | 'about' | 'contact'
@@ -42,16 +35,6 @@ export function Nav({ page, onNavigateHome, onNavigateWork, onNavigateAbout, onN
   }, [menuOpen])
 
   const close = () => setMenuOpen(false)
-  const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
-    event.preventDefault()
-    close()
-
-    const section = document.querySelector(href)
-    if (!section) return
-
-    section.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    window.history.pushState(null, '', href)
-  }
 
   const navigateHome = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
