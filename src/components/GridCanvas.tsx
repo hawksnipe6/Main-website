@@ -132,10 +132,32 @@ export function GridCanvas() {
     resize()
     const onTouchEnd = () => { mx = -9999; my = -9999 }
 
+    const onTouchMove = (e: TouchEvent) => {
+      const t = e.touches[0]
+      if (!t) return
+      const r = canvas.getBoundingClientRect()
+      const x = t.clientX - r.left
+      const y = t.clientY - r.top
+      mx = (x >= 0 && y >= 0 && x <= r.width && y <= r.height) ? x : -9999
+      my = (x >= 0 && y >= 0 && x <= r.width && y <= r.height) ? y : -9999
+    }
+
+    const onTouchStart = (e: TouchEvent) => {
+      const t = e.touches[0]
+      if (!t) return
+      const r = canvas.getBoundingClientRect()
+      const x = t.clientX - r.left
+      const y = t.clientY - r.top
+      if (x < 0 || y < 0 || x > r.width || y > r.height) return
+      waves.push({ x, y, t0: performance.now(), maxR: Math.hypot(r.width, r.height) })
+    }
+
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mousedown', onDown)
     window.addEventListener('touchend', onTouchEnd)
     window.addEventListener('touchcancel', onTouchEnd)
+    window.addEventListener('touchmove', onTouchMove, { passive: true })
+    window.addEventListener('touchstart', onTouchStart, { passive: true })
     raf = requestAnimationFrame(tick)
 
     return () => {
@@ -145,6 +167,8 @@ export function GridCanvas() {
       window.removeEventListener('mousedown', onDown)
       window.removeEventListener('touchend', onTouchEnd)
       window.removeEventListener('touchcancel', onTouchEnd)
+      window.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('touchstart', onTouchStart)
     }
   }, [])
 

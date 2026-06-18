@@ -15,6 +15,7 @@
 .scrolled {
   border-color: var(--noc-grey-2);
   background: var(--noc-nav-bg);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
 
@@ -22,6 +23,7 @@
   z-index: 350;
   border-color: transparent;
   background: transparent;
+  -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
 
@@ -182,6 +184,7 @@
   top: 0; right: 0;
   z-index: 300;
   width: min(320px, 85vw);
+  height: 100vh;
   height: 100dvh;
   background: var(--noc-black);
   border-left: 1px solid var(--noc-grey-2);

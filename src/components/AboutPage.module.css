@@ -1,5 +1,6 @@
 .page {
   background: var(--noc-black);
+  min-height: 100vh;
   min-height: 100dvh;
   padding-top: var(--page-padding-top);
 }
