@@ -22,9 +22,11 @@ const TAB_COPY: Record<Tab, { label: string; subtitle: string }> = {
 export function PortfolioPage({
   activeTab,
   onTabChange,
+  onNavigate,
 }: {
   activeTab: Tab
   onTabChange: (tab: Tab) => void
+  onNavigate?: (path: string) => void
 }) {
   const copy = TAB_COPY[activeTab]
 
@@ -57,7 +59,7 @@ export function PortfolioPage({
       </header>
 
       <div key={activeTab} className={styles.tabPanel}>
-        {activeTab === 'work' ? <WorkPage embedded /> : <ConceptsPage embedded />}
+        {activeTab === 'work' ? <WorkPage embedded onNavigate={onNavigate} /> : <ConceptsPage embedded />}
       </div>
     </main>
   )

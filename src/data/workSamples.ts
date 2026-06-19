@@ -107,6 +107,15 @@ export const WORK_SAMPLES: WorkSample[] = [
     href: 'https://www.behance.net/gallery/229720139/EV-Charging-ecosystem-System-Design',
     image: '/work-cover-ev-charging.jpg',
   },
+  {
+    slug: 'martand',
+    title: 'Martand',
+    category: 'Motion and animation',
+    description:
+      'A scroll-driven animation study in form, light, and rhythm, rendered frame by frame for frame-perfect motion.',
+    href: '',
+    image: '',
+  },
 ]
 
 export const FEATURED_WORK_SAMPLES = WORK_SAMPLES.slice(0, 7)

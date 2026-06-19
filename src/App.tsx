@@ -87,6 +87,7 @@ export default function App() {
         <PortfolioPage
           activeTab={page}
           onTabChange={(tab) => navigateToPath(tab === 'work' ? '/work' : '/concepts')}
+          onNavigate={navigateToPath}
         />
       ) : (
         <main className="routeEnter">
