@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './MartandCaseStudy.module.css'
 import { Footer } from './Footer'
-import { BookletFlipbook } from './BookletFlipbook'
 
 const FPS = 30      // matches the After Effects composition frame rate
 const FADE = 0.4    // seconds — opacity ease at each segment boundary
@@ -39,9 +38,11 @@ function segmentOpacity(seg: Segment, t: number): number {
 
 const isMobile = typeof window !== 'undefined'
   && window.matchMedia('(max-width: 768px)').matches
-// Desktop-only: the mobile route shows a "best viewed on desktop" notice,
-// so the scrub video is always the desktop encode.
-const VIDEO_SRC = '/martand.mp4'
+
+// Theme-matched scrub encodes: the cream version is baked on #F5F4F0, the dark
+// version on #0D0D0D, so the letterbox matches the page background in each theme.
+const VIDEO_SRC_LIGHT = '/martand.mp4'
+const VIDEO_SRC_DARK = '/martand-dark.mp4'
 
 const GALLERY = ['/pen-lounge/1.jpg', '/pen-lounge/2.jpg', '/pen-lounge/4.jpg', '/pen-lounge/5.jpg']
 
@@ -70,6 +71,20 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
   // loader until enough has buffered to scrub smoothly.
   const [loading, setLoading] = useState(true)
   const markReady = () => { videoReady.current = true; setLoading(false) }
+
+  // Pick the scrub encode that matches the active theme, reacting to the toggle.
+  const [isDark, setIsDark] = useState(
+    () => typeof document !== 'undefined' && document.documentElement.getAttribute('data-theme') === 'dark'
+  )
+  useEffect(() => {
+    const el = document.documentElement
+    const obs = new MutationObserver(() => setIsDark(el.getAttribute('data-theme') === 'dark'))
+    obs.observe(el, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => obs.disconnect()
+  }, [])
+  const videoSrc = isDark ? VIDEO_SRC_DARK : VIDEO_SRC_LIGHT
+  // Reset the loader when the source swaps so scrubbing waits for the new clip.
+  useEffect(() => { videoReady.current = false; setLoading(true) }, [videoSrc])
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -169,8 +184,9 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
       <div ref={scrubRef} className={styles.scrub}>
         <div className={styles.sticky}>
           <video
+            key={videoSrc}
             ref={videoRef}
-            src={VIDEO_SRC}
+            src={videoSrc}
             className={styles.video}
             muted
             playsInline
@@ -278,12 +294,6 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
           ))}
         </section>
 
-        <section className={styles.bookletSection}>
-          <h2 className={styles.bookletHeading}>An Offering to Khanderaya</h2>
-          <p className={styles.bookletSub}>The story behind the Khandoba Pen. Drag a corner or tap the edges to turn the pages.</p>
-          <BookletFlipbook />
-        </section>
-
         <section className={styles.disclaimer}>
           <p>
             © {new Date().getFullYear()} The Pen Lounge. All rights reserved. This design and all associated visual assets, 3D models, animations, renders, and product imagery are the copyrighted property of The Pen Lounge. No part of this work may be reproduced, copied, modified, distributed, or sold without prior written permission. All trademarks and references remain the property of their respective owners.
@@ -319,26 +329,8 @@ function MartandMobileNotice({ onBack }: { onBack: () => void }) {
 }
 
 export function MartandCaseStudy(props: { onBack: () => void; onNavigate?: (path: string) => void }) {
-  // The Martand scrub video is baked on cream, so this experience always renders
-  // light (until a dark-baked sequence is added). Force light while open — and
-  // keep it light even if the visitor flips the theme toggle mid-experience —
-  // then restore their chosen theme on exit.
-  useEffect(() => {
-    const el = document.documentElement
-    const forceLight = () => {
-      if (el.getAttribute('data-theme') !== 'light') el.setAttribute('data-theme', 'light')
-    }
-    forceLight()
-    const obs = new MutationObserver(forceLight)
-    obs.observe(el, { attributes: true, attributeFilter: ['data-theme'] })
-    return () => {
-      obs.disconnect()
-      let stored = 'dark'
-      try { stored = localStorage.getItem('noc-theme') === 'light' ? 'light' : 'dark' } catch { /* private mode */ }
-      el.setAttribute('data-theme', stored)
-    }
-  }, [])
-
+  // Theme-aware now: the scrub video has cream and dark encodes, so Martand
+  // follows the site theme like every other page.
   return isMobile
     ? <MartandMobileNotice onBack={props.onBack} />
     : <MartandDesktop {...props} />

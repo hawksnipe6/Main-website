@@ -352,34 +352,6 @@
   display: block;
 }
 
-/* Booklet flipbook */
-.bookletSection {
-  margin-bottom: 110px;
-  text-align: center;
-}
-
-.bookletHeading {
-  font-size: clamp(24px, 3vw, 40px);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  color: var(--noc-white);
-  margin-bottom: 12px;
-}
-
-.bookletSub {
-  font-size: 14px;
-  color: var(--noc-grey-4);
-  line-height: 1.55;
-  max-width: 460px;
-  margin: 0 auto 40px;
-}
-
-@media (max-width: 768px) {
-  .bookletSection {
-    margin-bottom: 72px;
-  }
-}
-
 /* Disclaimer */
 .disclaimer {
   border-top: 1px solid var(--noc-grey-2);
