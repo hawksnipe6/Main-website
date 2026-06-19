@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import styles from './MartandCaseStudy.module.css'
 import { Footer } from './Footer'
 
-const LERP = 0.08   // easing factor — lower = floatier, higher = snappier
 const FPS = 30      // matches the After Effects composition frame rate
 const FADE = 0.4    // seconds — opacity ease at each segment boundary
 
@@ -58,10 +57,7 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
   const rafRef        = useRef<number>(0)
   const segRefs       = useRef<(HTMLDivElement | null)[]>([])
 
-  const targetPos     = useRef(0)
-  const currentPos    = useRef(0)
   const videoReady    = useRef(false)
-  const isTouching    = useRef(false)
 
   const [muted, setMuted] = useState(() => {
     if (typeof window === 'undefined') return true
@@ -117,34 +113,15 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
     const getScrollMax = () => Math.max(0, el.scrollHeight - el.clientHeight)
     const getScrubMax  = () => Math.max(1, scrub.offsetHeight - el.clientHeight)
 
-    const onWheel = (e: WheelEvent) => {
-      e.preventDefault()
-      targetPos.current = Math.max(0, Math.min(getScrollMax(), targetPos.current + e.deltaY))
-    }
-
-    const onTouchStart = () => { isTouching.current = true }
-    const onTouchEnd   = () => { isTouching.current = false }
-    const onScroll     = () => {
-      if (isTouching.current) {
-        targetPos.current  = el.scrollTop
-        currentPos.current = el.scrollTop
-      }
-    }
-
     const tick = () => {
-      if (!isTouching.current) {
-        currentPos.current += (targetPos.current - currentPos.current) * LERP
-        if (Math.abs(currentPos.current - targetPos.current) < 0.5) {
-          currentPos.current = targetPos.current
-        }
-        el.scrollTop = currentPos.current
-      }
+      // Native scroll position — no easing/lerp.
+      const pos = el.scrollTop
 
       // Video progress is measured against the scrub section only, so the
       // clip reaches its last frame exactly as the reveal scrolls in.
-      const scrubP = Math.max(0, Math.min(1, currentPos.current / getScrubMax()))
+      const scrubP = Math.max(0, Math.min(1, pos / getScrubMax()))
       // Page progress spans the whole experience (scrub + reveal + footer).
-      const pageP = Math.max(0, Math.min(1, currentPos.current / getScrollMax()))
+      const pageP = Math.max(0, Math.min(1, pos / getScrollMax()))
 
       const v = videoRef.current
       const dur = v?.duration || 0
@@ -169,17 +146,9 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
       rafRef.current = requestAnimationFrame(tick)
     }
 
-    el.addEventListener('wheel',      onWheel,      { passive: false })
-    el.addEventListener('touchstart', onTouchStart, { passive: true  })
-    el.addEventListener('touchend',   onTouchEnd,   { passive: true  })
-    el.addEventListener('scroll',     onScroll,     { passive: true  })
     rafRef.current = requestAnimationFrame(tick)
 
     return () => {
-      el.removeEventListener('wheel',      onWheel)
-      el.removeEventListener('touchstart', onTouchStart)
-      el.removeEventListener('touchend',   onTouchEnd)
-      el.removeEventListener('scroll',     onScroll)
       cancelAnimationFrame(rafRef.current)
     }
   }, [])
