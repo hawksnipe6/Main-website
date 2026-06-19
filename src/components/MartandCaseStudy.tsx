@@ -39,7 +39,9 @@ function segmentOpacity(seg: Segment, t: number): number {
 
 const isMobile = typeof window !== 'undefined'
   && window.matchMedia('(max-width: 768px)').matches
-const VIDEO_SRC = isMobile ? '/martand-mobile.mp4' : '/martand.mp4'
+// Desktop-only: the mobile route shows a "best viewed on desktop" notice,
+// so the scrub video is always the desktop encode.
+const VIDEO_SRC = '/martand.mp4'
 
 const GALLERY = ['/pen-lounge/1.jpg', '/pen-lounge/2.jpg', '/pen-lounge/4.jpg', '/pen-lounge/5.jpg']
 
@@ -66,6 +68,11 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
     const stored = window.localStorage.getItem(MUTE_KEY)
     return stored === null ? true : stored === 'true'
   })
+
+  // Loading gate — the scrub video is large, so first-time visitors see a
+  // loader until enough has buffered to scrub smoothly.
+  const [loading, setLoading] = useState(true)
+  const markReady = () => { videoReady.current = true; setLoading(false) }
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -199,7 +206,16 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
             playsInline
             preload="auto"
             onLoadedMetadata={() => { videoReady.current = true }}
+            onLoadedData={markReady}
+            onCanPlay={markReady}
           />
+
+          {loading && (
+            <div className={styles.loader} aria-live="polite">
+              <span className={styles.spinner} aria-hidden="true" />
+              <span className={styles.loaderText}>Loading experience</span>
+            </div>
+          )}
 
           <button className={styles.backBtn} onClick={onBack} aria-label="Back to all work">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">

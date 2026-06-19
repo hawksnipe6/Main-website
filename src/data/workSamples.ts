@@ -9,6 +9,15 @@ export type WorkSample = {
 
 export const WORK_SAMPLES: WorkSample[] = [
   {
+    slug: 'martand',
+    title: 'Martand',
+    category: 'Motion and animation',
+    description:
+      'A scroll-driven animation study in form, light, and rhythm, rendered frame by frame for frame-perfect motion.',
+    href: '',
+    image: '/work-cover-martand.jpg',
+  },
+  {
     slug: 'alivio',
     title: 'Alivio - Posture Corrector and TENS Device',
     category: 'Medical product design',
@@ -106,15 +115,6 @@ export const WORK_SAMPLES: WorkSample[] = [
       'A systems study mapping the behavioural, infrastructural, and decision-making friction around EV charging ecosystems.',
     href: 'https://www.behance.net/gallery/229720139/EV-Charging-ecosystem-System-Design',
     image: '/work-cover-ev-charging.jpg',
-  },
-  {
-    slug: 'martand',
-    title: 'Martand',
-    category: 'Motion and animation',
-    description:
-      'A scroll-driven animation study in form, light, and rhythm, rendered frame by frame for frame-perfect motion.',
-    href: '',
-    image: '',
   },
 ]
 
