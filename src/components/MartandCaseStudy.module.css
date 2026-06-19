@@ -1,0 +1,380 @@
+/* ── Full-screen scroll-driven overlay ─── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background: var(--noc-black); /* cream in the site's light theme */
+  scrollbar-width: none;
+}
+
+.overlay::-webkit-scrollbar {
+  display: none;
+}
+
+/* Long scroll track for the ~23.5s clip — gives deliberate scrubbing */
+.scrub {
+  height: 600vh;
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--noc-black);
+}
+
+/* ── Video — contained so the full animation is visible, cream fills rest ─ */
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--noc-black);
+}
+
+/* ── Back button ───────────────────────── */
+.backBtn {
+  position: absolute;
+  top: calc(72px + 20px);
+  left: calc(var(--gutter, 0px) + var(--site-padding, 32px));
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--noc-grey-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--noc-font);
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.backBtn:hover {
+  color: var(--noc-white);
+}
+
+/* ── Text segments (timeline-driven) ───── */
+.chaptersWrap {
+  position: absolute;
+  bottom: 80px;
+  left: calc(var(--gutter, 0px) + var(--site-padding, 32px));
+  right: calc(var(--gutter, 0px) + var(--site-padding, 32px));
+  z-index: 2;
+}
+
+/* Opacity is set per-frame in JS from the video timeline — no CSS transition. */
+.chapter {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chapterHeading {
+  font-size: clamp(24px, 3.5vw, 48px);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  color: var(--noc-white);
+  line-height: 0.95;
+  margin-bottom: 20px;
+  max-width: 880px;
+}
+
+.chapterBody {
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--noc-grey-5);
+  line-height: 1.55;
+  max-width: 520px;
+}
+
+/* ── Nav backdrop — solid bar behind the nav during the reveal ─── */
+.navBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 72px; /* nav height */
+  background: var(--noc-nav-bg);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* ── Progress bar — pinned under the nav bar ─── */
+.progressTrack {
+  position: fixed;
+  top: 72px; /* nav height */
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--noc-grey-2);
+  z-index: 4;
+}
+
+.progressBar {
+  height: 100%;
+  background: var(--noc-accent, #E8612A);
+  transition: width 0.04s linear;
+}
+
+/* ── Scroll hint ───────────────────────── */
+.scrollHint {
+  position: absolute;
+  bottom: 28px;
+  right: calc(var(--gutter, 0px) + var(--site-padding, 32px));
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* ── Mobile "best viewed on desktop" notice ─── */
+.mobileNotice {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  background: var(--noc-black); /* cream in light theme */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.mobileInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  max-width: 340px;
+}
+
+.mobileIcon {
+  color: var(--noc-grey-4);
+}
+
+.mobileTitle {
+  font-size: clamp(24px, 7vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--noc-white);
+}
+
+.mobileSub {
+  font-size: 14px;
+  color: var(--noc-grey-4);
+  line-height: 1.55;
+}
+
+/* ── Reveal section (after the scrub) ───── */
+.reveal {
+  position: relative;
+  background: var(--noc-black);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 120px calc(var(--gutter, 0px) + var(--site-padding, 32px)) 0;
+}
+
+/* Device showcase: video left, text right */
+.deviceBlock {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1fr;
+  gap: 56px;
+  align-items: center;
+  margin-bottom: 120px;
+}
+
+.deviceCard {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--noc-grey-2);
+  background: #000;
+  aspect-ratio: 9 / 16;
+  max-height: 80vh;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.deviceVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.muteBtn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--noc-glass-border);
+  background: var(--noc-glass-bg);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: #F5F4F0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.muteBtn:hover {
+  background: var(--noc-glass-bg-mid);
+  transform: scale(1.05);
+}
+
+.deviceHeading {
+  font-size: clamp(24px, 2.6vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  color: var(--noc-white);
+  white-space: nowrap;
+}
+
+/* Product blurb — now part of the device text column */
+.blurbHeading {
+  font-size: clamp(20px, 2vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--noc-white);
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.blurbBody {
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--noc-grey-5);
+  line-height: 1.65;
+}
+
+.penLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--noc-accent, #E8612A);
+  text-decoration: none;
+  transition: gap 0.2s ease, opacity 0.2s ease;
+}
+
+.penLink:hover {
+  gap: 12px;
+  opacity: 0.85;
+}
+
+/* Image gallery */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 100px;
+}
+
+.galleryItem {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-1);
+}
+
+.galleryItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Disclaimer */
+.disclaimer {
+  border-top: 1px solid var(--noc-grey-2);
+  padding: 40px 0 90px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.disclaimer p {
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--noc-grey-4);
+  text-align: center;
+}
+
+/* ── Mobile ────────────────────────────── */
+@media (max-width: 768px) {
+  .chapterHeading {
+    font-size: clamp(20px, 6vw, 36px);
+  }
+
+  .chaptersWrap {
+    bottom: 64px;
+  }
+
+  .chapterBody {
+    font-size: 14px;
+  }
+
+  .reveal {
+    padding-top: 80px;
+  }
+
+  /* Single-column stack: text above a smaller video */
+  .deviceBlock {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    margin-bottom: 80px;
+  }
+
+  .deviceText {
+    order: -1;
+    text-align: center;
+  }
+
+  .deviceHeading {
+    white-space: normal;
+  }
+
+  .penLink {
+    margin-top: 20px;
+  }
+
+  .deviceCard {
+    width: min(78%, 320px);
+    max-height: 60vh;
+  }
+
+  /* No grid — single column of images */
+  .gallery {
+    grid-template-columns: 1fr;
+    margin-bottom: 72px;
+  }
+}

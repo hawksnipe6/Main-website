@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { WORK_SAMPLES } from '../data/workSamples'
 import styles from './WorkPage.module.css'
+import { MartandCaseStudy } from './MartandCaseStudy'
 
 // Curated thematic groups derived from each project's existing category, so
 // prospects can self-select by the kind of work they need.
@@ -16,6 +17,7 @@ const WORK_GROUPS: Record<string, string> = {
   sailfish: 'Research & Strategy',
   medwise: 'Research & Strategy',
   'ev-charging': 'Research & Strategy',
+  martand: 'Brand & Visuals',
 }
 
 const WORK_FILTERS = ['All', 'Product Design', 'Brand & Visuals', 'Research & Strategy'] as const
@@ -325,6 +327,30 @@ const CASE_STUDY_DETAILS: Record<string, Omit<WorkCaseStudy, 'slug' | 'title' | 
     ],
     deliverables: ['System map', 'User journey', 'Service blueprint', 'Interface logic', 'Research presentation'],
     quote: 'Range anxiety is a service design problem hiding inside an infrastructure problem.'
+  },
+  martand: {
+    year: '2025',
+    format: 'Motion and animation',
+    role: 'Animation, art direction, frame rendering',
+    problem: 'A motion study exploring form, light, and rhythm as a scroll-driven experience.',
+    insight: 'Motion becomes material when every frame is designed, not just transitioned through.',
+    approach: [
+      'Rendered the sequence frame by frame for frame-perfect scrubbing.',
+      'Tied playback to scroll position so the viewer controls the pace.',
+      'Treated animation as a designed surface rather than a passing transition.',
+    ],
+    decisions: [
+      { label: 'Frame-perfect', desc: 'Every frame is a keyframe, so scrubbing stays smooth at any scroll speed.' },
+      { label: 'Scroll-driven', desc: 'Playback maps directly to scroll, putting pace in the viewer’s hands.' },
+      { label: 'Seamless surface', desc: 'The animation blends into the site background for a continuous feel.' },
+    ],
+    outcome: [
+      { stat: 'Motion', label: 'Scroll-driven sequence' },
+      { stat: 'Frame', label: 'All-intra rendering' },
+      { stat: 'Craft', label: 'Animation as material' },
+    ],
+    deliverables: ['Animation sequence', 'Art direction', 'Frame rendering', 'Scroll interaction'],
+    quote: 'Motion becomes material when every frame is designed.',
   }
 }
 
@@ -337,7 +363,11 @@ function WorkCard({ work, onClick }: { work: WorkCaseStudy; onClick: () => void 
   return (
     <article className={styles.card} onClick={onClick}>
       <div className={styles.cardCover}>
-        <img src={work.image} alt={`${work.title} cover`} loading="lazy" />
+        {work.image ? (
+          <img src={work.image} alt={`${work.title} cover`} loading="lazy" />
+        ) : (
+          <div className={styles.cardPlaceholder} />
+        )}
         <div className={styles.cardOverlay}>
           <div className={styles.cardInfo}>
             <h3 className={styles.cardTitle}>{work.title}</h3>
@@ -455,7 +485,7 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
   )
 }
 
-export function WorkPage({ embedded = false }: { embedded?: boolean } = {}) {
+export function WorkPage({ embedded = false, onNavigate }: { embedded?: boolean; onNavigate?: (path: string) => void } = {}) {
   const [active, setActive] = useState<string | null>(null)
   const [filter, setFilter] = useState<string>('All')
 
@@ -480,7 +510,9 @@ export function WorkPage({ embedded = false }: { embedded?: boolean } = {}) {
   const activeWork = WORK_CASE_STUDIES.find(work => work.slug === active)
 
   const body = activeWork ? (
-    <WorkDetail work={activeWork} onBack={closeWork} />
+    activeWork.slug === 'martand'
+      ? <MartandCaseStudy onBack={closeWork} onNavigate={onNavigate} />
+      : <WorkDetail work={activeWork} onBack={closeWork} />
   ) : (
     <>
       {!embedded && (
