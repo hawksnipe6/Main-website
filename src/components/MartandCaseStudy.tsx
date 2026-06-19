@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './MartandCaseStudy.module.css'
 import { Footer } from './Footer'
+import { BookletFlipbook } from './BookletFlipbook'
 
 const FPS = 30      // matches the After Effects composition frame rate
 const FADE = 0.4    // seconds — opacity ease at each segment boundary
@@ -257,7 +258,7 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
             </p>
             <a
               className={styles.penLink}
-              href="https://thepenlounge.com/"
+              href="https://thepenlounge.com/product/bespoke-martand-malhari-jejuri-heritage-limited-edition-fountain-pen/"
               target="_blank"
               rel="noreferrer"
             >
@@ -275,6 +276,12 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
               <img src={src} alt={`Khandoba Pen detail ${i + 1}`} loading="lazy" />
             </div>
           ))}
+        </section>
+
+        <section className={styles.bookletSection}>
+          <h2 className={styles.bookletHeading}>An Offering to Khanderaya</h2>
+          <p className={styles.bookletSub}>The story behind the Khandoba Pen. Drag a corner or tap the edges to turn the pages.</p>
+          <BookletFlipbook />
         </section>
 
         <section className={styles.disclaimer}>
@@ -312,6 +319,26 @@ function MartandMobileNotice({ onBack }: { onBack: () => void }) {
 }
 
 export function MartandCaseStudy(props: { onBack: () => void; onNavigate?: (path: string) => void }) {
+  // The Martand scrub video is baked on cream, so this experience always renders
+  // light (until a dark-baked sequence is added). Force light while open — and
+  // keep it light even if the visitor flips the theme toggle mid-experience —
+  // then restore their chosen theme on exit.
+  useEffect(() => {
+    const el = document.documentElement
+    const forceLight = () => {
+      if (el.getAttribute('data-theme') !== 'light') el.setAttribute('data-theme', 'light')
+    }
+    forceLight()
+    const obs = new MutationObserver(forceLight)
+    obs.observe(el, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => {
+      obs.disconnect()
+      let stored = 'dark'
+      try { stored = localStorage.getItem('noc-theme') === 'light' ? 'light' : 'dark' } catch { /* private mode */ }
+      el.setAttribute('data-theme', stored)
+    }
+  }, [])
+
   return isMobile
     ? <MartandMobileNotice onBack={props.onBack} />
     : <MartandDesktop {...props} />

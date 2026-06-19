@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import { useScrollNav } from '../hooks/useScrollNav'
+import { ThemeToggle } from './ThemeToggle'
 import styles from './Nav.module.css'
 
 
@@ -112,6 +113,7 @@ export function Nav({ page, onNavigateHome, onNavigateWork, onNavigateAbout, onN
         </ul>
 
         <div className={styles.right}>
+          <ThemeToggle />
           <button
             className={`${styles.cta} ${styles.ctaDesktop}`}
             onClick={() => { close(); onNavigateContact() }}

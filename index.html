@@ -11,10 +11,19 @@
 
     <!-- Pre-paint theme: apply stored/default theme before first paint to avoid a flash.
          Dark is the default experience; a stored 'light' preference is respected.
-         The inline background-color prevents a white flash while the CSS bundle loads. -->
+         The inline background-color prevents a flash while the CSS bundle loads. -->
     <script>
-      document.documentElement.setAttribute('data-theme', 'light')
-      document.documentElement.style.background = '#F5F4F0'
+      (function () {
+        try {
+          var stored = localStorage.getItem('noc-theme')
+          var theme = stored === 'light' ? 'light' : 'dark'
+          document.documentElement.setAttribute('data-theme', theme)
+          document.documentElement.style.background = theme === 'dark' ? '#0D0D0D' : '#F5F4F0'
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark')
+          document.documentElement.style.background = '#0D0D0D'
+        }
+      })()
     </script>
 
     <!-- Favicon -->
