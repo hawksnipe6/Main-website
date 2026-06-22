@@ -1,0 +1,315 @@
+.results {
+  border-bottom: none !important;
+}
+
+/* ── Header ──────────────────────────────────── */
+.header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 40px;
+  align-items: start;
+}
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 9px;
+  border-radius: 999px;
+  background: var(--noc-accent);
+  vertical-align: middle;
+}
+
+.headerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+  padding-top: 6px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 12px 12px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--noc-black);
+  background: var(--noc-accent);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.cta:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+.ctaArrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--noc-black);
+  color: var(--noc-white);
+  font-size: 14px;
+}
+
+/* ── Dashboard (single row of 4) ─────────────── */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 320px;
+  padding: 26px 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-1);
+  overflow: hidden;
+}
+
+.tileTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--noc-white);
+  letter-spacing: -0.01em;
+}
+
+.tileHead {
+  margin-bottom: 16px;
+}
+
+.tileSub {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--noc-grey-4);
+  line-height: 1.4;
+}
+
+.unit {
+  font-size: 0.5em;
+  font-weight: 700;
+  color: var(--noc-accent);
+  margin-left: 1px;
+}
+
+.metricValue {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-top: 14px;
+  font-size: clamp(36px, 3.4vw, 50px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--noc-white);
+  font-variant-numeric: tabular-nums;
+}
+
+.metricUnit {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--noc-grey-4);
+}
+
+/* ── Radial gauge (98%) ──────────────────────── */
+.radialWrap {
+  position: relative;
+  flex: 1;
+  display: grid;
+  place-items: center;
+  margin-top: 4px;
+}
+
+.radialSvg {
+  width: min(100%, 230px);
+  height: auto;
+}
+
+.radialCenter {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.radialValue {
+  font-size: clamp(36px, 3.6vw, 50px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--noc-white);
+  font-variant-numeric: tabular-nums;
+}
+
+.radialSub {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--noc-grey-4);
+}
+
+/* ── Vertical gauge (2.3×) ───────────────────── */
+.tempRow {
+  display: flex;
+  gap: 18px;
+  align-items: stretch;
+  flex: 1;
+  margin-top: 4px;
+}
+
+.tempLeft {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tempValue {
+  font-size: clamp(36px, 3.6vw, 50px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--noc-white);
+  font-variant-numeric: tabular-nums;
+}
+
+.tempState {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--noc-grey-2);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--noc-grey-4);
+}
+
+.gauge {
+  position: relative;
+  width: 42px;
+  margin-left: auto;
+  border-radius: 10px;
+  background: #111;
+  overflow: hidden;
+}
+
+.gaugeFill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 66%;
+  background: var(--noc-accent);
+}
+
+.gaugeTicks {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to top,
+    transparent 0 13px,
+    rgba(255, 255, 255, 0.28) 13px 14px
+  );
+}
+
+/* ── Stepped line (40%) ──────────────────────── */
+.lineWrap {
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.lineSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+/* ── Plan your growth (single month) ─────────── */
+.cal {
+  margin-top: auto;
+}
+
+.calWeek,
+.calGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calWeek {
+  margin-bottom: 8px;
+}
+
+.calWeek span {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--noc-grey-3);
+  text-align: center;
+}
+
+.calDay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--noc-grey-4);
+  border-radius: 50%;
+}
+
+.calPad {
+  aspect-ratio: 1;
+}
+
+.calOn {
+  background: var(--noc-accent);
+  color: #0d0d0d;
+  font-weight: 700;
+}
+
+.calToday {
+  border: 1.5px solid var(--noc-accent);
+  color: var(--noc-white);
+}
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 1100px) {
+  .dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .header {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 280px;
+  }
+
+  .calDay,
+  .calWeek span {
+    font-size: 14px;
+  }
+}

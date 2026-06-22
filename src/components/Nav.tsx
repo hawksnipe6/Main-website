@@ -5,14 +5,14 @@ import styles from './Nav.module.css'
 
 
 type NavProps = {
-  page: 'home' | 'work' | 'concepts' | 'about' | 'contact'
+  page: 'home' | 'work' | 'concepts' | 'contact' | 'pricing'
   onNavigateHome: () => void
   onNavigateWork: () => void
-  onNavigateAbout: () => void
   onNavigateContact: () => void
+  onNavigatePricing: () => void
 }
 
-export function Nav({ page, onNavigateHome, onNavigateWork, onNavigateAbout, onNavigateContact }: NavProps) {
+export function Nav({ page, onNavigateHome, onNavigateWork, onNavigateContact, onNavigatePricing }: NavProps) {
   useScrollNav('#nav', styles.scrolled)
   const progressRef = useRef<HTMLDivElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -55,16 +55,16 @@ export function Nav({ page, onNavigateHome, onNavigateWork, onNavigateAbout, onN
     onNavigateWork()
   }
 
-  const navigateAbout = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault()
-    close()
-    onNavigateAbout()
-  }
-
   const navigateContact = (event: MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
     close()
     onNavigateContact()
+  }
+
+  const navigatePricing = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    close()
+    onNavigatePricing()
   }
 
   const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -93,15 +93,15 @@ export function Nav({ page, onNavigateHome, onNavigateWork, onNavigateAbout, onN
             </a>
           </li>
           <li>
-            <a href="/about" onClick={navigateAbout}
-              style={{ color: page === 'about' ? 'var(--noc-white)' : undefined }}>
-              About
-            </a>
-          </li>
-          <li>
             <a href="/work" onClick={navigateWork}
               style={{ color: page === 'work' || page === 'concepts' ? 'var(--noc-white)' : undefined }}>
               Projects
+            </a>
+          </li>
+          <li>
+            <a href="/pricing" onClick={navigatePricing}
+              style={{ color: page === 'pricing' ? 'var(--noc-white)' : undefined }}>
+              Pricing
             </a>
           </li>
           <li>
@@ -146,10 +146,10 @@ export function Nav({ page, onNavigateHome, onNavigateWork, onNavigateAbout, onN
             <a href="/" onClick={navigateHome}>Home</a>
           </li>
           <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '120ms' : '0ms' }}>
-            <a href="/about" onClick={navigateAbout}>About</a>
+            <a href="/work" onClick={navigateWork}>Projects</a>
           </li>
           <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '180ms' : '0ms' }}>
-            <a href="/work" onClick={navigateWork}>Projects</a>
+            <a href="/pricing" onClick={navigatePricing}>Pricing</a>
           </li>
           <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '240ms' : '0ms' }}>
             <a href="/contact" onClick={navigateContact}>Contact</a>

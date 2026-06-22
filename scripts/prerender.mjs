@@ -32,6 +32,18 @@ const routes = [
     noscriptBody:
       'Independent Nocturnal concepts rooted in real market problems, product strategy, UI/UX systems, and prototype thinking.',
   },
+  {
+    out: 'dist/pricing/index.html',
+    title: 'Pricing — Nocturnal Design Studio Packages and Custom Scoping',
+    description:
+      'Fixed-scope, fixed-price design packages across industrial design, UI/UX, motion, and brand. Clear deliverables, revisions, and timelines, with custom scoping when you need it.',
+    canonical: `${SITE_URL}/pricing`,
+    image: `${SITE_URL}/logo%20512.png`,
+    ogType: 'article',
+    noscriptH1: 'Nocturnal — Design Studio Pricing',
+    noscriptBody:
+      'Fixed-scope design packages across industrial design, UI/UX, motion, and brand, with mini packages and custom scoping.',
+  },
 ]
 
 const workSchema = (description) => ({

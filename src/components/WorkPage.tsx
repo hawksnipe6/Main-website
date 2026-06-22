@@ -3,25 +3,6 @@ import { WORK_SAMPLES } from '../data/workSamples'
 import styles from './WorkPage.module.css'
 import { MartandCaseStudy } from './MartandCaseStudy'
 
-// Curated thematic groups derived from each project's existing category, so
-// prospects can self-select by the kind of work they need.
-const WORK_GROUPS: Record<string, string> = {
-  alivio: 'Product Design',
-  'audio-1': 'Product Design',
-  osmo: 'Product Design',
-  bedizen: 'Product Design',
-  'ice-tray': 'Product Design',
-  renderfolio: 'Brand & Visuals',
-  armor: 'Brand & Visuals',
-  palan: 'Brand & Visuals',
-  sailfish: 'Research & Strategy',
-  medwise: 'Research & Strategy',
-  'ev-charging': 'Research & Strategy',
-  martand: 'Brand & Visuals',
-}
-
-const WORK_FILTERS = ['All', 'Product Design', 'Brand & Visuals', 'Research & Strategy'] as const
-
 type WorkCaseStudy = {
   slug: string
   title: string
@@ -487,7 +468,6 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
 
 export function WorkPage({ embedded = false, onNavigate }: { embedded?: boolean; onNavigate?: (path: string) => void } = {}) {
   const [active, setActive] = useState<string | null>(null)
-  const [filter, setFilter] = useState<string>('All')
 
   useEffect(() => {
     const onPop = () => {
@@ -524,26 +504,10 @@ export function WorkPage({ embedded = false, onNavigate }: { embedded?: boolean;
         </header>
       )}
 
-      <div className={styles.filters} role="tablist" aria-label="Filter work by category">
-        {WORK_FILTERS.map(f => (
-          <button
-            key={f}
-            type="button"
-            className={`${styles.chip} ${filter === f ? styles.chipActive : ''}`}
-            aria-pressed={filter === f}
-            onClick={() => setFilter(f)}
-          >
-            {f}
-          </button>
-        ))}
-      </div>
-
       <div className={styles.grid}>
-        {WORK_CASE_STUDIES
-          .filter(work => filter === 'All' || WORK_GROUPS[work.slug] === filter)
-          .map(work => (
-            <WorkCard key={work.slug} work={work} onClick={() => openWork(work.slug)} />
-          ))}
+        {WORK_CASE_STUDIES.map(work => (
+          <WorkCard key={work.slug} work={work} onClick={() => openWork(work.slug)} />
+        ))}
       </div>
     </>
   )

@@ -4,7 +4,7 @@ import { WORK_SAMPLES } from '../data/workSamples'
 const SITE_URL = 'https://www.getnctrnl.com'
 const LOGO_URL = `${SITE_URL}/logo%20512.png`
 
-type PageKey = 'home' | 'work' | 'concepts' | 'about' | 'contact'
+type PageKey = 'home' | 'work' | 'concepts' | 'contact' | 'pricing'
 
 const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string }> = {
   home: {
@@ -28,18 +28,18 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
     canonical: `${SITE_URL}/concepts`,
     image: LOGO_URL,
   },
-  about: {
-    title: 'About | Nocturnal Design Studio',
-    description:
-      'Abeer Mahadane is the founder of Nocturnal, a design intelligence studio building industrial design, UI/UX systems, CGI, and brand for startups and product brands.',
-    canonical: `${SITE_URL}/about`,
-    image: LOGO_URL,
-  },
   contact: {
     title: 'Start a Project | Nocturnal Design Studio',
     description:
       'Book a strategy call with Nocturnal. Thirty minutes, no pitch decks. We identify the design friction in your brand and product and tell you exactly what to fix first.',
     canonical: `${SITE_URL}/contact`,
+    image: LOGO_URL,
+  },
+  pricing: {
+    title: 'Pricing | Nocturnal Design Studio',
+    description:
+      'Fixed-scope, fixed-price design packages across industrial design, UI/UX, motion, and brand. Clear deliverables, revisions, and timelines, with custom scoping when you need it.',
+    canonical: `${SITE_URL}/pricing`,
     image: LOGO_URL,
   },
 }

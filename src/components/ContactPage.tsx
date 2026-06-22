@@ -26,6 +26,12 @@ export function ContactPage() {
           >
             getnctrnl@gmail.com
           </a>
+          <a
+            href="tel:+917045421516"
+            className={`${styles.joinPhone} reveal reveal-d2`}
+          >
+            +91 70454 21516
+          </a>
           <p className={`${styles.fraudNotice} reveal reveal-d3`}>
             Nocturnal does not use third-party recruiters or conduct interviews
             over text. We will never ask for personal or financial information.

@@ -8,17 +8,21 @@ import { BookingModal } from './components/BookingModal'
 import { LoadingScreen } from './components/LoadingScreen'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { PortfolioPage } from './components/PortfolioPage'
-import { AboutPage } from './components/AboutPage'
 import { ContactPage } from './components/ContactPage'
+import { PricingPage } from './components/PricingPage'
+import { Testimonials } from './components/Testimonials'
+import { Services } from './components/Services'
+import { Results } from './components/Results'
+import { Faq } from './components/Faq'
 import { Seo } from './components/Seo'
 
-type Page = 'home' | 'work' | 'concepts' | 'about' | 'contact'
+type Page = 'home' | 'work' | 'concepts' | 'contact' | 'pricing'
 
 function getPage(pathname: string): Page {
   if (pathname === '/work') return 'work'
   if (pathname === '/concepts') return 'concepts'
-  if (pathname === '/about') return 'about'
   if (pathname === '/contact') return 'contact'
+  if (pathname === '/pricing') return 'pricing'
   return 'home'
 }
 
@@ -76,13 +80,13 @@ export default function App() {
         page={page}
         onNavigateHome={() => navigateToPath('/')}
         onNavigateWork={() => navigateToPath('/work')}
-        onNavigateAbout={() => navigateToPath('/about')}
         onNavigateContact={() => navigateToPath('/contact')}
+        onNavigatePricing={() => navigateToPath('/pricing')}
       />
-      {page === 'about' ? (
-        <AboutPage />
-      ) : page === 'contact' ? (
+      {page === 'contact' ? (
         <ContactPage />
+      ) : page === 'pricing' ? (
+        <PricingPage onNavigate={navigateToPath} />
       ) : page === 'work' || page === 'concepts' ? (
         <PortfolioPage
           activeTab={page}
@@ -92,6 +96,10 @@ export default function App() {
       ) : (
         <main className="routeEnter">
           <Hero onBooking={() => setModalOpen(true)} />
+          <Testimonials />
+          <Services />
+          <Results onNavigate={navigateToPath} />
+          <Faq />
         </main>
       )}
       <Footer onNavigate={navigateToPath} />
