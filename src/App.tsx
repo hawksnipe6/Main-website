@@ -86,7 +86,7 @@ export default function App() {
       {page === 'contact' ? (
         <ContactPage />
       ) : page === 'pricing' ? (
-        <PricingPage onNavigate={navigateToPath} />
+        <PricingPage />
       ) : page === 'work' || page === 'concepts' ? (
         <PortfolioPage
           activeTab={page}
