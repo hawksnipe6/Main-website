@@ -16,6 +16,7 @@ const routes = [
     canonical: `${SITE_URL}/work`,
     image: `${SITE_URL}/work-cover-renderfolio-custom.png`,
     ogType: 'article',
+    collection: true,
     noscriptH1: 'Nocturnal — Industrial Design, UI/UX and CGI Work',
     noscriptBody:
       'Selected Nocturnal projects across industrial design, medical product design, mobility UI/UX, EV charging systems, CGI, packaging, and product visualization.',
@@ -44,6 +45,27 @@ const routes = [
     noscriptBody:
       'Fixed-scope design packages across industrial design, UI/UX, motion, and brand, with mini packages and custom scoping.',
   },
+  {
+    out: 'dist/contact/index.html',
+    title: 'Start a Project | Nocturnal Design Studio',
+    description:
+      'Book a strategy call with Nocturnal. Thirty minutes, no pitch decks. We identify the design friction in your brand and product and tell you exactly what to fix first.',
+    canonical: `${SITE_URL}/contact`,
+    image: `${SITE_URL}/logo%20512.png`,
+    ogType: 'website',
+    noscriptH1: 'Contact Nocturnal — Start a Design Project',
+    noscriptBody:
+      'Email or WhatsApp Nocturnal to start an industrial design, UI/UX, CGI, motion, or brand project, or book a free thirty-minute strategy call.',
+  },
+]
+
+// Every indexable route, with crawl priority. Keep in sync with `routes` above.
+const sitemapPages = [
+  { path: '/', priority: '1.0' },
+  { path: '/work', priority: '0.9' },
+  { path: '/concepts', priority: '0.8' },
+  { path: '/pricing', priority: '0.7' },
+  { path: '/contact', priority: '0.6' },
 ]
 
 const workSchema = (description) => ({
@@ -121,9 +143,11 @@ function buildRoute(template, route) {
     `<meta name="twitter:image" content="${route.image}" />`
   )
 
-  // Per-route structured data
-  const ld = `<script type="application/ld+json">${JSON.stringify(workSchema(route.description))}</script>`
-  html = html.replace('</head>', `    ${ld}\n  </head>`)
+  // Per-route structured data (only the Work index is a CollectionPage)
+  if (route.collection) {
+    const ld = `<script type="application/ld+json">${JSON.stringify(workSchema(route.description))}</script>`
+    html = html.replace('</head>', `    ${ld}\n  </head>`)
+  }
 
   // Crawlable no-JS fallback
   html = replaceTag(
@@ -143,3 +167,19 @@ for (const route of routes) {
   await writeFile(outPath, buildRoute(template, route), 'utf8')
   console.log(`[prerender] wrote ${route.out}`)
 }
+
+// Generate sitemap.xml so it is always current with the route list above.
+const today = new Date().toISOString().slice(0, 10)
+const sitemap =
+  '<?xml version="1.0" encoding="UTF-8"?>\n' +
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+  sitemapPages
+    .map(
+      (p) =>
+        `  <url>\n    <loc>${SITE_URL}${p.path}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`
+    )
+    .join('\n') +
+  '\n</urlset>\n'
+
+await writeFile(resolve(root, 'dist/sitemap.xml'), sitemap, 'utf8')
+console.log('[prerender] wrote dist/sitemap.xml')
