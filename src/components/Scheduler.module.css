@@ -1,0 +1,359 @@
+.card {
+  width: 100%;
+  border: 1px solid var(--noc-grey-2);
+  border-radius: var(--radius);
+  background: var(--noc-glass-bg);
+  padding: 22px 24px 24px;
+}
+
+/* ── Header ─────────────────────────────── */
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--noc-grey-2);
+}
+
+.eventMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.eventTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--noc-white);
+  letter-spacing: -0.01em;
+}
+
+.eventSub {
+  font-size: 12px;
+  color: var(--noc-grey-4);
+}
+
+.tz {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--noc-grey-4);
+  white-space: nowrap;
+  padding-top: 2px;
+}
+
+/* ── Month nav ──────────────────────────── */
+.monthNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.monthLabel {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--noc-white);
+}
+
+.navBtn {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--noc-grey-2);
+  background: transparent;
+  color: var(--noc-white);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, opacity 0.2s;
+}
+
+.navBtn:hover:not(:disabled) {
+  border-color: var(--noc-accent);
+  color: var(--noc-accent);
+}
+
+.navBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+/* ── Calendar ───────────────────────────── */
+.weekRow,
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.weekRow {
+  margin-bottom: 8px;
+}
+
+.weekday {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--noc-grey-3);
+  text-align: center;
+}
+
+.pad {
+  aspect-ratio: 1;
+}
+
+.day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: var(--noc-font);
+  color: var(--noc-grey-3);
+  opacity: 0.4;
+  cursor: default;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.dayAvail {
+  color: var(--noc-white);
+  background: var(--noc-grey-2);
+  border-color: var(--noc-grey-3);
+  font-weight: 600;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.dayAvail:hover {
+  background: var(--noc-accent-subtle);
+  border-color: var(--noc-accent);
+  color: var(--noc-accent);
+  transform: translateY(-1px);
+}
+
+.daySelected,
+.daySelected:hover {
+  background: var(--noc-accent);
+  color: #0d0d0d;
+  font-weight: 700;
+}
+
+/* ── Slots ──────────────────────────────── */
+.slots {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--noc-grey-2);
+}
+
+.slotsLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--noc-grey-4);
+  margin-bottom: 12px;
+}
+
+.slotsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.slot {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--noc-grey-2);
+  background: transparent;
+  color: var(--noc-white);
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--noc-font);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.slot:hover {
+  border-color: var(--noc-accent);
+  transform: translateY(-1px);
+}
+
+.hint {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--noc-grey-4);
+  text-align: center;
+}
+
+/* ── Details ────────────────────────────── */
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.back {
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  font-family: var(--noc-font);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--noc-grey-4);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.back:hover {
+  color: var(--noc-white);
+}
+
+.chosen {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--noc-accent-subtle);
+  color: var(--noc-accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--noc-grey-4);
+}
+
+.optional {
+  color: var(--noc-grey-3);
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--noc-grey-2);
+  background: transparent;
+  color: var(--noc-white);
+  font-size: 14px;
+  font-family: var(--noc-font);
+  transition: border-color 0.2s;
+}
+
+.input::placeholder {
+  color: var(--noc-grey-3);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--noc-accent);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 76px;
+  line-height: 1.5;
+}
+
+/* ── CTAs ───────────────────────────────── */
+.confirm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 4px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--noc-accent);
+  background: var(--noc-accent);
+  color: #0d0d0d;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--noc-font);
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.confirm:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.confirmDisabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.altLink {
+  display: block;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--noc-grey-4);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.altLink:hover {
+  color: var(--noc-white);
+}
+
+/* ── Done ───────────────────────────────── */
+.done {
+  text-align: center;
+  padding: 8px 4px 4px;
+}
+
+.tick {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--noc-accent);
+  color: #0d0d0d;
+}
+
+.doneTitle {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--noc-white);
+  margin-bottom: 10px;
+}
+
+.doneText {
+  font-size: 14px;
+  color: var(--noc-grey-4);
+  line-height: 1.6;
+  max-width: 40ch;
+  margin: 0 auto 20px;
+}
+
+.doneText strong {
+  color: var(--noc-white);
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 20px 18px 22px;
+  }
+}

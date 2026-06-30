@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const distIndex = resolve(root, 'dist/index.html')
-const SITE_URL = 'https://www.getnctrnl.com'
+const SITE_URL = 'https://getnctrnl.com'
 
 // Per-route metadata — keep in sync with src/components/Seo.tsx
 const routes = [

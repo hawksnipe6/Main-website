@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
+import { Scheduler } from './Scheduler'
 import styles from './BookingModal.module.css'
-
-const CAL_EMBED_URL = 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2xISzflS6opp0w6KlVdoltYpVkVYOawSSL9SklQQ-oN-bUU2GVMLXIElRo_JH0Iu9uQiCHKb7u?gv=true'
 
 interface Props {
   onClose: () => void
@@ -22,7 +21,7 @@ export function BookingModal({ onClose }: Props) {
 
   return (
     <div className={styles.backdrop} onClick={onClose} role="dialog" aria-modal="true">
-      <div className={`${styles.modal} ${showCalendar ? styles.modalWide : ''}`} onClick={e => e.stopPropagation()}>
+      <div className={styles.modal} onClick={e => e.stopPropagation()}>
         <button className={styles.close} onClick={onClose} aria-label="Close">x</button>
 
         {!showCalendar ? (
@@ -44,19 +43,14 @@ export function BookingModal({ onClose }: Props) {
           <div className={styles.calendarEmbed}>
             <div className={styles.calendarHeader}>
               <div>
-                <p className={styles.eyebrow}>Google Calendar</p>
-                <h2 className={styles.title}>Book your discovery call.</h2>
+                <p className={styles.eyebrow}>Book a call</p>
+                <h2 className={styles.title}>Pick a time that works.</h2>
               </div>
               <button type="button" className={styles.backButton} onClick={() => setShowCalendar(false)}>
                 Back
               </button>
             </div>
-            <iframe
-              className={styles.calendarFrame}
-              src={CAL_EMBED_URL}
-              title="Book a discovery call with Nocturnal"
-              loading="lazy"
-            />
+            <Scheduler />
           </div>
         )}
       </div>

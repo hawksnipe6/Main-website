@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { WORK_SAMPLES } from '../data/workSamples'
 
-const SITE_URL = 'https://www.getnctrnl.com'
+const SITE_URL = 'https://getnctrnl.com'
 const LOGO_URL = `${SITE_URL}/logo%20512.png`
 
 type PageKey = 'home' | 'work' | 'concepts' | 'contact' | 'pricing'
