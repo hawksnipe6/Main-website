@@ -1,8 +1,12 @@
-import { useMemo, useState, type MouseEvent } from 'react'
+import { useMemo, useState } from 'react'
 import styles from './Scheduler.module.css'
 
 const EMAIL = 'getnctrnl@gmail.com'
 const WHATSAPP = '917045421516'
+
+// Web3Forms delivers the booking request to EMAIL server-side (no draft).
+// Get a free key at https://web3forms.com (enter getnctrnl@gmail.com) and paste it here.
+const WEB3FORMS_KEY = '526c3942-fba1-4f2b-8ff4-22e33c8f5f50'
 
 const MONTHS = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -83,18 +87,6 @@ export function Scheduler() {
 
   const summary = `${dateLabel}${slot ? ` at ${slot}` : ''} (IST)`
 
-  const mailtoHref = useMemo(() => {
-    const subject = `Discovery call — ${dateLabel} at ${slot ?? ''}`
-    const body = [
-      `Name: ${form.name || '—'}`,
-      `Email: ${form.email || '—'}`,
-      `Preferred slot: ${summary}`,
-      '',
-      `What to discuss: ${form.note || '—'}`,
-    ].join('\n')
-    return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-  }, [dateLabel, slot, summary, form])
-
   const whatsappHref = useMemo(() => {
     const text = `Hi Nocturnal — I'd like to book a discovery call.\n\nName: ${form.name || ''}\nPreferred: ${summary}\nDiscuss: ${form.note || ''}`
     return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`
@@ -102,12 +94,41 @@ export function Scheduler() {
 
   const canSubmit = form.name.trim() !== '' && /\S+@\S+\.\S+/.test(form.email)
 
-  const submit = (e: MouseEvent) => {
-    if (!canSubmit) {
-      e.preventDefault()
-      return
+  const [status, setStatus] = useState<'idle' | 'sending' | 'error'>('idle')
+
+  const submitForm = async () => {
+    if (!canSubmit || status === 'sending') return
+    setStatus('sending')
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `Discovery call request — ${summary}`,
+          from_name: 'Nocturnal Booking',
+          name: form.name,
+          email: form.email,
+          message: [
+            'New discovery call request.',
+            '',
+            `Name: ${form.name}`,
+            `Email: ${form.email}`,
+            `Preferred slot: ${summary}`,
+            `What to cover: ${form.note || '—'}`,
+          ].join('\n'),
+        }),
+      })
+      const data = await res.json()
+      if (data?.success) {
+        setStatus('idle')
+        setView('done')
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
     }
-    setView('done')
   }
 
   return (
@@ -221,16 +242,24 @@ export function Scheduler() {
             />
           </label>
 
-          <a
-            className={`${styles.confirm} ${!canSubmit ? styles.confirmDisabled : ''}`}
-            href={mailtoHref}
-            onClick={submit}
+          <button
+            type="button"
+            className={styles.confirm}
+            onClick={submitForm}
+            disabled={!canSubmit || status === 'sending'}
           >
-            Request this slot
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M3 7H11M11 7L7 3M11 7L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
+            {status === 'sending' ? 'Sending…' : 'Request this slot'}
+            {status !== 'sending' && (
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3 7H11M11 7L7 3M11 7L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            )}
+          </button>
+          {status === 'error' && (
+            <p className={styles.error}>
+              Couldn't send just now — please use WhatsApp below or email {EMAIL}.
+            </p>
+          )}
           <a className={styles.altLink} href={whatsappHref} target="_blank" rel="noreferrer">
             or send it on WhatsApp
           </a>
