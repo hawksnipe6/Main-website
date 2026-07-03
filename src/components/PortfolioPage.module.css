@@ -5,50 +5,58 @@
   background: var(--noc-black);
 }
 
-.pageHeader {
+/* ── Two-column shell ───────────────────────────────────── */
+.shell {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 64px calc(var(--gutter) + var(--site-padding)) 32px;
+  padding: 56px calc(var(--gutter) + var(--site-padding)) 0;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
 }
 
-/* ── Tab switcher ───────────────────────────────────────── */
-.tabs {
-  display: inline-flex;
-  gap: 4px;
-  padding: 4px;
-  border-radius: 999px;
-  background: var(--noc-grey-1);
-  border: 1px solid var(--noc-grey-2);
+/* ── Left rail ──────────────────────────────────────────── */
+.rail {
+  position: sticky;
+  top: calc(var(--page-padding-top) + 24px);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
 }
 
-.tab {
-  padding: 10px 24px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-  color: var(--noc-grey-4);
-  background: transparent;
+.railTab {
+  text-align: left;
+  padding: 12px 16px;
   border: none;
+  border-left: 2px solid var(--noc-grey-2);
+  border-radius: 0;
+  background: transparent;
+  color: var(--noc-grey-4);
+  font-family: var(--noc-font);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   cursor: pointer;
-  transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
 }
 
-.tab:hover {
+.railTab:hover {
   color: var(--noc-white);
+  border-color: var(--noc-grey-4);
 }
 
-.tabActive {
-  background: var(--noc-white);
-  color: var(--noc-black);
+.railTabActive,
+.railTabActive:hover {
+  color: var(--noc-white);
+  border-color: var(--noc-accent);
+  background: var(--noc-glass-bg);
 }
 
-.tabActive:hover {
-  color: var(--noc-black);
-}
-
-/* ── Tab panel entrance ─────────────────────────────────── */
-.tabPanel {
+/* ── Content column ─────────────────────────────────────── */
+.content {
+  min-width: 0;
   animation: tabPanelIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -63,16 +71,52 @@
   }
 }
 
-@media (max-width: 768px) {
-  .pageHeader {
-    padding-top: 42px;
-    padding-bottom: 24px;
-    padding-left: var(--site-padding);
-    padding-right: var(--site-padding);
+/* ── Responsive: collapse rail to a horizontal row ──────── */
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-top: 40px;
   }
 
-  .tab {
-    padding: 9px 20px;
-    font-size: 12.5px;
+  .rail {
+    position: static;
+    flex-direction: row;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--noc-grey-2);
+  }
+
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .railTab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    padding: 8px 14px;
+    font-size: 14px;
+  }
+
+  .railTab:hover {
+    border-color: transparent;
+  }
+
+  .railTabActive,
+  .railTabActive:hover {
+    background: transparent;
+    border-bottom-color: var(--noc-accent);
+  }
+}
+
+@media (max-width: 768px) {
+  .shell {
+    padding-left: var(--site-padding);
+    padding-right: var(--site-padding);
+    padding-top: 32px;
   }
 }

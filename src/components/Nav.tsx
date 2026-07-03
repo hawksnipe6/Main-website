@@ -5,7 +5,7 @@ import styles from './Nav.module.css'
 
 
 type NavProps = {
-  page: 'home' | 'work' | 'concepts' | 'contact' | 'pricing'
+  page: 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing'
   onNavigateHome: () => void
   onNavigateWork: () => void
   onNavigateContact: () => void
@@ -94,7 +94,7 @@ export function Nav({ page, onNavigateHome, onNavigateWork, onNavigateContact, o
           </li>
           <li>
             <a href="/work" onClick={navigateWork}
-              style={{ color: page === 'work' || page === 'concepts' ? 'var(--noc-white)' : undefined }}>
+              style={{ color: page === 'work' || page === 'renders' || page === 'concepts' ? 'var(--noc-white)' : undefined }}>
               Projects
             </a>
           </li>

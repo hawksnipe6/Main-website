@@ -4,7 +4,7 @@ import { WORK_SAMPLES } from '../data/workSamples'
 const SITE_URL = 'https://getnctrnl.com'
 const LOGO_URL = `${SITE_URL}/logo%20512.png`
 
-type PageKey = 'home' | 'work' | 'concepts' | 'contact' | 'pricing'
+type PageKey = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing'
 
 const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string }> = {
   home: {
@@ -20,6 +20,13 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
       'Selected Nocturnal work and independently researched product concepts spanning industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and interactive prototypes.',
     canonical: `${SITE_URL}/work`,
     image: `${SITE_URL}/work-cover-renderfolio-custom.png`,
+  },
+  renders: {
+    title: 'Render Gallery | Nocturnal CGI and Product Visualization',
+    description:
+      'A gallery of Nocturnal CAD visualisations and product render studies focused on material behaviour, lighting control, and object-led storytelling.',
+    canonical: `${SITE_URL}/renders`,
+    image: `${SITE_URL}/renders/render-01.webp`,
   },
   concepts: {
     title: 'Portfolio | Nocturnal Work and Concepts: Industrial Design, UI/UX, CGI',

@@ -1,8 +1,15 @@
 import { WorkPage } from './WorkPage'
+import { RenderGallery } from './RenderGallery'
 import { ConceptsPage } from './ConceptsPage'
 import styles from './PortfolioPage.module.css'
 
-type Tab = 'work' | 'concepts'
+type Tab = 'work' | 'renders' | 'concepts'
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: 'work', label: 'Projects' },
+  { id: 'renders', label: 'Render Gallery' },
+  { id: 'concepts', label: 'Concepts' },
+]
 
 export function PortfolioPage({
   activeTab,
@@ -15,31 +22,31 @@ export function PortfolioPage({
 }) {
   return (
     <main className={`${styles.page} routeEnter`}>
-      <header className={styles.pageHeader}>
-        <div className={styles.tabs} role="tablist" aria-label="Portfolio sections">
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 'work'}
-            className={`${styles.tab} ${activeTab === 'work' ? styles.tabActive : ''}`}
-            onClick={() => onTabChange('work')}
-          >
-            Work
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={activeTab === 'concepts'}
-            className={`${styles.tab} ${activeTab === 'concepts' ? styles.tabActive : ''}`}
-            onClick={() => onTabChange('concepts')}
-          >
-            Concepts
-          </button>
-        </div>
-      </header>
+      <div className={styles.shell}>
+        <nav className={styles.rail} role="tablist" aria-label="Portfolio sections">
+          {TABS.map(tab => (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              className={`${styles.railTab} ${activeTab === tab.id ? styles.railTabActive : ''}`}
+              onClick={() => onTabChange(tab.id)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </nav>
 
-      <div key={activeTab} className={styles.tabPanel}>
-        {activeTab === 'work' ? <WorkPage embedded onNavigate={onNavigate} /> : <ConceptsPage embedded />}
+        <div key={activeTab} className={styles.content}>
+          {activeTab === 'work' ? (
+            <WorkPage embedded onNavigate={onNavigate} />
+          ) : activeTab === 'renders' ? (
+            <RenderGallery embedded />
+          ) : (
+            <ConceptsPage embedded />
+          )}
+        </div>
       </div>
     </main>
   )

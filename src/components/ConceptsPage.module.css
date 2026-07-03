@@ -5,6 +5,26 @@
   min-height: 100dvh;
 }
 
+/* Embedded inside the portfolio shell: the shell owns the page gutter,
+   so drop the self-applied max-width + horizontal padding here. */
+.embedded .filters,
+.embedded .grid,
+.embedded .detail {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.embedded .filters {
+  padding-top: 0;
+}
+
+.embedded .backBtn {
+  padding-top: 0;
+}
+
 /* ── Page header ────────────────────────────────────────── */
 .pageHeader {
   max-width: var(--max-width);
@@ -2708,5 +2728,178 @@
     width: 88px;
     height: 88px;
     border-radius: 26px;
+  }
+}
+
+/* ── Unified case-study template ─────────────────────────── */
+
+/* Overview: quick-facts grid + core problem */
+.overviewGrid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.overviewItem {
+  background: var(--noc-glass-bg);
+  padding: 24px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 128px;
+}
+
+.overviewItem span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+}
+
+.overviewItem strong {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--noc-white);
+}
+
+.overviewProblem {
+  margin-top: 2px;
+  border: 1px solid var(--noc-grey-2);
+  border-top: none;
+  background: var(--noc-black);
+  padding: 28px 26px;
+}
+
+.overviewProblemLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--noc-accent);
+  margin-bottom: 14px;
+}
+
+.overviewProblem p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--noc-grey-5);
+  max-width: 760px;
+}
+
+/* Discovery: why / what / how method cards */
+.methodGrid {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.methodCard {
+  background: var(--noc-black);
+  padding: 30px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.methodTitle {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--noc-white);
+  margin-bottom: 18px;
+}
+
+.methodRow {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--noc-grey-2);
+}
+
+.methodRow span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+  padding-top: 2px;
+}
+
+.methodRow p {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--noc-grey-5);
+}
+
+/* Learnings list */
+.learnList {
+  list-style: none;
+  display: grid;
+  gap: 1px;
+  border: 1px solid var(--noc-grey-2);
+  background: var(--noc-grey-2);
+}
+
+.learnList li {
+  position: relative;
+  padding: 22px 24px 22px 52px;
+  background: var(--noc-black);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--noc-grey-5);
+}
+
+.learnList li::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 30px;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--noc-accent);
+}
+
+@media (max-width: 900px) {
+  .overviewGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .methodGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .overviewGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .overviewItem {
+    min-height: auto;
+  }
+
+  .methodCard {
+    padding: 24px 20px;
+  }
+
+  .learnList li {
+    padding: 18px 18px 18px 44px;
+    font-size: 14px;
+  }
+
+  .learnList li::before {
+    left: 18px;
+    top: 26px;
   }
 }

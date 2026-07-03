@@ -13,9 +13,9 @@ function getInitialDark(): boolean {
   }
   if (typeof localStorage !== 'undefined') {
     const stored = localStorage.getItem(STORAGE_KEY)
-    if (stored === 'light') return false
+    if (stored === 'dark') return true
   }
-  return true // dark is the default experience
+  return false // light is the default experience
 }
 
 export function ThemeToggle() {

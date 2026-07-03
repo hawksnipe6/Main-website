@@ -5,6 +5,25 @@
   background: var(--noc-black);
 }
 
+/* Embedded inside the portfolio shell: the shell owns the page gutter,
+   so drop the self-applied max-width + horizontal padding here. */
+.embedded .grid,
+.embedded .detail {
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.embedded .grid {
+  padding-top: 0;
+}
+
+.embedded .backBtn {
+  padding-top: 0;
+}
+
 .pageHeader {
   max-width: var(--max-width);
   margin: 0 auto;

@@ -505,14 +505,16 @@ export function WorkPage({ embedded = false, onNavigate }: { embedded?: boolean;
       )}
 
       <div className={styles.grid}>
-        {WORK_CASE_STUDIES.map(work => (
-          <WorkCard key={work.slug} work={work} onClick={() => openWork(work.slug)} />
-        ))}
+        {WORK_CASE_STUDIES
+          .filter(work => work.slug !== 'renderfolio')
+          .map(work => (
+            <WorkCard key={work.slug} work={work} onClick={() => openWork(work.slug)} />
+          ))}
       </div>
     </>
   )
 
-  if (embedded) return body
+  if (embedded) return <div className={styles.embedded}>{body}</div>
 
   return <main className={styles.page}>{body}</main>
 }

@@ -1,22 +1,17 @@
 import { useState, useEffect } from 'react'
 import styles from './ConceptsPage.module.css'
 
-/* ─── Data ──────────────────────────────────────────────── */
+/* ─── Types ─────────────────────────────────────────────── */
 
-type DiscoveryItem = {
-  stat: string
-  label: string
-}
-
-type SolutionItem = {
-  icon: string
-  label: string
-  desc: string
-}
+type Stat = { stat: string; label: string }
+type Method = { method: string; why: string; what: string; how: string }
+type Step = { step: string; title: string; body: string }
+type Solution = { icon: string; label: string; desc: string }
 
 type Concept = {
   id: string
   title: string
+  /** Hero subtitle — impact + scope + product name, per the case-study template. */
   tagline: string
   category: string
   subcategory: string
@@ -25,20 +20,53 @@ type Concept = {
   coverGradient?: string
   coverType?: 'firstweeks' | 'densly' | 'tollgate' | 'voca'
   coverEmoji?: string
-  prototypePath?: string
+  prototypePath: string
   resetQuery?: string
-  problem: string
-  discovery: DiscoveryItem[]
+  thesis: string
+
+  /* 2 · Overview */
+  overview: {
+    summary: string
+    role: string
+    timeline: string
+    tools: string
+    methods: string
+    problem: string
+  }
+
+  /* 3 · Discovery */
+  discovery: Stat[]
+  methods: Method[]
   insight: string
-  solution: SolutionItem[]
+
+  /* 4 · Process */
+  processIntro: string
+  process: Step[]
+
+  /* 5 · Final design */
+  designRationale: string
+  solution: Solution[]
+  prototypeCopy: string
+  prototypeNote: string
+
+  /* 6 · Impact */
+  impactIntro: string
+  impact: Stat[]
+
+  /* 7 · Learnings */
+  learnings: string[]
+
   quote: string
 }
+
+/* ─── Data ──────────────────────────────────────────────── */
 
 const CONCEPTS: Concept[] = [
   {
     id: 'tollgate',
     title: 'Tollgate',
-    tagline: 'A consumer spending firewall that sits between AI shopping agents and your money.',
+    tagline:
+      'Giving people a spending firewall they trust more the longer it runs — a consumer-owned control layer that sits between AI shopping agents and their money.',
     category: 'Fintech',
     subcategory: 'Agentic Commerce',
     year: '2026',
@@ -47,16 +75,57 @@ const CONCEPTS: Concept[] = [
     coverType: 'tollgate',
     coverEmoji: '🛡️',
     prototypePath: '/tollgate/index.html',
-    problem:
-      'By 2026, autonomous agents from OpenAI, Google, Visa, and Mastercard can run the full purchase loop: discover, compare, authorize, and pay, from a goal instead of a click. The intelligence is commoditizing fast; every platform is shipping a shopping agent. What no one has shipped is the consumer-owned layer that governs it: hard spend limits, approved merchants, ask-first thresholds, an audit trail, and revocation that is instant and enforceable. Without it, people are asked to hand an autonomous wallet a blank cheque, and most refuse.',
+    thesis:
+      'Do not build a smarter agent — every platform is giving that away. Build the permission a human can trust: hard limits, instant revocation, and an audit trail the user owns.',
+    overview: {
+      summary:
+        'Tollgate is a consumer spending firewall for the agentic-commerce era. As autonomous agents start running the full purchase loop, the missing piece is not more intelligence — it is a control layer the buyer owns and can revoke. This concept designs that layer end to end, from mandate to audit trail.',
+      role: 'Solo — product strategy, UX architecture, UI, prototype',
+      timeline: '2026 · 3-week concept sprint',
+      tools: 'Figma, React, Framer Motion',
+      methods: 'Competitive scan, trust modeling, task flows, prototype',
+      problem:
+        'By 2026, autonomous agents from OpenAI, Google, Visa, and Mastercard can run the full purchase loop: discover, compare, authorize, and pay, from a goal instead of a click. The intelligence is commoditizing fast; every platform is shipping a shopping agent. What no one has shipped is the consumer-owned layer that governs it: hard spend limits, approved merchants, ask-first thresholds, an audit trail, and revocation that is instant and enforceable. Without it, people are asked to hand an autonomous wallet a blank cheque, and most refuse.',
+    },
     discovery: [
       { stat: '$1T+', label: 'E-commerce spend agentic AI is projected to influence by 2026' },
       { stat: '81%', label: 'Of US consumers expect to use AI agents to shop' },
       { stat: '83%', label: 'Cite privacy, data misuse, or unwanted spend as their top concern' },
       { stat: '#1', label: 'Barrier analysts name for adoption is trust, not capability' },
     ],
+    methods: [
+      {
+        method: 'Competitive scan',
+        why: 'To check whether any incumbent already ships a consumer-owned control layer.',
+        what: 'Every major player ships the agent; none ship user-owned spend governance.',
+        how: 'Positioned Tollgate as the permission layer, deliberately not another agent.',
+      },
+      {
+        method: 'Trust modeling',
+        why: 'Adoption is blocked by trust, not capability — so trust had to be the design object.',
+        what: '83% of buyers name privacy, misuse, or unwanted spend as their first fear.',
+        how: 'Made every control revocable, auditable, and enforced at the network in real time.',
+      },
+      {
+        method: 'Task-flow mapping',
+        why: 'To isolate the exact moments a human must stay in the loop.',
+        what: 'Only three decisions truly need a person: set the mandate, approve an over-limit buy, revoke.',
+        how: 'Compressed the entire control surface down to those three human taps.',
+      },
+    ],
     insight:
       'The agent is becoming a commodity every platform gives away. The scarce, ownable layer is verifiable, revocable permission: a firewall the user trusts more the longer it runs.',
+    processIntro:
+      'The flow is built around a single principle: the agent acts freely inside rails the user set, and pauses the moment it reaches an edge.',
+    process: [
+      { step: '01', title: 'Set the mandate', body: 'The user defines a weekly cap, approved merchants, and allowed categories once.' },
+      { step: '02', title: 'Agent acts in rails', body: 'Inside those limits the agent buys without friction — no per-purchase nagging.' },
+      { step: '03', title: 'Edge pauses it', body: 'Any spend over the threshold freezes the agent and surfaces a request to a human.' },
+      { step: '04', title: 'Human decides', body: 'Line items, a cap check, and a countdown arrive together. Approve or decline in one move.' },
+      { step: '05', title: 'Everything logs', body: 'Approved, auto, and blocked buys all become an exportable receipt trail the user owns.' },
+    ],
+    designRationale:
+      'The interface hides the machinery and exposes only what a person needs to trust the system: what it is allowed to do, what it is asking for now, and how to shut it off. Every screen answers one of those three questions.',
     solution: [
       { icon: '01', label: 'Mandate builder', desc: 'Set a weekly cap, approved merchants, and allowed categories an agent can never exceed.' },
       { icon: '02', label: 'Ask-first thresholds', desc: 'Any spend over your limit pauses the agent and surfaces a request for a human tap.' },
@@ -64,27 +133,87 @@ const CONCEPTS: Concept[] = [
       { icon: '04', label: 'Instant revoke', desc: 'One tap disarms every agent, cancels in-flight buys, and is enforced at the network in real time.' },
       { icon: '05', label: 'Audit ledger', desc: 'Every approved, auto, and blocked purchase becomes an exportable receipt trail you and your bank can trust.' },
     ],
+    prototypeCopy:
+      'Walk the real Tollgate flow: build a mandate, watch the agent buy inside its rails, catch an over-limit request, and revoke in a single tap.',
+    prototypeNote: 'Prototype runs locally. No real payment rails are touched — all state is simulated in-browser.',
+    impactIntro:
+      'As a concept, impact is framed as the success metrics the design is built to hit — the bar a real launch would be measured against.',
+    impact: [
+      { stat: '3 taps', label: 'The entire human control surface: set mandate, approve, revoke' },
+      { stat: '100%', label: 'Of purchases captured in an exportable, bank-legible audit trail' },
+      { stat: '<1s', label: 'Target for revocation to be enforced at the network, not just the app' },
+      { stat: '0', label: 'Blank-cheque trust required to switch an agent on' },
+    ],
+    learnings: [
+      'Trust is a product surface, not a legal footnote — it earns its own screens.',
+      'The strongest feature is the off switch; revocation being instant is what makes the rest usable.',
+      'Designing for restraint (fewer decisions surfaced) built more confidence than designing for control (more toggles).',
+      'Positioning against the category leaders as the layer they lack was clearer than competing on features.',
+    ],
     quote: 'Do not sell a smarter agent. Sell the permission a human can trust.',
   },
   {
     id: 'densly',
     title: 'Densly',
-    tagline: 'A treatment outcome platform for people trying to understand if their hair-loss routine is working.',
+    tagline:
+      'Turning scattered mirror-checks into evidence — a treatment-outcome platform that tells people whether their hair-loss routine is actually working.',
     category: 'Health Tech',
     subcategory: 'Outcome Tracking',
     year: '2026',
     status: 'MVP Concept',
     coverType: 'densly',
-    problem:
-      'Hair-loss treatment is slow, emotionally charged, and hard to measure. People spend on minoxidil, finasteride, supplements, laser devices, clinic procedures, and transplant aftercare, then judge progress through mirror checks and inconsistent photos.',
+    prototypePath: '/densly/index.html',
+    thesis:
+      'Build trust before intelligence. The first product win is not an AI diagnosis — it is repeatable image capture, honest uncertainty, and clinic-ready evidence.',
+    overview: {
+      summary:
+        'Densly is an outcome-tracking platform for people on long, emotionally charged hair-loss treatments. It does not diagnose. It makes a user’s own evidence consistent enough that they, their doctor, and their clinic can trust the timeline — turning noisy camera-roll selfies into a controlled monthly record.',
+      role: 'Solo — research, UX, UI, prototype',
+      timeline: '2026 · concept build',
+      tools: 'Figma, React, on-device capture logic',
+      methods: 'Clinical literature review, competitor teardown, capture protocol design, prototype',
+      problem:
+        'Hair-loss treatment is slow, emotionally charged, and hard to measure. People spend on minoxidil, finasteride, supplements, laser devices, clinic procedures, and transplant aftercare, then judge progress through mirror checks and inconsistent photos taken under different light, angle, and hair state.',
+    },
     discovery: [
       { stat: '4–8 mo', label: 'Typical window before visible treatment change becomes easier to judge' },
       { stat: '3.5 mo', label: 'Median discontinuation point reported among non-adherent topical minoxidil users' },
-      { stat: '2.6x', label: 'Higher 1-year follow-up probability observed when photographic assessment was used in AGA care' },
-      { stat: '5 views', label: 'Minimum baseline capture set: front, crown, left temple, right temple, top-down' },
+      { stat: '2.6x', label: 'Higher 1-year follow-up probability when photographic assessment was used in AGA care' },
+      { stat: '5 views', label: 'Minimum baseline set: front, crown, left temple, right temple, top-down' },
+    ],
+    methods: [
+      {
+        method: 'Clinical literature review',
+        why: 'To ground the product in how progress is actually judged in dermatology, not in app-store hype.',
+        what: 'Photographic follow-up more than doubles one-year retention in androgenetic alopecia care.',
+        how: 'Made standardized capture — not a magic density score — the core of the MVP.',
+      },
+      {
+        method: 'Competitor teardown',
+        why: 'To find the gap between products that sell treatments and those that measure them.',
+        what: 'Brands sell products, clinics sell procedures, communities sell hope — nobody owns the neutral outcome layer.',
+        how: 'Positioned Densly as treatment-agnostic infrastructure that stays credible by not selling a cure.',
+      },
+      {
+        method: 'Capture-protocol design',
+        why: 'Because inconsistent inputs are the real reason progress is unreadable.',
+        what: 'Distance, pose, angle, lighting, and hair state each swing how the same scalp looks.',
+        how: 'Built a quality gate that rejects weak captures before they ever reach comparison.',
+      },
     ],
     insight:
       'The product should not diagnose hair loss. It should make the user’s evidence consistent enough for them, their doctor, and their clinic to trust the timeline.',
+    processIntro:
+      'Densly runs a repeatable measurement pipeline: every scan is controlled, gated, aligned, labeled with honest confidence, and packaged for a clinician.',
+    process: [
+      { step: '01', title: 'Baseline', body: 'Five guided views establish the first comparable record.' },
+      { step: '02', title: 'Quality gate', body: 'The app rejects bad lighting, wet hair, and mismatched angles before accepting a scan.' },
+      { step: '03', title: 'Alignment', body: 'New photos are matched to baseline by zone and crop so progress is judged consistently.' },
+      { step: '04', title: 'Signal', body: 'Users see confidence-labeled progress instead of a fake certainty score.' },
+      { step: '05', title: 'Report', body: 'A clinic-ready export turns months of photos into a readable outcome file.' },
+    ],
+    designRationale:
+      'Every decision optimizes for credibility over reassurance. Monthly cadence beats daily scoring because it prevents anxiety spirals; confidence labels beat a single number because honesty is what a doctor will trust. The MVP earns the right to charge for insight by first proving its evidence is stable.',
     solution: [
       { icon: '01', label: 'Guided monthly capture', desc: 'The app controls distance, pose, angle, lighting, and hair-state notes before accepting a scan.' },
       { icon: '02', label: 'Quality gate', desc: 'Bad inputs are rejected. Wet hair, harsh shadow, mismatched angle, and low scalp visibility are flagged before comparison.' },
@@ -92,12 +221,30 @@ const CONCEPTS: Concept[] = [
       { icon: '04', label: 'Doctor-ready report', desc: 'A clean PDF turns scattered selfies into a chronological treatment record with notes, images, and confidence labels.' },
       { icon: '05', label: 'Clinic dashboard', desc: 'Clinics can monitor post-procedure and medication follow-ups without asking patients to manually explain their progress.' },
     ],
+    prototypeCopy:
+      'Explore the real Densly flow: guided onboarding, capture consistency, treatment context, and outcome reporting — inside the same iPhone-frame system used across every concept.',
+    prototypeNote: 'Prototype is embedded locally. The app stays treatment-agnostic and avoids diagnostic claims.',
+    impactIntro:
+      'Impact is framed as the validation targets Densly must clear before it earns the right to charge for advanced insight.',
+    impact: [
+      { stat: '±0', label: 'Two scans ten minutes apart should read the same — stability is the whole product' },
+      { stat: '30d', label: 'Capture cadence that measures progress without feeding daily anxiety' },
+      { stat: '5→1', label: 'Five scattered selfies compressed into one clinic-legible outcome file' },
+      { stat: 'Neutral', label: 'Owns the trust layer by staying treatment-agnostic' },
+    ],
+    learnings: [
+      'In health tools, restraint is a feature — refusing to diagnose is what makes the product trustworthy.',
+      'Consistency of input beats sophistication of analysis; a great model on noisy photos still lies.',
+      'The report is the product. The moment a user can hand a clinician clean evidence is where value crystallizes.',
+      'Anxiety is a design constraint. Cadence and language did more for safety than any disclaimer.',
+    ],
     quote: 'Do not sell a miracle. Sell the missing measurement layer.',
   },
   {
     id: 'firstweeks',
     title: 'Firstweeks',
-    tagline: 'A postpartum recovery operating system for first-time mothers.',
+    tagline:
+      'Closing the gap between hospital discharge and the six-week check-up — a postpartum recovery operating system for first-time mothers.',
     category: 'Health Tech',
     subcategory: 'Mobile App',
     year: '2025',
@@ -107,16 +254,57 @@ const CONCEPTS: Concept[] = [
     coverEmoji: '🌸',
     prototypePath: '/firstweeks/index.html',
     resetQuery: 'reset=true',
-    problem:
-      'After birth, care drops sharply while risk remains high. A mother is discharged with pamphlets, a phone number, and a six-week appointment. In those weeks, she is expected to identify warning signs, manage pain, feed a newborn, and recover with no structured daily support layer.',
+    thesis:
+      'The baby already has a thousand trackers. Firstweeks is the one system built for the mother — the missing daily support layer between discharge and the next real clinical appointment.',
+    overview: {
+      summary:
+        'Firstweeks is a postpartum recovery OS for first-time mothers. After birth, structured care drops to near zero while risk stays high. This concept designs the daily support layer that fills the gap: adaptive check-ins, honest triage, and a clean bridge to a clinician when it matters.',
+      role: 'Solo — product strategy, UX, UI, prototype',
+      timeline: '2025 · concept build',
+      tools: 'Figma, React, local-first storage',
+      methods: 'Maternal-health research, journey mapping, triage-logic design, prototype',
+      problem:
+        'After birth, care drops sharply while risk remains high. A mother is discharged with pamphlets, a phone number, and a six-week appointment. In those weeks, she is expected to identify warning signs, manage pain, feed a newborn, and recover with no structured daily support layer.',
+    },
     discovery: [
       { stat: '4–6 weeks', label: 'Average gap between discharge and first postpartum visit' },
       { stat: '50%+', label: 'Of maternal deaths occur after the first 24 hours postpartum' },
       { stat: '1 in 5', label: 'Mothers experience postpartum depression or anxiety' },
       { stat: '80%', label: 'Of postpartum complications are preventable with timely triage' },
     ],
+    methods: [
+      {
+        method: 'Maternal-health research',
+        why: 'To understand where the clinical safety net actually fails, not where it looks like it fails.',
+        what: 'Most maternal deaths happen after the first day, deep inside the unsupported discharge gap.',
+        how: 'Focused the product on the weeks between discharge and the six-week visit, not on birth or the baby.',
+      },
+      {
+        method: 'Journey mapping',
+        why: 'To see the mother’s real day, where existing apps stop being useful.',
+        what: 'Pregnancy apps end at birth; baby apps track the baby — nobody owns the mother’s recovery.',
+        how: 'Designed a mother-first system with a daily rhythm rather than a reference library.',
+      },
+      {
+        method: 'Triage-logic design',
+        why: 'Because a vague “see a doctor” is exactly what fails an exhausted new parent.',
+        what: '80% of complications are preventable with timely, specific escalation.',
+        how: 'Built green/yellow/red classification with concrete next steps for each state.',
+      },
+    ],
     insight:
       'Most pregnancy apps stop being useful at birth. Most baby apps track the baby. No product acts as the missing layer between hospital discharge and the next real clinical appointment.',
+    processIntro:
+      'The daily loop is short by design: a mother answers a few adaptive questions, gets a clear signal, and — only when needed — is handed the exact words to escalate.',
+    process: [
+      { step: '01', title: 'Check in', body: 'A few adaptive questions that change with delivery type, postpartum day, and prior answers.' },
+      { step: '02', title: 'Triage', body: 'Answers resolve to green, yellow, or red — never a vague “see a doctor”.' },
+      { step: '03', title: 'Escalate', body: 'A red or yellow state produces a specific action path, not generic advice.' },
+      { step: '04', title: 'Communicate', body: 'Check-in data auto-builds a structured symptom summary, ready to copy or SMS to a clinician.' },
+      { step: '05', title: 'Track', body: 'Mood and recovery patterns accumulate so a real signal is visible before the six-week visit.' },
+    ],
+    designRationale:
+      'Every interaction assumes an exhausted, overloaded user, so the product does the thinking. Questions adapt instead of repeating; triage resolves to a concrete step instead of a warning; the mental-health layer is built into the daily flow rather than bolted on, because the highest-risk moments are the easiest to hide.',
     solution: [
       { icon: '🩺', label: 'Adaptive daily check-ins', desc: 'Questions change based on delivery type, postpartum day, and prior answers.' },
       { icon: '⚡', label: 'Risk triage', desc: 'Green / yellow / red classification with specific escalation paths, never a vague see a doctor.' },
@@ -124,27 +312,87 @@ const CONCEPTS: Concept[] = [
       { icon: '🤍', label: 'Mental health layer', desc: 'EPDS-style mood screening, harm-thought escalation, and mood pattern tracking built into every check-in.' },
       { icon: '🌸', label: 'Clinician-reviewed community', desc: 'Moderated insights from mothers with similar recovery profiles, not an open forum.' },
     ],
+    prototypeCopy:
+      'Complete the onboarding, run a daily check-in, write a journal entry, and explore the care hub. The full prototype runs exactly as it would on a real device.',
+    prototypeNote: 'All data is stored locally in your browser. Nothing is sent anywhere.',
+    impactIntro:
+      'Impact is framed as the outcomes Firstweeks is designed to move in the gap the health system currently leaves open.',
+    impact: [
+      { stat: '4–6 wk', label: 'The unsupported window this system is built to cover, day by day' },
+      { stat: '80%', label: 'Of complications are preventable — the ceiling timely triage is aiming at' },
+      { stat: '1 tap', label: 'From symptom to a clinician-ready message, removing the “what do I even say” barrier' },
+      { stat: 'Daily', label: 'Cadence that catches mental-health risk that a six-week gap would miss' },
+    ],
+    learnings: [
+      'Designing for an exhausted user means removing decisions, not adding features.',
+      'Specific escalation beats comprehensive information — one clear next step outperforms a library.',
+      'The highest-value moment was translation: turning a scary symptom into words a mother can send a doctor.',
+      'Mental health can’t be a separate tab; embedding screening in the daily loop is what surfaces the risk.',
+    ],
     quote: 'The baby has a thousand trackers. The mother needs one recovery system.',
   },
   {
     id: 'voca',
     title: 'Voca',
-    tagline: 'Clinical voice analysis. Mobile-first. Built for therapists.',
+    tagline:
+      'Putting a Praat-quality report in a coat pocket — clinical voice analysis, mobile-first, built for therapists and their patients.',
     category: 'Health Tech',
     subcategory: 'Clinical SaaS',
     year: '2026',
     status: 'MVP Concept',
     coverType: 'voca',
-    problem:
-      'Speech therapy clinics run on desktop analysis software built 10–20 years ago. PRAAT is the dominant tool: free, powerful, and built for a 1992 desktop workflow. Manual acoustic scoring burns 20 minutes per patient session. Home practice goes unmeasured between appointments. No existing tool bridges clinic analysis with patient-owned progress tracking, and nothing in the category is HIPAA-compliant, mobile-first, and usable by both therapist and patient in the same session.',
+    prototypePath: '/voca/index.html',
+    thesis:
+      'Do not build a smarter acoustic engine — that already exists. Build the clinical workflow layer that delivers a therapy-ready report before the patient stands up to leave.',
+    overview: {
+      summary:
+        'Voca is a mobile-first clinical voice-analysis tool for speech-language pathologists and their patients. The acoustic engine is a solved problem; the gap is delivery. Voca wraps production-ready analysis in a HIPAA-compliant, phone-native workflow that works in-session and at home.',
+      role: 'Solo — product strategy, UX, UI, prototype',
+      timeline: '2026 · concept build',
+      tools: 'Figma, React, Parselmouth/Praat backend',
+      methods: 'Market sizing, clinician workflow analysis, report-format design, prototype',
+      problem:
+        'Speech therapy clinics run on desktop analysis software built 10–20 years ago. PRAAT is the dominant tool: free, powerful, and built for a 1992 desktop workflow. Manual acoustic scoring burns 20 minutes per patient session. Home practice goes unmeasured between appointments. Nothing in the category is HIPAA-compliant, mobile-first, and usable by both therapist and patient in the same session.',
+    },
     discovery: [
       { stat: '220K+', label: 'ASHA-member speech-language pathologists in the US alone' },
-      { stat: '20 min', label: 'Typical manual acoustic scoring time per patient, replaced by under 2 minutes with automated analysis' },
+      { stat: '20 min', label: 'Manual acoustic scoring time per patient, replaced by under 2 minutes automated' },
       { stat: '$15B', label: 'Voice biomarker market projected by 2033, up from $2B today' },
       { stat: '$8K+', label: 'Entry cost for Kay Pentax Visi-Pitch, the primary hardware alternative to PRAAT' },
     ],
+    methods: [
+      {
+        method: 'Market sizing',
+        why: 'To confirm the audience is large, organized, and reachable before designing anything.',
+        what: '220K+ ASHA SLPs, a market scaling from $2B to $15B, and no mobile-first compliant tool.',
+        how: 'Chose a clear infrastructure gap over a crowded feature race.',
+      },
+      {
+        method: 'Clinician workflow analysis',
+        why: 'To find where the 20 desktop minutes per session actually go.',
+        what: 'Manual extraction, a separate report template, and aging hardware crashes eat the session.',
+        how: 'Designed a record-to-report path that finishes before the patient leaves the room.',
+      },
+      {
+        method: 'Report-format design',
+        why: 'Because the deliverable — not the engine — is what a clinic pays for.',
+        what: 'A scored, formatted, PDF-exportable card is the artifact that carries clinical trust.',
+        how: 'Made the report card the center of the product and the moment of value.',
+      },
+    ],
     insight:
       'The acoustic analysis engine already exists. What does not exist is the mobile delivery layer, the clinical report format, and the HIPAA-compliant infrastructure to make it usable inside and outside the clinic.',
+    processIntro:
+      'Voca compresses a 20-minute desktop workflow into a five-step loop that runs on a phone and syncs to a clinician dashboard.',
+    process: [
+      { step: '01', title: 'Record', body: '60-second guided voice sample with live waveform. Works in-session or as a home recording.' },
+      { step: '02', title: 'Analyze', body: 'Parselmouth/Praat extracts pitch range, stability, roughness, jitter, shimmer, and resonance in real time.' },
+      { step: '03', title: 'Report', body: 'An acoustic report card is generated immediately: scored, formatted, PDF-exportable.' },
+      { step: '04', title: 'Archive', body: 'The session auto-syncs to the therapist dashboard with notes and timestamps attached.' },
+      { step: '05', title: 'Track', body: 'Patient home logs and per-metric progress curves stay visible to both sides over time.' },
+    ],
+    designRationale:
+      'The design treats the report card as the product and everything else as plumbing. Recording is guided so patients can self-serve at home; analysis is invisible; the dashboard exists only to keep the therapist’s roster and trends in one place. Positioning as clinical decision support — not diagnosis — keeps the product trustworthy and out of regulatory overreach.',
     solution: [
       { icon: '01', label: '60-second voice recording', desc: 'Guided capture with real-time waveform visualization. Works in-session or as a patient home recording between appointments.' },
       { icon: '02', label: 'Acoustic analysis engine', desc: 'Parselmouth/Praat backend extracts pitch range, stability index, roughness score, jitter, shimmer, and resonance from each sample.' },
@@ -152,304 +400,28 @@ const CONCEPTS: Concept[] = [
       { icon: '04', label: 'Patient home mode', desc: 'Patients self-record between sessions, log practice notes, and view per-metric progress curves inside the same app.' },
       { icon: '05', label: 'Therapist dashboard', desc: 'Web interface with full patient roster, session archive, report filtering by date and metric, and clinic-level aggregated data.' },
     ],
+    prototypeCopy:
+      'Explore the full Voca flow: onboarding, a live recording session, the acoustic report card, patient roster, and progress tracking. Every interaction is clickable.',
+    prototypeNote: 'Tap the red button on the record screen to run an analysis. All data is local. Nothing is sent anywhere.',
+    impactIntro:
+      'Impact is framed as the clinical and commercial targets Voca must hit to move an SLP off a 20-year-old desktop tool.',
+    impact: [
+      { stat: '20→2', label: 'Minutes per session — the time reclaimed by automating acoustic scoring' },
+      { stat: '±5%', label: 'Accuracy bar against manual therapist scoring before any report is shown' },
+      { stat: '0', label: 'PHI in system logs — HIPAA compliance is a precondition, not a feature' },
+      { stat: 'Clinic+home', label: 'One tool spanning the session and the practice between sessions' },
+    ],
+    learnings: [
+      'When the engine is commoditized, the delivery layer is the whole opportunity.',
+      'The deliverable is the product — designing the report card first clarified every other screen.',
+      'Compliance is a design constraint from line one, not a later hardening pass.',
+      'Bridging clinic and home in one app turned two disconnected data sources into a single progress story.',
+    ],
     quote: 'Do not sell a smarter acoustic engine. Sell the clinical workflow layer that fits in a coat pocket.',
   },
 ]
 
-
-const denslyCategorization = [
-  { label: 'Type', value: 'SaaS' },
-  { label: 'Market', value: 'B2C' },
-  { label: 'Target', value: 'Health consumers' },
-  { label: 'Main competitor', value: 'MyHair AI' },
-]
-
-const denslyTrendAnalysis =
-  'The hair-loss market is experiencing growth due to advancements in AI and increased consumer demand for personalized health solutions, alongside a $50 billion global market size.'
-
-const denslyOpportunity = [
-  {
-    label: 'Consumer pain',
-    title: 'Users cannot tell signal from noise.',
-    body: 'Lighting, hair length, oil, camera distance, styling, and angle can make the same scalp look better or worse. That uncertainty makes users overreact, stop early, or keep paying without evidence.',
-  },
-  {
-    label: 'Clinic pain',
-    title: 'Follow-up proof is fragmented.',
-    body: 'Dermatology and transplant clinics need credible before-after documentation, but patient camera rolls are unstructured. Consultations lose time reconstructing the story.',
-  },
-  {
-    label: 'Market pain',
-    title: 'The treatment layer has no neutral outcome layer.',
-    body: 'Brands sell products. Clinics sell procedures. Communities sell hope. A neutral tracker can own the trust layer by staying treatment-agnostic.',
-  },
-]
-
-const denslyFlow = [
-  { step: '01', title: 'Baseline', body: 'Five guided views establish the first comparable record.' },
-  { step: '02', title: 'Quality gate', body: 'The app rejects bad lighting, wet hair, and mismatched angles.' },
-  { step: '03', title: 'Alignment', body: 'New photos are matched to baseline by zone and crop.' },
-  { step: '04', title: 'Signal', body: 'Users see confidence-labeled progress instead of a fake certainty score.' },
-  { step: '05', title: 'Report', body: 'A clinic-ready export turns months of photos into a readable outcome file.' },
-]
-
-const denslyMvp = [
-  'Guided camera protocol for front, crown, top-down, and temple capture',
-  'Same-day retest check to prove score stability before public launch',
-  'Progress timeline with month stacks and confidence labels',
-  'Treatment journal for dosage, start date, side effects, shedding, and routine changes',
-  'Dermatologist export with images, dates, user notes, and quality warnings',
-  'Clinic console for post-procedure and medication follow-up cohorts',
-]
-
-const denslyRisks = [
-  { title: 'Accuracy risk', body: 'Selfies are noisy. The MVP must reject weak captures before it tries to compare anything.' },
-  { title: 'Medical risk', body: 'The product should not diagnose alopecia, recommend drugs, or claim exact follicle density from casual photos.' },
-  { title: 'Anxiety risk', body: 'Daily scoring can make users spiral. Monthly cadence and confidence language are safer.' },
-  { title: 'Trust risk', body: 'If two photos taken ten minutes apart generate different results, the product loses credibility.' },
-]
-
-const denslyOffer = [
-  {
-    step: '01',
-    label: 'Lead magnet',
-    title: 'Hair-loss diagnostic quiz',
-    price: 'Free',
-    body: 'An interactive quiz that helps users define their goal, treatment stage, and baseline risk before the first scan.',
-  },
-  {
-    step: '02',
-    label: 'Frontend',
-    title: 'Basic selfie hair tracker',
-    price: '$5/month',
-    body: 'AI-aligned comparison images, monthly reminders, treatment notes, and basic progress history.',
-  },
-  {
-    step: '03',
-    label: 'Core',
-    title: 'Advanced progression tracker',
-    price: '$15/month',
-    body: 'Zone timelines, density-style heatmaps, doctor-ready PDF reports, and confidence warnings.',
-  },
-]
-
-const denslyProofBlocks = [
-  {
-    title: 'Why now',
-    body: 'Personalized health tools, telehealth behavior, and AI-assisted image workflows make users more open to tracking outcomes outside the clinic.',
-    cta: 'See why the timing matters',
-  },
-  {
-    title: 'Proof and signals',
-    body: 'The strongest validation path is not a viral launch. It is proving that repeated guided captures create more trustworthy follow-up evidence than random camera-roll photos.',
-    cta: 'Explore proof signals',
-  },
-  {
-    title: 'The market gap',
-    body: 'The hair-loss market has treatments, clinics, creators, and anxious communities. What it lacks is a neutral measurement layer that helps users and clinicians trust the timeline.',
-    cta: 'Understand the market gap',
-  },
-  {
-    title: 'Execution plan',
-    body: 'Start with a narrow consumer tracker, validate scan consistency, add dermatologist exports, then expand into clinic follow-up dashboards.',
-    cta: 'View execution strategy',
-  },
-]
-
-const denslyFrameworks = [
-  {
-    title: 'Value equation',
-    metric: '6',
-    label: 'Good',
-    body: 'A strong painkiller concept, but it must earn trust before charging for advanced insight.',
-  },
-  {
-    title: 'Market matrix',
-    metric: 'Category king',
-    label: 'High uniqueness / high value',
-    body: 'The wedge is not another treatment app. It is outcome infrastructure for a treatment-heavy market.',
-  },
-  {
-    title: 'A.C.P. framework',
-    metric: '8 / 9 / 8',
-    label: 'Audience / Community / Product',
-    body: 'Hair-loss communities are active, the pain is visible, and the product can be tested with a small cohort.',
-  },
-  {
-    title: 'Value ladder',
-    metric: '$0 → $15 → Clinic',
-    label: 'Continuity path',
-    body: 'Free quiz, basic tracking, advanced reports, and clinic licensing create a clean expansion path.',
-  },
-]
-
-const denslyCasePillars = [
-  {
-    label: 'Problem',
-    title: 'Hair-loss progress is emotional, delayed, and badly documented.',
-    body: 'People take random photos under different lighting, styling, angles, and hair lengths, then use those images to judge whether months of treatment are working. The decision loop is noisy, anxious, and easy to misread.',
-  },
-  {
-    label: 'Why choose this',
-    title: 'A large treatment market lacks a neutral outcome layer.',
-    body: 'Minoxidil, finasteride, PRP, transplant recovery, supplements, and clinic plans all depend on proof over time. Densly does not compete with treatments. It measures whether the journey is becoming easier to understand.',
-  },
-  {
-    label: 'Why an app',
-    title: 'The phone is already the camera, reminder, journal, and report tool.',
-    body: 'A mobile app can guide capture, reject weak photos, maintain monthly cadence, store treatment notes, and generate doctor-ready reports without asking users to buy separate hardware or visit a clinic every month.',
-  },
-]
-
-/* ─── Voca data ─────────────────────────────────────────── */
-
-const vocaCategorization = [
-  { label: 'Type', value: 'SaaS' },
-  { label: 'Market', value: 'B2B + B2C' },
-  { label: 'Target', value: 'SLPs + patients' },
-  { label: 'Main competitor', value: 'PRAAT / Kay Pentax' },
-]
-
-const vocaTrendAnalysis =
-  'Voice biomarker market projected to grow from $2B to $15B by 2033. Telehealth normalization post-2020 has created direct demand from SLPs for mobile-native clinical tools that replace desktop-only workflows.'
-
-const vocaOpportunity = [
-  {
-    label: 'Clinician pain',
-    title: 'Manual acoustic scoring burns 20 minutes per session.',
-    body: 'PRAAT requires manual extraction of pitch, jitter, and shimmer with no mobile interface, no patient-facing view, and no integrated report format. Sessions are interrupted by software crashes on aging clinic hardware.',
-  },
-  {
-    label: 'Patient pain',
-    title: 'Home practice goes unmeasured between appointments.',
-    body: 'Patients complete voice exercises at home with no logging, no feedback, and no measurable continuity. Progress between sessions is invisible to the therapist until the next appointment.',
-  },
-  {
-    label: 'Market pain',
-    title: 'No HIPAA-compliant mobile SaaS exists for voice therapy.',
-    body: 'Kay Pentax Visi-Pitch costs $8K+ in hardware. PRAAT is free but desktop-only with a steep learning curve. No product bridges the clinic-to-home gap with compliant, mobile-first infrastructure.',
-  },
-]
-
-const vocaFlow = [
-  { step: '01', title: 'Record', body: '60-second guided voice sample with live waveform visualization. Works in-session or as a home recording.' },
-  { step: '02', title: 'Analyze', body: 'Parselmouth/Praat engine extracts pitch range, stability index, roughness, jitter, shimmer, and resonance in real time.' },
-  { step: '03', title: 'Report', body: 'Acoustic report card generated immediately: scored, formatted, and PDF-exportable before the patient leaves.' },
-  { step: '04', title: 'Archive', body: 'Session auto-syncs to therapist dashboard with session notes, acoustic data, and timestamps attached.' },
-  { step: '05', title: 'Track', body: 'Patient home logs and per-metric progress curves are visible to both therapist and patient over time.' },
-]
-
-const vocaMvp = [
-  '60-second voice recording with real-time waveform visualization',
-  'Acoustic analysis: pitch range, stability index, roughness, jitter, shimmer, resonance',
-  'Therapy report card: scored, formatted, PDF-exportable before patient departs',
-  'Patient home mode: self-record, log entry, view progress graph per metric',
-  'Session notes field auto-attached to every acoustic report',
-  'Therapist web dashboard with patient roster, session archive, and trend filtering',
-]
-
-const vocaRisks = [
-  { title: 'Accuracy risk', body: 'Acoustic scores must validate against manual therapist scoring within ±5% on pitch and roughness before any report is shown to a patient.' },
-  { title: 'HIPAA risk', body: 'Patient voice data is PHI. Architecture requires encrypted storage, no PHI in system logs, and a BAA-ready infrastructure partner before any clinical deployment.' },
-  { title: 'Adoption risk', body: 'SLPs are PRAAT-trained. Workflow change requires trust built through a structured beta with 10 therapists, 200 real sessions, and a published accuracy comparison.' },
-  { title: 'Liability risk', body: 'Reports must be positioned as clinical decision support, not diagnostic output. Over-claiming acoustic accuracy creates direct regulatory exposure.' },
-]
-
-const vocaOffer = [
-  {
-    step: '01',
-    label: 'Lead magnet',
-    title: 'Voice Analysis Quick-Start Guide',
-    price: 'Free',
-    body: 'Downloadable PDF for SLPs, no account required. Distributed to ASHA community, Reddit r/slp, and LinkedIn SLP groups to drive awareness before beta launch.',
-  },
-  {
-    step: '02',
-    label: 'Solo',
-    title: 'Per-therapist license',
-    price: '$100/month',
-    body: 'Unlimited voice recordings, full acoustic report suite, patient home mode for up to 10 active patients, and PDF export. No web dashboard access.',
-  },
-  {
-    step: '03',
-    label: 'Clinic',
-    title: 'Per-seat clinic license',
-    price: '$300–$500/month',
-    body: 'Everything in Solo plus the web dashboard with full patient roster, progress tracking, trend visualization, HIPAA-compliant BAA storage, and multi-patient management.',
-  },
-]
-
-const vocaProofBlocks = [
-  {
-    title: 'Market gap',
-    body: 'ASHA has 220,000+ members. No mobile-first, HIPAA-compliant voice analysis SaaS exists. PRAAT and Kay Pentax are the only real incumbents, both desktop-first and patient-inaccessible.',
-    cta: 'See the gap',
-  },
-  {
-    title: 'Why now',
-    body: 'Telehealth normalization created demand for device-agnostic clinical tools. Parselmouth makes portable acoustic analysis production-ready without building a custom engine from scratch.',
-    cta: 'Explore the timing',
-  },
-  {
-    title: 'Beachhead segment',
-    body: 'Trans voice training SLPs are organized, vocal about tooling frustration, and underserved by generic clinical software. They are the proof cohort before expanding to broader SLP practice.',
-    cta: 'Understand the wedge',
-  },
-  {
-    title: 'Data moat',
-    body: "Each session logged builds a normative database. Voca's acoustic benchmarks, covering trans voice and post-laryngeal surgery, become proprietary clinical reference data no competitor can replicate.",
-    cta: 'View the moat',
-  },
-]
-
-const vocaFrameworks = [
-  {
-    title: 'Value equation',
-    metric: '8',
-    label: 'Strong painkiller',
-    body: 'Replaces a 20-min manual scoring workflow with a 2-min automated report. Time saved is immediate and measurable per session.',
-  },
-  {
-    title: 'Market matrix',
-    metric: 'Category king',
-    label: 'High uniqueness / high value',
-    body: 'No HIPAA-compliant mobile voice analysis SaaS exists. Voca enters a clear infrastructure gap, not a crowded feature market.',
-  },
-  {
-    title: 'A.C.P. framework',
-    metric: '8 / 9 / 9',
-    label: 'Audience / Community / Product',
-    body: 'SLP community is ASHA-organized, active on Reddit and LinkedIn, with a visible and vocal tool frustration signal.',
-  },
-  {
-    title: 'Value ladder',
-    metric: '$0 → $100 → $500',
-    label: 'Lead → Solo → Clinic',
-    body: 'Free guide, solo practice license, and clinic seat model create a clean expansion path from individual therapist to institutional.',
-  },
-]
-
-const vocaCasePillars = [
-  {
-    label: 'Problem',
-    title: 'Speech therapy runs on 20-year-old desktop software.',
-    body: 'PRAAT and Kay Pentax Visi-Pitch dominate. PRAAT is free but requires manual scoring. Kay Pentax costs $8K+ in hardware. Neither is mobile, patient-facing, or delivered as HIPAA-compliant SaaS.',
-  },
-  {
-    label: 'Why choose this',
-    title: 'The infrastructure gap is structural, not technical.',
-    body: 'Open-source acoustic analysis (Parselmouth/Praat) is already production-ready. The missing layer is mobile delivery, clinical report formatting, and HIPAA-compliant data architecture, not the analysis engine itself.',
-  },
-  {
-    label: 'Why an app',
-    title: 'The phone bridges clinic and home.',
-    body: "Voice therapy requires both session data and home practice data. The same tool a therapist uses in-session becomes the patient's monitoring device between appointments, with no separate hardware required.",
-  },
-]
-
-/* ─── iPhone frame ──────────────────────────────────────── */
-
-/* ─── Voca visual components ────────────────────────────── */
+/* ─── Cover visuals ─────────────────────────────────────── */
 
 function VocaFloatIcon({ size = 'lg' }: { size?: 'sm' | 'lg' }) {
   return (
@@ -471,23 +443,25 @@ function VocaCover() {
   )
 }
 
-function VocaHeroSignalPanel() {
+function DenslyFloatingIcon({ size = 'lg' }: { size?: 'sm' | 'lg' }) {
   return (
-    <div className={styles.denslyHeroSignalPanel} aria-label="Voca concept signal">
-      <VocaFloatIcon size="lg" />
-      <div className={styles.denslyHeroSignalCopy}>
-        <span>Clinical signal layer</span>
-        <h2>Acoustic intelligence. Clinical format.</h2>
-        <p>60-second voice capture, real-time Praat analysis, and a therapy-ready report card, before the patient stands up to leave.</p>
-      </div>
-      <div className={styles.denslyHeroSignalGrid}>
-        <div><strong>60s</strong><span>capture</span></div>
-        <div><strong>5</strong><span>acoustic metrics</span></div>
-        <div><strong>PDF</strong><span>clinic export</span></div>
-      </div>
+    <div className={`${styles.denslyFloatIcon} ${size === 'lg' ? styles.denslyFloatIconLarge : styles.denslyFloatIconCard}`} aria-hidden="true">
+      <span />
+      <span />
+      <span />
     </div>
   )
 }
+
+function DenslyCover() {
+  return (
+    <div className={styles.denslyCover}>
+      <DenslyFloatingIcon size="sm" />
+    </div>
+  )
+}
+
+/* ─── iPhone frame ──────────────────────────────────────── */
 
 function IPhoneFrame({
   src,
@@ -539,47 +513,9 @@ function IPhoneFrame({
   )
 }
 
-/* ─── Densly floating icon system ───────────────────────── */
+/* ─── Case study template (uxfol.io 7-section structure) ─── */
 
-function DenslyFloatingIcon({ size = 'lg' }: { size?: 'sm' | 'lg' }) {
-  return (
-    <div className={`${styles.denslyFloatIcon} ${size === 'lg' ? styles.denslyFloatIconLarge : styles.denslyFloatIconCard}`} aria-hidden="true">
-      <span />
-      <span />
-      <span />
-    </div>
-  )
-}
-
-function DenslyCover() {
-  return (
-    <div className={styles.denslyCover}>
-      <DenslyFloatingIcon size="sm" />
-    </div>
-  )
-}
-
-function DenslyHeroSignalPanel() {
-  return (
-    <div className={styles.denslyHeroSignalPanel} aria-label="Densly concept signal">
-      <DenslyFloatingIcon size="lg" />
-      <div className={styles.denslyHeroSignalCopy}>
-        <span>Outcome layer</span>
-        <h2>Evidence over guesswork.</h2>
-        <p>Guided captures, monthly comparison, confidence labels, and doctor-ready exports turn scattered selfies into a usable recovery record.</p>
-      </div>
-      <div className={styles.denslyHeroSignalGrid}>
-        <div><strong>5</strong><span>guided views</span></div>
-        <div><strong>30d</strong><span>scan cadence</span></div>
-        <div><strong>PDF</strong><span>clinic export</span></div>
-      </div>
-    </div>
-  )
-}
-
-/* ─── Densly case study ─────────────────────────────────── */
-
-function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => void }) {
+function CaseStudyTemplate({ concept, onBack }: { concept: Concept; onBack: () => void }) {
   const [resetKey, setResetKey] = useState(0)
   const [iframeLoaded, setIframeLoaded] = useState(false)
   const [prototypeOpen, setPrototypeOpen] = useState(false)
@@ -602,8 +538,8 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
   }
 
   const iframeSrc = resetKey === 0
-    ? '/densly/index.html'
-    : `/densly/index.html?restart=${resetKey}`
+    ? concept.prototypePath
+    : `${concept.prototypePath}?${concept.resetQuery ? concept.resetQuery + '&' : ''}restart=${resetKey}`
 
   return (
     <div className={styles.detail}>
@@ -614,664 +550,7 @@ function DenslyDetail({ concept, onBack }: { concept: Concept; onBack: () => voi
         All concepts
       </button>
 
-      <header className={styles.denslyHero}>
-        <div className={styles.denslyHeroCopy}>
-          <div className={styles.detailMeta}>
-            <span className={styles.tag}>{concept.category}</span>
-            <span className={styles.tagOutline}>{concept.subcategory}</span>
-            <span className={styles.tagOutline}>{concept.year}</span>
-            <span className={styles.tagStatus}>{concept.status}</span>
-          </div>
-          <h1 className={styles.detailTitle}>{concept.title}</h1>
-          <p className={styles.detailTagline}>{concept.tagline}</p>
-          <div className={styles.denslyThesisCard}>
-            <span>Product thesis</span>
-            <p>Build trust before intelligence. The first product win is not an AI diagnosis. It is repeatable image capture, honest uncertainty, and clinic-ready evidence.</p>
-          </div>
-        </div>
-        <div className={styles.denslyHeroVisual} aria-label="Densly concept summary">
-          <DenslyHeroSignalPanel />
-        </div>
-      </header>
-
-      <section className={`${styles.section} ${styles.denslyIntroSection}`}>
-        <span className={styles.sectionLabel}>Problem</span>
-        <p className={styles.bodyLarge}>{concept.problem}</p>
-        <div className={styles.denslyIntroGrid}>
-          <div>
-            <h2>The mirror is not a measurement system.</h2>
-          </div>
-          <p>
-            Hair changes slowly, but anxiety updates daily. The user keeps comparing old selfies taken under different light and different hair states. Densly turns that chaotic habit into a controlled monthly protocol, then packages the result into a timeline that a user and clinician can understand.
-          </p>
-        </div>
-      </section>
-
-      <section className={styles.denslyCasePillarSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Case study frame</span>
-          <h2>Problem, logic, format.</h2>
-        </div>
-        <div className={styles.denslyCasePillarGrid}>
-          {denslyCasePillars.map(item => (
-            <article key={item.label} className={styles.denslyCasePillarCard}>
-              <span>{item.label}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.section}>
-        <span className={styles.sectionLabel}>Research signals</span>
-        <div className={styles.statsGrid}>
-          {concept.discovery.map(d => (
-            <div key={d.stat} className={styles.statCard}>
-              <span className={styles.statNum}>{d.stat}</span>
-              <span className={styles.statLabel}>{d.label}</span>
-            </div>
-          ))}
-        </div>
-        <p className={styles.denslySourceNote}>Source basis used for concept framing: clinical literature on androgenetic alopecia, minoxidil adherence, photographic follow-up behavior, and mobile medical app risk guidance.</p>
-      </section>
-
-
-      <section className={styles.denslyCategorizationSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Categorization</span>
-          <h2>Commercial shape.</h2>
-        </div>
-        <div className={styles.denslyCategorizationCard}>
-          <div className={styles.denslyCategoryGrid}>
-            {denslyCategorization.map(item => (
-              <div key={item.label} className={styles.denslyCategoryItem}>
-                <span>{item.label}</span>
-                <strong>{item.value}</strong>
-              </div>
-            ))}
-          </div>
-          <div className={styles.denslyTrendBlock}>
-            <span>Trend analysis</span>
-            <p>{denslyTrendAnalysis}</p>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.denslyMatrixSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Problem map</span>
-          <h2>Three groups need proof.</h2>
-        </div>
-        <div className={styles.denslyProblemGrid}>
-          {denslyOpportunity.map(item => (
-            <article key={item.label} className={styles.denslyProblemCard}>
-              <span>{item.label}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.insightBlock}>
-        <p className={styles.insightText}>"{concept.insight}"</p>
-      </section>
-
-      <section className={styles.section}>
-        <span className={styles.sectionLabel}>MVP product system</span>
-        <div className={styles.solutionGrid}>
-          {concept.solution.map(s => (
-            <div key={s.label} className={`${styles.solutionCard} ${styles.numberedSolutionCard}`}>
-              <span className={styles.solutionIcon}>{s.icon}</span>
-              <div>
-                <p className={styles.solutionTitle}>{s.label}</p>
-                <p className={styles.solutionDesc}>{s.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className={`${styles.demoSection} ${styles.denslyPrototypeSection}`}>
-
-        <div className={styles.demoText}>
-          <span className={styles.sectionLabel}>Interactive prototype</span>
-          <h2 className={styles.demoHeading}>Try the Densly flow</h2>
-          <p className={styles.demoBody}>
-            Explore the real Densly prototype inside the same iPhone-frame system used across the Concepts page. The flow focuses on guided onboarding, capture consistency, treatment context, and outcome reporting.
-          </p>
-
-          <div className={styles.demoActions}>
-            <button className={styles.restartBtn} onClick={handleRestart}>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M12 7A5 5 0 1 1 7 2M7 2V0M7 2L10 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Restart prototype
-            </button>
-            <button className={styles.prototypeBtn} onClick={() => setPrototypeOpen(true)}>
-              Open phone view
-            </button>
-            <p className={styles.demoNote}>
-              Prototype is embedded locally. The app stays treatment-agnostic and avoids diagnostic claims.
-            </p>
-          </div>
-        </div>
-
-        <div className={styles.demoPhoneWrap}>
-          <IPhoneFrame
-            src={iframeSrc}
-            resetKey={resetKey}
-            isLoading={!iframeLoaded}
-            onLoad={() => setIframeLoaded(true)}
-            label="Densly mobile prototype"
-            title="Densly app prototype"
-          />
-        </div>
-      </section>
-
-      {prototypeOpen && (
-        <div className={styles.prototypeOverlay} role="dialog" aria-modal="true" aria-label="Densly full phone view">
-          <div className={styles.prototypeToolbar}>
-            <button className={styles.prototypeBackBtn} onClick={() => setPrototypeOpen(false)}>
-              Back to case study
-            </button>
-            <button className={styles.restartBtn} onClick={handleRestart}>
-              Restart prototype
-            </button>
-          </div>
-          <div className={styles.prototypeStage}>
-            <IPhoneFrame
-              src={iframeSrc}
-              resetKey={resetKey}
-              isLoading={!iframeLoaded}
-              onLoad={() => setIframeLoaded(true)}
-              variant="fullscreen"
-              label="Densly full mobile prototype"
-              title="Densly app prototype"
-            />
-          </div>
-        </div>
-      )}
-
-      <section className={styles.denslyFlowSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Measurement pipeline</span>
-          <h2>Repeatable capture engine.</h2>
-        </div>
-        <div className={styles.denslyFlowGrid}>
-          {denslyFlow.map(item => (
-            <article key={item.step} className={styles.denslyFlowCard}>
-              <span>{item.step}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.denslySplitSection}>
-        <div className={styles.denslySplitPanel}>
-          <span className={styles.sectionLabel}>What ships first</span>
-          <h2>Narrow MVP. Strong trust.</h2>
-          <ul className={styles.denslyList}>
-            {denslyMvp.map(item => <li key={item}>{item}</li>)}
-          </ul>
-        </div>
-        <div className={styles.denslySplitPanel}>
-          <span className={styles.sectionLabel}>Business model</span>
-          <div className={styles.denslyBusinessRows}>
-            <div><span>Free</span><p>Hair-loss diagnostic quiz, baseline capture, one progress report preview.</p></div>
-            <div><span>$5/mo</span><p>Basic tracking, reminders, visual timeline, and treatment journal.</p></div>
-            <div><span>$15/mo</span><p>Advanced heatmaps, PDF exports, trend alerts, and doctor-share package.</p></div>
-            <div><span>Clinic license</span><p>White-labeled dashboard for consults, procedure follow-ups, and retention.</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.denslyOfferSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Offer strategy</span>
-          <h2>From curiosity to clinic proof.</h2>
-        </div>
-        <div className={styles.denslyOfferGrid}>
-          {denslyOffer.map(item => (
-            <article key={item.title} className={styles.denslyOfferCard}>
-              <span className={styles.denslyOfferStep}>{item.step}</span>
-              <div>
-                <span className={styles.denslyOfferLabel}>{item.label}</span>
-                <h3>{item.title} <small>{item.price}</small></h3>
-                <p>{item.body}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.denslyProofSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Proof and signals</span>
-          <h2>Evidence must beat memory.</h2>
-        </div>
-        <div className={styles.denslyProofGrid}>
-          {denslyProofBlocks.map(item => (
-            <article key={item.title} className={styles.denslyProofCard}>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-              <span>{item.cta} →</span>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.denslyFrameworkSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Framework fit</span>
-          <h2>Strong opportunity. Trust first.</h2>
-        </div>
-        <div className={styles.denslyFrameworkGrid}>
-          {denslyFrameworks.map(item => (
-            <article key={item.title} className={styles.denslyFrameworkCard}>
-              <span>{item.title}</span>
-              <strong>{item.metric}</strong>
-              <small>{item.label}</small>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.denslyRiskSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Validation gates</span>
-          <h2>Prove consistency first.</h2>
-        </div>
-        <div className={styles.denslyRiskGrid}>
-          {denslyRisks.map(item => (
-            <article key={item.title} className={styles.denslyRiskCard}>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.quoteBlock}>
-        <p className={styles.quote}>{concept.quote}</p>
-      </section>
-    </div>
-  )
-}
-
-/* ─── Voca case study ───────────────────────────────────── */
-
-function VocaDetail({ concept, onBack }: { concept: Concept; onBack: () => void }) {
-  const [resetKey, setResetKey] = useState(0)
-  const [iframeLoaded, setIframeLoaded] = useState(false)
-  const [prototypeOpen, setPrototypeOpen] = useState(false)
-
-  useEffect(() => {
-    document.body.style.overflow = prototypeOpen ? 'hidden' : ''
-    const handleKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setPrototypeOpen(false)
-    }
-    window.addEventListener('keydown', handleKey)
-    return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', handleKey)
-    }
-  }, [prototypeOpen])
-
-  function handleRestart() {
-    setIframeLoaded(false)
-    setResetKey(k => k + 1)
-  }
-
-  const iframeSrc = resetKey === 0 ? '/voca/index.html' : `/voca/index.html?restart=${resetKey}`
-
-  return (
-    <div className={styles.detail}>
-      <button className={styles.backBtn} onClick={onBack}>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        All concepts
-      </button>
-
-      <header className={styles.denslyHero}>
-        <div className={styles.denslyHeroCopy}>
-          <div className={styles.detailMeta}>
-            <span className={styles.tag}>{concept.category}</span>
-            <span className={styles.tagOutline}>{concept.subcategory}</span>
-            <span className={styles.tagOutline}>{concept.year}</span>
-            <span className={styles.tagStatus}>{concept.status}</span>
-          </div>
-          <h1 className={styles.detailTitle}>{concept.title}</h1>
-          <p className={styles.detailTagline}>{concept.tagline}</p>
-          <div className={styles.denslyThesisCard}>
-            <span>Product thesis</span>
-            <p>Do not build a smarter acoustic engine. Build the clinical workflow layer that puts a Praat-quality report in a coat pocket, before the patient stands up to leave.</p>
-          </div>
-        </div>
-        <div className={`${styles.denslyHeroVisual} ${styles.vocaHeroVisual}`} aria-label="Voca concept summary">
-          <VocaHeroSignalPanel />
-        </div>
-      </header>
-
-      <section className={`${styles.section} ${styles.denslyIntroSection}`}>
-        <span className={styles.sectionLabel}>Problem</span>
-        <p className={styles.bodyLarge}>{concept.problem}</p>
-        <div className={styles.denslyIntroGrid}>
-          <div>
-            <h2>The clinic runs on tools older than the iPhone.</h2>
-          </div>
-          <p>
-            PRAAT is the industry standard: free, powerful, and designed for a 1992 desktop workflow. Acoustic scoring requires manual extraction, a separate report template, and a therapist who knows the software. Most do. None of that helps the patient who just left the room without their progress data.
-          </p>
-        </div>
-      </section>
-
-      <section className={styles.denslyCasePillarSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Case study frame</span>
-          <h2>Problem, logic, format.</h2>
-        </div>
-        <div className={styles.denslyCasePillarGrid}>
-          {vocaCasePillars.map(item => (
-            <article key={item.label} className={styles.denslyCasePillarCard}>
-              <span>{item.label}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.section}>
-        <span className={styles.sectionLabel}>Research signals</span>
-        <div className={styles.statsGrid}>
-          {concept.discovery.map(d => (
-            <div key={d.stat} className={styles.statCard}>
-              <span className={styles.statNum}>{d.stat}</span>
-              <span className={styles.statLabel}>{d.label}</span>
-            </div>
-          ))}
-        </div>
-        <p className={styles.denslySourceNote}>Source basis used for concept framing: ASHA membership data, voice biomarker market projections, telehealth adoption research, and clinical workflow timing benchmarks from speech-language pathology literature.</p>
-      </section>
-
-      <section className={styles.denslyCategorizationSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Categorization</span>
-          <h2>Commercial shape.</h2>
-        </div>
-        <div className={styles.denslyCategorizationCard}>
-          <div className={styles.denslyCategoryGrid}>
-            {vocaCategorization.map(item => (
-              <div key={item.label} className={styles.denslyCategoryItem}>
-                <span>{item.label}</span>
-                <strong>{item.value}</strong>
-              </div>
-            ))}
-          </div>
-          <div className={styles.denslyTrendBlock}>
-            <span>Trend analysis</span>
-            <p>{vocaTrendAnalysis}</p>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.denslyMatrixSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Problem map</span>
-          <h2>Three groups need better tools.</h2>
-        </div>
-        <div className={styles.denslyProblemGrid}>
-          {vocaOpportunity.map(item => (
-            <article key={item.label} className={styles.denslyProblemCard}>
-              <span>{item.label}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.insightBlock}>
-        <p className={styles.insightText}>"{concept.insight}"</p>
-      </section>
-
-      <section className={styles.section}>
-        <span className={styles.sectionLabel}>MVP product system</span>
-        <div className={styles.solutionGrid}>
-          {concept.solution.map(s => (
-            <div key={s.label} className={`${styles.solutionCard} ${styles.numberedSolutionCard}`}>
-              <span className={styles.solutionIcon}>{s.icon}</span>
-              <div>
-                <p className={styles.solutionTitle}>{s.label}</p>
-                <p className={styles.solutionDesc}>{s.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.denslyFlowSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Analysis pipeline</span>
-          <h2>Record to report in under 2 minutes.</h2>
-        </div>
-        <div className={styles.denslyFlowGrid}>
-          {vocaFlow.map(item => (
-            <article key={item.step} className={styles.denslyFlowCard}>
-              <span>{item.step}</span>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.denslySplitSection}>
-        <div className={styles.denslySplitPanel}>
-          <span className={styles.sectionLabel}>What ships first</span>
-          <h2>Narrow MVP. Clinical trust.</h2>
-          <ul className={styles.denslyList}>
-            {vocaMvp.map(item => <li key={item}>{item}</li>)}
-          </ul>
-        </div>
-        <div className={styles.denslySplitPanel}>
-          <span className={styles.sectionLabel}>Business model</span>
-          <div className={styles.denslyBusinessRows}>
-            <div><span>Free</span><p>Voice Analysis Quick-Start Guide: PDF for SLPs, no account required.</p></div>
-            <div><span>$100/mo</span><p>Solo therapist license. Unlimited recordings, full acoustic suite, up to 10 patient home mode slots, PDF export.</p></div>
-            <div><span>$300–500/mo</span><p>Clinic seat license. Dashboard, progress tracking, HIPAA-compliant BAA storage, multi-patient management.</p></div>
-            <div><span>Phase 2</span><p>API access for telehealth platform embedding (SimplePractice, Therapy Brands).</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.denslyOfferSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Offer strategy</span>
-          <h2>From guide to clinic infrastructure.</h2>
-        </div>
-        <div className={styles.denslyOfferGrid}>
-          {vocaOffer.map(item => (
-            <article key={item.title} className={styles.denslyOfferCard}>
-              <span className={styles.denslyOfferStep}>{item.step}</span>
-              <div>
-                <span className={styles.denslyOfferLabel}>{item.label}</span>
-                <h3>{item.title} <small>{item.price}</small></h3>
-                <p>{item.body}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.denslyProofSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Proof and signals</span>
-          <h2>The category gap is documented.</h2>
-        </div>
-        <div className={styles.denslyProofGrid}>
-          {vocaProofBlocks.map(item => (
-            <article key={item.title} className={styles.denslyProofCard}>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-              <span>{item.cta} →</span>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.denslyFrameworkSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Framework fit</span>
-          <h2>Strong gap. Clear path.</h2>
-        </div>
-        <div className={styles.denslyFrameworkGrid}>
-          {vocaFrameworks.map(item => (
-            <article key={item.title} className={styles.denslyFrameworkCard}>
-              <span>{item.title}</span>
-              <strong>{item.metric}</strong>
-              <small>{item.label}</small>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={styles.denslyRiskSection}>
-        <div className={styles.denslySectionHeader}>
-          <span className={styles.sectionLabel}>Validation gates</span>
-          <h2>Trust before launch.</h2>
-        </div>
-        <div className={styles.denslyRiskGrid}>
-          {vocaRisks.map(item => (
-            <article key={item.title} className={styles.denslyRiskCard}>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className={`${styles.demoSection} ${styles.denslyPrototypeSection} ${styles.vocaPrototypeSection}`}>
-        <div className={styles.demoText}>
-          <span className={styles.sectionLabel}>Interactive prototype</span>
-          <h2 className={styles.demoHeading}>Try the Voca flow</h2>
-          <p className={styles.demoBody}>
-            Explore the full Voca prototype: onboarding, live recording session, acoustic report card, patient roster, and progress tracking. All interactions are clickable.
-          </p>
-          <div className={styles.demoActions}>
-            <button className={styles.restartBtn} onClick={handleRestart}>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M12 7A5 5 0 1 1 7 2M7 2V0M7 2L10 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Restart prototype
-            </button>
-            <button className={styles.prototypeBtn} onClick={() => setPrototypeOpen(true)}>
-              Open phone view
-            </button>
-            <p className={styles.demoNote}>
-              Tap the red button on the record screen to run an analysis. All data is local. Nothing is sent anywhere.
-            </p>
-          </div>
-        </div>
-        <div className={styles.demoPhoneWrap}>
-          <IPhoneFrame
-            src={iframeSrc}
-            resetKey={resetKey}
-            isLoading={!iframeLoaded}
-            onLoad={() => setIframeLoaded(true)}
-            label="Voca mobile prototype"
-            title="Voca app prototype"
-          />
-        </div>
-      </section>
-
-      {prototypeOpen && (
-        <div className={styles.prototypeOverlay} role="dialog" aria-modal="true" aria-label="Voca full phone view">
-          <div className={styles.prototypeToolbar}>
-            <button className={styles.prototypeBackBtn} onClick={() => setPrototypeOpen(false)}>
-              Back to case study
-            </button>
-            <button className={styles.restartBtn} onClick={handleRestart}>
-              Restart prototype
-            </button>
-          </div>
-          <div className={styles.prototypeStage}>
-            <IPhoneFrame
-              src={iframeSrc}
-              resetKey={resetKey}
-              isLoading={!iframeLoaded}
-              onLoad={() => setIframeLoaded(true)}
-              variant="fullscreen"
-              label="Voca full mobile prototype"
-              title="Voca app prototype"
-            />
-          </div>
-        </div>
-      )}
-
-      <section className={styles.quoteBlock}>
-        <p className={styles.quote}>{concept.quote}</p>
-      </section>
-    </div>
-  )
-}
-
-/* ─── Concept detail page ───────────────────────────────── */
-
-function ConceptDetail({ concept, onBack }: { concept: Concept; onBack: () => void }) {
-  const [resetKey, setResetKey] = useState(0)
-  const [iframeLoaded, setIframeLoaded] = useState(false)
-  const [prototypeOpen, setPrototypeOpen] = useState(false)
-
-  useEffect(() => {
-    document.body.style.overflow = prototypeOpen ? 'hidden' : ''
-    const handleKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setPrototypeOpen(false)
-    }
-    window.addEventListener('keydown', handleKey)
-    return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', handleKey)
-    }
-  }, [prototypeOpen])
-
-  if (concept.id === 'densly') {
-    return <DenslyDetail concept={concept} onBack={onBack} />
-  }
-
-  if (concept.id === 'voca') {
-    return <VocaDetail concept={concept} onBack={onBack} />
-  }
-
-  // Reset the embedded app, passes ?reset=true then bounces back
-  function handleRestart() {
-    setIframeLoaded(false)
-    setResetKey(k => k + 1)
-  }
-
-  const protoPath = concept.prototypePath ?? '/firstweeks/index.html'
-  const iframeSrc = resetKey === 0
-    ? protoPath
-    : `${protoPath}?${concept.resetQuery ? concept.resetQuery + '&' : ''}restart=${resetKey}`
-
-  return (
-    <div className={styles.detail}>
-      {/* ── Back ── */}
-      <button className={styles.backBtn} onClick={onBack}>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        All concepts
-      </button>
-
-      {/* ── Hero ── */}
+      {/* 1 · Hero ─────────────────────────────────────────── */}
       <header className={styles.detailHero}>
         <div className={styles.detailMeta}>
           <span className={styles.tag}>{concept.category}</span>
@@ -1281,17 +560,31 @@ function ConceptDetail({ concept, onBack }: { concept: Concept; onBack: () => vo
         </div>
         <h1 className={styles.detailTitle}>{concept.title}</h1>
         <p className={styles.detailTagline}>{concept.tagline}</p>
+        <div className={styles.denslyThesisCard}>
+          <span>Product thesis</span>
+          <p>{concept.thesis}</p>
+        </div>
       </header>
 
-      {/* ── Problem ── */}
+      {/* 2 · Overview ─────────────────────────────────────── */}
       <section className={styles.section}>
-        <span className={styles.sectionLabel}>The problem</span>
-        <p className={styles.bodyLarge}>{concept.problem}</p>
+        <span className={styles.sectionLabel}>01 · Overview</span>
+        <p className={styles.bodyLarge}>{concept.overview.summary}</p>
+        <div className={styles.overviewGrid}>
+          <div className={styles.overviewItem}><span>Role</span><strong>{concept.overview.role}</strong></div>
+          <div className={styles.overviewItem}><span>Timeline</span><strong>{concept.overview.timeline}</strong></div>
+          <div className={styles.overviewItem}><span>Tools</span><strong>{concept.overview.tools}</strong></div>
+          <div className={styles.overviewItem}><span>Methods</span><strong>{concept.overview.methods}</strong></div>
+        </div>
+        <div className={styles.overviewProblem}>
+          <span className={styles.overviewProblemLabel}>The core problem</span>
+          <p>{concept.overview.problem}</p>
+        </div>
       </section>
 
-      {/* ── Discovery ── */}
+      {/* 3 · Discovery ────────────────────────────────────── */}
       <section className={styles.section}>
-        <span className={styles.sectionLabel}>What the data shows</span>
+        <span className={styles.sectionLabel}>02 · Discovery</span>
         <div className={styles.statsGrid}>
           {concept.discovery.map(d => (
             <div key={d.stat} className={styles.statCard}>
@@ -1300,19 +593,47 @@ function ConceptDetail({ concept, onBack }: { concept: Concept; onBack: () => vo
             </div>
           ))}
         </div>
+        <div className={styles.methodGrid}>
+          {concept.methods.map(m => (
+            <article key={m.method} className={styles.methodCard}>
+              <h3 className={styles.methodTitle}>{m.method}</h3>
+              <div className={styles.methodRow}><span>Why</span><p>{m.why}</p></div>
+              <div className={styles.methodRow}><span>What</span><p>{m.what}</p></div>
+              <div className={styles.methodRow}><span>How</span><p>{m.how}</p></div>
+            </article>
+          ))}
+        </div>
       </section>
 
-      {/* ── Insight ── */}
+      {/* Insight pull-quote */}
       <section className={styles.insightBlock}>
         <p className={styles.insightText}>"{concept.insight}"</p>
       </section>
 
-      {/* ── Solution ── */}
+      {/* 4 · Process ──────────────────────────────────────── */}
+      <section className={styles.denslyFlowSection}>
+        <div className={styles.denslySectionHeader}>
+          <span className={styles.sectionLabel}>03 · Design process</span>
+          <p>{concept.processIntro}</p>
+        </div>
+        <div className={styles.denslyFlowGrid}>
+          {concept.process.map(item => (
+            <article key={item.step} className={styles.denslyFlowCard}>
+              <span>{item.step}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* 5 · Final design ─────────────────────────────────── */}
       <section className={styles.section}>
-        <span className={styles.sectionLabel}>What was built</span>
+        <span className={styles.sectionLabel}>04 · Final design</span>
+        <p className={styles.bodyLarge}>{concept.designRationale}</p>
         <div className={styles.solutionGrid}>
           {concept.solution.map(s => (
-            <div key={s.label} className={styles.solutionCard}>
+            <div key={s.label} className={`${styles.solutionCard} ${styles.numberedSolutionCard}`}>
               <span className={styles.solutionIcon}>{s.icon}</span>
               <div>
                 <p className={styles.solutionTitle}>{s.label}</p>
@@ -1323,55 +644,45 @@ function ConceptDetail({ concept, onBack }: { concept: Concept; onBack: () => vo
         </div>
       </section>
 
-      {/* ── Quote ── */}
-      <section className={styles.quoteBlock}>
-        <p className={styles.quote}>{concept.quote}</p>
-      </section>
-
-      {/* ── Demo ── */}
-      <section className={styles.demoSection}>
+      {/* Interactive prototype (the phone screen) */}
+      <section className={`${styles.demoSection} ${styles.denslyPrototypeSection}`}>
         <div className={styles.demoText}>
           <span className={styles.sectionLabel}>Interactive prototype</span>
-          <h2 className={styles.demoHeading}>Try the full flow</h2>
-          <p className={styles.demoBody}>
-            Complete the onboarding, run a daily check-in, write a journal entry, and explore the care hub.
-            The full prototype is embedded below. It runs exactly as it would on a real device.
-          </p>
-
+          <h2 className={styles.demoHeading}>Try the {concept.title} flow</h2>
+          <p className={styles.demoBody}>{concept.prototypeCopy}</p>
           <div className={styles.demoActions}>
             <button className={styles.restartBtn} onClick={handleRestart}>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M12 7A5 5 0 1 1 7 2M7 2V0M7 2L10 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              Restart flow
+              Restart prototype
             </button>
             <button className={styles.prototypeBtn} onClick={() => setPrototypeOpen(true)}>
               Open phone view
             </button>
-            <p className={styles.demoNote}>
-              All data is stored locally in your browser. Nothing is sent anywhere.
-            </p>
+            <p className={styles.demoNote}>{concept.prototypeNote}</p>
           </div>
         </div>
-
         <div className={styles.demoPhoneWrap}>
           <IPhoneFrame
             src={iframeSrc}
             resetKey={resetKey}
             isLoading={!iframeLoaded}
             onLoad={() => setIframeLoaded(true)}
+            label={`${concept.title} mobile prototype`}
+            title={`${concept.title} app prototype`}
           />
         </div>
       </section>
 
       {prototypeOpen && (
-        <div className={styles.prototypeOverlay} role="dialog" aria-modal="true" aria-label="Firstweeks full phone view">
+        <div className={styles.prototypeOverlay} role="dialog" aria-modal="true" aria-label={`${concept.title} full phone view`}>
           <div className={styles.prototypeToolbar}>
             <button className={styles.prototypeBackBtn} onClick={() => setPrototypeOpen(false)}>
               Back to case study
             </button>
             <button className={styles.restartBtn} onClick={handleRestart}>
-              Restart flow
+              Restart prototype
             </button>
           </div>
           <div className={styles.prototypeStage}>
@@ -1381,10 +692,39 @@ function ConceptDetail({ concept, onBack }: { concept: Concept; onBack: () => vo
               isLoading={!iframeLoaded}
               onLoad={() => setIframeLoaded(true)}
               variant="fullscreen"
+              label={`${concept.title} full mobile prototype`}
+              title={`${concept.title} app prototype`}
             />
           </div>
         </div>
       )}
+
+      {/* 6 · Impact ───────────────────────────────────────── */}
+      <section className={styles.section}>
+        <span className={styles.sectionLabel}>05 · Projected impact</span>
+        <p className={styles.bodyLarge}>{concept.impactIntro}</p>
+        <div className={styles.statsGrid}>
+          {concept.impact.map(d => (
+            <div key={d.label} className={styles.statCard}>
+              <span className={styles.statNum}>{d.stat}</span>
+              <span className={styles.statLabel}>{d.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 7 · Learnings ────────────────────────────────────── */}
+      <section className={styles.section}>
+        <span className={styles.sectionLabel}>06 · Learnings</span>
+        <ul className={styles.learnList}>
+          {concept.learnings.map(l => <li key={l}>{l}</li>)}
+        </ul>
+      </section>
+
+      {/* Closing line */}
+      <section className={styles.quoteBlock}>
+        <p className={styles.quote}>{concept.quote}</p>
+      </section>
     </div>
   )
 }
@@ -1434,7 +774,6 @@ export function ConceptsPage({ embedded = false }: { embedded?: boolean } = {}) 
   const [active, setActive] = useState<string | null>(null)
   const [filter, setFilter] = useState<string>('All')
 
-  // Handle back navigation
   useEffect(() => {
     const onPop = () => {
       if (active) setActive(null)
@@ -1456,22 +795,20 @@ export function ConceptsPage({ embedded = false }: { embedded?: boolean } = {}) 
   const activeConcept = CONCEPTS.find(c => c.id === active)
 
   const body = activeConcept ? (
-    <ConceptDetail concept={activeConcept} onBack={closeConcept} />
+    <CaseStudyTemplate concept={activeConcept} onBack={closeConcept} />
   ) : (
     <>
-      {/* ── Page header ── */}
       {!embedded && (
         <header className={styles.pageHeader}>
           <p className={styles.pageLabel}>Nocturnal</p>
           <h1 className={styles.pageTitle}>Concepts</h1>
           <p className={styles.pageSubtitle}>
             Independently researched product concepts, each rooted in a real problem,
-            designed end-to-end, and built as interactive or product-ready case studies.
+            designed end-to-end, and documented as a full case study you could copy the structure of.
           </p>
         </header>
       )}
 
-      {/* ── Category filters ── */}
       <div className={styles.filters} role="tablist" aria-label="Filter concepts by category">
         {CONCEPT_FILTERS.map(f => (
           <button
@@ -1486,7 +823,6 @@ export function ConceptsPage({ embedded = false }: { embedded?: boolean } = {}) 
         ))}
       </div>
 
-      {/* ── Grid ── */}
       <div className={styles.grid}>
         {CONCEPTS
           .filter(c => filter === 'All' || c.category === filter)
@@ -1494,7 +830,6 @@ export function ConceptsPage({ embedded = false }: { embedded?: boolean } = {}) 
             <ConceptCard key={c.id} concept={c} onClick={() => openConcept(c.id)} />
           ))}
 
-        {/* Coming soon placeholder — only in the unfiltered view */}
         {filter === 'All' && (
         <article className={`${styles.card} ${styles.cardSoon}`}>
           <div className={styles.cardCover} style={{ background: 'var(--noc-glass-bg)' }}>
@@ -1515,7 +850,7 @@ export function ConceptsPage({ embedded = false }: { embedded?: boolean } = {}) 
     </>
   )
 
-  if (embedded) return body
+  if (embedded) return <div className={styles.embedded}>{body}</div>
 
   return <div className={styles.page}>{body}</div>
 }

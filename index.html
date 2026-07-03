@@ -6,22 +6,22 @@
     <title>Nocturnal — Industrial Design, UI/UX, CGI & Brand Systems Studio</title>
     <meta name="description" content="Nocturnal is a design intelligence studio for startups and product brands. We build industrial design, UI/UX systems, CGI, motion, and brand systems with strategic clarity." />
     <meta name="robots" content="index,follow,max-image-preview:large" />
-    <meta name="theme-color" content="#0D0D0D" />
+    <meta name="theme-color" content="#F5F4F0" />
     <link rel="canonical" href="https://getnctrnl.com/" />
 
     <!-- Pre-paint theme: apply stored/default theme before first paint to avoid a flash.
-         Dark is the default experience; a stored 'light' preference is respected.
+         Light is the default experience; a stored 'dark' preference is respected.
          The inline background-color prevents a flash while the CSS bundle loads. -->
     <script>
       (function () {
         try {
           var stored = localStorage.getItem('noc-theme')
-          var theme = stored === 'light' ? 'light' : 'dark'
+          var theme = stored === 'dark' ? 'dark' : 'light'
           document.documentElement.setAttribute('data-theme', theme)
           document.documentElement.style.background = theme === 'dark' ? '#0D0D0D' : '#F5F4F0'
         } catch (e) {
-          document.documentElement.setAttribute('data-theme', 'dark')
-          document.documentElement.style.background = '#0D0D0D'
+          document.documentElement.setAttribute('data-theme', 'light')
+          document.documentElement.style.background = '#F5F4F0'
         }
       })()
     </script>

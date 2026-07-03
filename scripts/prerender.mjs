@@ -22,6 +22,18 @@ const routes = [
       'Selected Nocturnal projects across industrial design, medical product design, mobility UI/UX, EV charging systems, CGI, packaging, and product visualization.',
   },
   {
+    out: 'dist/renders/index.html',
+    title: 'Render Gallery — Nocturnal CGI and Product Visualization',
+    description:
+      'A gallery of Nocturnal CAD visualisations and product render studies focused on material behaviour, lighting control, and object-led storytelling.',
+    canonical: `${SITE_URL}/renders`,
+    image: `${SITE_URL}/renders/render-01.webp`,
+    ogType: 'article',
+    noscriptH1: 'Nocturnal — Render Gallery and CGI Studies',
+    noscriptBody:
+      'A collection of Nocturnal CAD visualisations and product render studies across lighting, material, and object storytelling.',
+  },
+  {
     out: 'dist/concepts/index.html',
     title: 'Concepts — Nocturnal Product Concepts and Interactive Case Studies',
     description:
@@ -63,6 +75,7 @@ const routes = [
 const sitemapPages = [
   { path: '/', priority: '1.0' },
   { path: '/work', priority: '0.9' },
+  { path: '/renders', priority: '0.75' },
   { path: '/concepts', priority: '0.8' },
   { path: '/pricing', priority: '0.7' },
   { path: '/contact', priority: '0.6' },
