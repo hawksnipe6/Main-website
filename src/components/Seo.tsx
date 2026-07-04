@@ -8,9 +8,9 @@ type PageKey = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing'
 
 const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string }> = {
   home: {
-    title: 'Nocturnal | Industrial Design, UI/UX, CGI and Brand Systems Studio',
+    title: 'Nocturnal | Design Studio, Mumbai: Industrial, UI/UX, Brand, Motion',
     description:
-      'Nocturnal is a design intelligence studio for startups and product brands. We build industrial design, UI/UX systems, CGI, motion, and brand systems with strategic clarity.',
+      'Nocturnal is a multidisciplinary design studio in Mumbai. Industrial design from sterling silver instruments to consumer hardware, UI/UX systems, brand and graphic design, motion, and CGI.',
     canonical: SITE_URL,
     image: LOGO_URL,
   },
@@ -63,7 +63,7 @@ const organizationSchema = {
     'https://www.instagram.com/designwithabeer/',
   ],
   description:
-    'Nocturnal is a design intelligence studio specializing in industrial design, product UI/UX, CGI, motion, and brand systems.',
+    'Nocturnal is a multidisciplinary design studio in Mumbai. Industrial design, UI/UX systems, brand and graphic design, motion, and CGI.',
 }
 
 const professionalServiceSchema = {

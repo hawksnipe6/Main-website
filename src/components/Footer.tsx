@@ -67,8 +67,8 @@ export function Footer({ onNavigate }: { onNavigate?: (path: string) => void }) 
           <div className={styles.colBrand}>
             <a href="#hero" className={styles.logo}>Nocturnal</a>
             <p className={styles.tagline}>
-              Design intelligence studio. We design systems, not screens.
-              Execution is evidence of thinking.
+              Multidisciplinary design studio, Mumbai. One studio holds the
+              object, the interface, the brand, and the film.
             </p>
           </div>
 
@@ -113,7 +113,7 @@ export function Footer({ onNavigate }: { onNavigate?: (path: string) => void }) 
 
         <div className={styles.bottom}>
           <span>© {new Date().getFullYear()} Nocturnal. All rights reserved.</span>
-          <span>Design intelligence studio</span>
+          <span>Multidisciplinary design studio, Mumbai</span>
         </div>
       </footer>
 

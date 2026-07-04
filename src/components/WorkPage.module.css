@@ -5,6 +5,47 @@
   background: var(--noc-black);
 }
 
+/* ── Case study imagery ─────────────────────── */
+.imageSection {
+  margin-bottom: 80px;
+}
+
+.imagePair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
+.imagePair img,
+.imageFull img,
+.boardStack img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--noc-grey-2);
+}
+
+.imagePair img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.boardStack {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+@media (max-width: 768px) {
+  .imageSection {
+    margin-bottom: 56px;
+  }
+
+  .imagePair {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Embedded inside the portfolio shell: the shell owns the page gutter,
    so drop the self-applied max-width + horizontal padding here. */
 .embedded .grid,

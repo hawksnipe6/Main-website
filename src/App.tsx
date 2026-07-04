@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
+import { ProofStrip } from './components/ProofStrip'
+import { Ledger } from './components/Ledger'
+import { BackToTop } from './components/BackToTop'
 import { Footer } from './components/Footer'
 import { CustomCursor } from './components/CustomCursor'
 import { CustomScrollbar } from './components/CustomScrollbar'
@@ -96,14 +99,17 @@ export default function App() {
         />
       ) : (
         <main className="routeEnter">
-          <Hero onBooking={() => setModalOpen(true)} />
+          <Hero onBooking={() => setModalOpen(true)} onSeeWork={() => navigateToPath('/work')} />
+          <ProofStrip />
           <Testimonials />
           <Services />
           <Results onNavigate={navigateToPath} />
           <Faq />
+          <Ledger />
         </main>
       )}
       <Footer onNavigate={navigateToPath} />
+      <BackToTop />
       {modalOpen && <BookingModal onClose={() => setModalOpen(false)} />}
     </>
   )

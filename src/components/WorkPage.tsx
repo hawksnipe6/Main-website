@@ -335,6 +335,26 @@ const CASE_STUDY_DETAILS: Record<string, Omit<WorkCaseStudy, 'slug' | 'title' | 
   }
 }
 
+// Self-hosted process imagery pulled from each project's Behance case study.
+// public/work/<slug>/01.webp … NN.webp, in Behance display order.
+const GALLERY_COUNTS: Record<string, number> = {
+  alivio: 10,
+  'audio-1': 9,
+  armor: 10,
+  osmo: 10,
+  bedizen: 10,
+  'ice-tray': 8,
+  sailfish: 6,
+  medwise: 9,
+  palan: 6,
+  'ev-charging': 10,
+}
+
+function galleryFor(slug: string): string[] {
+  const count = GALLERY_COUNTS[slug] ?? 0
+  return Array.from({ length: count }, (_, i) => `/work/${slug}/${String(i + 1).padStart(2, '0')}.webp`)
+}
+
 const WORK_CASE_STUDIES: WorkCaseStudy[] = WORK_SAMPLES.map(sample => ({
   ...sample,
   ...CASE_STUDY_DETAILS[sample.slug],
@@ -362,6 +382,17 @@ function WorkCard({ work, onClick }: { work: WorkCaseStudy; onClick: () => void 
 }
 
 function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void }) {
+  const gallery = galleryFor(work.slug)
+  // Slice the Behance sequence into the narrative:
+  // [0]     opening board, right after the hero copy
+  // [1..2]  process pair, after the insight
+  // [3]     full-width board, after the approach
+  // [4..]   closing board sequence, before the outcome
+  const opening = gallery[0]
+  const processPair = gallery.slice(1, 3)
+  const decisionBoard = gallery[3]
+  const boards = gallery.slice(4)
+
   return (
     <div className={styles.detail}>
       <button className={styles.backBtn} onClick={onBack}>
@@ -382,7 +413,7 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
       </header>
 
       <section className={styles.heroImageBlock}>
-        <img src={work.image} alt={`${work.title} project visual`} loading="eager" />
+        <img src={opening ?? work.image} alt={`${work.title} project visual`} loading="eager" />
       </section>
 
       <section className={styles.section}>
@@ -400,6 +431,17 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
         <p className={styles.insightText}>“{work.insight}”</p>
       </section>
 
+      {processPair.length > 0 && (
+        <section className={styles.imageSection}>
+          <span className={styles.sectionLabel}>Process</span>
+          <div className={styles.imagePair}>
+            {processPair.map((src, i) => (
+              <img key={src} src={src} alt={`${work.title} process board ${i + 1}`} loading="lazy" />
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className={styles.section}>
         <span className={styles.sectionLabel}>Approach</span>
         <div className={styles.approachGrid}>
@@ -412,6 +454,14 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
         </div>
       </section>
 
+      {decisionBoard && (
+        <section className={styles.imageSection}>
+          <div className={styles.imageFull}>
+            <img src={decisionBoard} alt={`${work.title} design development board`} loading="lazy" />
+          </div>
+        </section>
+      )}
+
       <section className={styles.section}>
         <span className={styles.sectionLabel}>Key design decisions</span>
         <div className={styles.solutionGrid}>
@@ -423,6 +473,17 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
           ))}
         </div>
       </section>
+
+      {boards.length > 0 && (
+        <section className={styles.imageSection}>
+          <span className={styles.sectionLabel}>Selected boards</span>
+          <div className={styles.boardStack}>
+            {boards.map((src, i) => (
+              <img key={src} src={src} alt={`${work.title} presentation board ${i + 1}`} loading="lazy" />
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className={styles.section}>
         <span className={styles.sectionLabel}>What the project demonstrates</span>

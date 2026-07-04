@@ -1,10 +1,14 @@
 import { Cta } from './Cta'
 import { GridCanvas } from './GridCanvas'
+import { ProjectIntake } from './ProjectIntake'
 import styles from './ContactPage.module.css'
 
 export function ContactPage() {
   return (
     <main className={`${styles.page} routeEnter`}>
+
+      {/* ── Project intake ──────────────────────── */}
+      <ProjectIntake />
 
       {/* ── Join our team ───────────────────────── */}
       <div className={styles.sectionWrap}>

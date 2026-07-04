@@ -159,7 +159,8 @@ export function Services() {
           </h2>
         </div>
         <p className="section-body reveal reveal-d2">
-          Four focused capabilities for startups and product brands. Each service can stand alone, but the strongest outcomes happen when physical product design, interface design, brand strategy, and launch visuals work as one system.
+          One studio holds the object, the brand, the interface, and the film.
+          Nothing gets lost in a handoff.
         </p>
       </div>
 
