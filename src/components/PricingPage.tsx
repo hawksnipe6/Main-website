@@ -8,18 +8,28 @@ const WHATSAPP_URL = 'https://wa.me/917045421516'
 /**
  * NOTE: Prices below are ILLUSTRATIVE starting points based on an emerging,
  * multidisciplinary studio. Review and set your own before publishing — edit the
- * `price` strings in the DOMAINS data. Structure, deliverables, and copy are ready.
+ * `priceUSD` / `priceINR` numbers in the DOMAINS data. Structure, deliverables,
+ * and copy are ready.
  */
+
+type Currency = 'USD' | 'INR'
 
 type Tier = {
   name: string
   bestFor: string
-  price: string
+  priceUSD: number
+  priceINR: number
   deliverables: string[]
   revisions: string
   timeline: string
   featured?: boolean
   locked?: boolean
+}
+
+function formatPrice(tier: Tier, currency: Currency) {
+  return currency === 'USD'
+    ? `$${tier.priceUSD.toLocaleString('en-US')}`
+    : `₹${tier.priceINR.toLocaleString('en-IN')}`
 }
 
 type Domain = {
@@ -38,7 +48,8 @@ const DOMAINS: Domain[] = [
       {
         name: 'Focused',
         bestFor: 'A single product concept, visualized.',
-        price: '₹35,000',
+        priceUSD: 400,
+        priceINR: 35000,
         deliverables: ['Research snapshot', 'Form concepts (3 directions)', '1 set of 3D hero renders'],
         revisions: '2 revision rounds',
         timeline: '~1 week',
@@ -46,7 +57,8 @@ const DOMAINS: Domain[] = [
       {
         name: 'Core',
         bestFor: 'Full industrial design, render-ready.',
-        price: '₹85,000',
+        priceUSD: 600,
+        priceINR: 50000,
         deliverables: ['Research + opportunity map', 'Form direction + CAD model', 'CMF / material direction', 'Hero render set'],
         revisions: '3 revision rounds',
         timeline: '~2–3 weeks',
@@ -55,7 +67,8 @@ const DOMAINS: Domain[] = [
       {
         name: 'Complete',
         bestFor: 'Concept to validated prototype.',
-        price: '₹1,80,000',
+        priceUSD: 2100,
+        priceINR: 180000,
         deliverables: ['Everything in Core', 'Lo-fi + 3D-printed prototype', 'Ergonomic checks', 'Presentation deck'],
         revisions: '4 revision rounds',
         timeline: '~5–6 weeks',
@@ -71,24 +84,32 @@ const DOMAINS: Domain[] = [
       {
         name: 'Focused',
         bestFor: 'One crisp motion asset.',
-        price: '₹18,000',
+        priceUSD: 220,
+        priceINR: 18000,
         deliverables: ['1× up to 15s 2D motion / explainer', '1 delivery format', 'Licensed music'],
         revisions: '2 revision rounds',
         timeline: '~1 week',
       },
       {
         name: 'Core',
-        bestFor: 'A product film that sells.',
-        price: '₹45,000',
-        deliverables: ['1× up to 30s 3D product film', 'Sound design', '1 master + 1 social cutdown'],
-        revisions: '3 revision rounds',
-        timeline: '~2–3 weeks',
+        bestFor: 'A short 3D product film that sells.',
+        priceUSD: 400,
+        priceINR: 35000,
+        deliverables: [
+          'Up to 5× 3D product films, 4–15s',
+          '3D product render + animation',
+          'Sound design included',
+          'All source & project files',
+        ],
+        revisions: '2 revision rounds',
+        timeline: '~1–2 weeks',
         featured: true,
       },
       {
         name: 'Complete',
         bestFor: 'A full launch motion kit.',
-        price: '₹90,000',
+        priceUSD: 1050,
+        priceINR: 90000,
         deliverables: ['3D product film + variants', 'Social cutdowns (3 ratios)', 'Promo stills', 'Sound design'],
         revisions: '3 revision rounds',
         timeline: '~4 weeks',
@@ -104,7 +125,8 @@ const DOMAINS: Domain[] = [
       {
         name: 'Focused',
         bestFor: 'One flow, fully designed.',
-        price: '₹25,000',
+        priceUSD: 300,
+        priceINR: 25000,
         deliverables: ['1 core flow, 1 platform', '3–5 key screens', 'Wireframe + high-fidelity UI'],
         revisions: '2 revision rounds',
         timeline: '~1 week',
@@ -112,7 +134,8 @@ const DOMAINS: Domain[] = [
       {
         name: 'Core',
         bestFor: 'A complete product surface.',
-        price: '₹65,000',
+        priceUSD: 470,
+        priceINR: 40000,
         deliverables: ['UX research snapshot', 'IA + key user flows', '10–15 screens', 'Design system starter', 'Clickable prototype'],
         revisions: '3 revision rounds',
         timeline: '~2–3 weeks',
@@ -121,7 +144,8 @@ const DOMAINS: Domain[] = [
       {
         name: 'Complete',
         bestFor: 'End-to-end product, dev-ready.',
-        price: '₹1,50,000',
+        priceUSD: 1750,
+        priceINR: 150000,
         deliverables: ['Full UX research + strategy', 'Full app screen set', 'Complete design system', 'Interactive prototype', 'Developer handoff'],
         revisions: '4 revision rounds',
         timeline: '~5–6 weeks',
@@ -137,7 +161,8 @@ const DOMAINS: Domain[] = [
       {
         name: 'Focused',
         bestFor: 'A sharp visual identity.',
-        price: '₹20,000',
+        priceUSD: 240,
+        priceINR: 20000,
         deliverables: ['Logo system', 'Color + type direction', 'Basic usage sheet'],
         revisions: '2 revision rounds',
         timeline: '~1 week',
@@ -145,8 +170,9 @@ const DOMAINS: Domain[] = [
       {
         name: 'Core',
         bestFor: 'A complete brand system.',
-        price: '₹55,000',
-        deliverables: ['Positioning direction', 'Identity system', 'Typography + color + grid', 'Core collateral', 'Mini guidelines'],
+        priceUSD: 400,
+        priceINR: 35000,
+        deliverables: ['Branding', 'Identity system', 'Social media content design'],
         revisions: '3 revision rounds',
         timeline: '~2–3 weeks',
         featured: true,
@@ -154,7 +180,8 @@ const DOMAINS: Domain[] = [
       {
         name: 'Complete',
         bestFor: 'Brand, built to launch.',
-        price: '₹1,20,000',
+        priceUSD: 1400,
+        priceINR: 120000,
         deliverables: ['Strategy + identity', 'Full brand guidelines', 'Collateral suite', 'Campaign / launch visuals', 'Social system'],
         revisions: '4 revision rounds',
         timeline: '~5 weeks',
@@ -166,6 +193,7 @@ const DOMAINS: Domain[] = [
 
 export function PricingPage() {
   const [contactFor, setContactFor] = useState<string | null>(null)
+  const [currency, setCurrency] = useState<Currency>('USD')
 
   useEffect(() => {
     if (contactFor === null) return
@@ -181,7 +209,27 @@ export function PricingPage() {
   return (
     <main className={`${styles.page} routeEnter`}>
       <header className={styles.header}>
-        <p className={styles.label}>Pricing</p>
+        <div className={styles.headerRow}>
+          <p className={styles.label}>Pricing</p>
+          <div className={styles.currencyToggle} role="group" aria-label="Currency">
+            <button
+              className={`${styles.currencyBtn} ${currency === 'USD' ? styles.currencyBtnActive : ''}`}
+              onClick={() => setCurrency('USD')}
+              aria-pressed={currency === 'USD'}
+              aria-label="Show prices in US dollars"
+            >
+              $
+            </button>
+            <button
+              className={`${styles.currencyBtn} ${currency === 'INR' ? styles.currencyBtnActive : ''}`}
+              onClick={() => setCurrency('INR')}
+              aria-pressed={currency === 'INR'}
+              aria-label="Show prices in Indian rupees"
+            >
+              ₹
+            </button>
+          </div>
+        </div>
         <h1 className={styles.title}>Fixed scope. Fixed price. No surprises.</h1>
         <p className={styles.subtitle}>
           Pick a package and you know exactly what you get, how many revisions, and when. Need something bigger or unusual? Talk to us and we will scope it directly.
@@ -199,7 +247,7 @@ export function PricingPage() {
                   {tier.featured && <span className={styles.badge}>Most popular</span>}
                   <h2 className={styles.tierName}>{tier.name}</h2>
                   <p className={styles.bestFor}>{tier.bestFor}</p>
-                  <p className={`${styles.price} ${tier.locked ? styles.priceLocked : ''}`}>{tier.price}</p>
+                  <p className={`${styles.price} ${tier.locked ? styles.priceLocked : ''}`}>{formatPrice(tier, currency)}</p>
                   <p className={styles.priceNote}>{tier.locked ? 'scoped on request' : 'fixed, per project'}</p>
                   <div className={styles.divider} />
                   <ul className={styles.featList}>
