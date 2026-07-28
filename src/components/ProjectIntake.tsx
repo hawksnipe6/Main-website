@@ -143,7 +143,7 @@ export function ProjectIntake() {
               </button>
               {status === 'error' && (
                 <p className={styles.error}>
-                  That did not go through. Try once more, or email contact@getnctrnl.com.
+                  That did not go through. Try once more, or email getnctrnl@gmail.com.
                 </p>
               )}
             </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import styles from './PricingPage.module.css'
 
-const EMAIL = 'contact@getnctrnl.com'
+const EMAIL = 'getnctrnl@gmail.com'
 const WHATSAPP_DISPLAY = '+91 70454 21516'
 const WHATSAPP_URL = 'https://wa.me/917045421516'
 

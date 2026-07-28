@@ -46,7 +46,7 @@ const FOOTER_COLS: { title: string; links: FooterLink[] }[] = [
     title: 'Engage',
     links: [
       { label: 'Careers', href: 'careers' },
-      { label: 'contact@getnctrnl.com', href: 'mailto:contact@getnctrnl.com' },
+      { label: 'getnctrnl@gmail.com', href: 'mailto:getnctrnl@gmail.com' },
       { label: '+91 70454 21516', href: 'tel:+917045421516' },
     ],
   },
@@ -129,7 +129,7 @@ export function Footer({ onNavigate }: { onNavigate?: (path: string) => void }) 
             <p className={styles.panelBody}>
               Although we are not hiring at the moment, you can mail us. We will reach out to you soon.
             </p>
-            <a className={styles.panelMail} href="mailto:contact@getnctrnl.com">contact@getnctrnl.com</a>
+            <a className={styles.panelMail} href="mailto:getnctrnl@gmail.com">getnctrnl@gmail.com</a>
           </article>
         </div>
       )}

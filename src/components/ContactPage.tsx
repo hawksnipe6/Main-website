@@ -25,10 +25,10 @@ export function ContactPage() {
             hear from you.
           </p>
           <a
-            href="mailto:contact@getnctrnl.com"
+            href="mailto:getnctrnl@gmail.com"
             className={`${styles.joinEmail} reveal reveal-d2`}
           >
-            contact@getnctrnl.com
+            getnctrnl@gmail.com
           </a>
           <a
             href="tel:+917045421516"
