@@ -101,6 +101,14 @@ button {
   background: none;
 }
 
+/* ── FOCUS VISIBILITY ──────────────────────── */
+/* Custom cursor hides the pointer on desktop, so a clear, on-brand focus
+   ring is the only way keyboard users can see where they are. */
+:focus-visible {
+  outline: 2px solid var(--noc-accent);
+  outline-offset: 2px;
+}
+
 /* ── GLOBAL SECTION ────────────────────────── */
 section {
   padding: var(--section-padding-v) calc(var(--gutter) + var(--site-padding));

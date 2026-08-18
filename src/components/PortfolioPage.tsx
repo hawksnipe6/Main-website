@@ -13,10 +13,12 @@ const TABS: { id: Tab; label: string }[] = [
 
 export function PortfolioPage({
   activeTab,
+  slug,
   onTabChange,
   onNavigate,
 }: {
   activeTab: Tab
+  slug?: string
   onTabChange: (tab: Tab) => void
   onNavigate?: (path: string) => void
 }) {
@@ -40,11 +42,11 @@ export function PortfolioPage({
 
         <div key={activeTab} className={styles.content}>
           {activeTab === 'work' ? (
-            <WorkPage embedded onNavigate={onNavigate} />
+            <WorkPage embedded activeSlug={slug} onNavigate={onNavigate} />
           ) : activeTab === 'renders' ? (
             <RenderGallery embedded />
           ) : (
-            <ConceptsPage embedded />
+            <ConceptsPage embedded activeSlug={slug} onNavigate={onNavigate} />
           )}
         </div>
       </div>

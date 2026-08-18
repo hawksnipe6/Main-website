@@ -69,7 +69,78 @@ const routes = [
     noscriptBody:
       'Email or WhatsApp Nocturnal to start an industrial design, UI/UX, CGI, motion, or brand project, or book a free thirty-minute strategy call.',
   },
+  {
+    out: 'dist/privacy/index.html',
+    title: 'Privacy Policy | Nocturnal',
+    description: 'How Nocturnal collects, uses, and protects the information you share through this site.',
+    canonical: `${SITE_URL}/privacy`,
+    image: `${SITE_URL}/logo%20512.png`,
+    ogType: 'website',
+    noscriptH1: 'Nocturnal — Privacy Policy',
+    noscriptBody: 'How Nocturnal collects, uses, and protects the information you share through this site.',
+  },
+  {
+    out: 'dist/terms/index.html',
+    title: 'Terms of Service | Nocturnal',
+    description: 'The terms that govern your use of the Nocturnal website.',
+    canonical: `${SITE_URL}/terms`,
+    image: `${SITE_URL}/logo%20512.png`,
+    ogType: 'website',
+    noscriptH1: 'Nocturnal — Terms of Service',
+    noscriptBody: 'The terms that govern your use of the Nocturnal website.',
+  },
 ]
+
+// Individual case studies, each with its own URL. Keep slugs/titles/descriptions
+// in sync with src/data/workSamples.ts and the CASE_STUDY_DETAILS in WorkPage.tsx.
+const WORK_ITEMS = [
+  { slug: 'martand', title: 'Martand', description: 'A scroll-driven animation study in form, light, and rhythm, rendered frame by frame for frame-perfect motion.', image: '/work-cover-martand.jpg' },
+  { slug: 'alivio', title: 'Alivio - Posture Corrector and TENS Device', description: 'A posture and TENS device concept shaped through body research, form exploration, engineering logic, and prototype validation.', image: '/work-cover-alivio.png' },
+  { slug: 'audio-1', title: 'Audio 1', description: 'A home-audio concept influenced by restrained consumer electronics, with attention to interface hierarchy, CMF, and product presence.', image: '/work-cover-audio-1.png' },
+  { slug: 'renderfolio', title: 'renderfolio.', description: 'A compact collection of rendered product studies focused on material behaviour, lighting control, and object storytelling.', image: '/work-cover-renderfolio-custom.png' },
+  { slug: 'armor', title: 'Visual Design for armor', description: 'A visual design system for Armor that turns product features into crisp campaign assets, launch moments, and social-first compositions.', image: '/work-cover-armor-custom.png' },
+  { slug: 'osmo', title: 'OSMO VISION 1', description: 'A binocular design study that moves from early sketches into foam models, prototype logic, and ergonomic refinement.', image: '/work-cover-osmo.jpg' },
+  { slug: 'bedizen', title: 'Bedizen - Cranial Audio Headset', description: 'A cranial audio headset explored as both physical object and connected digital system, pairing device form with tuning controls.', image: '/work-cover-bedizen.png' },
+  { slug: 'ice-tray', title: 'Ice Tray - Universal Design', description: 'A universal-design exercise around a simple kitchen object, improving grip, sequence, clarity, and use for different bodies.', image: '/work-cover-ice-tray-custom.png' },
+  { slug: 'sailfish', title: 'Sailfish - Hyperloop Commuting app', description: 'A commuting app concept for a future mobility system, focused on route clarity, information hierarchy, and calm trip planning.', image: '/work-cover-sailfish.png' },
+  { slug: 'medwise', title: 'Medwise - Drug-Drug Interaction App', description: 'A healthcare app concept that simplifies medication interaction checks through accessible flows and clear warning hierarchy.', image: '/work-cover-medwise.png' },
+  { slug: 'palan', title: 'Palan - Packaging Design', description: 'A packaging design project shaped around shelf presence, hierarchy, material impression, and distinct brand recall.', image: '/work-cover-palan.png' },
+  { slug: 'ev-charging', title: 'EV Charging ecosystem | System Design', description: 'A systems study mapping the behavioural, infrastructural, and decision-making friction around EV charging ecosystems.', image: '/work-cover-ev-charging.jpg' },
+]
+
+// Keep in sync with the CONCEPTS array in src/components/ConceptsPage.tsx.
+const CONCEPT_ITEMS = [
+  { slug: 'tollgate', title: 'Tollgate', tagline: 'Giving people a spending firewall they trust more the longer it runs — a consumer-owned control layer that sits between AI shopping agents and their money.' },
+  { slug: 'densly', title: 'Densly', tagline: 'Turning scattered mirror-checks into evidence — a treatment-outcome platform that tells people whether their hair-loss routine is actually working.' },
+  { slug: 'firstweeks', title: 'Firstweeks', tagline: 'Closing the gap between hospital discharge and the six-week check-up — a postpartum recovery operating system for first-time mothers.' },
+  { slug: 'voca', title: 'Voca', tagline: 'Putting a Praat-quality report in a coat pocket — clinical voice analysis, mobile-first, built for therapists and their patients.' },
+]
+
+for (const item of WORK_ITEMS) {
+  routes.push({
+    out: `dist/work/${item.slug}/index.html`,
+    title: `${item.title} | Nocturnal Work`,
+    description: item.description,
+    canonical: `${SITE_URL}/work/${item.slug}`,
+    image: `${SITE_URL}${item.image}`,
+    ogType: 'article',
+    noscriptH1: `Nocturnal — ${item.title}`,
+    noscriptBody: item.description,
+  })
+}
+
+for (const item of CONCEPT_ITEMS) {
+  routes.push({
+    out: `dist/concepts/${item.slug}/index.html`,
+    title: `${item.title} | Nocturnal Concepts`,
+    description: item.tagline,
+    canonical: `${SITE_URL}/concepts/${item.slug}`,
+    image: `${SITE_URL}/logo%20512.png`,
+    ogType: 'article',
+    noscriptH1: `Nocturnal — ${item.title}`,
+    noscriptBody: item.tagline,
+  })
+}
 
 // Every indexable route, with crawl priority. Keep in sync with `routes` above.
 const sitemapPages = [
@@ -79,6 +150,10 @@ const sitemapPages = [
   { path: '/concepts', priority: '0.8' },
   { path: '/pricing', priority: '0.7' },
   { path: '/contact', priority: '0.6' },
+  { path: '/privacy', priority: '0.2' },
+  { path: '/terms', priority: '0.2' },
+  ...WORK_ITEMS.map((item) => ({ path: `/work/${item.slug}`, priority: '0.65' })),
+  ...CONCEPT_ITEMS.map((item) => ({ path: `/concepts/${item.slug}`, priority: '0.6' })),
 ]
 
 const workSchema = (description) => ({

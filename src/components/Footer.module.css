@@ -6,8 +6,8 @@
 
 .top {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: clamp(48px, 8vw, 160px);
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  column-gap: clamp(32px, 5vw, 96px);
   width: 100%;
   max-width: var(--max-width);
   margin-left: auto;

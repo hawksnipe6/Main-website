@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import styles from './Scheduler.module.css'
 
 const EMAIL = 'getnctrnl@gmail.com'
@@ -95,9 +95,15 @@ export function Scheduler() {
   const canSubmit = form.name.trim() !== '' && /\S+@\S+\.\S+/.test(form.email)
 
   const [status, setStatus] = useState<'idle' | 'sending' | 'error'>('idle')
+  const honeypotRef = useRef<HTMLInputElement>(null)
 
   const submitForm = async () => {
     if (!canSubmit || status === 'sending') return
+    if (honeypotRef.current?.checked) {
+      // Filled by an automated form-filler, not a person — quietly pretend it worked.
+      setView('done')
+      return
+    }
     setStatus('sending')
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
@@ -105,6 +111,7 @@ export function Scheduler() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
+          botcheck: false,
           subject: `Discovery call request — ${summary}`,
           from_name: 'Nocturnal Booking',
           name: form.name,
@@ -241,6 +248,16 @@ export function Scheduler() {
               placeholder="A line on your product, brand, or the friction you're feeling."
             />
           </label>
+
+          <input
+            type="checkbox"
+            name="botcheck"
+            ref={honeypotRef}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ display: 'none' }}
+          />
 
           <button
             type="button"

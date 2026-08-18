@@ -61,7 +61,7 @@ type Concept = {
 
 /* ─── Data ──────────────────────────────────────────────── */
 
-const CONCEPTS: Concept[] = [
+export const CONCEPTS: Concept[] = [
   {
     id: 'tollgate',
     title: 'Tollgate',
@@ -770,29 +770,26 @@ function ConceptCard({ concept, onClick }: { concept: Concept; onClick: () => vo
 
 const CONCEPT_FILTERS = ['All', 'Health Tech', 'Fintech'] as const
 
-export function ConceptsPage({ embedded = false }: { embedded?: boolean } = {}) {
-  const [active, setActive] = useState<string | null>(null)
+export function ConceptsPage({
+  embedded = false,
+  activeSlug,
+  onNavigate,
+}: {
+  embedded?: boolean
+  activeSlug?: string
+  onNavigate?: (path: string) => void
+} = {}) {
   const [filter, setFilter] = useState<string>('All')
 
-  useEffect(() => {
-    const onPop = () => {
-      if (active) setActive(null)
-    }
-    window.addEventListener('popstate', onPop)
-    return () => window.removeEventListener('popstate', onPop)
-  }, [active])
-
   function openConcept(id: string) {
-    window.scrollTo({ top: 0, behavior: 'auto' })
-    setActive(id)
+    onNavigate?.(`/concepts/${id}`)
   }
 
   function closeConcept() {
-    window.scrollTo({ top: 0, behavior: 'auto' })
-    setActive(null)
+    onNavigate?.('/concepts')
   }
 
-  const activeConcept = CONCEPTS.find(c => c.id === active)
+  const activeConcept = activeSlug ? CONCEPTS.find(c => c.id === activeSlug) : undefined
 
   const body = activeConcept ? (
     <CaseStudyTemplate concept={activeConcept} onBack={closeConcept} />

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { ProofStrip } from './components/ProofStrip'
@@ -18,16 +19,29 @@ import { Services } from './components/Services'
 import { Results } from './components/Results'
 import { Faq } from './components/Faq'
 import { Seo } from './components/Seo'
+import { NotFoundPage } from './components/NotFoundPage'
+import { PrivacyPage } from './components/PrivacyPage'
+import { TermsPage } from './components/TermsPage'
 
-type Page = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing'
+type Page = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing' | 'privacy' | 'terms' | 'notFound'
 
-function getPage(pathname: string): Page {
-  if (pathname === '/work') return 'work'
-  if (pathname === '/renders') return 'renders'
-  if (pathname === '/concepts') return 'concepts'
-  if (pathname === '/contact') return 'contact'
-  if (pathname === '/pricing') return 'pricing'
-  return 'home'
+type Route = { page: Page; slug?: string }
+
+function getRoute(pathname: string): Route {
+  const path = pathname.replace(/\/+$/, '') || '/'
+  const workMatch = path.match(/^\/work\/([a-z0-9-]+)$/)
+  if (workMatch) return { page: 'work', slug: workMatch[1] }
+  const conceptMatch = path.match(/^\/concepts\/([a-z0-9-]+)$/)
+  if (conceptMatch) return { page: 'concepts', slug: conceptMatch[1] }
+  if (path === '/') return { page: 'home' }
+  if (path === '/work') return { page: 'work' }
+  if (path === '/renders') return { page: 'renders' }
+  if (path === '/concepts') return { page: 'concepts' }
+  if (path === '/contact') return { page: 'contact' }
+  if (path === '/pricing') return { page: 'pricing' }
+  if (path === '/privacy') return { page: 'privacy' }
+  if (path === '/terms') return { page: 'terms' }
+  return { page: 'notFound' }
 }
 
 export default function App() {
@@ -72,12 +86,13 @@ export default function App() {
     requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }))
   }
 
-  const page = getPage(path)
+  const { page, slug } = getRoute(path)
 
   return (
     <>
       {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
-      <Seo page={page} />
+      <Analytics />
+      <Seo page={page} slug={slug} />
       <CustomCursor />
       <CustomScrollbar />
       <Nav
@@ -94,9 +109,16 @@ export default function App() {
       ) : page === 'work' || page === 'renders' || page === 'concepts' ? (
         <PortfolioPage
           activeTab={page}
+          slug={slug}
           onTabChange={(tab) => navigateToPath(`/${tab}`)}
           onNavigate={navigateToPath}
         />
+      ) : page === 'privacy' ? (
+        <PrivacyPage />
+      ) : page === 'terms' ? (
+        <TermsPage />
+      ) : page === 'notFound' ? (
+        <NotFoundPage onNavigate={navigateToPath} />
       ) : (
         <main className="routeEnter">
           <Hero onBooking={() => setModalOpen(true)} onSeeWork={() => navigateToPath('/work')} />

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import styles from './ProjectIntake.module.css'
 
 // Same Web3Forms key as the scheduler. Submissions arrive by email the
@@ -17,6 +17,7 @@ export function ProjectIntake() {
   const [engagement, setEngagement] = useState<string | null>(null)
   const [form, setForm] = useState({ name: '', email: '', brief: '' })
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
+  const honeypotRef = useRef<HTMLInputElement>(null)
 
   const canSubmit =
     engagement !== null &&
@@ -26,6 +27,11 @@ export function ProjectIntake() {
 
   const submit = async () => {
     if (!canSubmit || status === 'sending') return
+    if (honeypotRef.current?.checked) {
+      // Filled by an automated form-filler, not a person — quietly pretend it worked.
+      setStatus('done')
+      return
+    }
     setStatus('sending')
     const picked = ENGAGEMENTS.find((e) => e.id === engagement)
     try {
@@ -34,6 +40,7 @@ export function ProjectIntake() {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
+          botcheck: false,
           subject: `Project inquiry — ${picked?.label} — ${form.name}`,
           from_name: 'Nocturnal Intake',
           name: form.name,
@@ -132,6 +139,16 @@ export function ProjectIntake() {
                   placeholder="What it is, who it is for, and where it stands today."
                 />
               </label>
+
+              <input
+                type="checkbox"
+                name="botcheck"
+                ref={honeypotRef}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ display: 'none' }}
+              />
 
               <button
                 type="button"

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { WORK_SAMPLES } from '../data/workSamples'
 import styles from './WorkPage.module.css'
 import { MartandCaseStudy } from './MartandCaseStudy'
@@ -527,28 +526,24 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
   )
 }
 
-export function WorkPage({ embedded = false, onNavigate }: { embedded?: boolean; onNavigate?: (path: string) => void } = {}) {
-  const [active, setActive] = useState<string | null>(null)
-
-  useEffect(() => {
-    const onPop = () => {
-      if (active) setActive(null)
-    }
-    window.addEventListener('popstate', onPop)
-    return () => window.removeEventListener('popstate', onPop)
-  }, [active])
-
+export function WorkPage({
+  embedded = false,
+  activeSlug,
+  onNavigate,
+}: {
+  embedded?: boolean
+  activeSlug?: string
+  onNavigate?: (path: string) => void
+} = {}) {
   function openWork(slug: string) {
-    window.scrollTo({ top: 0, behavior: 'auto' })
-    setActive(slug)
+    onNavigate?.(`/work/${slug}`)
   }
 
   function closeWork() {
-    window.scrollTo({ top: 0, behavior: 'auto' })
-    setActive(null)
+    onNavigate?.('/work')
   }
 
-  const activeWork = WORK_CASE_STUDIES.find(work => work.slug === active)
+  const activeWork = activeSlug ? WORK_CASE_STUDIES.find(work => work.slug === activeSlug) : undefined
 
   const body = activeWork ? (
     activeWork.slug === 'martand'

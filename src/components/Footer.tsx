@@ -50,6 +50,13 @@ const FOOTER_COLS: { title: string; links: FooterLink[] }[] = [
       { label: '+91 70454 21516', href: 'tel:+917045421516' },
     ],
   },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy Policy', href: '/privacy', navigate: true },
+      { label: 'Terms of Service', href: '/terms', navigate: true },
+    ],
+  },
 ]
 
 export function Footer({ onNavigate }: { onNavigate?: (path: string) => void }) {

@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 import { WORK_SAMPLES } from '../data/workSamples'
+import { CONCEPTS } from './ConceptsPage'
 
 const SITE_URL = 'https://getnctrnl.com'
 const LOGO_URL = `${SITE_URL}/logo%20512.png`
 
-type PageKey = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing'
+type PageKey = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing' | 'privacy' | 'terms' | 'notFound'
 
-const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string }> = {
+const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string; robots?: string }> = {
   home: {
     title: 'Nocturnal | Design Studio, Mumbai: Industrial, UI/UX, Brand, Motion',
     description:
@@ -48,6 +49,25 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
       'Fixed-scope, fixed-price design packages across industrial design, UI/UX, motion, and brand. Clear deliverables, revisions, and timelines, with custom scoping when you need it.',
     canonical: `${SITE_URL}/pricing`,
     image: LOGO_URL,
+  },
+  privacy: {
+    title: 'Privacy Policy | Nocturnal',
+    description: 'How Nocturnal collects, uses, and protects the information you share through this site.',
+    canonical: `${SITE_URL}/privacy`,
+    image: LOGO_URL,
+  },
+  terms: {
+    title: 'Terms of Service | Nocturnal',
+    description: 'The terms that govern your use of the Nocturnal website.',
+    canonical: `${SITE_URL}/terms`,
+    image: LOGO_URL,
+  },
+  notFound: {
+    title: 'Page Not Found | Nocturnal',
+    description: 'This page does not exist. Find your way back to Nocturnal, home, work, pricing, or contact.',
+    canonical: `${SITE_URL}/`,
+    image: LOGO_URL,
+    robots: 'noindex,follow',
   },
 }
 
@@ -169,12 +189,38 @@ function setJsonLd(id: string, value: unknown) {
   tag.textContent = JSON.stringify(value)
 }
 
-export function Seo({ page }: { page: PageKey }) {
+function getMeta(page: PageKey, slug?: string) {
+  if (page === 'work' && slug) {
+    const work = WORK_SAMPLES.find((w) => w.slug === slug)
+    if (work) {
+      return {
+        title: `${work.title} | Nocturnal Work`,
+        description: work.description,
+        canonical: `${SITE_URL}/work/${slug}`,
+        image: `${SITE_URL}${work.image}`,
+      }
+    }
+  }
+  if (page === 'concepts' && slug) {
+    const concept = CONCEPTS.find((c) => c.id === slug)
+    if (concept) {
+      return {
+        title: `${concept.title} | Nocturnal Concepts`,
+        description: concept.tagline,
+        canonical: `${SITE_URL}/concepts/${slug}`,
+        image: LOGO_URL,
+      }
+    }
+  }
+  return PAGE_META[page]
+}
+
+export function Seo({ page, slug }: { page: PageKey; slug?: string }) {
   useEffect(() => {
-    const meta = PAGE_META[page]
+    const meta = getMeta(page, slug)
     document.title = meta.title
     setMeta('meta[name="description"]', { name: 'description', content: meta.description })
-    setMeta('meta[name="robots"]', { name: 'robots', content: 'index,follow,max-image-preview:large' })
+    setMeta('meta[name="robots"]', { name: 'robots', content: meta.robots ?? 'index,follow,max-image-preview:large' })
     setMeta('meta[property="og:title"]', { property: 'og:title', content: meta.title })
     setMeta('meta[property="og:description"]', { property: 'og:description', content: meta.description })
     setMeta('meta[property="og:url"]', { property: 'og:url', content: meta.canonical })
@@ -191,14 +237,14 @@ export function Seo({ page }: { page: PageKey }) {
     if (page === 'home') {
       setJsonLd('schema-faq', faqSchema)
       document.getElementById('schema-work')?.remove()
-    } else if (page === 'work') {
+    } else if (page === 'work' && !slug) {
       setJsonLd('schema-work', workSchema)
       document.getElementById('schema-faq')?.remove()
     } else {
       document.getElementById('schema-faq')?.remove()
       document.getElementById('schema-work')?.remove()
     }
-  }, [page])
+  }, [page, slug])
 
   return null
 }
