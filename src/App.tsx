@@ -22,6 +22,7 @@ import { Seo } from './components/Seo'
 import { NotFoundPage } from './components/NotFoundPage'
 import { PrivacyPage } from './components/PrivacyPage'
 import { TermsPage } from './components/TermsPage'
+import { PrivacyNotice } from './components/PrivacyNotice'
 
 type Page = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing' | 'privacy' | 'terms' | 'notFound'
 
@@ -49,11 +50,30 @@ export default function App() {
   const [modalOpen, setModalOpen] = useState(false)
   const [loading, setLoading] = useState(true)
   const [path, setPath] = useState(window.location.pathname)
+  const [noticeVisible, setNoticeVisible] = useState(false)
 
   useEffect(() => {
     document.body.style.overflow = loading ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [loading])
+
+  useEffect(() => {
+    if (loading) return
+    try {
+      if (!localStorage.getItem('noc-privacy-ack')) setNoticeVisible(true)
+    } catch {
+      setNoticeVisible(true)
+    }
+  }, [loading])
+
+  const dismissNotice = () => {
+    setNoticeVisible(false)
+    try {
+      localStorage.setItem('noc-privacy-ack', '1')
+    } catch {
+      // localStorage unavailable — the notice will just show again next visit
+    }
+  }
 
   useEffect(() => {
     const handlePopState = () => setPath(window.location.pathname)
@@ -131,7 +151,8 @@ export default function App() {
         </main>
       )}
       <Footer onNavigate={navigateToPath} />
-      <BackToTop />
+      <BackToTop suppressed={noticeVisible} />
+      <PrivacyNotice visible={noticeVisible} onDismiss={dismissNotice} onNavigate={navigateToPath} />
       {modalOpen && <BookingModal onClose={() => setModalOpen(false)} />}
     </>
   )

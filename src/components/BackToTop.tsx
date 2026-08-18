@@ -4,8 +4,9 @@ import styles from './BackToTop.module.css'
 // Show once the user has scrolled past roughly one viewport.
 const SHOW_AFTER_VH = 1
 
-export function BackToTop() {
-  const [visible, setVisible] = useState(false)
+export function BackToTop({ suppressed = false }: { suppressed?: boolean } = {}) {
+  const [scrolled, setScrolled] = useState(false)
+  const visible = scrolled && !suppressed
 
   useEffect(() => {
     let ticking = false
@@ -13,7 +14,7 @@ export function BackToTop() {
       if (ticking) return
       ticking = true
       requestAnimationFrame(() => {
-        setVisible(window.scrollY > window.innerHeight * SHOW_AFTER_VH)
+        setScrolled(window.scrollY > window.innerHeight * SHOW_AFTER_VH)
         ticking = false
       })
     }
