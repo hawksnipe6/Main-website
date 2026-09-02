@@ -229,3 +229,9 @@ section#hero {
     transform: translateY(14px);
   }
 }
+
+/* DomeGallery toggles this class on <body> while an image is enlarged but ships
+   no rule for it. */
+body.dg-scroll-lock {
+  overflow: hidden;
+}

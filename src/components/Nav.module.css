@@ -75,6 +75,12 @@
 
 .links a:hover { color: var(--noc-white); }
 
+.linksItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 /* ── RIGHT ────────────────────────────────── */
 .right {
   display: flex;
@@ -232,6 +238,52 @@
 }
 
 .drawerItem a:hover { color: var(--noc-grey-5); }
+
+.drawerGroupLabel {
+  opacity: 0;
+  transform: translateX(16px);
+  transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1),
+              transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+.drawerOpen .drawerGroupLabel {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.drawerGroupLabel span {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--noc-grey-4);
+  padding: 20px 0 10px;
+}
+
+.drawerSubItem {
+  opacity: 0;
+  transform: translateX(16px);
+  transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1),
+              transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  border-bottom: 1px solid var(--noc-grey-2);
+}
+
+.drawerOpen .drawerSubItem {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.drawerSubItem a {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--noc-grey-5);
+  padding: 14px 0 14px 18px;
+  transition: color 0.2s;
+}
+
+.drawerSubItem a:hover { color: var(--noc-white); }
 
 .drawerCta {
   display: inline-block;

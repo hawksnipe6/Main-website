@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
-import { ProofStrip } from './components/ProofStrip'
 import { Ledger } from './components/Ledger'
 import { BackToTop } from './components/BackToTop'
 import { Footer } from './components/Footer'
@@ -11,7 +10,10 @@ import { CustomScrollbar } from './components/CustomScrollbar'
 import { BookingModal } from './components/BookingModal'
 import { LoadingScreen } from './components/LoadingScreen'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
-import { PortfolioPage } from './components/PortfolioPage'
+import { ProjectsMenu } from './components/ProjectsMenu'
+import { RenderGallery } from './components/RenderGallery'
+import { WorkPage } from './components/WorkPage'
+import { ConceptsPage } from './components/ConceptsPage'
 import { ContactPage } from './components/ContactPage'
 import { PricingPage } from './components/PricingPage'
 import { Testimonials } from './components/Testimonials'
@@ -118,21 +120,24 @@ export default function App() {
       <Nav
         page={page}
         onNavigateHome={() => navigateToPath('/')}
-        onNavigateWork={() => navigateToPath('/work')}
         onNavigateContact={() => navigateToPath('/contact')}
         onNavigatePricing={() => navigateToPath('/pricing')}
+        onNavigate={navigateToPath}
       />
       {page === 'contact' ? (
         <ContactPage />
       ) : page === 'pricing' ? (
         <PricingPage />
-      ) : page === 'work' || page === 'renders' || page === 'concepts' ? (
-        <PortfolioPage
-          activeTab={page}
-          slug={slug}
-          onTabChange={(tab) => navigateToPath(`/${tab}`)}
-          onNavigate={navigateToPath}
-        />
+      ) : page === 'work' ? (
+        slug ? (
+          <WorkPage activeSlug={slug} onNavigate={navigateToPath} />
+        ) : (
+          <ProjectsMenu onNavigate={navigateToPath} />
+        )
+      ) : page === 'renders' ? (
+        <RenderGallery />
+      ) : page === 'concepts' ? (
+        <ConceptsPage activeSlug={slug} onNavigate={navigateToPath} />
       ) : page === 'privacy' ? (
         <PrivacyPage />
       ) : page === 'terms' ? (
@@ -142,7 +147,6 @@ export default function App() {
       ) : (
         <main className="routeEnter">
           <Hero onBooking={() => setModalOpen(true)} onSeeWork={() => navigateToPath('/work')} />
-          <ProofStrip />
           <Testimonials />
           <Services />
           <Results onNavigate={navigateToPath} />

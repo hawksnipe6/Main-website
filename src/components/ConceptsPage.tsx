@@ -849,5 +849,5 @@ export function ConceptsPage({
 
   if (embedded) return <div className={styles.embedded}>{body}</div>
 
-  return <div className={styles.page}>{body}</div>
+  return <main className={`${styles.page} routeEnter`}>{body}</main>
 }

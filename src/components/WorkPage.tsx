@@ -572,5 +572,5 @@ export function WorkPage({
 
   if (embedded) return <div className={styles.embedded}>{body}</div>
 
-  return <main className={styles.page}>{body}</main>
+  return <main className={`${styles.page} routeEnter`}>{body}</main>
 }
