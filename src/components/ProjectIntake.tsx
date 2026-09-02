@@ -13,7 +13,7 @@ const ENGAGEMENTS = [
   { id: 'film', label: 'Film', desc: 'CGI and motion for an existing product' },
 ]
 
-export function ProjectIntake() {
+export function ProjectIntake({ onDone }: { onDone?: () => void } = {}) {
   const [engagement, setEngagement] = useState<string | null>(null)
   const [form, setForm] = useState({ name: '', email: '', brief: '' })
   const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
@@ -56,7 +56,12 @@ export function ProjectIntake() {
         }),
       })
       const data = await res.json()
-      setStatus(data?.success ? 'done' : 'error')
+      if (data?.success) {
+        setStatus('done')
+        onDone?.()
+      } else {
+        setStatus('error')
+      }
     } catch {
       setStatus('error')
     }

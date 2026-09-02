@@ -5,13 +5,13 @@ import { CONCEPTS } from './ConceptsPage'
 const SITE_URL = 'https://getnctrnl.com'
 const LOGO_URL = `${SITE_URL}/logo%20512.png`
 
-type PageKey = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing' | 'privacy' | 'terms' | 'notFound'
+type PageKey = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing' | 'privacy' | 'terms' | 'thankYou' | 'notFound'
 
 const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string; robots?: string }> = {
   home: {
-    title: 'Nocturnal | Design Studio, Mumbai: Industrial, UI/UX, Brand, Motion',
+    title: 'Nocturnal Design Studio (NDS) — Industrial, UI/UX, Brand & Motion Design, Mumbai',
     description:
-      'Nocturnal is a multidisciplinary design studio in Mumbai. Industrial design from sterling silver instruments to consumer hardware, UI/UX systems, brand and graphic design, motion, and CGI.',
+      'Nocturnal (NDS) is a multidisciplinary design studio in Mumbai — also known as nctrnl / getnctrnl. Industrial design from sterling silver instruments to consumer hardware, UI/UX systems, brand and graphic design, motion, and CGI.',
     canonical: SITE_URL,
     image: LOGO_URL,
   },
@@ -62,6 +62,13 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
     canonical: `${SITE_URL}/terms`,
     image: LOGO_URL,
   },
+  thankYou: {
+    title: 'Thank You | Nocturnal Design Studio',
+    description: 'Your project brief was received. Nocturnal replies to every inquiry within two working days.',
+    canonical: `${SITE_URL}/thank-you`,
+    image: LOGO_URL,
+    robots: 'noindex,follow',
+  },
   notFound: {
     title: 'Page Not Found | Nocturnal',
     description: 'This page does not exist. Find your way back to Nocturnal, home, work, pricing, or contact.',
@@ -71,28 +78,63 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
   },
 }
 
+const SAME_AS = [
+  'https://www.behance.net/abeermahad064c',
+  'https://www.linkedin.com/in/abeermahadane44/',
+  'https://www.instagram.com/designwithabeer/',
+]
+
+const BRAND_ALT_NAMES = ['Nocturnal', 'NDS', 'nctrnl', 'getnctrnl', 'Nocturnal Studio']
+
+const STUDIO_ADDRESS = {
+  '@type': 'PostalAddress',
+  addressLocality: 'Mumbai',
+  addressRegion: 'Maharashtra',
+  addressCountry: 'IN',
+}
+
 const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'Nocturnal',
+  '@id': `${SITE_URL}/#organization`,
+  name: 'Nocturnal Design Studio',
+  alternateName: BRAND_ALT_NAMES,
   url: SITE_URL,
   logo: LOGO_URL,
-  sameAs: [
-    'https://www.behance.net/abeermahad064c',
-    'https://www.linkedin.com/in/abeermahadane44/',
-    'https://www.instagram.com/designwithabeer/',
+  image: LOGO_URL,
+  email: 'getnctrnl@gmail.com',
+  telephone: '+91-70454-21516',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'sales',
+    email: 'getnctrnl@gmail.com',
+    telephone: '+91-70454-21516',
+    areaServed: ['IN', 'Global'],
+    availableLanguage: ['en'],
+  },
+  founder: { '@type': 'Person', name: 'Abeer Mahadane', sameAs: SAME_AS },
+  address: STUDIO_ADDRESS,
+  areaServed: ['India', 'Global'],
+  knowsAbout: [
+    'Industrial design', 'Product design', 'UI/UX design', 'Brand identity',
+    '3D rendering', 'CGI', 'Motion design', 'Design systems', 'CAD', 'Product visualization',
   ],
+  sameAs: SAME_AS,
   description:
-    'Nocturnal is a multidisciplinary design studio in Mumbai. Industrial design, UI/UX systems, brand and graphic design, motion, and CGI.',
+    'Nocturnal Design Studio (NDS), also known as nctrnl / getnctrnl, is a multidisciplinary design studio in Mumbai working across industrial design, UI/UX systems, brand and graphic design, motion, and CGI.',
 }
 
 const professionalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: 'Nocturnal',
+  '@id': `${SITE_URL}/#service`,
+  name: 'Nocturnal Design Studio',
+  alternateName: ['Nocturnal', 'NDS', 'nctrnl', 'getnctrnl'],
   url: SITE_URL,
   image: LOGO_URL,
+  parentOrganization: { '@id': `${SITE_URL}/#organization` },
   areaServed: ['India', 'Global'],
+  address: STUDIO_ADDRESS,
   priceRange: '$$',
   slogan: 'Design systems, not screens.',
   serviceType: [
@@ -103,8 +145,20 @@ const professionalServiceSchema = {
     'Product Visualization',
     'Design Systems',
   ],
+  sameAs: SAME_AS,
   description:
-    'Strategic design studio for startups, AI products, physical products, interface systems, and brand-led product companies.',
+    'Strategic design studio in Mumbai for startups, AI products, physical products, interface systems, and brand-led product companies.',
+}
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE_URL}/#website`,
+  name: 'Nocturnal Design Studio',
+  alternateName: [...BRAND_ALT_NAMES, 'nocturnal design studio'],
+  url: SITE_URL,
+  inLanguage: 'en',
+  publisher: { '@id': `${SITE_URL}/#organization` },
 }
 
 const faqSchema = {
@@ -220,7 +274,7 @@ export function Seo({ page, slug }: { page: PageKey; slug?: string }) {
     const meta = getMeta(page, slug)
     document.title = meta.title
     setMeta('meta[name="description"]', { name: 'description', content: meta.description })
-    setMeta('meta[name="robots"]', { name: 'robots', content: meta.robots ?? 'index,follow,max-image-preview:large' })
+    setMeta('meta[name="robots"]', { name: 'robots', content: meta.robots ?? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' })
     setMeta('meta[property="og:title"]', { property: 'og:title', content: meta.title })
     setMeta('meta[property="og:description"]', { property: 'og:description', content: meta.description })
     setMeta('meta[property="og:url"]', { property: 'og:url', content: meta.canonical })
@@ -234,6 +288,7 @@ export function Seo({ page, slug }: { page: PageKey; slug?: string }) {
     setLink('canonical', meta.canonical)
     setJsonLd('schema-organization', organizationSchema)
     setJsonLd('schema-professional-service', professionalServiceSchema)
+    setJsonLd('schema-website', websiteSchema)
     if (page === 'home') {
       setJsonLd('schema-faq', faqSchema)
       document.getElementById('schema-work')?.remove()

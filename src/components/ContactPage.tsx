@@ -3,12 +3,12 @@ import { GridCanvas } from './GridCanvas'
 import { ProjectIntake } from './ProjectIntake'
 import styles from './ContactPage.module.css'
 
-export function ContactPage() {
+export function ContactPage({ onNavigate }: { onNavigate?: (path: string) => void }) {
   return (
     <main className={`${styles.page} routeEnter`}>
 
       {/* ── Project intake ──────────────────────── */}
-      <ProjectIntake />
+      <ProjectIntake onDone={onNavigate ? () => onNavigate('/thank-you') : undefined} />
 
       {/* ── Join our team ───────────────────────── */}
       <div className={styles.sectionWrap}>

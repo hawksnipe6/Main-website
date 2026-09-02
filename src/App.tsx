@@ -9,6 +9,7 @@ import { CustomCursor } from './components/CustomCursor'
 import { CustomScrollbar } from './components/CustomScrollbar'
 import { BookingModal } from './components/BookingModal'
 import { LoadingScreen } from './components/LoadingScreen'
+import { MobileCta } from './components/MobileCta'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { ProjectsMenu } from './components/ProjectsMenu'
 import { RenderGallery } from './components/RenderGallery'
@@ -25,8 +26,9 @@ import { NotFoundPage } from './components/NotFoundPage'
 import { PrivacyPage } from './components/PrivacyPage'
 import { TermsPage } from './components/TermsPage'
 import { PrivacyNotice } from './components/PrivacyNotice'
+import { ThankYouPage } from './components/ThankYouPage'
 
-type Page = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing' | 'privacy' | 'terms' | 'notFound'
+type Page = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing' | 'privacy' | 'terms' | 'thankYou' | 'notFound'
 
 type Route = { page: Page; slug?: string }
 
@@ -44,6 +46,7 @@ function getRoute(pathname: string): Route {
   if (path === '/pricing') return { page: 'pricing' }
   if (path === '/privacy') return { page: 'privacy' }
   if (path === '/terms') return { page: 'terms' }
+  if (path === '/thank-you') return { page: 'thankYou' }
   return { page: 'notFound' }
 }
 
@@ -125,7 +128,9 @@ export default function App() {
         onNavigate={navigateToPath}
       />
       {page === 'contact' ? (
-        <ContactPage />
+        <ContactPage onNavigate={navigateToPath} />
+      ) : page === 'thankYou' ? (
+        <ThankYouPage onNavigate={navigateToPath} />
       ) : page === 'pricing' ? (
         <PricingPage />
       ) : page === 'work' ? (
@@ -155,7 +160,11 @@ export default function App() {
         </main>
       )}
       <Footer onNavigate={navigateToPath} />
-      <BackToTop suppressed={noticeVisible} />
+      <BackToTop
+        suppressed={noticeVisible}
+        raised={!noticeVisible && page !== 'contact' && page !== 'notFound'}
+      />
+      <MobileCta page={page} suppressed={noticeVisible} onStart={() => navigateToPath('/contact')} />
       <PrivacyNotice visible={noticeVisible} onDismiss={dismissNotice} onNavigate={navigateToPath} />
       {modalOpen && <BookingModal onClose={() => setModalOpen(false)} />}
     </>

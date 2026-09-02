@@ -49,4 +49,9 @@
     width: 42px;
     height: 42px;
   }
+
+  /* Lift clear of the sticky mobile "Start a Project" bar. */
+  .raised {
+    bottom: calc(78px + env(safe-area-inset-bottom, 0px));
+  }
 }

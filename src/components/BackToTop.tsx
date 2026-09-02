@@ -4,7 +4,10 @@ import styles from './BackToTop.module.css'
 // Show once the user has scrolled past roughly one viewport.
 const SHOW_AFTER_VH = 1
 
-export function BackToTop({ suppressed = false }: { suppressed?: boolean } = {}) {
+export function BackToTop({
+  suppressed = false,
+  raised = false,
+}: { suppressed?: boolean; raised?: boolean } = {}) {
   const [scrolled, setScrolled] = useState(false)
   const visible = scrolled && !suppressed
 
@@ -31,7 +34,7 @@ export function BackToTop({ suppressed = false }: { suppressed?: boolean } = {})
   return (
     <button
       type="button"
-      className={`${styles.btn} ${visible ? styles.visible : ''}`}
+      className={`${styles.btn} ${visible ? styles.visible : ''} ${raised ? styles.raised : ''}`}
       onClick={toTop}
       aria-label="Back to top"
       aria-hidden={!visible}
