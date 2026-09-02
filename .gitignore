@@ -5,3 +5,6 @@ dist/
 *.log
 .DS_Store
 .vercel
+
+# local scratch from getnctrnl-seo-setup.sh
+.seo-setup.local
