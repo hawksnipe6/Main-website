@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.getnctrnl.com" }],
+      "destination": "https://getnctrnl.com/$1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/work", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
