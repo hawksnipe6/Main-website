@@ -6,14 +6,13 @@ import styles from './Nav.module.css'
 
 
 type NavProps = {
-  page: 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing'
+  page: 'home' | 'work' | 'renders' | 'contact'
   onNavigateHome: () => void
   onNavigateContact: () => void
-  onNavigatePricing: () => void
   onNavigate: (path: string) => void
 }
 
-export function Nav({ page, onNavigateHome, onNavigateContact, onNavigatePricing, onNavigate }: NavProps) {
+export function Nav({ page, onNavigateHome, onNavigateContact, onNavigate }: NavProps) {
   useScrollNav('#nav', styles.scrolled)
   const progressRef = useRef<HTMLDivElement>(null)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -56,12 +55,6 @@ export function Nav({ page, onNavigateHome, onNavigateContact, onNavigatePricing
     onNavigateContact()
   }
 
-  const navigatePricing = (event: MouseEvent<HTMLAnchorElement>) => {
-    event.preventDefault()
-    close()
-    onNavigatePricing()
-  }
-
   const navigateToSection = (event: MouseEvent<HTMLAnchorElement>, href: string) => {
     event.preventDefault()
     close()
@@ -89,12 +82,6 @@ export function Nav({ page, onNavigateHome, onNavigateContact, onNavigatePricing
           </li>
           <li className={styles.linksItem}>
             <NavProjectsMenu page={page} onSelect={(path) => { close(); onNavigate(path) }} />
-          </li>
-          <li>
-            <a href="/pricing" onClick={navigatePricing}
-              style={{ color: page === 'pricing' ? 'var(--noc-white)' : undefined }}>
-              Pricing
-            </a>
           </li>
           <li>
             <a href="/contact" onClick={navigateContact}
@@ -146,13 +133,7 @@ export function Nav({ page, onNavigateHome, onNavigateContact, onNavigatePricing
           <li className={styles.drawerSubItem} style={{ transitionDelay: menuOpen ? '180ms' : '0ms' }}>
             <a href="/renders" onClick={(e) => { e.preventDefault(); close(); onNavigate('/renders') }}>Render Gallery</a>
           </li>
-          <li className={styles.drawerSubItem} style={{ transitionDelay: menuOpen ? '210ms' : '0ms' }}>
-            <a href="/concepts" onClick={(e) => { e.preventDefault(); close(); onNavigate('/concepts') }}>Concepts</a>
-          </li>
-          <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '240ms' : '0ms' }}>
-            <a href="/pricing" onClick={navigatePricing}>Pricing</a>
-          </li>
-          <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '270ms' : '0ms' }}>
+          <li className={styles.drawerItem} style={{ transitionDelay: menuOpen ? '210ms' : '0ms' }}>
             <a href="/contact" onClick={navigateContact}>Contact</a>
           </li>
         </ul>

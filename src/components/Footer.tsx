@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 import styles from './Footer.module.css'
 
+// Same Web3Forms key as the scheduler; submissions arrive by email tagged as
+// Ledger subscriptions. Moved here from the retired Ledger section.
+const WEB3FORMS_KEY = '7eda97bc-6231-4ef7-b944-05ab5ea49351'
+
 const SOCIAL_LINKS = [
   {
     label: 'LinkedIn',
@@ -61,11 +65,37 @@ const FOOTER_COLS: { title: string; links: FooterLink[] }[] = [
 
 export function Footer({ onNavigate }: { onNavigate?: (path: string) => void }) {
   const [careerOpen, setCareerOpen] = useState(false)
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'done' | 'error'>('idle')
 
   useEffect(() => {
     document.body.style.overflow = careerOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [careerOpen])
+
+  const validEmail = /\S+@\S+\.\S+/.test(email)
+
+  const subscribe = async () => {
+    if (!validEmail || status === 'sending') return
+    setStatus('sending')
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `Ledger subscription — ${email}`,
+          from_name: 'Nocturnal Ledger',
+          email,
+          message: `New Ledger subscriber: ${email}`,
+        }),
+      })
+      const data = await res.json()
+      setStatus(data?.success ? 'done' : 'error')
+    } catch {
+      setStatus('error')
+    }
+  }
 
   return (
     <>
@@ -77,11 +107,39 @@ export function Footer({ onNavigate }: { onNavigate?: (path: string) => void }) 
               Multidisciplinary design studio, Mumbai. One studio holds the
               object, the interface, the brand, and the film.
             </p>
+            {status === 'done' ? (
+              <p className={styles.subscribeSuccess}>Done. First note lands next month.</p>
+            ) : (
+              <>
+                <form
+                  className={styles.subscribeForm}
+                  onSubmit={(e) => { e.preventDefault(); subscribe() }}
+                >
+                  <input
+                    className={styles.subscribeInput}
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@company.com"
+                    aria-label="Email address"
+                  />
+                  <button
+                    type="submit"
+                    className={styles.subscribeButton}
+                    disabled={!validEmail || status === 'sending'}
+                  >
+                    {status === 'sending' ? '…' : 'Subscribe'}
+                  </button>
+                </form>
+                {status === 'error' && (
+                  <p className={styles.subscribeError}>That did not go through. Try once more.</p>
+                )}
+              </>
+            )}
           </div>
 
           {FOOTER_COLS.map((col) => (
             <nav key={col.title} className={styles.col} aria-label={col.title}>
-              <div className={styles.colTitle}>{col.title}</div>
               <ul className={styles.colLinks}>
                 {col.links.map((link) => (
                   <li key={link.label}>

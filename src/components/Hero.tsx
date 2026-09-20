@@ -10,16 +10,17 @@ export function Hero({ onBooking, onSeeWork }: { onBooking: () => void; onSeeWor
 
       <div className={styles.content}>
         <div className={styles.left}>
-          <p className={`${styles.meta} reveal`}>Multidisciplinary design studio — Mumbai</p>
-          <h1 className={`${styles.headline} reveal reveal-d1`}>
-            We design objects<br />worth keeping.
+          <h1 className={`${styles.headline} reveal`}>
+            <span className={styles.line}>A strategic design team</span>
+            <br />
+            <span className={styles.line}>you can trust.</span>
           </h1>
-          <p className={`${styles.sub} reveal reveal-d2`}>
+          <p className={`${styles.sub} reveal reveal-d1`}>
             Nocturnal designs across object and screen: physical products from sterling
             silver instruments to consumer hardware, UI/UX systems, brand and graphic
             identities, and the motion and CGI that launch them.
           </p>
-          <div className={`${styles.actions} reveal reveal-d3`}>
+          <div className={`${styles.actions} reveal reveal-d2`}>
             <button className={styles.btnPrimary} onClick={onBooking}>Start a Project</button>
             {onSeeWork && (
               <button className={styles.btnGhost} onClick={onSeeWork}>See the work</button>

@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
 import { WORK_SAMPLES } from '../data/workSamples'
-import { CONCEPTS } from './ConceptsPage'
 
 const SITE_URL = 'https://getnctrnl.com'
 const LOGO_URL = `${SITE_URL}/logo%20512.png`
 
-type PageKey = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing' | 'privacy' | 'terms' | 'thankYou' | 'notFound'
+type PageKey = 'home' | 'work' | 'renders' | 'contact' | 'privacy' | 'terms' | 'thankYou' | 'notFound'
 
 const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string; robots?: string }> = {
   home: {
@@ -20,7 +19,7 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
     description:
       'Selected Nocturnal work and independently researched product concepts spanning industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and interactive prototypes.',
     canonical: `${SITE_URL}/work`,
-    image: `${SITE_URL}/work-cover-renderfolio-custom.png`,
+    image: `${SITE_URL}/work-cover-renderfolio-custom.webp`,
   },
   renders: {
     title: 'Render Gallery | Nocturnal CGI and Product Visualization',
@@ -29,25 +28,11 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
     canonical: `${SITE_URL}/renders`,
     image: `${SITE_URL}/renders/render-01.webp`,
   },
-  concepts: {
-    title: 'Portfolio | Nocturnal Work and Concepts: Industrial Design, UI/UX, CGI',
-    description:
-      'Selected Nocturnal work and independently researched product concepts spanning industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and interactive prototypes.',
-    canonical: `${SITE_URL}/concepts`,
-    image: LOGO_URL,
-  },
   contact: {
     title: 'Start a Project | Nocturnal Design Studio',
     description:
       'Book a strategy call with Nocturnal. Thirty minutes, no pitch decks. We identify the design friction in your brand and product and tell you exactly what to fix first.',
     canonical: `${SITE_URL}/contact`,
-    image: LOGO_URL,
-  },
-  pricing: {
-    title: 'Pricing | Nocturnal Design Studio',
-    description:
-      'Fixed-scope, fixed-price design packages across industrial design, UI/UX, motion, and brand. Clear deliverables, revisions, and timelines, with custom scoping when you need it.',
-    canonical: `${SITE_URL}/pricing`,
     image: LOGO_URL,
   },
   privacy: {
@@ -71,7 +56,7 @@ const PAGE_META: Record<PageKey, { title: string; description: string; canonical
   },
   notFound: {
     title: 'Page Not Found | Nocturnal',
-    description: 'This page does not exist. Find your way back to Nocturnal, home, work, pricing, or contact.',
+    description: 'This page does not exist. Find your way back to Nocturnal, home, work, or contact.',
     canonical: `${SITE_URL}/`,
     image: LOGO_URL,
     robots: 'noindex,follow',
@@ -252,17 +237,6 @@ function getMeta(page: PageKey, slug?: string) {
         description: work.description,
         canonical: `${SITE_URL}/work/${slug}`,
         image: `${SITE_URL}${work.image}`,
-      }
-    }
-  }
-  if (page === 'concepts' && slug) {
-    const concept = CONCEPTS.find((c) => c.id === slug)
-    if (concept) {
-      return {
-        title: `${concept.title} | Nocturnal Concepts`,
-        description: concept.tagline,
-        canonical: `${SITE_URL}/concepts/${slug}`,
-        image: LOGO_URL,
       }
     }
   }

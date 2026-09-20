@@ -5,6 +5,23 @@
   padding-bottom: 42px;
 }
 
+/* Scrolls up to cover the pinned Hero (desktop/tablet only — see
+   Hero.module.css / .heroSpacer in global.css for the matching half).
+   Full-bleed like Hero itself (section#hero in global.css) — otherwise on
+   viewports wider than --max-width this section renders narrower than the
+   fixed Hero behind it, exposing slivers of Hero on the sides. */
+@media (min-width: 769px) {
+  .section {
+    position: relative;
+    z-index: 1;
+    border-radius: 32px 32px 0 0;
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 .header {
   margin-bottom: 34px;
 }

@@ -38,8 +38,7 @@ export function Testimonials() {
   return (
     <section id="testimonials" className={styles.section}>
       <div className={styles.header}>
-        <div className="section-label reveal">Testimonials</div>
-        <h2 className="section-title reveal reveal-d1">
+        <h2 className="section-title reveal">
           What the work<br />feels like.
         </h2>
       </div>

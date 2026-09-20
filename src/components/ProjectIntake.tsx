@@ -71,11 +71,10 @@ export function ProjectIntake({ onDone }: { onDone?: () => void } = {}) {
     <section id="intake" className={styles.intake}>
       <div className={styles.inner}>
         <div className={styles.head}>
-          <p className={`${styles.label} reveal`}>Start a project</p>
-          <h2 className={`${styles.title} reveal reveal-d1`}>
+          <h2 className={`${styles.title} reveal`}>
             Tell us what you are making.
           </h2>
-          <p className={`${styles.sub} reveal reveal-d2`}>
+          <p className={`${styles.sub} reveal reveal-d1`}>
             Pick the engagement that fits and write two lines about the product.
             Reply lands within 48 hours.
           </p>

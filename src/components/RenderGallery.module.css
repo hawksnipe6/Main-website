@@ -4,52 +4,13 @@
   min-height: 100dvh;
 }
 
-/* ── Header ─────────────────────────────────────────────── */
-.pageHeader {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 64px calc(var(--gutter) + var(--site-padding)) 32px;
-}
-
-.pageTitle {
-  font-size: clamp(48px, 7vw, 88px);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  color: var(--noc-white);
-  line-height: 0.95;
-  margin-bottom: 20px;
-}
-
-.pageSubtitle {
-  font-size: 16px;
-  color: var(--noc-grey-4);
-  line-height: 1.6;
-  max-width: 560px;
-}
-
 /* ── Dome stage ─────────────────────────────────────────── */
 .stage {
   position: relative;
   width: 100%;
-  height: calc(100vh - var(--page-padding-top) - 96px);
-  height: calc(100svh - var(--page-padding-top) - 96px);
+  height: calc(100vh - var(--page-padding-top));
+  height: calc(100svh - var(--page-padding-top));
   min-height: 520px;
   overflow: hidden;
   touch-action: none;
-}
-
-/* ── Responsive ─────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .pageHeader {
-    padding: 42px var(--site-padding) 24px;
-  }
-
-  .pageTitle {
-    font-size: clamp(36px, 12vw, 52px);
-  }
-
-  .stage {
-    height: calc(100vh - var(--page-padding-top) - 72px);
-    height: calc(100svh - var(--page-padding-top) - 72px);
-  }
 }

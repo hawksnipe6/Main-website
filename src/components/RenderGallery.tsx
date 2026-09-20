@@ -13,14 +13,6 @@ export function RenderGallery() {
 
   return (
     <main className={`${styles.page} routeEnter`}>
-      <header className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>Render Gallery</h1>
-        <p className={styles.pageSubtitle}>
-          A collection of CAD visualisations — modelled, lit, and rendered as product studies in
-          material behaviour, lighting control, and object storytelling.
-        </p>
-      </header>
-
       <div className={styles.stage}>
         <DomeGallery
           images={IMAGES}

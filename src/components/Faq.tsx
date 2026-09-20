@@ -50,14 +50,10 @@ export function Faq() {
     <section id="faq" className={styles.section}>
       <div className={styles.header}>
         <div>
-          <div className="section-label reveal">FAQ</div>
-          <h2 className="section-title reveal reveal-d1">
+          <h2 className="section-title reveal">
             Questions we hear<br />before the first call.
           </h2>
         </div>
-        <p className="section-body reveal reveal-d2">
-          The useful answers before we discuss scope, timeline, or fit.
-        </p>
       </div>
       <div className={`${styles.list} reveal reveal-d2`}>
         {FAQS.map((faq) => (

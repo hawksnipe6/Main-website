@@ -153,12 +153,11 @@ export function Services() {
     <section id="services" className={styles.services}>
       <div className={styles.header}>
         <div>
-          <div className="section-label reveal">Services</div>
-          <h2 className="section-title reveal reveal-d1">
+          <h2 className="section-title reveal">
             What You Get
           </h2>
         </div>
-        <p className="section-body reveal reveal-d2">
+        <p className="section-body reveal reveal-d1">
           One studio holds the object, the brand, the interface, and the film.
           Nothing gets lost in a handoff.
         </p>
@@ -173,10 +172,8 @@ export function Services() {
             type="button"
             data-service-card
           >
-            <span className={styles.num}>{service.num}</span>
             <span className={styles.title}>{service.title}</span>
             <span className={styles.body}>{service.body}</span>
-            <span className={styles.openHint}>View scope</span>
           </button>
         ))}
       </div>

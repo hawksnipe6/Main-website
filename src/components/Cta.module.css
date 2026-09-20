@@ -1,10 +1,24 @@
 .cta {
+  position: relative;
+  z-index: 1;
   border-bottom: none !important;
+}
+
+/* Frosted card matching ProjectIntake's/Join-our-team's — same section-level
+   horizontal inset (gutter + site-padding, from the global `section` rule),
+   inner just fills the available space so all three cards share one width. */
+.inner {
   display: grid;
   grid-template-columns: 0.82fr 1.18fr;
   gap: 72px;
   align-items: center;
-  background: var(--noc-black);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  background: var(--noc-nav-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 40px;
 }
 
 .left {
@@ -494,7 +508,7 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 1100px) {
-  .cta {
+  .inner {
     grid-template-columns: 1fr;
     gap: 44px;
   }
@@ -553,8 +567,9 @@
 
 /* ── Mobile CTA/calendar polish ───────────── */
 @media (max-width: 640px) {
-  .cta {
+  .inner {
     gap: 32px;
+    padding: 24px;
   }
 
   .body {

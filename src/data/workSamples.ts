@@ -42,7 +42,7 @@ export const WORK_SAMPLES: WorkSample[] = [
     description:
       'A compact collection of rendered product studies focused on material behaviour, lighting control, and object storytelling.',
     href: 'https://www.behance.net/gallery/235226069/renderfolio',
-    image: '/work-cover-renderfolio-custom.png',
+    image: '/work-cover-renderfolio-custom.webp',
   },
   {
     slug: 'armor',
@@ -51,7 +51,7 @@ export const WORK_SAMPLES: WorkSample[] = [
     description:
       'A visual design system for Armor that turns product features into crisp campaign assets, launch moments, and social-first compositions.',
     href: 'https://www.behance.net/gallery/249160397/Visual-Design-for-armor',
-    image: '/work-cover-armor-custom.png',
+    image: '/work-cover-armor-custom.webp',
   },
   {
     slug: 'osmo',
@@ -78,7 +78,7 @@ export const WORK_SAMPLES: WorkSample[] = [
     description:
       'A universal-design exercise around a simple kitchen object, improving grip, sequence, clarity, and use for different bodies.',
     href: 'https://www.behance.net/gallery/210538601/Ice-Tray-Universal-Design',
-    image: '/work-cover-ice-tray-custom.png',
+    image: '/work-cover-ice-tray-custom.webp',
   },
   {
     slug: 'sailfish',

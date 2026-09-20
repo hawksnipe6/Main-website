@@ -25,7 +25,6 @@ export function NotFoundPage({ onNavigate }: { onNavigate: (path: string) => voi
         <nav className={styles.links} aria-label="Quick links">
           <button type="button" onClick={() => onNavigate('/')}>Home</button>
           <button type="button" onClick={() => onNavigate('/work')}>Projects</button>
-          <button type="button" onClick={() => onNavigate('/pricing')}>Pricing</button>
           <button type="button" onClick={() => onNavigate('/contact')}>Contact</button>
         </nav>
       </div>

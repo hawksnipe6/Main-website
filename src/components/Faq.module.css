@@ -3,12 +3,24 @@
   border-bottom: none !important;
 }
 
+/* Must stay above the fixed, pinned Hero (see Hero.module.css) — otherwise
+   Hero's fixed layer paints on top of this in-flow, non-positioned section.
+   Also full-bleed like Hero (section#hero in global.css) — otherwise on
+   viewports wider than --max-width this section renders narrower than the
+   fixed Hero behind it. */
+@media (min-width: 769px) {
+  .section {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 .header {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
   margin-bottom: 56px;
-  align-items: end;
 }
 
 .list {
@@ -96,11 +108,6 @@
 }
 
 @media (max-width: 1024px) {
-  .header {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
   .question {
     gap: 24px;
   }

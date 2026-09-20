@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
-import { Ledger } from './components/Ledger'
 import { BackToTop } from './components/BackToTop'
 import { Footer } from './components/Footer'
 import { CustomCursor } from './components/CustomCursor'
@@ -11,15 +10,12 @@ import { BookingModal } from './components/BookingModal'
 import { LoadingScreen } from './components/LoadingScreen'
 import { MobileCta } from './components/MobileCta'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
-import { ProjectsMenu } from './components/ProjectsMenu'
+import { ProjectsAccordion } from './components/ProjectsAccordion'
 import { RenderGallery } from './components/RenderGallery'
 import { WorkPage } from './components/WorkPage'
-import { ConceptsPage } from './components/ConceptsPage'
 import { ContactPage } from './components/ContactPage'
-import { PricingPage } from './components/PricingPage'
 import { Testimonials } from './components/Testimonials'
 import { Services } from './components/Services'
-import { Results } from './components/Results'
 import { Faq } from './components/Faq'
 import { Seo } from './components/Seo'
 import { NotFoundPage } from './components/NotFoundPage'
@@ -28,7 +24,7 @@ import { TermsPage } from './components/TermsPage'
 import { PrivacyNotice } from './components/PrivacyNotice'
 import { ThankYouPage } from './components/ThankYouPage'
 
-type Page = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing' | 'privacy' | 'terms' | 'thankYou' | 'notFound'
+type Page = 'home' | 'work' | 'renders' | 'contact' | 'privacy' | 'terms' | 'thankYou' | 'notFound'
 
 type Route = { page: Page; slug?: string }
 
@@ -36,14 +32,10 @@ function getRoute(pathname: string): Route {
   const path = pathname.replace(/\/+$/, '') || '/'
   const workMatch = path.match(/^\/work\/([a-z0-9-]+)$/)
   if (workMatch) return { page: 'work', slug: workMatch[1] }
-  const conceptMatch = path.match(/^\/concepts\/([a-z0-9-]+)$/)
-  if (conceptMatch) return { page: 'concepts', slug: conceptMatch[1] }
   if (path === '/') return { page: 'home' }
   if (path === '/work') return { page: 'work' }
   if (path === '/renders') return { page: 'renders' }
-  if (path === '/concepts') return { page: 'concepts' }
   if (path === '/contact') return { page: 'contact' }
-  if (path === '/pricing') return { page: 'pricing' }
   if (path === '/privacy') return { page: 'privacy' }
   if (path === '/terms') return { page: 'terms' }
   if (path === '/thank-you') return { page: 'thankYou' }
@@ -124,25 +116,20 @@ export default function App() {
         page={page}
         onNavigateHome={() => navigateToPath('/')}
         onNavigateContact={() => navigateToPath('/contact')}
-        onNavigatePricing={() => navigateToPath('/pricing')}
         onNavigate={navigateToPath}
       />
       {page === 'contact' ? (
         <ContactPage onNavigate={navigateToPath} />
       ) : page === 'thankYou' ? (
         <ThankYouPage onNavigate={navigateToPath} />
-      ) : page === 'pricing' ? (
-        <PricingPage />
       ) : page === 'work' ? (
         slug ? (
           <WorkPage activeSlug={slug} onNavigate={navigateToPath} />
         ) : (
-          <ProjectsMenu onNavigate={navigateToPath} />
+          <ProjectsAccordion onNavigate={navigateToPath} />
         )
       ) : page === 'renders' ? (
         <RenderGallery />
-      ) : page === 'concepts' ? (
-        <ConceptsPage activeSlug={slug} onNavigate={navigateToPath} />
       ) : page === 'privacy' ? (
         <PrivacyPage />
       ) : page === 'terms' ? (
@@ -152,11 +139,10 @@ export default function App() {
       ) : (
         <main className="routeEnter">
           <Hero onBooking={() => setModalOpen(true)} onSeeWork={() => navigateToPath('/work')} />
+          <div className="heroSpacer" aria-hidden="true" />
           <Testimonials />
           <Services />
-          <Results onNavigate={navigateToPath} />
           <Faq />
-          <Ledger />
         </main>
       )}
       <Footer onNavigate={navigateToPath} />

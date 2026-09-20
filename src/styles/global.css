@@ -129,6 +129,19 @@ section#hero {
   border-bottom: none !important;
 }
 
+/* Reserves Hero's height in the document once Hero is pulled out of flow
+   (position: fixed) for the pinned-hero scroll effect — desktop/tablet only,
+   matching Hero.module.css's own breakpoint. */
+.heroSpacer {
+  height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .heroSpacer {
+    height: 0;
+  }
+}
+
 /* ── SECTION TYPOGRAPHY ────────────────────── */
 .section-label {
   font-size: 11px;

@@ -1,13 +1,12 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import styles from './NavProjectsMenu.module.css'
 
-type Match = 'work' | 'renders' | 'concepts'
-type Page = 'home' | 'work' | 'renders' | 'concepts' | 'contact' | 'pricing'
+type Match = 'work' | 'renders'
+type Page = 'home' | 'work' | 'renders' | 'contact'
 
 const ITEMS: { label: string; path: string; match: Match }[] = [
   { label: 'Projects', path: '/work', match: 'work' },
   { label: 'Render Gallery', path: '/renders', match: 'renders' },
-  { label: 'Concepts', path: '/concepts', match: 'concepts' },
 ]
 
 export function NavProjectsMenu({
@@ -106,7 +105,7 @@ export function NavProjectsMenu({
     onSelect(path)
   }
 
-  const triggerActive = page === 'work' || page === 'renders' || page === 'concepts'
+  const triggerActive = page === 'work' || page === 'renders'
 
   return (
     <div

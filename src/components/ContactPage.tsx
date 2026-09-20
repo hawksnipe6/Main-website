@@ -1,11 +1,31 @@
 import { Cta } from './Cta'
 import { GridCanvas } from './GridCanvas'
 import { ProjectIntake } from './ProjectIntake'
+import FaultyTerminal from './FaultyTerminal'
+import { useTheme } from '../hooks/useTheme'
 import styles from './ContactPage.module.css'
 
 export function ContactPage({ onNavigate }: { onNavigate?: (path: string) => void }) {
+  const theme = useTheme()
+
   return (
     <main className={`${styles.page} routeEnter`}>
+      <div className={styles.terminalBg} aria-hidden="true">
+        <FaultyTerminal
+          lightMode={theme === 'light'}
+          tint="#E8612A"
+          brightness={theme === 'light' ? 0.38 : 0.22}
+          mouseReact
+          mouseStrength={1.7}
+          scale={1.6}
+          gridMul={[2, 1]}
+          digitSize={2}
+          timeScale={0.2}
+          scanlineIntensity={0.2}
+          curvature={0.14}
+          pageLoadAnimation={false}
+        />
+      </div>
 
       {/* ── Project intake ──────────────────────── */}
       <ProjectIntake onDone={onNavigate ? () => onNavigate('/thank-you') : undefined} />
@@ -18,11 +38,9 @@ export function ContactPage({ onNavigate }: { onNavigate?: (path: string) => voi
           <p className={`${styles.sectionLabel} reveal`}>Join our team</p>
           <p className={`${styles.joinText} reveal reveal-d1`}>
             We are a small team. Everyone here works directly on projects from
-            brief to delivery, with no account management or handoff layers
-            between the designer and the work. We take on projects that require
-            thinking, not just production. If you design with intention and can
-            hold a clear perspective on what you are making and why, we want to
-            hear from you.
+            brief to delivery. We take on projects that require thinking, not
+            just production. If you design with intention and can hold a clear
+            perspective on what you are making and why, we want to hear from you.
           </p>
           <a
             href="mailto:getnctrnl@gmail.com"
