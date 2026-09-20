@@ -58,6 +58,8 @@ export function Testimonials() {
                       alt={testimonial.company}
                       className={testimonial.invertLogo ? styles.logoInverted : styles.logo}
                       draggable={false}
+                      loading="lazy"
+                      decoding="async"
                     />
                   ) : (
                     <span className={styles.logoMark}>

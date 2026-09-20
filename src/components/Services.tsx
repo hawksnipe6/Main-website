@@ -227,6 +227,7 @@ export function Services() {
                               className={styles.processImage}
                               src={step.video}
                               poster={step.poster}
+                              preload="metadata"
                               autoPlay
                               muted
                               loop
@@ -237,7 +238,7 @@ export function Services() {
                               className={`${styles.processImage} ${step.imageFit === 'contain' ? styles.processImageContain : ''}`}
                               src={step.image}
                               alt={step.title}
-                              loading="lazy"
+                              loading="lazy" decoding="async"
                             />
                           )}
                         </div>
@@ -283,6 +284,7 @@ export function Services() {
                               className={styles.processImage}
                               src={step.video}
                               poster={step.poster}
+                              preload="metadata"
                               autoPlay
                               muted
                               loop
@@ -293,7 +295,7 @@ export function Services() {
                               className={`${styles.processImage} ${step.imageFit === 'contain' ? styles.processImageContain : ''}`}
                               src={step.image}
                               alt={step.title}
-                              loading="lazy"
+                              loading="lazy" decoding="async"
                             />
                           )}
                         </div>

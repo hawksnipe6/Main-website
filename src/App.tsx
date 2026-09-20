@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
@@ -10,19 +10,24 @@ import { BookingModal } from './components/BookingModal'
 import { LoadingScreen } from './components/LoadingScreen'
 import { MobileCta } from './components/MobileCta'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
-import { ProjectsAccordion } from './components/ProjectsAccordion'
-import { RenderGallery } from './components/RenderGallery'
-import { WorkPage } from './components/WorkPage'
-import { ContactPage } from './components/ContactPage'
 import { Testimonials } from './components/Testimonials'
 import { Services } from './components/Services'
 import { Faq } from './components/Faq'
 import { Seo } from './components/Seo'
-import { NotFoundPage } from './components/NotFoundPage'
-import { PrivacyPage } from './components/PrivacyPage'
-import { TermsPage } from './components/TermsPage'
 import { PrivacyNotice } from './components/PrivacyNotice'
-import { ThankYouPage } from './components/ThankYouPage'
+
+// Route-only bundles (each drags in a heavy WebGL lib — `three` for
+// ProjectsGrid's GridDistortion, `ogl` for ContactPage's FaultyTerminal) are
+// code-split so the home page's initial download doesn't include libraries
+// only /work, /contact, or /renders actually use.
+const ProjectsGrid = lazy(() => import('./components/ProjectsGrid').then((m) => ({ default: m.ProjectsGrid })))
+const RenderGallery = lazy(() => import('./components/RenderGallery').then((m) => ({ default: m.RenderGallery })))
+const WorkPage = lazy(() => import('./components/WorkPage').then((m) => ({ default: m.WorkPage })))
+const ContactPage = lazy(() => import('./components/ContactPage').then((m) => ({ default: m.ContactPage })))
+const NotFoundPage = lazy(() => import('./components/NotFoundPage').then((m) => ({ default: m.NotFoundPage })))
+const PrivacyPage = lazy(() => import('./components/PrivacyPage').then((m) => ({ default: m.PrivacyPage })))
+const TermsPage = lazy(() => import('./components/TermsPage').then((m) => ({ default: m.TermsPage })))
+const ThankYouPage = lazy(() => import('./components/ThankYouPage').then((m) => ({ default: m.ThankYouPage })))
 
 type Page = 'home' | 'work' | 'renders' | 'contact' | 'privacy' | 'terms' | 'thankYou' | 'notFound'
 
@@ -118,33 +123,35 @@ export default function App() {
         onNavigateContact={() => navigateToPath('/contact')}
         onNavigate={navigateToPath}
       />
-      {page === 'contact' ? (
-        <ContactPage onNavigate={navigateToPath} />
-      ) : page === 'thankYou' ? (
-        <ThankYouPage onNavigate={navigateToPath} />
-      ) : page === 'work' ? (
-        slug ? (
-          <WorkPage activeSlug={slug} onNavigate={navigateToPath} />
+      <Suspense fallback={null}>
+        {page === 'contact' ? (
+          <ContactPage onNavigate={navigateToPath} />
+        ) : page === 'thankYou' ? (
+          <ThankYouPage onNavigate={navigateToPath} />
+        ) : page === 'work' ? (
+          slug ? (
+            <WorkPage activeSlug={slug} onNavigate={navigateToPath} />
+          ) : (
+            <ProjectsGrid onNavigate={navigateToPath} />
+          )
+        ) : page === 'renders' ? (
+          <RenderGallery />
+        ) : page === 'privacy' ? (
+          <PrivacyPage />
+        ) : page === 'terms' ? (
+          <TermsPage />
+        ) : page === 'notFound' ? (
+          <NotFoundPage onNavigate={navigateToPath} />
         ) : (
-          <ProjectsAccordion onNavigate={navigateToPath} />
-        )
-      ) : page === 'renders' ? (
-        <RenderGallery />
-      ) : page === 'privacy' ? (
-        <PrivacyPage />
-      ) : page === 'terms' ? (
-        <TermsPage />
-      ) : page === 'notFound' ? (
-        <NotFoundPage onNavigate={navigateToPath} />
-      ) : (
-        <main className="routeEnter">
-          <Hero onBooking={() => setModalOpen(true)} onSeeWork={() => navigateToPath('/work')} />
-          <div className="heroSpacer" aria-hidden="true" />
-          <Testimonials />
-          <Services />
-          <Faq />
-        </main>
-      )}
+          <main className="routeEnter">
+            <Hero onBooking={() => setModalOpen(true)} onSeeWork={() => navigateToPath('/work')} />
+            <div className="heroSpacer" aria-hidden="true" />
+            <Testimonials />
+            <Services />
+            <Faq />
+          </main>
+        )}
+      </Suspense>
       <Footer onNavigate={navigateToPath} />
       <BackToTop
         suppressed={noticeVisible}

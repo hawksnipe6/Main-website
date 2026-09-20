@@ -289,7 +289,7 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
         <section className={styles.gallery}>
           {GALLERY.map((src, i) => (
             <div key={src} className={styles.galleryItem}>
-              <img src={src} alt={`Khandoba Pen detail ${i + 1}`} loading="lazy" />
+              <img src={src} alt={`Khandoba Pen detail ${i + 1}`} loading="lazy" decoding="async" />
             </div>
           ))}
         </section>

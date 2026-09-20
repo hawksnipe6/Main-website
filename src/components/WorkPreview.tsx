@@ -25,7 +25,7 @@ export function WorkPreview({ onOpenWork }: { onOpenWork: () => void }) {
               aria-label={`Open ${work.title}`}
             >
               <div className={styles.cardImg}>
-                <img src={work.image} alt={work.title} loading="lazy" />
+                <img src={work.image} alt={work.title} loading="lazy" decoding="async" />
                 <div className={styles.overlay} aria-hidden="true" />
               </div>
               <div className={styles.cardMeta}>

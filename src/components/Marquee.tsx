@@ -112,7 +112,7 @@ export function Marquee() {
                 className={styles.image}
                 src={item.image}
                 alt={item.title}
-                loading="lazy"
+                loading="lazy" decoding="async"
               />
             </a>
           ))}

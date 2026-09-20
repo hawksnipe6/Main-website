@@ -364,7 +364,7 @@ function WorkCard({ work, onClick }: { work: WorkCaseStudy; onClick: () => void 
     <article className={styles.card} onClick={onClick}>
       <div className={styles.cardCover}>
         {work.image ? (
-          <img src={work.image} alt={`${work.title} cover`} loading="lazy" />
+          <img src={work.image} alt={`${work.title} cover`} loading="lazy" decoding="async" />
         ) : (
           <div className={styles.cardPlaceholder} />
         )}
@@ -412,7 +412,7 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
       </header>
 
       <section className={styles.heroImageBlock}>
-        <img src={opening ?? work.image} alt={`${work.title} project visual`} loading="eager" />
+        <img src={opening ?? work.image} alt={`${work.title} project visual`} loading="eager" fetchPriority="high" />
       </section>
 
       <section className={styles.section}>
@@ -435,7 +435,7 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
           <span className={styles.sectionLabel}>Process</span>
           <div className={styles.imagePair}>
             {processPair.map((src, i) => (
-              <img key={src} src={src} alt={`${work.title} process board ${i + 1}`} loading="lazy" />
+              <img key={src} src={src} alt={`${work.title} process board ${i + 1}`} loading="lazy" decoding="async" />
             ))}
           </div>
         </section>
@@ -456,7 +456,7 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
       {decisionBoard && (
         <section className={styles.imageSection}>
           <div className={styles.imageFull}>
-            <img src={decisionBoard} alt={`${work.title} design development board`} loading="lazy" />
+            <img src={decisionBoard} alt={`${work.title} design development board`} loading="lazy" decoding="async" />
           </div>
         </section>
       )}
@@ -478,7 +478,7 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
           <span className={styles.sectionLabel}>Selected boards</span>
           <div className={styles.boardStack}>
             {boards.map((src, i) => (
-              <img key={src} src={src} alt={`${work.title} presentation board ${i + 1}`} loading="lazy" />
+              <img key={src} src={src} alt={`${work.title} presentation board ${i + 1}`} loading="lazy" decoding="async" />
             ))}
           </div>
         </section>
