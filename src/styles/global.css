@@ -64,6 +64,7 @@ html, body {
 html {
   scrollbar-width: none;        /* Firefox */
   -ms-overflow-style: none;     /* legacy Edge / IE */
+  scroll-padding-top: var(--page-padding-top); /* keep anchor targets clear of the fixed Nav */
 }
 html::-webkit-scrollbar {
   display: none;                /* Chrome / Safari / Edge */

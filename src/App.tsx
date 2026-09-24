@@ -84,7 +84,6 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    const revealItems = document.querySelectorAll('.reveal')
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -93,11 +92,27 @@ export default function App() {
       },
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     )
-    revealItems.forEach((el) => {
+    const watch = (el: Element) => {
       el.classList.remove('visible')
       observer.observe(el)
+    }
+    document.querySelectorAll('.reveal').forEach(watch)
+    // Route components are React.lazy-loaded, so their .reveal nodes mount
+    // after this effect already ran its one-shot query — watch for them too.
+    const mo = new MutationObserver((mutations) => {
+      for (const { addedNodes } of mutations) {
+        addedNodes.forEach((node) => {
+          if (!(node instanceof Element)) return
+          if (node.matches('.reveal')) watch(node)
+          node.querySelectorAll('.reveal').forEach(watch)
+        })
+      }
     })
-    return () => observer.disconnect()
+    mo.observe(document.body, { childList: true, subtree: true })
+    return () => {
+      observer.disconnect()
+      mo.disconnect()
+    }
   }, [path])
 
   const navigateToPath = (nextPath: string) => {
