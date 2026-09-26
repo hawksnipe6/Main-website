@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>NOCTURNAL — Explainer v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noc-light:#F5F4F0;
+    --noc-dark:#0A0A0A;
+    --ink-hero:#0D0D0D;
+    --ink-sub:#555555;
+    --ink-meta:#8A8A8A;
+    --on-dark:#F5F4F0;
+    --on-dark-sub:#9A9A98;
+    --accent:#E8612A;
+
+    --card-fill-light:#FFFFFF;
+    --card-fill-dark:#242422; /* ~11% lifted toward white from --noc-dark */
+    --shadow-light: 0 20px 44px rgba(17,17,17,0.10), 0 3px 10px rgba(17,17,17,0.07);
+    --shadow-dark: 0 26px 60px rgba(0,0,0,0.62), 0 4px 14px rgba(0,0,0,0.45);
+
+    --r-card:30px;
+    --r-pill:999px;
+
+    --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+    --ease-draw: cubic-bezier(0.16,1,0.3,1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{width:1920px;height:1080px;background:#000;overflow:hidden;}
+  body{font-family:'Host Grotesk',sans-serif;}
+
+  #viewport{position:relative;width:1920px;height:1080px;overflow:hidden;background:#000;}
+  #camera{
+    position:absolute;inset:0;
+    transform-origin:50% 50%;
+    animation:camera-push 7.4s ease-in-out infinite alternate;
+    will-change:transform;
+  }
+  @keyframes camera-push{
+    from{transform:scale(1.0);}
+    to{transform:scale(1.02);}
+  }
+  #stage{
+    position:absolute;inset:0;
+    background:var(--noc-dark);
+    transition:none;
+    filter:blur(0px) brightness(1);
+    will-change:filter;
+  }
+  #stage.bg-light{background:var(--noc-light);}
+  #stage.bg-dark{background:var(--noc-dark);}
+
+  .scene{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
+  .scene.active{opacity:1;visibility:visible;pointer-events:all;}
+
+  /* ---------- typography ---------- */
+  .ink-on-light{color:var(--ink-hero);}
+  .ink-on-dark{color:var(--on-dark);}
+  .sub-on-light{color:var(--ink-sub);}
+  .sub-on-dark{color:var(--on-dark-sub);}
+
+  .headline{
+    font-size:92px;font-weight:600;letter-spacing:-1.5px;line-height:1.08;
+    display:flex;flex-wrap:wrap;justify-content:center;gap:0 22px;max-width:1560px;text-align:center;
+  }
+  .w{
+    display:inline-block;
+    opacity:0;transform:translateY(18px) scale(0.94);
+    transition:opacity 440ms var(--ease-spring), transform 440ms var(--ease-spring);
+  }
+  .w.in{opacity:1;transform:translateY(0) scale(1);}
+  .w.out{opacity:0;transform:translateY(30px) scale(0.96);transition:opacity 230ms var(--ease-draw), transform 230ms var(--ease-draw);}
+
+  /* ---------- generic enter/exit (cards, rows) ---------- */
+  .pop{
+    opacity:0;transform:translateY(18px) scale(0.94);
+    transition:opacity 460ms var(--ease-spring), transform 460ms var(--ease-spring);
+  }
+  .pop.in{opacity:1;transform:translateY(0) scale(1);}
+  .pop.out{opacity:0;transform:translateY(30px) scale(0.95);transition:opacity 240ms var(--ease-draw), transform 240ms var(--ease-draw);}
+
+  /* ---------- accent rail (emphasis, never colour text) ---------- */
+  .rail-wrap{position:relative;padding-left:26px;}
+  .rail-wrap::before{
+    content:'';position:absolute;left:0;top:4px;bottom:4px;width:5px;border-radius:999px;
+    background:var(--accent);
+  }
+
+  /* ---------- cards ---------- */
+  .card{
+    border-radius:var(--r-card);
+    overflow:hidden;
+    position:relative;
+  }
+  .card.light{background:var(--card-fill-light);box-shadow:var(--shadow-light);}
+  .card.dark{background:var(--card-fill-dark);box-shadow:var(--shadow-dark);}
+  .card img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;}
+
+  .caption-row{display:flex;flex-direction:column;gap:10px;}
+  .caption-title{font-size:34px;font-weight:600;letter-spacing:-0.3px;}
+  .caption-meta{font-size:20px;font-weight:400;letter-spacing:0.2px;}
+
+  /* ---------- scene: open ---------- */
+  #scene-open .wrap{display:flex;flex-direction:column;align-items:center;gap:34px;}
+  #scene-open .brand-card{
+    width:220px;height:220px;display:flex;align-items:center;justify-content:center;
+    padding:40px;
+  }
+  #scene-open .brand-card img{width:100%;height:100%;object-fit:contain;}
+  #scene-open .name{font-size:64px;font-weight:700;letter-spacing:-1px;}
+  #scene-open .tag{display:flex;gap:10px;font-size:24px;font-weight:400;letter-spacing:0.5px;}
+
+  /* ---------- scene: hero (real UI) ---------- */
+  #scene-hero .frame{display:flex;flex-direction:column;align-items:center;gap:30px;}
+  #hero-shape{
+    width:240px;height:52px;border-radius:999px;
+    display:flex;align-items:center;justify-content:center;
+    transition:width 620ms var(--ease-spring), height 620ms var(--ease-spring), border-radius 620ms var(--ease-spring);
+    position:relative;
+    overflow:hidden;
+    background:var(--card-fill-light);
+    box-shadow:var(--shadow-light);
+  }
+  #hero-shape.grown{width:1180px;height:660px;border-radius:var(--r-card);}
+  #hero-shape .pill-label{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-size:22px;letter-spacing:2px;color:var(--ink-sub);
+    opacity:1;transition:opacity 260ms var(--ease-draw);
+  }
+  #hero-shape.grown .pill-label{opacity:0;}
+  #hero-shape img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;
+    opacity:0;transition:opacity 320ms var(--ease-draw);
+  }
+  #hero-shape.grown img{opacity:1;}
+  #scene-hero .cap{font-size:30px;font-weight:500;}
+
+  /* ---------- scene: work (real UI) ---------- */
+  #scene-work .frame{display:flex;flex-direction:column;align-items:center;gap:32px;}
+  #scene-work .card{width:1180px;height:660px;}
+  #scene-work .cap{font-size:30px;font-weight:500;}
+
+  /* ---------- scene: portfolio (real images, cycling) ---------- */
+  #scene-portfolio .frame{display:flex;flex-direction:column;align-items:center;gap:36px;}
+  #scene-portfolio .card{width:640px;height:640px;}
+  #scene-portfolio .card img{opacity:0;transition:opacity 320ms var(--ease-draw);position:absolute;inset:0;}
+  #scene-portfolio .card img.show{opacity:1;}
+  #scene-portfolio .caption-row{align-items:center;text-align:left;}
+
+  /* ---------- scene: services (real UI) ---------- */
+  #scene-services .frame{display:flex;flex-direction:column;align-items:center;gap:32px;}
+  #scene-services .card{width:1180px;height:520px;}
+  #scene-services .cap{font-size:30px;font-weight:500;}
+
+  /* ---------- scene: system (abstract) ---------- */
+  #scene-system .stack{display:flex;flex-direction:column;gap:22px;width:900px;}
+  .pillrow{
+    height:118px;border-radius:var(--r-pill);
+    display:flex;align-items:center;gap:34px;padding:0 44px;
+    position:relative;
+  }
+  .pillrow .num{font-size:42px;font-weight:700;color:var(--on-dark-sub);min-width:70px;}
+  .pillrow .label{font-size:30px;font-weight:600;}
+  .pillrow.hero{padding-left:58px;}
+  .pillrow.hero::before{
+    content:'';position:absolute;left:22px;top:22px;bottom:22px;width:5px;border-radius:999px;
+    background:var(--accent);
+  }
+
+  /* ---------- scene: testimonials (real UI) ---------- */
+  #scene-testimonials .frame{display:flex;flex-direction:column;align-items:center;gap:32px;}
+  #scene-testimonials .card{width:1180px;height:420px;}
+  #scene-testimonials .cap{font-size:30px;font-weight:500;}
+
+  /* ---------- scene: signoff ---------- */
+  #scene-signoff .wrap{display:flex;flex-direction:column;align-items:center;gap:36px;}
+  #scene-signoff .name{font-size:80px;font-weight:700;letter-spacing:-1.5px;}
+  .cta-pill{
+    display:flex;align-items:center;gap:16px;
+    padding:20px 40px;border-radius:999px;
+    border:1.5px solid var(--accent);
+    font-size:28px;font-weight:600;
+  }
+  .cta-pill .dot{width:10px;height:10px;border-radius:50%;background:var(--accent);}
+
+  #blackout{
+    position:absolute;inset:0;background:#000;z-index:50;opacity:1;
+    transition:opacity 900ms var(--ease-draw);
+  }
+  #blackout.hide{opacity:0;pointer-events:none;}
+  #blackout.show-end{opacity:1;pointer-events:all;}
+</style>
+</head>
+<body>
+<div id="viewport">
+<div id="camera">
+<div id="stage" class="bg-dark">
+
+  <!-- SCENE: OPEN -->
+  <div class="scene" id="scene-open">
+    <div class="wrap">
+      <div class="card dark pop brand-card" id="open-card"><img src="assets/brand/mark.svg" alt="Nocturnal mark" /></div>
+      <div class="name ink-on-dark pop" id="open-name">Nocturnal</div>
+      <div class="tag ink-on-dark rail-wrap" id="open-tag">
+        <span class="w">Design</span><span class="w">Intelligence</span><span class="w">Studio.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE: STATEMENT 1 -->
+  <div class="scene" id="scene-statement1">
+    <div class="headline ink-on-light" id="statement1-text">
+      <span class="w">A</span><span class="w">strategic</span><span class="w">design</span><span class="w">team</span><span class="w">you</span><span class="w">can</span><span class="w">trust.</span>
+    </div>
+  </div>
+
+  <!-- SCENE: HERO (real UI) -->
+  <div class="scene" id="scene-hero">
+    <div class="frame">
+      <div id="hero-shape">
+        <div class="pill-label">getnctrnl.com</div>
+        <img src="assets/ui/hero.png" alt="Nocturnal homepage hero" />
+      </div>
+      <div class="cap ink-on-light rail-wrap pop" id="hero-cap">The homepage, live.</div>
+    </div>
+  </div>
+
+  <!-- SCENE: WORK (real UI) -->
+  <div class="scene" id="scene-work">
+    <div class="frame">
+      <div class="card dark pop" id="work-card"><img src="assets/ui/work-page.png" alt="Nocturnal projects grid" /></div>
+      <div class="cap ink-on-dark rail-wrap pop" id="work-cap">One studio. Every discipline.</div>
+    </div>
+  </div>
+
+  <!-- SCENE: PORTFOLIO (real images) -->
+  <div class="scene" id="scene-portfolio">
+    <div class="frame">
+      <div class="card light pop" id="portfolio-card">
+        <img data-name="Audio 1" src="assets/work/work-cover-audio-1.png" class="show" />
+        <img data-name="Alivio" src="assets/work/work-cover-alivio.png" />
+        <img data-name="Bedizen" src="assets/work/work-cover-bedizen.png" />
+        <img data-name="OSMO Vision 1" src="assets/work/work-cover-osmo.jpg" />
+        <img data-name="Sailfish" src="assets/work/work-cover-sailfish.png" />
+      </div>
+      <div class="caption-row rail-wrap pop" id="portfolio-cap">
+        <div class="caption-title ink-on-light" id="portfolio-title">Audio 1</div>
+        <div class="caption-meta sub-on-light" id="portfolio-meta">Industrial design and interface detailing</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE: SERVICES (real UI) -->
+  <div class="scene" id="scene-services">
+    <div class="frame">
+      <div class="card light pop" id="services-card"><img src="assets/ui/services.png" alt="What you get" /></div>
+      <div class="cap ink-on-light rail-wrap pop" id="services-cap">Every discipline, one team.</div>
+    </div>
+  </div>
+
+  <!-- SCENE: SYSTEM (abstract) -->
+  <div class="scene" id="scene-system">
+    <div class="stack">
+      <div class="pillrow hero dark pop" id="row-1" style="background:var(--card-fill-dark);box-shadow:var(--shadow-dark);">
+        <div class="num ink-on-dark">01</div>
+        <div class="ink-on-dark label">Constraint Rules Engine</div>
+      </div>
+      <div class="pillrow dark pop" id="row-2" style="background:var(--card-fill-dark);box-shadow:var(--shadow-dark);">
+        <div class="num ink-on-dark">02</div>
+        <div class="label ink-on-dark">Vendor Intelligence Layer</div>
+      </div>
+      <div class="pillrow dark pop" id="row-3" style="background:var(--card-fill-dark);box-shadow:var(--shadow-dark);">
+        <div class="num ink-on-dark">03</div>
+        <div class="label ink-on-dark">Parametric 3D Generation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE: TESTIMONIALS (real UI) -->
+  <div class="scene" id="scene-testimonials">
+    <div class="frame">
+      <div class="card light pop" id="testi-card"><img src="assets/ui/testimonials.png" alt="Testimonials" /></div>
+      <div class="cap ink-on-light rail-wrap pop" id="testi-cap">Trusted by the teams who shipped it.</div>
+    </div>
+  </div>
+
+  <!-- SCENE: SIGNOFF -->
+  <div class="scene" id="scene-signoff">
+    <div class="wrap">
+      <div class="card dark pop brand-card" id="signoff-mark" style="width:140px;height:140px;padding:26px;"><img src="assets/brand/mark.svg" alt="Nocturnal mark" style="width:100%;height:100%;object-fit:contain;" /></div>
+      <div class="name ink-on-dark pop" id="signoff-name">Nocturnal</div>
+      <div class="cta-pill ink-on-dark pop" id="signoff-cta"><span>getnctrnl.com</span><span class="dot"></span></div>
+    </div>
+  </div>
+
+  <div id="blackout"></div>
+</div>
+</div>
+</div>
+
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const stage = $('stage');
+  const scenes = ['scene-open','scene-statement1','scene-hero','scene-work','scene-portfolio','scene-services','scene-system','scene-testimonials','scene-signoff'];
+  let activeId = null;
+
+  function wordEls(container){ return Array.from(container.querySelectorAll('.w')); }
+  function popEls(...ids){ return ids.map(id => $(id)); }
+
+  function enterWords(container, stagger){
+    stagger = stagger || 75;
+    wordEls(container).forEach((el, i) => {
+      setTimeout(() => el.classList.add('in'), i*stagger);
+    });
+  }
+  function exitWords(container, stagger){
+    stagger = stagger || 40;
+    const els = wordEls(container);
+    els.forEach((el, i) => {
+      setTimeout(() => { el.classList.remove('in'); el.classList.add('out'); }, i*stagger);
+    });
+  }
+  function enterPop(el, delay){ setTimeout(() => el.classList.add('in'), delay||0); }
+  function exitPop(el, delay){ setTimeout(() => { el.classList.remove('in'); el.classList.add('out'); }, delay||0); }
+
+  // ---- whip-pan bridge: blur+brightness flash, same-direction slide, bg swap under the peak ----
+  function cutTo(nextId, dir, nextBg){
+    const half = 90; // 180ms total bridge
+    const sign = dir === 'left' ? -1 : 1;
+    const outEl = activeId ? $(activeId) : null;
+
+    stage.style.transition = 'filter ' + half + 'ms var(--ease-draw)';
+    stage.style.filter = 'blur(8px) brightness(1.15)';
+    if (outEl){
+      outEl.style.transition = 'transform ' + half + 'ms var(--ease-draw)';
+      outEl.style.transform = 'translateX(' + (sign*96) + 'px)';
+    }
+
+    setTimeout(() => {
+      // PEAK — everything below happens while fully blurred/bright
+      stage.classList.remove('bg-light','bg-dark');
+      stage.classList.add(nextBg === 'dark' ? 'bg-dark' : 'bg-light');
+
+      if (outEl){ outEl.classList.remove('active'); outEl.style.transition=''; outEl.style.transform=''; }
+
+      const inEl = $(nextId);
+      inEl.style.transition = 'none';
+      inEl.style.transform = 'translateX(' + (sign*96) + 'px)';
+      inEl.classList.add('active');
+      // force reflow so the next transform change animates
+      void inEl.offsetWidth;
+
+      inEl.style.transition = 'transform ' + half + 'ms var(--ease-draw)';
+      inEl.style.transform = 'translateX(0)';
+      stage.style.transition = 'filter ' + half + 'ms var(--ease-draw)';
+      stage.style.filter = 'blur(0px) brightness(1)';
+
+      activeId = nextId;
+    }, half);
+  }
+
+  const timeline = [];
+  function at(ms, fn){ timeline.push({ms, fn}); }
+
+  // ===== SCENE 1: OPEN (dark) 0 - 3980 =====
+  at(0, () => {
+    stage.classList.add('bg-dark');
+    $('scene-open').classList.add('active');
+    activeId = 'scene-open';
+    $('blackout').classList.add('hide');
+  });
+  at(200, () => enterPop($('open-card')));
+  at(420, () => enterPop($('open-name')));
+  at(700, () => enterWords($('open-tag'), 80));
+  at(3500, () => { exitPop($('open-card')); exitPop($('open-name')); exitWords($('open-tag'), 30); });
+  at(3800, () => cutTo('scene-statement1', 'left', 'light'));
+
+  // ===== SCENE 2: STATEMENT (light) 3980 - 8180 =====
+  at(4060, () => enterWords($('statement1-text'), 78));
+  at(7700, () => exitWords($('statement1-text'), 30));
+  at(8180, () => cutTo('scene-hero', 'right', 'light'));
+
+  // ===== SCENE 3: HERO real UI (light) 8360 - 14360 =====
+  at(8560, () => { $('hero-shape').classList.add('grown'); });
+  at(9300, () => enterPop($('hero-cap')));
+  at(13900, () => { $('hero-shape').classList.remove('grown'); exitPop($('hero-cap')); });
+  at(14360, () => cutTo('scene-work', 'left', 'dark'));
+
+  // ===== SCENE 4: WORK real UI (dark) 14540 - 20040 =====
+  at(14740, () => enterPop($('work-card')));
+  at(15000, () => enterPop($('work-cap')));
+  at(19600, () => { exitPop($('work-card')); exitPop($('work-cap')); });
+  at(20040, () => cutTo('scene-portfolio', 'right', 'light'));
+
+  // ===== SCENE 5: PORTFOLIO real images (light) 20220 - 28220 =====
+  const portfolioItems = [
+    { name:'Audio 1', meta:'Industrial design and interface detailing' },
+    { name:'Alivio', meta:'Medical product design' },
+    { name:'Bedizen', meta:'Wearable product and UI system' },
+    { name:'OSMO Vision 1', meta:'Ideation, prototyping, and product development' },
+    { name:'Sailfish', meta:'Mobility product interface' },
+  ];
+  at(20420, () => enterPop($('portfolio-card')));
+  at(20500, () => enterPop($('portfolio-cap')));
+  const imgs = () => Array.from(document.querySelectorAll('#portfolio-card img'));
+  const SLOT = 1440;
+  portfolioItems.forEach((item, i) => {
+    const start = 20700 + i*SLOT;
+    at(start, () => {
+      imgs().forEach(im => im.classList.remove('show'));
+      imgs()[i].classList.add('show');
+      $('portfolio-title').textContent = item.name;
+      $('portfolio-meta').textContent = item.meta;
+    });
+  });
+  at(27700, () => { exitPop($('portfolio-card')); exitPop($('portfolio-cap')); });
+  at(28220, () => cutTo('scene-services', 'left', 'light'));
+
+  // ===== SCENE 6: SERVICES real UI (light) 28400 - 32900 =====
+  at(28600, () => enterPop($('services-card')));
+  at(28800, () => enterPop($('services-cap')));
+  at(32500, () => { exitPop($('services-card')); exitPop($('services-cap')); });
+  at(32900, () => cutTo('scene-system', 'right', 'dark'));
+
+  // ===== SCENE 7: SYSTEM abstract (dark) 33080 - 38580 =====
+  at(33280, () => enterPop($('row-1')));
+  at(33380, () => enterPop($('row-2')));
+  at(33480, () => enterPop($('row-3')));
+  at(38100, () => { exitPop($('row-1')); exitPop($('row-2'),40); exitPop($('row-3'),80); });
+  at(38580, () => cutTo('scene-testimonials', 'left', 'light'));
+
+  // ===== SCENE 8: TESTIMONIALS real UI (light) 38760 - 43260 =====
+  at(38960, () => enterPop($('testi-card')));
+  at(39100, () => enterPop($('testi-cap')));
+  at(42800, () => { exitPop($('testi-card')); exitPop($('testi-cap')); });
+  at(43260, () => cutTo('scene-signoff', 'right', 'dark'));
+
+  // ===== SCENE 9: SIGNOFF (dark) 43440 - 49000 =====
+  at(43640, () => enterPop($('signoff-mark')));
+  at(43760, () => enterPop($('signoff-name')));
+  at(43980, () => enterPop($('signoff-cta')));
+  at(48200, () => $('blackout').classList.add('show-end'));
+  at(49000, () => { window.__sequenceDone = true; });
+
+  timeline.forEach(({ms, fn}) => setTimeout(fn, ms));
+  window.__sequenceDone = false;
+})();
+</script>
+</body>
+</html>
