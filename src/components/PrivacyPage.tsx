@@ -51,7 +51,7 @@ export function PrivacyPage() {
         <p>
           You can ask us what information we hold about you, ask us to correct it, or ask us to
           delete it. Email{' '}
-          <a href="mailto:getnctrnl@gmail.com">getnctrnl@gmail.com</a> and we will act on it directly.
+          <a href="mailto:work@getnctrnl.com">work@getnctrnl.com</a> and we will act on it directly.
         </p>
 
         <h2>Children</h2>
@@ -65,7 +65,7 @@ export function PrivacyPage() {
         <h2>Contact</h2>
         <p>
           Nocturnal is based in Mumbai, India. For any question about this policy, email{' '}
-          <a href="mailto:getnctrnl@gmail.com">getnctrnl@gmail.com</a> or call{' '}
+          <a href="mailto:work@getnctrnl.com">work@getnctrnl.com</a> or call{' '}
           <a href="tel:+917045421516">+91 70454 21516</a>.
         </p>
 

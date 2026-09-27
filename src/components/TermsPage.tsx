@@ -67,7 +67,7 @@ export function TermsPage() {
 
         <h2>Contact</h2>
         <p>
-          Email <a href="mailto:getnctrnl@gmail.com">getnctrnl@gmail.com</a> or call{' '}
+          Email <a href="mailto:work@getnctrnl.com">work@getnctrnl.com</a> or call{' '}
           <a href="tel:+917045421516">+91 70454 21516</a>.
         </p>
 
