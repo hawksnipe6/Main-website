@@ -188,66 +188,6 @@
   transition: opacity 0.5s ease;
 }
 
-/* ── Mobile hero — static image, no scrub video ─── */
-.mobileHero {
-  position: relative;
-  width: 100%;
-}
-
-.mobileHeroImage {
-  display: block;
-  width: 100%;
-  height: 62vh;
-  object-fit: cover;
-  background: var(--noc-grey-1);
-}
-
-.mobileHeroText {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 32px calc(var(--gutter, 0px) + var(--site-padding, 20px)) 28px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
-}
-
-.mobileHeroHeading {
-  font-size: clamp(32px, 9vw, 44px);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: #fff;
-}
-
-/* ── Mobile chapters — image + heading + body, plain document flow ─── */
-.mobileChapter {
-  padding: 48px calc(var(--gutter, 0px) + var(--site-padding, 20px)) 0;
-}
-
-.mobileChapterImage {
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: var(--radius);
-  margin-bottom: 24px;
-  background: var(--noc-grey-1);
-}
-
-.mobileChapterHeading {
-  font-size: clamp(22px, 6vw, 30px);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--noc-white);
-  margin-bottom: 12px;
-}
-
-.mobileChapterBody {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--noc-grey-5);
-  max-width: 560px;
-}
-
 /* ── Reveal section (after the scrub) ───── */
 .reveal {
   position: relative;

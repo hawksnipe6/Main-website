@@ -36,9 +36,6 @@ function segmentOpacity(seg: Segment, t: number): number {
   return Math.max(0, Math.min(fadeIn, fadeOut))
 }
 
-const isMobile = typeof window !== 'undefined'
-  && window.matchMedia('(max-width: 768px)').matches
-
 // Theme-matched scrub encodes: the cream version is baked on #F5F4F0, the dark
 // version on #0D0D0D, so the letterbox matches the page background in each theme.
 const VIDEO_SRC_LIGHT = '/martand.mp4'
@@ -78,6 +75,16 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
   const videoSrc = isDark ? VIDEO_SRC_DARK : VIDEO_SRC_LIGHT
   // Reset the loader when the source swaps so scrubbing waits for the new clip.
   useEffect(() => { videoReady.current = false; setLoading(true) }, [videoSrc])
+
+  // Safety net — some browsers/in-app webviews (older Android, Instagram's
+  // in-app browser, etc.) have limited codec support or just buffer slowly.
+  // Never leave a visitor stuck behind the loader: if the clip hasn't
+  // reported ready within a few seconds, reveal the page anyway (the scrub
+  // effect below no-ops gracefully when there's no video duration).
+  useEffect(() => {
+    const timer = setTimeout(markReady, 6000)
+    return () => clearTimeout(timer)
+  }, [videoSrc])
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -157,6 +164,7 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
             onLoadedMetadata={() => { videoReady.current = true }}
             onLoadedData={markReady}
             onCanPlay={markReady}
+            onError={markReady}
           />
 
           {loading && (
@@ -201,9 +209,6 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
 }
 
 // ── Reveal: device showcase, blurb, gallery, disclaimer ───────────────────
-// Shared by both the desktop scrub experience and the mobile page below —
-// this section was already fully responsive, it just never reached mobile
-// visitors because of the old blanket "view on desktop" gate.
 function MartandReveal({ onNavigate }: { onNavigate?: (path: string) => void }) {
   const deviceRef = useRef<HTMLVideoElement>(null)
 
@@ -316,67 +321,9 @@ function MartandReveal({ onNavigate }: { onNavigate?: (path: string) => void }) 
   )
 }
 
-// ── Mobile: fast static hero (no 30MB scrub video) + the same reveal ──────
-// Reuses SEGMENTS' copy (the intro segment has no body — it's the desktop
-// title card only) paired with a real product photo per chapter.
-const MOBILE_CHAPTER_IMAGES: Record<string, { image: string; alt: string }> = {
-  'The Cap': { image: '/pen-lounge/1.webp', alt: 'Khandoba Pen cap detail, embossed with temple patterns' },
-  'The Barrel': { image: '/pen-lounge/5.webp', alt: 'Khandoba Pen barrel detail, showing the battle relief' },
-}
-const MOBILE_CHAPTERS = SEGMENTS.filter((seg) => seg.body).map((seg) => ({ ...seg, ...MOBILE_CHAPTER_IMAGES[seg.heading] }))
-
-function MartandMobile({ onBack, onNavigate }: { onBack: () => void; onNavigate?: (path: string) => void }) {
-  useEffect(() => {
-    document.body.style.overflow = 'hidden'
-    return () => { document.body.style.overflow = '' }
-  }, [])
-
-  return (
-    <div className={styles.overlay}>
-      <button className={styles.backBtn} onClick={onBack} aria-label="Back to all work">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        All work
-      </button>
-
-      <div className={styles.mobileHero}>
-        <img
-          className={styles.mobileHeroImage}
-          src="/pen-lounge/4.webp"
-          alt="Khandoba Pen — sterling silver fountain pen"
-          decoding="async"
-        />
-        <div className={styles.mobileHeroText}>
-          <h1 className={styles.mobileHeroHeading}>Khandoba Pen</h1>
-        </div>
-      </div>
-
-      {MOBILE_CHAPTERS.map((seg) => (
-        <section key={seg.heading} className={styles.mobileChapter}>
-          <img
-            className={styles.mobileChapterImage}
-            src={seg.image}
-            alt={seg.alt}
-            loading="lazy"
-            decoding="async"
-          />
-          <h2 className={styles.mobileChapterHeading}>{seg.heading}</h2>
-          <p className={styles.mobileChapterBody}>{seg.body}</p>
-        </section>
-      ))}
-
-      <MartandReveal onNavigate={onNavigate} />
-    </div>
-  )
-}
-
 export function MartandCaseStudy(props: { onBack: () => void; onNavigate?: (path: string) => void }) {
-  // Theme-aware now: the scrub video has cream and dark encodes, so Martand
-  // follows the site theme like every other page.
-  // Mobile skips the 30MB scroll-scrubbed video entirely — it gets a fast,
-  // static version of the same story instead of a "view on desktop" wall.
-  return isMobile
-    ? <MartandMobile {...props} />
-    : <MartandDesktop {...props} />
+  // Theme-aware: the scrub video has cream and dark encodes, so Martand
+  // follows the site theme like every other page. Same experience on every
+  // screen size — the reveal section below already has its own mobile CSS.
+  return <MartandDesktop {...props} />
 }
