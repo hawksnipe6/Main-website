@@ -44,7 +44,7 @@ const isMobile = typeof window !== 'undefined'
 const VIDEO_SRC_LIGHT = '/martand.mp4'
 const VIDEO_SRC_DARK = '/martand-dark.mp4'
 
-const GALLERY = ['/pen-lounge/1.jpg', '/pen-lounge/2.jpg', '/pen-lounge/4.jpg', '/pen-lounge/5.jpg']
+const GALLERY = ['/pen-lounge/1.webp', '/pen-lounge/2.webp', '/pen-lounge/4.webp', '/pen-lounge/5.webp']
 
 const MUTE_KEY = 'penlounge-device-muted'
 
@@ -52,7 +52,6 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
   const overlayRef    = useRef<HTMLDivElement>(null)
   const scrubRef      = useRef<HTMLDivElement>(null)
   const videoRef      = useRef<HTMLVideoElement>(null)
-  const deviceRef     = useRef<HTMLVideoElement>(null)
   const progressRef   = useRef<HTMLDivElement>(null)
   const hintRef       = useRef<HTMLDivElement>(null)
   const navBgRef      = useRef<HTMLDivElement>(null)
@@ -60,12 +59,6 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
   const segRefs       = useRef<(HTMLDivElement | null)[]>([])
 
   const videoReady    = useRef(false)
-
-  const [muted, setMuted] = useState(() => {
-    if (typeof window === 'undefined') return true
-    const stored = window.localStorage.getItem(MUTE_KEY)
-    return stored === null ? true : stored === 'true'
-  })
 
   // Loading gate — the scrub video is large, so first-time visitors see a
   // loader until enough has buffered to scrub smoothly.
@@ -90,36 +83,6 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
-
-  // ── Device video: autoplay (muted) when in view, pause when out ─────────
-  useEffect(() => {
-    const v = deviceRef.current
-    if (!v) return
-    const io = new IntersectionObserver(
-      (entries) => {
-        const e = entries[0]
-        if (e.isIntersecting) {
-          // Respect the user's persisted mute choice; never force-unmute.
-          v.muted = muted
-          v.play().catch(() => { v.muted = true; v.play().catch(() => {}) })
-        } else {
-          v.pause()
-        }
-      },
-      { threshold: 0.5 }
-    )
-    io.observe(v)
-    return () => io.disconnect()
-  }, [muted])
-
-  const toggleMute = () => {
-    const v = deviceRef.current
-    if (!v) return
-    v.muted = !v.muted
-    setMuted(v.muted)
-    if (typeof window !== 'undefined') window.localStorage.setItem(MUTE_KEY, String(v.muted))
-    if (!v.muted && v.paused) v.play().catch(() => {})
-  }
 
   useEffect(() => {
     const el    = overlayRef.current
@@ -232,83 +195,144 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
         </div>
       </div>
 
-      {/* ── Reveal: device showcase, blurb, gallery, disclaimer ─── */}
-      <div className={styles.reveal}>
-
-        <section className={styles.deviceBlock}>
-          <div className={styles.deviceCard}>
-            <video
-              ref={deviceRef}
-              src="/pen-lounge-device.mp4"
-              poster="/pen-lounge-device-poster.jpg"
-              className={styles.deviceVideo}
-              playsInline
-              loop
-              muted
-              preload="metadata"
-            />
-            <button
-              className={styles.muteBtn}
-              onClick={toggleMute}
-              aria-label={muted ? 'Unmute video' : 'Mute video'}
-            >
-              {muted ? (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" />
-                  <path d="M17 9l4 6M21 9l-4 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                </svg>
-              ) : (
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" />
-                  <path d="M16.5 8.5a5 5 0 0 1 0 7M18.5 6a8 8 0 0 1 0 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                </svg>
-              )}
-            </button>
-          </div>
-
-          <div className={styles.deviceText}>
-            <h2 className={styles.deviceHeading}>Available at The Pen Lounge</h2>
-            <h3 className={styles.blurbHeading}>A pen carved from devotion</h3>
-            <p className={styles.blurbBody}>
-              The Khandoba Pen translates temple craft into an object you can hold every day. Every surface, from the Shikhara-inspired cap to the battle reliefs along the barrel, is drawn from the iconography of Lord Khandoba. It is part writing instrument, part keepsake, made for those who value story as much as form.
-            </p>
-            <a
-              className={styles.penLink}
-              href="https://thepenlounge.com/product/bespoke-martand-malhari-jejuri-heritage-limited-edition-fountain-pen/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Visit The Pen Lounge
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M3 7H11M11 7L7 3M11 7L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-          </div>
-        </section>
-
-        <section className={styles.gallery}>
-          {GALLERY.map((src, i) => (
-            <div key={src} className={styles.galleryItem}>
-              <img src={src} alt={`Khandoba Pen detail ${i + 1}`} loading="lazy" decoding="async" />
-            </div>
-          ))}
-        </section>
-
-        <section className={styles.disclaimer}>
-          <p>
-            © {new Date().getFullYear()} The Pen Lounge. All rights reserved. This design and all associated visual assets, 3D models, animations, renders, and product imagery are the copyrighted property of The Pen Lounge. No part of this work may be reproduced, copied, modified, distributed, or sold without prior written permission. All trademarks and references remain the property of their respective owners.
-          </p>
-        </section>
-
-        <Footer onNavigate={onNavigate} />
-      </div>
+      <MartandReveal onNavigate={onNavigate} />
     </div>
   )
 }
 
-function MartandMobileNotice({ onBack }: { onBack: () => void }) {
+// ── Reveal: device showcase, blurb, gallery, disclaimer ───────────────────
+// Shared by both the desktop scrub experience and the mobile page below —
+// this section was already fully responsive, it just never reached mobile
+// visitors because of the old blanket "view on desktop" gate.
+function MartandReveal({ onNavigate }: { onNavigate?: (path: string) => void }) {
+  const deviceRef = useRef<HTMLVideoElement>(null)
+
+  const [muted, setMuted] = useState(() => {
+    if (typeof window === 'undefined') return true
+    const stored = window.localStorage.getItem(MUTE_KEY)
+    return stored === null ? true : stored === 'true'
+  })
+
+  // ── Device video: autoplay (muted) when in view, pause when out ─────────
+  useEffect(() => {
+    const v = deviceRef.current
+    if (!v) return
+    const io = new IntersectionObserver(
+      (entries) => {
+        const e = entries[0]
+        if (e.isIntersecting) {
+          // Respect the user's persisted mute choice; never force-unmute.
+          v.muted = muted
+          v.play().catch(() => { v.muted = true; v.play().catch(() => {}) })
+        } else {
+          v.pause()
+        }
+      },
+      { threshold: 0.5 }
+    )
+    io.observe(v)
+    return () => io.disconnect()
+  }, [muted])
+
+  const toggleMute = () => {
+    const v = deviceRef.current
+    if (!v) return
+    v.muted = !v.muted
+    setMuted(v.muted)
+    if (typeof window !== 'undefined') window.localStorage.setItem(MUTE_KEY, String(v.muted))
+    if (!v.muted && v.paused) v.play().catch(() => {})
+  }
+
   return (
-    <div className={styles.mobileNotice}>
+    <div className={styles.reveal}>
+
+      <section className={styles.deviceBlock}>
+        <div className={styles.deviceCard}>
+          <video
+            ref={deviceRef}
+            src="/pen-lounge-device.mp4"
+            poster="/pen-lounge-device-poster.webp"
+            className={styles.deviceVideo}
+            playsInline
+            loop
+            muted
+            preload="metadata"
+          />
+          <button
+            className={styles.muteBtn}
+            onClick={toggleMute}
+            aria-label={muted ? 'Unmute video' : 'Mute video'}
+          >
+            {muted ? (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" />
+                <path d="M17 9l4 6M21 9l-4 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor" />
+                <path d="M16.5 8.5a5 5 0 0 1 0 7M18.5 6a8 8 0 0 1 0 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        <div className={styles.deviceText}>
+          <h2 className={styles.deviceHeading}>Available at The Pen Lounge</h2>
+          <h3 className={styles.blurbHeading}>A pen carved from devotion</h3>
+          <p className={styles.blurbBody}>
+            The Khandoba Pen translates temple craft into an object you can hold every day. Every surface, from the Shikhara-inspired cap to the battle reliefs along the barrel, is drawn from the iconography of Lord Khandoba. It is part writing instrument, part keepsake, made for those who value story as much as form.
+          </p>
+          <a
+            className={styles.penLink}
+            href="https://thepenlounge.com/product/bespoke-martand-malhari-jejuri-heritage-limited-edition-fountain-pen/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Visit The Pen Lounge
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M3 7H11M11 7L7 3M11 7L7 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <section className={styles.gallery}>
+        {GALLERY.map((src, i) => (
+          <div key={src} className={styles.galleryItem}>
+            <img src={src} alt={`Khandoba Pen detail ${i + 1}`} loading="lazy" decoding="async" />
+          </div>
+        ))}
+      </section>
+
+      <section className={styles.disclaimer}>
+        <p>
+          © {new Date().getFullYear()} The Pen Lounge. All rights reserved. This design and all associated visual assets, 3D models, animations, renders, and product imagery are the copyrighted property of The Pen Lounge. No part of this work may be reproduced, copied, modified, distributed, or sold without prior written permission. All trademarks and references remain the property of their respective owners.
+        </p>
+      </section>
+
+      <Footer onNavigate={onNavigate} />
+    </div>
+  )
+}
+
+// ── Mobile: fast static hero (no 30MB scrub video) + the same reveal ──────
+// Reuses SEGMENTS' copy (the intro segment has no body — it's the desktop
+// title card only) paired with a real product photo per chapter.
+const MOBILE_CHAPTER_IMAGES: Record<string, { image: string; alt: string }> = {
+  'The Cap': { image: '/pen-lounge/1.webp', alt: 'Khandoba Pen cap detail, embossed with temple patterns' },
+  'The Barrel': { image: '/pen-lounge/5.webp', alt: 'Khandoba Pen barrel detail, showing the battle relief' },
+}
+const MOBILE_CHAPTERS = SEGMENTS.filter((seg) => seg.body).map((seg) => ({ ...seg, ...MOBILE_CHAPTER_IMAGES[seg.heading] }))
+
+function MartandMobile({ onBack, onNavigate }: { onBack: () => void; onNavigate?: (path: string) => void }) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = '' }
+  }, [])
+
+  return (
+    <div className={styles.overlay}>
       <button className={styles.backBtn} onClick={onBack} aria-label="Back to all work">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
           <path d="M10 3L5 8L10 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -316,14 +340,33 @@ function MartandMobileNotice({ onBack }: { onBack: () => void }) {
         All work
       </button>
 
-      <div className={styles.mobileInner}>
-        <svg className={styles.mobileIcon} width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <rect x="2" y="3.5" width="20" height="13" rx="2" stroke="currentColor" strokeWidth="1.5" />
-          <path d="M8 20.5h8M12 16.5v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-        <h2 className={styles.mobileTitle}>Best viewed on desktop</h2>
-        <p className={styles.mobileSub}>This experience is built for larger screens. Open it on a desktop to view the full Khandoba Pen story.</p>
+      <div className={styles.mobileHero}>
+        <img
+          className={styles.mobileHeroImage}
+          src="/pen-lounge/4.webp"
+          alt="Khandoba Pen — sterling silver fountain pen"
+          decoding="async"
+        />
+        <div className={styles.mobileHeroText}>
+          <h1 className={styles.mobileHeroHeading}>Khandoba Pen</h1>
+        </div>
       </div>
+
+      {MOBILE_CHAPTERS.map((seg) => (
+        <section key={seg.heading} className={styles.mobileChapter}>
+          <img
+            className={styles.mobileChapterImage}
+            src={seg.image}
+            alt={seg.alt}
+            loading="lazy"
+            decoding="async"
+          />
+          <h2 className={styles.mobileChapterHeading}>{seg.heading}</h2>
+          <p className={styles.mobileChapterBody}>{seg.body}</p>
+        </section>
+      ))}
+
+      <MartandReveal onNavigate={onNavigate} />
     </div>
   )
 }
@@ -331,7 +374,9 @@ function MartandMobileNotice({ onBack }: { onBack: () => void }) {
 export function MartandCaseStudy(props: { onBack: () => void; onNavigate?: (path: string) => void }) {
   // Theme-aware now: the scrub video has cream and dark encodes, so Martand
   // follows the site theme like every other page.
+  // Mobile skips the 30MB scroll-scrubbed video entirely — it gets a fast,
+  // static version of the same story instead of a "view on desktop" wall.
   return isMobile
-    ? <MartandMobileNotice onBack={props.onBack} />
+    ? <MartandMobile {...props} />
     : <MartandDesktop {...props} />
 }
