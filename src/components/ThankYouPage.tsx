@@ -8,7 +8,7 @@ export function ThankYouPage({ onNavigate }: { onNavigate: (path: string) => voi
         <h1 className={styles.title}>Your brief is in.</h1>
         <p className={styles.body}>
           We read every inquiry ourselves. Expect a reply from{' '}
-          <a href="mailto:getnctrnl@gmail.com">getnctrnl@gmail.com</a> within two working days — usually
+          <a href="mailto:work@getnctrnl.com">work@getnctrnl.com</a> within two working days — usually
           with a first question or two about scope.
         </p>
         <div className={styles.actions}>

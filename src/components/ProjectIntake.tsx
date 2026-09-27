@@ -164,7 +164,7 @@ export function ProjectIntake({ onDone }: { onDone?: () => void } = {}) {
               </button>
               {status === 'error' && (
                 <p className={styles.error}>
-                  That did not go through. Try once more, or email getnctrnl@gmail.com.
+                  That did not go through. Try once more, or email work@getnctrnl.com.
                 </p>
               )}
             </div>

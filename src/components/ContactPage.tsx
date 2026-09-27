@@ -43,10 +43,10 @@ export function ContactPage({ onNavigate }: { onNavigate?: (path: string) => voi
             perspective on what you are making and why, we want to hear from you.
           </p>
           <a
-            href="mailto:getnctrnl@gmail.com"
+            href="mailto:work@getnctrnl.com"
             className={`${styles.joinEmail} reveal reveal-d2`}
           >
-            getnctrnl@gmail.com
+            work@getnctrnl.com
           </a>
           <a
             href="tel:+917045421516"

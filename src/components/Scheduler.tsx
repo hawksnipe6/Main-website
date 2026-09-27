@@ -1,11 +1,14 @@
 import { useMemo, useRef, useState } from 'react'
 import styles from './Scheduler.module.css'
 
-const EMAIL = 'getnctrnl@gmail.com'
+const EMAIL = 'work@getnctrnl.com'
 const WHATSAPP = '917045421516'
 
-// Web3Forms delivers the booking request to EMAIL server-side (no draft).
-// Get a free key at https://web3forms.com (enter getnctrnl@gmail.com) and paste it here.
+// Web3Forms delivers the booking request server-side (no draft) to whatever
+// address is registered against WEB3FORMS_KEY on web3forms.com — not to the
+// EMAIL constant above, which is display text only. Update the destination
+// address in the Web3Forms dashboard separately if it should change.
+// Get a free key at https://web3forms.com (enter work@getnctrnl.com) and paste it here.
 const WEB3FORMS_KEY = '7eda97bc-6231-4ef7-b944-05ab5ea49351'
 
 const MONTHS = [
