@@ -48,7 +48,15 @@ function segmentOpacity(seg: Segment, t: number): number {
 const VIDEO_SRC_LIGHT = '/martand.mp4'
 const VIDEO_SRC_DARK = '/martand-dark.mp4'
 
-const GALLERY = ['/pen-lounge/1.webp', '/pen-lounge/2.webp', '/pen-lounge/4.webp', '/pen-lounge/5.webp']
+// Natural pixel dimensions, used only as width/height attributes so the
+// browser can reserve the correct space per image before it loads (avoids
+// layout shift) — CSS still controls the actual rendered size.
+const GALLERY = [
+  { src: '/pen-lounge/1.webp', width: 1200, height: 900 },
+  { src: '/pen-lounge/2.webp', width: 1200, height: 1601 },
+  { src: '/pen-lounge/4.webp', width: 1200, height: 1500 },
+  { src: '/pen-lounge/5.webp', width: 1200, height: 1500 },
+]
 
 const MUTE_KEY = 'penlounge-device-muted'
 
@@ -306,9 +314,16 @@ function MartandReveal({ onNavigate }: { onNavigate?: (path: string) => void }) 
       </section>
 
       <section className={styles.gallery}>
-        {GALLERY.map((src, i) => (
-          <div key={src} className={styles.galleryItem}>
-            <img src={src} alt={`Khandoba Pen detail ${i + 1}`} loading="lazy" decoding="async" />
+        {GALLERY.map((img, i) => (
+          <div key={img.src} className={styles.galleryItem}>
+            <img
+              src={img.src}
+              width={img.width}
+              height={img.height}
+              alt={`Khandoba Pen detail ${i + 1}`}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
         ))}
       </section>

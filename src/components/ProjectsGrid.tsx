@@ -1,7 +1,11 @@
-import { useState } from 'react'
-import GridDistortion from './GridDistortion'
+import { lazy, Suspense, useState } from 'react'
 import { WORK_SAMPLES } from '../data/workSamples'
 import styles from './ProjectsGrid.module.css'
+
+// three.js is a large dependency only needed for the hover distortion effect —
+// lazy-loaded so it's not part of the initial /work bundle, only fetched the
+// first time a visitor actually hovers a card.
+const GridDistortion = lazy(() => import('./GridDistortion'))
 
 // Module-level const → stable reference, matches the current /work grid
 // (renderfolio hidden there too).
@@ -35,7 +39,9 @@ export function ProjectsGrid({ onNavigate }: { onNavigate: (path: string) => voi
           >
             <span className={styles.media}>
               {hovered === item.slug ? (
-                <GridDistortion imageSrc={item.image} grid={12} mouse={0.15} strength={0.12} relaxation={0.9} />
+                <Suspense fallback={<img src={item.image} alt={item.title} loading="lazy" decoding="async" draggable={false} />}>
+                  <GridDistortion imageSrc={item.image} grid={12} mouse={0.15} strength={0.12} relaxation={0.9} />
+                </Suspense>
               ) : (
                 <img src={item.image} alt={item.title} loading="lazy" decoding="async" draggable={false} />
               )}

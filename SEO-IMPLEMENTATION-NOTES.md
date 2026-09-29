@@ -1,5 +1,64 @@
 # SEO implementation notes
 
+## 2026-09-29 — Image/performance pass (`seo-pass` branch)
+
+Checked the framework's Layer 3 (Performance) items against the *current*
+code rather than the stale earlier audit, which had flagged several multi-MB
+cover images (`armor-custom.png` at 8.7MB, `ice-tray-custom.png` at 1MB) —
+those turned out to already be optimized `.webp` files under 225KB on `main`
+(a prior, separate optimization pass had already handled them). So this pass
+is narrower than the original plan step: three real, verified issues fixed,
+not a full re-audit of every image.
+
+### What changed
+- **Cut the `/work` page's initial JS from 521KB to 2.3KB.** `GridDistortion`
+  (the hover-distortion effect on project cards) statically imported `three`
+  at the top of `ProjectsGrid.tsx`, so the *entire* three.js library loaded
+  for every `/work` visit regardless of whether anyone ever hovered a card.
+  It's now `lazy()`-loaded with the existing plain `<img>` as the `Suspense`
+  fallback — same effect, same trigger (hover), just not paid for upfront.
+  Confirmed via the build output: `GridDistortion` is now its own 520KB chunk,
+  separate from `ProjectsGrid`'s 2.3KB, fetched only on first hover.
+- **Host Grotesk italic-500 was used but never loaded.** The only italic text
+  on the site (`WorkPage.module.css`'s insight quote) is weight 500, but the
+  Google Fonts request only included italic 300/400 — neither used anywhere —
+  so the browser was faking a slant on the upright 500 glyphs instead of
+  rendering the real italic design. Swapped `1,300;1,400` for `1,500` in the
+  font URL: fewer unused font files downloaded, and the actually-used italic
+  now renders correctly. (Verified: Google Fonts serves a real, distinct
+  italic-500 `@font-face`, not a fallback.) The six upright weights (300–800)
+  are all genuinely used at least once each — none were trimmed.
+- **Layout shift**: the Martand case-study's four pen-lounge detail photos
+  had no reserved space (`.galleryItem` has no CSS height/aspect-ratio, and
+  each image's own aspect ratio differs — 4:3, 3:4, 4:5 — so a uniform
+  CSS `aspect-ratio` would've cropped them differently than today).  Added
+  each image's real natural `width`/`height` as HTML attributes instead —
+  the standard, non-visual-changing fix: the browser reserves the correct
+  per-image space before it loads, CSS still controls the actual rendered
+  size exactly as before.
+
+### Not changed (checked, found already correct)
+Every other image container audited (`WorkPage`'s cards/hero/boards,
+`ProjectsGrid`'s cards, `Testimonials`' logos, Martand's mobile chapter
+images/device video) already has either a CSS `aspect-ratio` or a fixed
+pixel/viewport size — genuinely no CLS risk, not touched. `loading`/
+`decoding` attributes were already present on every image except the
+LCP image (already `eager`, correctly). `WorkPreview.tsx` is dead code
+(confirmed unused anywhere in the app) — left alone rather than half-fixed.
+
+### Verified
+`npm run build` clean, `node scripts/verify-build.mjs` passes (0 issues,
+24/24 unique titles/canonicals), chunk sizes confirmed in the build output.
+
+### Still open (Layer 3, not attempted)
+Core Web Vitals / Lighthouse numbers need a live or preview URL to measure —
+can't be done from local tooling. The oversized `renders/` gallery (39 files,
+3.6MB total, a couple at ~1MB) and the `work/<slug>/` process-board galleries
+(several near 1-1.8MB per image) are lazy-loaded and below the fold, so they
+don't block LCP, but haven't been individually re-compressed this pass.
+
+---
+
 ## 2026-09-29 — SSR pass (`seo-pass` branch, same day as the foundation pass)
 
 The deferred item from the foundation pass below: real page content is now
