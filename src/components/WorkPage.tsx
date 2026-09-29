@@ -412,7 +412,9 @@ function WorkDetail({ work, onBack }: { work: WorkCaseStudy; onBack: () => void 
       </header>
 
       <section className={styles.heroImageBlock}>
-        <img src={opening ?? work.image} alt={`${work.title} project visual`} loading="eager" fetchPriority="high" />
+        {/* React 18.3 doesn't recognize the fetchPriority prop (added in React 19) — the
+            lowercase attribute form still reaches the DOM correctly and sets the real hint. */}
+        <img src={opening ?? work.image} alt={`${work.title} project visual`} loading="eager" fetchpriority="high" />
       </section>
 
       <section className={styles.section}>

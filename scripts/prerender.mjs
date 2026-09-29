@@ -5,7 +5,7 @@
 // remove the matching rewrite in vercel.json too.
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { resolve, dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { fileURLToPath, pathToFileURL } from 'node:url'
 import {
   SITE_URL,
   PRERENDER_ROUTES,
@@ -19,6 +19,10 @@ import {
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const distIndex = resolve(root, 'dist/index.html')
+
+// Built by `vite build --ssr src/entry-server.tsx --outDir dist/server` (see
+// package.json's build script), which must run before this script.
+const { render } = await import(pathToFileURL(resolve(root, 'dist/server/entry-server.js')))
 
 function replaceTag(html, pattern, replacement) {
   if (!pattern.test(html)) {
@@ -127,12 +131,13 @@ function buildRoute(template, { page, slug, path }) {
     html = html.replace('</head>', `    ${extraLd.join('\n    ')}\n  </head>`)
   }
 
-  // Crawlable no-JS fallback
-  html = replaceTag(
-    html,
-    /<noscript>[\s\S]*?<\/noscript>/,
-    `<noscript>\n      <main style="font-family: sans-serif; padding: 48px; line-height: 1.5;">\n        <h1>${meta.title}</h1>\n        <p>${meta.description}</p>\n        <p><a href="${meta.canonical}">${path}</a></p>\n      </main>\n    </noscript>`
-  )
+  // Real rendered page content — not just metadata. Crawlers and JS-disabled
+  // visitors now see actual content in <div id="root">, so the old <noscript>
+  // fallback (a second, redundant copy of the same information) is removed
+  // rather than kept in sync with this.
+  const appHtml = render(path)
+  html = replaceTag(html, /<div id="root"><\/div>/, `<div id="root">${appHtml}</div>`)
+  html = replaceTag(html, /<noscript>[\s\S]*?<\/noscript>\n?\s*/, '')
 
   return html
 }

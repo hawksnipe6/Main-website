@@ -1,6 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styles from './MartandCaseStudy.module.css'
 import { Footer } from './Footer'
+
+// useLayoutEffect warns when it runs during SSR (it can't — there's no paint
+// to run before). Falling back to useEffect there is exactly what React's own
+// docs recommend, and is a no-op difference here since the server never
+// re-checks the viewport anyway.
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 const FPS = 30      // matches the After Effects composition frame rate
 const FADE = 0.4    // seconds — opacity ease at each segment boundary
@@ -36,8 +42,6 @@ function segmentOpacity(seg: Segment, t: number): number {
   return Math.max(0, Math.min(fadeIn, fadeOut))
 }
 
-const isMobile = typeof window !== 'undefined'
-  && window.matchMedia('(max-width: 768px)').matches
 
 // Theme-matched scrub encodes: the cream version is baked on #F5F4F0, the dark
 // version on #0D0D0D, so the letterbox matches the page background in each theme.
@@ -380,6 +384,16 @@ export function MartandCaseStudy(props: { onBack: () => void; onNavigate?: (path
   // follows the site theme like every other page.
   // Mobile skips the 30MB scroll-scrubbed video entirely — it gets a fast,
   // static version of the same story instead of a "view on desktop" wall.
+  //
+  // Starts false (Desktop) on every first render, server or client, so
+  // hydration always matches the prerendered HTML — a layout effect (fires
+  // before paint) then switches to Mobile if the viewport is actually narrow,
+  // so real mobile visitors still get it, without a hydration mismatch.
+  const [isMobile, setIsMobile] = useState(false)
+  useIsomorphicLayoutEffect(() => {
+    setIsMobile(window.matchMedia('(max-width: 768px)').matches)
+  }, [])
+
   return isMobile
     ? <MartandMobile {...props} />
     : <MartandDesktop {...props} />

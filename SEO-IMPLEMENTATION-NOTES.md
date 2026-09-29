@@ -1,5 +1,123 @@
 # SEO implementation notes
 
+## 2026-09-29 — SSR pass (`seo-pass` branch, same day as the foundation pass)
+
+The deferred item from the foundation pass below: real page content is now
+in the served HTML, not just metadata. Every prerendered route was previously
+just `<div id="root"></div>` plus correct `<title>`/meta tags; a crawler that
+doesn't execute JavaScript (or a search engine's first, non-rendering pass)
+saw none of the actual page copy. It now sees everything a browser does.
+
+### What changed
+- **Split the client entry.** `src/main.tsx` → `src/entry-client.tsx`. It
+  checks whether `#root` already has children (i.e., whether this page was
+  prerendered) and calls `hydrateRoot` if so, `createRoot` otherwise — the
+  same file now correctly handles both a prerendered production page and an
+  empty `#root` in `vite dev` (unchanged dev experience, confirmed).
+- **New `src/entry-server.tsx`** exports `render(path)`, calling React's
+  `renderToString` against the exact same `<App>` tree the client uses.
+- **`App.tsx`** now accepts `initialPath` (server has no `window.location`)
+  and `initialLoading` (server always renders without the boot animation —
+  see below) props, both optional so the client's own behavior is unchanged
+  when it doesn't pass them.
+- **Route components stay code-split on the client.** `renderToString` can't
+  wait on `React.lazy`/`Suspense`, so the eight route components
+  (ProjectsGrid, WorkPage, ContactPage, etc.) are still `lazy()`-loaded in
+  `App.tsx` for the browser bundle exactly as before, but the server passes
+  in eagerly-imported equivalents (`src/routes.server.ts`) via a
+  `routeComponents` prop. This file is never imported by the client entry, so
+  it has zero effect on client bundle size/code-splitting — verified: the
+  client build's chunk sizes are unchanged from the foundation-pass build.
+- **Build pipeline**: `npm run build` now also runs
+  `vite build --ssr src/entry-server.tsx --outDir dist/server`, and
+  `scripts/prerender.mjs` imports that compiled bundle and calls `render(path)`
+  per route, injecting the result into `<div id="root">`. The old per-route
+  `<noscript>` fallback (a second, hand-written copy of the same information)
+  is removed — it's now genuinely redundant, and keeping it would have shown
+  visitors with JavaScript disabled the content twice.
+- **The loading-screen boot animation no longer plays on a prerendered page
+  load.** Previously every fresh page load — home or otherwise — spent
+  ~1.8s under the ripple-canvas loading screen before content appeared. Now
+  that prerendered pages arrive with real content already visible, replaying
+  that animation over content that's already on screen would be a pure
+  regression (covers real content, delays nothing except perceived speed).
+  It still plays exactly as before in `vite dev` and for any non-prerendered
+  load. No hydration mismatch: the client computes whether to skip it from
+  the same DOM check (`#root` already has children) that determined the
+  server's output, so the two can't disagree. **Flagging this explicitly
+  since it's a visible, deliberate brand moment being skipped on the routes
+  that matter most (home, work) for real first-time visitors landing from
+  search — say if you'd rather keep it on for genuine cold loads and I'll
+  gate it more narrowly.**
+
+### Three real render-time bugs this surfaced and fixed
+Not hypothetical — the server literally crashed rendering these until fixed:
+1. `FaultyTerminal.tsx` (the WebGL contact-page background) read
+   `window.devicePixelRatio` in a default *parameter* expression, which
+   JavaScript evaluates on every call, not lazily — crashed every server
+   render of `/contact`. Guarded with a `typeof window` check.
+2. `MartandCaseStudy.tsx` decided desktop-vs-mobile from a **module-level**
+   `window.matchMedia(...)` constant evaluated once at import time. On the
+   server this is always `false` (desktop); on a real mobile browser it's
+   `true` — a guaranteed hydration mismatch on `/work/martand` for any mobile
+   visitor. Converted to component state that starts `false` (matching SSR)
+   and corrects itself via `useLayoutEffect` before paint, so mobile visitors
+   still get the fast mobile version, without a mismatch.
+3. `ThemeToggle.tsx`'s initial state deliberately reads the *real* theme
+   (already applied by the pre-paint script) so returning dark-mode visitors
+   don't see a flash to light — which by design differs from what the server
+   (no `document`, no `localStorage`) can know. This is the textbook
+   client/server-legitimately-differs case; used React's own
+   `suppressHydrationWarning` rather than fighting the pre-paint script.
+4. (Not a bug, a pre-existing one fixed in passing.) `WorkPage.tsx`'s hero
+   image used `fetchPriority="high"` — the camelCase form React 19 recognizes,
+   but this project is on React 18.3, which doesn't, and was silently
+   dropping the LCP hint. Switched to the lowercase attribute form, which
+   React 18.3 does pass through.
+
+### Verified (not just "should work")
+- `npm run build` (fresh, `rm -rf dist` first) passes clean: `tsc`, client
+  build, SSR build, prerender — no warnings, no errors.
+- **`scripts/verify-build.mjs`** (new — a permanent post-build check, not a
+  one-off): walks every `dist/**/index.html`, confirms unique title +
+  canonical per route (24/24), every JSON-LD block parses, and every
+  React-rendered route has real content — exactly one `<h1>` — inside
+  `#root`, not an empty shell. Run it after any future build:
+  `node scripts/verify-build.mjs` (exits non-zero on any issue).
+- Directly invoked `render(path)` from the compiled SSR bundle for all 20
+  routes (every static page, all 12 `/work/<slug>` pages, `/nope`) — zero
+  crashes, zero React "swallowed error" markers, exactly one `<h1>` each.
+- `vite preview` (serving the real `dist/` output) confirms actual page copy
+  is present in the raw HTML — e.g. `/work/armor/` (with trailing slash,
+  which is what `vite preview` correctly resolves to the nested file)
+  contains "Visual Design for armor" and "campaign assets" 17/6 times
+  respectively, not just in a title tag.
+- `vite dev` still serves an empty `#root` + `entry-client.tsx`, confirming
+  the dev experience (and the `createRoot` fallback path) is unchanged.
+- Home page content (`A strategic design team`) confirmed present in
+  `dist/index.html`'s raw HTML via `vite preview`.
+
+### Still not verified (needs a real deploy, not local tooling)
+Same item as the foundation pass, now higher-stakes since there's real
+content to lose if it's wrong: `vite preview`'s bare-path routing quirk
+(`/work/armor` without a trailing slash falls back to the SPA/home page
+locally) can't confirm whether `vercel.json`'s explicit rewrites correctly
+serve `dist/work/armor/index.html` for the bare path on actual Vercel
+infrastructure. This was already mitigated by making the rewrites explicit
+rather than relying on assumed platform behavior — still needs a preview
+deploy to confirm before merging.
+
+### Files changed (this pass, in addition to the foundation pass)
+New: `src/entry-client.tsx`, `src/entry-server.tsx`, `src/routes.server.ts`,
+`scripts/verify-build.mjs`.
+Deleted: `src/main.tsx` (replaced by `entry-client.tsx`).
+Modified: `src/App.tsx`, `index.html` (script tag), `package.json` (build
+script), `scripts/prerender.mjs`, `src/components/FaultyTerminal.tsx`,
+`src/components/MartandCaseStudy.tsx`, `src/components/ThemeToggle.tsx`,
+`src/components/WorkPage.tsx`.
+
+---
+
 ## 2026-09-29 — Foundation pass (`seo-pass` branch)
 
 Applied against `origin/main` @ `2461e09` (2026-09-27), which had drifted from an

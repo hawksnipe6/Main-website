@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState, type ComponentType } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
@@ -20,14 +20,30 @@ import { PrivacyNotice } from './components/PrivacyNotice'
 // ProjectsGrid's GridDistortion, `ogl` for ContactPage's FaultyTerminal) are
 // code-split so the home page's initial download doesn't include libraries
 // only /work, /contact, or /renders actually use.
-const ProjectsGrid = lazy(() => import('./components/ProjectsGrid').then((m) => ({ default: m.ProjectsGrid })))
-const RenderGallery = lazy(() => import('./components/RenderGallery').then((m) => ({ default: m.RenderGallery })))
-const WorkPage = lazy(() => import('./components/WorkPage').then((m) => ({ default: m.WorkPage })))
-const ContactPage = lazy(() => import('./components/ContactPage').then((m) => ({ default: m.ContactPage })))
-const NotFoundPage = lazy(() => import('./components/NotFoundPage').then((m) => ({ default: m.NotFoundPage })))
-const PrivacyPage = lazy(() => import('./components/PrivacyPage').then((m) => ({ default: m.PrivacyPage })))
-const TermsPage = lazy(() => import('./components/TermsPage').then((m) => ({ default: m.TermsPage })))
-const ThankYouPage = lazy(() => import('./components/ThankYouPage').then((m) => ({ default: m.ThankYouPage })))
+const LazyProjectsGrid = lazy(() => import('./components/ProjectsGrid').then((m) => ({ default: m.ProjectsGrid })))
+const LazyRenderGallery = lazy(() => import('./components/RenderGallery').then((m) => ({ default: m.RenderGallery })))
+const LazyWorkPage = lazy(() => import('./components/WorkPage').then((m) => ({ default: m.WorkPage })))
+const LazyContactPage = lazy(() => import('./components/ContactPage').then((m) => ({ default: m.ContactPage })))
+const LazyNotFoundPage = lazy(() => import('./components/NotFoundPage').then((m) => ({ default: m.NotFoundPage })))
+const LazyPrivacyPage = lazy(() => import('./components/PrivacyPage').then((m) => ({ default: m.PrivacyPage })))
+const LazyTermsPage = lazy(() => import('./components/TermsPage').then((m) => ({ default: m.TermsPage })))
+const LazyThankYouPage = lazy(() => import('./components/ThankYouPage').then((m) => ({ default: m.ThankYouPage })))
+
+// renderToString can't wait on React.lazy/Suspense, so the server entry passes
+// eagerly-imported equivalents in via this prop (see src/routes.server.ts and
+// src/entry-server.tsx). The client entry never passes it, so the lazy()
+// definitions above — and the client-bundle code-splitting they give us — are
+// completely unaffected.
+type RouteComponents = Partial<{
+  ProjectsGrid: typeof import('./components/ProjectsGrid').ProjectsGrid
+  RenderGallery: typeof import('./components/RenderGallery').RenderGallery
+  WorkPage: typeof import('./components/WorkPage').WorkPage
+  ContactPage: typeof import('./components/ContactPage').ContactPage
+  NotFoundPage: typeof import('./components/NotFoundPage').NotFoundPage
+  PrivacyPage: typeof import('./components/PrivacyPage').PrivacyPage
+  TermsPage: typeof import('./components/TermsPage').TermsPage
+  ThankYouPage: typeof import('./components/ThankYouPage').ThankYouPage
+}>
 
 type Page = 'home' | 'work' | 'renders' | 'contact' | 'privacy' | 'terms' | 'thankYou' | 'notFound'
 
@@ -47,12 +63,29 @@ function getRoute(pathname: string): Route {
   return { page: 'notFound' }
 }
 
-export default function App() {
+export default function App({
+  initialPath,
+  initialLoading,
+  routeComponents,
+}: {
+  initialPath?: string
+  initialLoading?: boolean
+  routeComponents?: RouteComponents
+} = {}) {
   useSmoothScroll()
   const [modalOpen, setModalOpen] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [path, setPath] = useState(window.location.pathname)
+  const [loading, setLoading] = useState(initialLoading ?? true)
+  const [path, setPath] = useState(() => initialPath ?? (typeof window !== 'undefined' ? window.location.pathname : '/'))
   const [noticeVisible, setNoticeVisible] = useState(false)
+
+  const ProjectsGrid = routeComponents?.ProjectsGrid ?? (LazyProjectsGrid as ComponentType<any>)
+  const RenderGallery = routeComponents?.RenderGallery ?? (LazyRenderGallery as ComponentType<any>)
+  const WorkPage = routeComponents?.WorkPage ?? (LazyWorkPage as ComponentType<any>)
+  const ContactPage = routeComponents?.ContactPage ?? (LazyContactPage as ComponentType<any>)
+  const NotFoundPage = routeComponents?.NotFoundPage ?? (LazyNotFoundPage as ComponentType<any>)
+  const PrivacyPage = routeComponents?.PrivacyPage ?? (LazyPrivacyPage as ComponentType<any>)
+  const TermsPage = routeComponents?.TermsPage ?? (LazyTermsPage as ComponentType<any>)
+  const ThankYouPage = routeComponents?.ThankYouPage ?? (LazyThankYouPage as ComponentType<any>)
 
   useEffect(() => {
     document.body.style.overflow = loading ? 'hidden' : ''

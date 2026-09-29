@@ -36,6 +36,12 @@ export function ThemeToggle() {
       onClick={() => setDark((d) => !d)}
       aria-label="Toggle theme"
       aria-pressed={dark}
+      // getInitialDark() reads the real DOM/localStorage theme — correct, but
+      // by design it can legitimately differ from the server's render (which
+      // has neither). That's the standard React theme-toggle hydration case;
+      // suppress the warning rather than force a match that would fight the
+      // pre-paint script for returning dark-mode visitors.
+      suppressHydrationWarning
     >
       <span className={styles.knob} />
     </button>
