@@ -1,7 +1,8 @@
-# Nocturnal Design Studio (NDS / nctrnl / getnctrnl) — https://getnctrnl.com
+# Nocturnal Design Studio (nctrnl / getnctrnl) — https://getnctrnl.com
+# /thank-you is kept crawlable here and excluded via noindex instead
+# (see src/seo/meta.ts + the X-Robots-Tag header in vercel.json).
 User-agent: *
 Allow: /
-Disallow: /thank-you
 
 # Search + AI answer engines are explicitly welcome to crawl and cite this site.
 User-agent: Googlebot

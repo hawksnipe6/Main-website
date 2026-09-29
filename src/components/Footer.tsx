@@ -42,8 +42,8 @@ const FOOTER_COLS: { title: string; links: FooterLink[] }[] = [
     title: 'Studio',
     links: [
       { label: 'Contact', href: '/contact', navigate: true },
-      { label: 'Services', href: '#services' },
-      { label: 'Testimonials', href: '#testimonials' },
+      { label: 'Services', href: '/#services' },
+      { label: 'Testimonials', href: '/#testimonials' },
     ],
   },
   {
@@ -102,7 +102,7 @@ export function Footer({ onNavigate }: { onNavigate?: (path: string) => void }) 
       <footer className={styles.footer}>
         <div className={styles.top}>
           <div className={styles.colBrand}>
-            <a href="#hero" className={styles.logo}>Nocturnal</a>
+            <a href="/#hero" className={styles.logo}>Nocturnal</a>
             <p className={styles.tagline}>
               Multidisciplinary design studio, Mumbai. One studio holds the
               object, the interface, the brand, and the film.
@@ -148,9 +148,13 @@ export function Footer({ onNavigate }: { onNavigate?: (path: string) => void }) 
                         {link.label}
                       </button>
                     ) : link.navigate ? (
-                      <button className={styles.linkButton} onClick={() => onNavigate?.(link.href)} type="button">
+                      <a
+                        href={link.href}
+                        className={styles.linkButton}
+                        onClick={(e) => { e.preventDefault(); onNavigate?.(link.href) }}
+                      >
                         {link.label}
-                      </button>
+                      </a>
                     ) : (
                       <a href={link.href}>{link.label}</a>
                     )}

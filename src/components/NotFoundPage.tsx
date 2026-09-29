@@ -15,17 +15,17 @@ export function NotFoundPage({ onNavigate }: { onNavigate: (path: string) => voi
           that do exist.
         </p>
         <div className={styles.actions}>
-          <button type="button" className={styles.btnPrimary} onClick={() => onNavigate('/')}>
+          <a href="/" className={styles.btnPrimary} onClick={(e) => { e.preventDefault(); onNavigate('/') }}>
             Back to home
-          </button>
-          <button type="button" className={styles.btnGhost} onClick={() => onNavigate('/work')}>
+          </a>
+          <a href="/work" className={styles.btnGhost} onClick={(e) => { e.preventDefault(); onNavigate('/work') }}>
             See the work
-          </button>
+          </a>
         </div>
         <nav className={styles.links} aria-label="Quick links">
-          <button type="button" onClick={() => onNavigate('/')}>Home</button>
-          <button type="button" onClick={() => onNavigate('/work')}>Projects</button>
-          <button type="button" onClick={() => onNavigate('/contact')}>Contact</button>
+          <a href="/" onClick={(e) => { e.preventDefault(); onNavigate('/') }}>Home</a>
+          <a href="/work" onClick={(e) => { e.preventDefault(); onNavigate('/work') }}>Projects</a>
+          <a href="/contact" onClick={(e) => { e.preventDefault(); onNavigate('/contact') }}>Contact</a>
         </nav>
       </div>
     </main>

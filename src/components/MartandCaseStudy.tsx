@@ -180,7 +180,11 @@ function MartandDesktop({ onBack, onNavigate }: { onBack: () => void; onNavigate
                 ref={(node) => { segRefs.current[i] = node }}
                 className={styles.chapter}
               >
-                <h2 className={styles.chapterHeading}>{seg.heading}</h2>
+                {i === 0 ? (
+                  <h1 className={styles.chapterHeading}>{seg.heading}</h1>
+                ) : (
+                  <h2 className={styles.chapterHeading}>{seg.heading}</h2>
+                )}
                 {seg.body && <p className={styles.chapterBody}>{seg.body}</p>}
               </div>
             ))}

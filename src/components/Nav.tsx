@@ -93,12 +93,13 @@ export function Nav({ page, onNavigateHome, onNavigateContact, onNavigate }: Nav
 
         <div className={styles.right}>
           <ThemeToggle />
-          <button
+          <a
+            href="/contact"
             className={`${styles.cta} ${styles.ctaDesktop}`}
-            onClick={() => { close(); onNavigateContact() }}
+            onClick={navigateContact}
           >
             Start a Project
-          </button>
+          </a>
           <button
             className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ''}`}
             onClick={() => setMenuOpen(o => !o)}
@@ -137,9 +138,9 @@ export function Nav({ page, onNavigateHome, onNavigateContact, onNavigate }: Nav
             <a href="/contact" onClick={navigateContact}>Contact</a>
           </li>
         </ul>
-        <button className={styles.drawerCta} onClick={() => { close(); onNavigateContact() }}>
+        <a href="/contact" className={styles.drawerCta} onClick={navigateContact}>
           Start a Project
-        </button>
+        </a>
       </div>
     </>
   )

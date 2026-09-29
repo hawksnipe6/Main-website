@@ -13,6 +13,7 @@ export function RenderGallery() {
 
   return (
     <main className={`${styles.page} routeEnter`}>
+      <h1 className="sr-only">Render Gallery — Nocturnal CGI and product visualization</h1>
       <div className={styles.stage}>
         <DomeGallery
           images={IMAGES}

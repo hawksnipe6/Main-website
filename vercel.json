@@ -1,4 +1,5 @@
 {
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/(.*)",
@@ -8,8 +9,17 @@
     }
   ],
   "rewrites": [
-    { "source": "/work", "destination": "/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/work", "destination": "/work/index.html" },
+    { "source": "/work/:slug", "destination": "/work/:slug/index.html" },
+    { "source": "/renders", "destination": "/renders/index.html" },
+    { "source": "/contact", "destination": "/contact/index.html" },
+    { "source": "/privacy", "destination": "/privacy/index.html" },
+    { "source": "/terms", "destination": "/terms/index.html" },
+    { "source": "/thank-you", "destination": "/thank-you/index.html" },
+    { "source": "/densly", "destination": "/densly/index.html" },
+    { "source": "/tollgate", "destination": "/tollgate/index.html" },
+    { "source": "/voca", "destination": "/voca/index.html" },
+    { "source": "/firstweeks", "destination": "/firstweeks/index.html" }
   ],
   "headers": [
     {
@@ -19,9 +29,9 @@
       ]
     },
     {
-      "source": "/(.*)",
+      "source": "/thank-you",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "index, follow" }
+        { "key": "X-Robots-Tag", "value": "noindex, follow" }
       ]
     }
   ]

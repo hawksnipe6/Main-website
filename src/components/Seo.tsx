@@ -1,202 +1,14 @@
 import { useEffect } from 'react'
-import { WORK_SAMPLES } from '../data/workSamples'
-
-const SITE_URL = 'https://getnctrnl.com'
-const LOGO_URL = `${SITE_URL}/logo%20512.png`
-
-type PageKey = 'home' | 'work' | 'renders' | 'contact' | 'privacy' | 'terms' | 'thankYou' | 'notFound'
-
-const PAGE_META: Record<PageKey, { title: string; description: string; canonical: string; image: string; robots?: string }> = {
-  home: {
-    title: 'Nocturnal Design Studio (NDS) — Industrial, UI/UX, Brand & Motion Design, Mumbai',
-    description:
-      'Nocturnal (NDS) is a multidisciplinary design studio in Mumbai — also known as nctrnl / getnctrnl. Industrial design from sterling silver instruments to consumer hardware, UI/UX systems, brand and graphic design, motion, and CGI.',
-    canonical: SITE_URL,
-    image: LOGO_URL,
-  },
-  work: {
-    title: 'Portfolio | Nocturnal Work and Concepts: Industrial Design, UI/UX, CGI',
-    description:
-      'Selected Nocturnal work and independently researched product concepts spanning industrial design, medical product design, mobility UI/UX, EV charging systems, brand visuals, CGI, packaging, and interactive prototypes.',
-    canonical: `${SITE_URL}/work`,
-    image: `${SITE_URL}/work-cover-renderfolio-custom.webp`,
-  },
-  renders: {
-    title: 'Render Gallery | Nocturnal CGI and Product Visualization',
-    description:
-      'A gallery of Nocturnal CAD visualisations and product render studies focused on material behaviour, lighting control, and object-led storytelling.',
-    canonical: `${SITE_URL}/renders`,
-    image: `${SITE_URL}/renders/render-01.webp`,
-  },
-  contact: {
-    title: 'Start a Project | Nocturnal Design Studio',
-    description:
-      'Book a strategy call with Nocturnal. Thirty minutes, no pitch decks. We identify the design friction in your brand and product and tell you exactly what to fix first.',
-    canonical: `${SITE_URL}/contact`,
-    image: LOGO_URL,
-  },
-  privacy: {
-    title: 'Privacy Policy | Nocturnal',
-    description: 'How Nocturnal collects, uses, and protects the information you share through this site.',
-    canonical: `${SITE_URL}/privacy`,
-    image: LOGO_URL,
-  },
-  terms: {
-    title: 'Terms of Service | Nocturnal',
-    description: 'The terms that govern your use of the Nocturnal website.',
-    canonical: `${SITE_URL}/terms`,
-    image: LOGO_URL,
-  },
-  thankYou: {
-    title: 'Thank You | Nocturnal Design Studio',
-    description: 'Your project brief was received. Nocturnal replies to every inquiry within two working days.',
-    canonical: `${SITE_URL}/thank-you`,
-    image: LOGO_URL,
-    robots: 'noindex,follow',
-  },
-  notFound: {
-    title: 'Page Not Found | Nocturnal',
-    description: 'This page does not exist. Find your way back to Nocturnal, home, work, or contact.',
-    canonical: `${SITE_URL}/`,
-    image: LOGO_URL,
-    robots: 'noindex,follow',
-  },
-}
-
-const SAME_AS = [
-  'https://www.behance.net/abeermahad064c',
-  'https://www.linkedin.com/in/abeermahadane44/',
-  'https://www.instagram.com/designwithabeer/',
-]
-
-const BRAND_ALT_NAMES = ['Nocturnal', 'NDS', 'nctrnl', 'getnctrnl', 'Nocturnal Studio']
-
-const STUDIO_ADDRESS = {
-  '@type': 'PostalAddress',
-  addressLocality: 'Mumbai',
-  addressRegion: 'Maharashtra',
-  addressCountry: 'IN',
-}
-
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  '@id': `${SITE_URL}/#organization`,
-  name: 'Nocturnal Design Studio',
-  alternateName: BRAND_ALT_NAMES,
-  url: SITE_URL,
-  logo: LOGO_URL,
-  image: LOGO_URL,
-  email: 'work@getnctrnl.com',
-  telephone: '+91-70454-21516',
-  contactPoint: {
-    '@type': 'ContactPoint',
-    contactType: 'sales',
-    email: 'work@getnctrnl.com',
-    telephone: '+91-70454-21516',
-    areaServed: ['IN', 'Global'],
-    availableLanguage: ['en'],
-  },
-  founder: { '@type': 'Person', name: 'Abeer Mahadane', sameAs: SAME_AS },
-  address: STUDIO_ADDRESS,
-  areaServed: ['India', 'Global'],
-  knowsAbout: [
-    'Industrial design', 'Product design', 'UI/UX design', 'Brand identity',
-    '3D rendering', 'CGI', 'Motion design', 'Design systems', 'CAD', 'Product visualization',
-  ],
-  sameAs: SAME_AS,
-  description:
-    'Nocturnal Design Studio (NDS), also known as nctrnl / getnctrnl, is a multidisciplinary design studio in Mumbai working across industrial design, UI/UX systems, brand and graphic design, motion, and CGI.',
-}
-
-const professionalServiceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  '@id': `${SITE_URL}/#service`,
-  name: 'Nocturnal Design Studio',
-  alternateName: ['Nocturnal', 'NDS', 'nctrnl', 'getnctrnl'],
-  url: SITE_URL,
-  image: LOGO_URL,
-  parentOrganization: { '@id': `${SITE_URL}/#organization` },
-  areaServed: ['India', 'Global'],
-  address: STUDIO_ADDRESS,
-  priceRange: '$$',
-  slogan: 'Design systems, not screens.',
-  serviceType: [
-    'Industrial Design',
-    'Product UI/UX Design',
-    'Brand Design',
-    'CGI and Motion Design',
-    'Product Visualization',
-    'Design Systems',
-  ],
-  sameAs: SAME_AS,
-  description:
-    'Strategic design studio in Mumbai for startups, AI products, physical products, interface systems, and brand-led product companies.',
-}
-
-const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  '@id': `${SITE_URL}/#website`,
-  name: 'Nocturnal Design Studio',
-  alternateName: [...BRAND_ALT_NAMES, 'nocturnal design studio'],
-  url: SITE_URL,
-  inLanguage: 'en',
-  publisher: { '@id': `${SITE_URL}/#organization` },
-}
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'What makes Nocturnal different from other design studios?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Nocturnal questions the brief before execution and delivers connected systems across brand, product, interface, CGI, and motion instead of disconnected design files.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How long does a typical Nocturnal project take?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Audits usually take two to three weeks. Full brand, product, or interface systems usually take six to ten weeks after scope is locked.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Does Nocturnal work with international clients?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yes. Nocturnal works async-first with structured check-ins, written decisions, and clear handoff points across time zones.',
-      },
-    },
-  ],
-}
-
-const workSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: 'Nocturnal Work',
-  url: `${SITE_URL}/work`,
-  description: PAGE_META.work.description,
-  mainEntity: WORK_SAMPLES.map((work) => ({
-    '@type': 'CreativeWork',
-    name: work.title,
-    description: work.description,
-    image: `${SITE_URL}${work.image}`,
-    url: work.href,
-    genre: work.category,
-    creator: {
-      '@type': 'Organization',
-      name: 'Nocturnal',
-      url: SITE_URL,
-    },
-  })),
-}
+import {
+  type StaticPageKey,
+  getRouteMeta,
+  entityGraph,
+  faqSchema,
+  workCollectionSchema,
+  breadcrumbSchema,
+  workItemSchema,
+  SITE_URL,
+} from '../seo/meta'
 
 function setMeta(selector: string, attrs: Record<string, string>) {
   let tag = document.head.querySelector<HTMLMetaElement>(selector)
@@ -228,24 +40,13 @@ function setJsonLd(id: string, value: unknown) {
   tag.textContent = JSON.stringify(value)
 }
 
-function getMeta(page: PageKey, slug?: string) {
-  if (page === 'work' && slug) {
-    const work = WORK_SAMPLES.find((w) => w.slug === slug)
-    if (work) {
-      return {
-        title: `${work.title} | Nocturnal Work`,
-        description: work.description,
-        canonical: `${SITE_URL}/work/${slug}`,
-        image: `${SITE_URL}${work.image}`,
-      }
-    }
-  }
-  return PAGE_META[page]
+function removeJsonLd(id: string) {
+  document.getElementById(id)?.remove()
 }
 
-export function Seo({ page, slug }: { page: PageKey; slug?: string }) {
+export function Seo({ page, slug }: { page: StaticPageKey; slug?: string }) {
   useEffect(() => {
-    const meta = getMeta(page, slug)
+    const meta = getRouteMeta(page, slug)
     document.title = meta.title
     setMeta('meta[name="description"]', { name: 'description', content: meta.description })
     setMeta('meta[name="robots"]', { name: 'robots', content: meta.robots ?? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1' })
@@ -253,25 +54,47 @@ export function Seo({ page, slug }: { page: PageKey; slug?: string }) {
     setMeta('meta[property="og:description"]', { property: 'og:description', content: meta.description })
     setMeta('meta[property="og:url"]', { property: 'og:url', content: meta.canonical })
     setMeta('meta[property="og:image"]', { property: 'og:image', content: meta.image })
-    setMeta('meta[property="og:type"]', { property: 'og:type', content: page === 'home' ? 'website' : 'article' })
+    setMeta('meta[property="og:image:alt"]', { property: 'og:image:alt', content: meta.imageAlt })
+    setMeta('meta[property="og:type"]', { property: 'og:type', content: meta.ogType })
     setMeta('meta[property="og:site_name"]', { property: 'og:site_name', content: 'Nocturnal' })
     setMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' })
     setMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: meta.title })
     setMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: meta.description })
     setMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: meta.image })
     setLink('canonical', meta.canonical)
-    setJsonLd('schema-organization', organizationSchema)
-    setJsonLd('schema-professional-service', professionalServiceSchema)
-    setJsonLd('schema-website', websiteSchema)
+
+    // Entity graph (Organization/ProfessionalService/WebSite/Person) is emitted
+    // once, statically, in index.html — not duplicated here at runtime.
+
     if (page === 'home') {
-      setJsonLd('schema-faq', faqSchema)
-      document.getElementById('schema-work')?.remove()
+      setJsonLd('schema-faq', faqSchema())
+      removeJsonLd('schema-work')
+      removeJsonLd('schema-breadcrumb')
+      removeJsonLd('schema-work-item')
     } else if (page === 'work' && !slug) {
-      setJsonLd('schema-work', workSchema)
-      document.getElementById('schema-faq')?.remove()
+      setJsonLd('schema-work', workCollectionSchema())
+      removeJsonLd('schema-faq')
+      removeJsonLd('schema-breadcrumb')
+      removeJsonLd('schema-work-item')
+    } else if (page === 'work' && slug) {
+      const item = workItemSchema(slug)
+      if (item) setJsonLd('schema-work-item', item)
+      else removeJsonLd('schema-work-item')
+      setJsonLd(
+        'schema-breadcrumb',
+        breadcrumbSchema([
+          { name: 'Home', url: SITE_URL },
+          { name: 'Work', url: `${SITE_URL}/work` },
+          { name: meta.title.replace(' | Nocturnal Work', ''), url: meta.canonical },
+        ])
+      )
+      removeJsonLd('schema-faq')
+      removeJsonLd('schema-work')
     } else {
-      document.getElementById('schema-faq')?.remove()
-      document.getElementById('schema-work')?.remove()
+      removeJsonLd('schema-faq')
+      removeJsonLd('schema-work')
+      removeJsonLd('schema-breadcrumb')
+      removeJsonLd('schema-work-item')
     }
   }, [page, slug])
 

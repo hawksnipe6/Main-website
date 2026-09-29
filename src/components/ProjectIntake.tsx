@@ -71,9 +71,9 @@ export function ProjectIntake({ onDone }: { onDone?: () => void } = {}) {
     <section id="intake" className={styles.intake}>
       <div className={styles.inner}>
         <div className={styles.head}>
-          <h2 className={`${styles.title} reveal`}>
+          <h1 className={`${styles.title} reveal`}>
             Tell us what you are making.
-          </h2>
+          </h1>
           <p className={`${styles.sub} reveal reveal-d1`}>
             Pick the engagement that fits and write two lines about the product.
             Reply lands within 48 hours.

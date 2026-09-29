@@ -162,6 +162,20 @@ section#hero {
   margin-bottom: 24px;
 }
 
+/* Visually hidden but present in the DOM and to assistive tech / crawlers —
+   used for headings a page needs semantically without a visible design slot. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .section-body {
   font-size: 15px;
   font-weight: 400;
